@@ -29,15 +29,15 @@ typora-copy-images-to: ../../media/theme/phycat
 
 ### Markdown样式
 
-![Markdown样式](sumruler/theme.typora.io/media/theme/phycat/Phycat-markdown.png)
+![Markdown样式](https://github.com/sumruler/theme.typora.io/blob/gh-pages/media/theme/phycat/Phycat-markdown.png)
 
 ### 侧边栏大纲
 
-![大纲样式](sumruler/theme.typora.io/media/theme/phycat/phycat-outline.png)
+![大纲样式](https://github.com/sumruler/theme.typora.io/blob/gh-pages/media/theme/phycat/phycat-outline.png)
 
 ### 导出HTML样式
 
-![导出HTML样式](sumruler/theme.typora.io/media/theme/phycat/phycat-HTML.png)
+![导出HTML样式](https://github.com/sumruler/theme.typora.io/blob/gh-pages/media/theme/phycat/phycat-HTML.png)
 
 ## 安装使用
 
