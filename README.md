@@ -1,15 +1,3 @@
----
-layout: theme
-title: Phycat
-category: theme
-homepage: https://www.phycat.cn
-download: https://github.com/sumruler/typora-theme-phycat
-author: XuJilong
-thumbnail: phycat.png
-typora-root-url: ../../
-typora-copy-images-to: ../../media/theme/phycat
----
-
 >此主题仅在Windows下设计和测试，在其他操作系统上的效果未知！
 
 # 物理猫Phycat
