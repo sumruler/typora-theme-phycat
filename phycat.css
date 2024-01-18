@@ -26,6 +26,14 @@ html {
     -webkit-print-color-adjust: exact; /*确保打印颜色一致*/
     print-color-adjust: exact;
   }
+  body {
+    width: 21cm; /* 设置页面宽度为A4宽度 */
+    height: 29.7cm; /* 设置页面高度为A4高度 */
+    margin: 1cm; /* 设置页面边距 */
+  }
+  p {
+    line-height: 1.5rem; /*设置打印内容的行高*/
+  }
 }
 
 
@@ -188,14 +196,14 @@ html {
   padding-left: 6px !important;
 }
 
-#write > ul > li {
+#write > ul > li:not(.task-list-item) {
   position: relative;
   padding: 8px 0;
   padding-left: 25px;
   line-height: 1rem;
 }
 
-#write > ul > li::before {
+#write > ul> li:not(.task-list-item) ::before {
   content: "";
   width: 12px;
   height: 12px;
@@ -211,7 +219,7 @@ html {
   position: relative;
 }
 
-#write > ul > li::after {
+#write > ul > li:not(.task-list-item)::after {
   content: "";
   height: 100%;
   width: 2px;
@@ -221,14 +229,60 @@ html {
   top: 20px;
 }
 
-#write > ul > li:last-child:after {
+#write > ul > li:not(.task-list-item):last-child:after {
   display: none;
 }
 
-#write > ul > li > p {
+#write > ul > li:not(.task-list-item) > p {
   top: -1.2em;
   line-height: 1.65rem;
   margin: 0;
+}
+
+/* 任务列表样式 */
+#write .md-task-list-item:before{
+  content: none;
+}
+
+#write .md-task-list-item>input{
+  margin: 0px;
+  padding: 0px;
+  width: 0px;
+  height: 0px;
+  line-height: 1.2rem;
+}
+#write .md-task-list-item>input:before {
+  display: inline-block;
+  content: '';
+  width: 1.1rem;
+  height: 1.1rem;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #fff;
+  border: 2px solid #ffb600;
+  border-radius: 30%;
+}
+
+#write .md-task-list-item>input[checked]:before{
+  content: '✔';
+  color:#333 ;
+  width: 1.1rem;
+  height: 1.1rem;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #ffb600;
+  border: 2px solid #ffb600;
+  border-radius: 30%;
+}
+
+#write input[type=checkbox] {
+  position: absolute;
+  top: 7px;
+  left: -3px;
+}
+
+#write .md-task-list-item p{
+  margin: 0px 1.8rem;
 }
 
 /* 引用 */
