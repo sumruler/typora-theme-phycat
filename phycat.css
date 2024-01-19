@@ -203,7 +203,7 @@ html {
   line-height: 1rem;
 }
 
-#write > ul> li:not(.task-list-item) ::before {
+#write > ul> li:not(.task-list-item)::before {
   content: "";
   width: 12px;
   height: 12px;
@@ -217,6 +217,11 @@ html {
   border: 3px solid #fff;
   z-index: 100;
   position: relative;
+}
+
+/* 二级ul上浮一点 */
+#write > ul > li:not(.task-list-item) > ul {
+  top:-0.3rem
 }
 
 #write > ul > li:not(.task-list-item)::after {
@@ -265,14 +270,15 @@ html {
 
 #write .md-task-list-item>input[checked]:before{
   content: '✔';
-  color:#333 ;
+  color:#555 ;
+  -webkit-text-stroke: 1px #555 ;
   width: 1.1rem;
   height: 1.1rem;
-  text-align: center;
-  vertical-align: middle;
   background-color: #ffb600;
   border: 2px solid #ffb600;
   border-radius: 30%;
+  font-size: 0.75rem;
+  line-height: 0.8rem;
 }
 
 #write input[type=checkbox] {
@@ -284,6 +290,7 @@ html {
 #write .md-task-list-item p{
   margin: 0px 1.8rem;
 }
+
 
 /* 引用 */
 
@@ -349,8 +356,9 @@ html {
 }
 /* 高亮 */
 #write mark {
+  font-weight: bolder;
   color: #000;
-  background: #fff3d5;
+  background: #FBE598;
 }
 /* 加粗斜体 */
 #write em strong {
@@ -425,7 +433,9 @@ html {
   letter-spacing: 0.5px;
   overflow-x: auto;
   white-space: nowrap;
+  line-height: 1.8rem;
 }
+
 
 /** 表格内的单元格*/
 #write table tr th,
