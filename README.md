@@ -17,18 +17,18 @@
 
 ### Markdown样式
 
-![Markdown样式](https://github.com/sumruler/theme.typora.io/blob/gh-pages/media/theme/phycat/Phycat-markdown.png)
+![Markdown样式](https://cdn.phycat.cn/img/github/Phycat-markdown.png)
 
 ### 侧边栏大纲
 
-![大纲样式](https://github.com/sumruler/theme.typora.io/blob/gh-pages/media/theme/phycat/phycat-outline.png)
+![大纲样式](https://cdn.phycat.cn/img/github/phycat-outline.png)
 
 ### 导出HTML样式
 
-![导出HTML样式](https://github.com/sumruler/theme.typora.io/blob/gh-pages/media/theme/phycat/phycat-HTML.png)
+![导出HTML样式](https://cdn.phycat.cn/img/github/phycat-HTML.png)
 
 ## 安装使用
 
 打开Typora➡️文件➡️偏好设置➡️外观➡️打开主题文件夹➡️解压压缩包，将文件夹中的内容（phycat文件夹、phycat.css文件、phycat.user.css文件）移动至此目录（themes文件夹下）➡️重启Typora➡️选择主题➡️开始使用
 
-
+嘿嘿
