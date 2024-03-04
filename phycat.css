@@ -174,6 +174,7 @@ html {
   position: relative;
   /* padding: 0.4rem 0; */
   line-height: 24px;
+  page-break-inside: avoid;
 }
 
 #write ol > li::before {
@@ -201,6 +202,7 @@ html {
   padding: 8px 0;
   padding-left: 25px;
   line-height: 1rem;
+  page-break-inside: avoid;
 }
 
 #write > ul> li:not(.task-list-item)::before {
@@ -384,6 +386,7 @@ html {
   display: block;
   margin: 20px auto;
   object-fit: contain;
+  page-break-inside: avoid;
 }
 
 /* 图片描述文字 */
@@ -426,6 +429,11 @@ html {
 }
 
 /** 表格内的单元格*/
+
+#write table {
+  page-break-inside: avoid;
+}
+
 #write table tr th,
 #write table tr td {
   font-size: 14px;
