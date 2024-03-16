@@ -36,7 +36,6 @@ html {
   }
 }
 
-
 /* 软件内部Markdown样式 */
 #write {
   max-width: 950px;
@@ -51,7 +50,7 @@ html {
 }
 
 #write p {
-  color: #000;
+  color: #333;
   margin: 10px 10px;
   font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light,
     "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
@@ -92,7 +91,12 @@ html {
   background-position: 0% 0%;
   transition: all ease-in-out 0.1s;
 }
-
+#write h2.md-heading a {
+  text-decoration: underline;
+  border-bottom: 0;
+  text-decoration-thickness: 1.2px;
+  text-underline-offset: 2px;
+}
 #write h2:hover {
   background-position: -100% -100%;
   transition: all ease-in-out 0.1s;
@@ -142,7 +146,6 @@ html {
   vertical-align: inherit;
 }
 
-
 #write h5 {
   margin: 23px 0;
   font-size: 1.1rem;
@@ -151,7 +154,7 @@ html {
 
 #write h5::before {
   content: "-";
-  color:#ffc840 ;
+  color: #ffc840;
   margin-right: 7px;
   display: inline-block;
   vertical-align: inherit;
@@ -161,7 +164,6 @@ html {
 #write ul {
   font-size: 15px;
   color: #000;
-
 }
 
 /* 有序列表整体样式*/
@@ -174,22 +176,20 @@ html {
   position: relative;
   /* padding: 0.4rem 0; */
   line-height: 24px;
-  page-break-inside: avoid;
 }
 
 #write ol > li::before {
-    content: counter(item);
-    counter-increment: item 1;
-    position: absolute;
-    left: -2.5em;
-    height: 1.6rem;
-    width: 1.6rem;
-    text-align: center;
-    line-height: 1.6rem;
-    background-color: rgb(255, 200, 64);
-    color: rgb(0, 0, 0);
-    border-radius: 8px;
-
+  content: counter(item);
+  counter-increment: item 1;
+  position: absolute;
+  left: -2.5em;
+  height: 1.6rem;
+  width: 1.6rem;
+  text-align: center;
+  line-height: 1.6rem;
+  background-color: rgb(255, 200, 64);
+  color: rgb(0, 0, 0);
+  border-radius: 8px;
 }
 
 #write ul {
@@ -202,10 +202,9 @@ html {
   padding: 8px 0;
   padding-left: 25px;
   line-height: 1rem;
-  page-break-inside: avoid;
 }
 
-#write > ul> li:not(.task-list-item)::before {
+#write > ul > li:not(.task-list-item)::before {
   content: "";
   width: 12px;
   height: 12px;
@@ -223,7 +222,7 @@ html {
 
 /* 二级ul上浮一点 */
 #write > ul > li:not(.task-list-item) > ul {
-  top:-0.3rem
+  top: -0.3rem;
 }
 
 #write > ul > li:not(.task-list-item)::after {
@@ -247,20 +246,20 @@ html {
 }
 
 /* 任务列表样式 */
-#write .md-task-list-item:before{
+#write .md-task-list-item:before {
   content: none;
 }
 
-#write .md-task-list-item>input{
+#write .md-task-list-item > input {
   margin: 0px;
   padding: 0px;
   width: 0px;
   height: 0px;
   line-height: 1.2rem;
 }
-#write .md-task-list-item>input:before {
+#write .md-task-list-item > input:before {
   display: inline-block;
-  content: '';
+  content: "";
   width: 1.1rem;
   height: 1.1rem;
   text-align: center;
@@ -270,10 +269,10 @@ html {
   border-radius: 30%;
 }
 
-#write .md-task-list-item>input[checked]:before{
-  content: '✔';
-  color:#555 ;
-  -webkit-text-stroke: 1px #555 ;
+#write .md-task-list-item > input[checked]:before {
+  content: "✔";
+  color: #555;
+  -webkit-text-stroke: 1px #555;
   width: 1.1rem;
   height: 1.1rem;
   background-color: #ffb600;
@@ -283,16 +282,15 @@ html {
   line-height: 0.8rem;
 }
 
-#write input[type=checkbox] {
+#write input[type="checkbox"] {
   position: absolute;
   top: 7px;
   left: -3px;
 }
 
-#write .md-task-list-item p{
+#write .md-task-list-item p {
   margin: 0px 1.8rem;
 }
-
 
 /* 引用 */
 
@@ -306,39 +304,35 @@ html {
   line-height: 26px;
 }
 
-
 #write blockquote p {
   color: #000;
 }
 
 /* 链接 */
-#write  a {
+#write a:not(.md-toc-inner) {
   color: #000;
   border-bottom: 1px solid #ffb143;
   text-decoration: none;
   transform: all linear 0.1s;
 }
 
-#write a:hover {
+#write a:hover:not(.md-toc-inner) {
   font-weight: bolder;
   color: #e46918;
   border-bottom: 1px solid #e46918;
   transform: all linear 0.1s;
 }
 
-#write p a::before {
+#write p a:not(.md-toc-inner)::before {
   content: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath  d='M477.934459 330.486594A50.844091 50.844091 0 0 1 406.752731 258.796425L512 152.532274a254.220457 254.220457 0 0 1 359.467726 359.467726L762.66137 618.772592a50.844091 50.844091 0 1 1-71.690168-71.690169l106.772591-106.772592a152.532274 152.532274 0 0 0-215.578947-215.578947z m70.164846 361.501489A50.844091 50.844091 0 1 1 619.789474 762.66137l-107.281033 107.281033A254.220457 254.220457 0 0 1 152.532274 512L259.813307 406.752731a50.844091 50.844091 0 1 1 72.19861 69.656405l-107.789474 107.281033a152.532274 152.532274 0 0 0 215.578947 215.578947z m-126.601788-16.77855a50.844091 50.844091 0 1 1-71.690168-71.690169l251.678252-251.678252a50.844091 50.844091 0 0 1 71.690169 71.690169z'/%3E%3C/svg%3E");
   color: #f68800;
   display: inline-block;
-  width: 1em; 
-  height: 1em; 
-  margin-right: 0.2em; 
-  vertical-align: sub; 
+  width: 1em;
+  height: 1em;
+  margin-right: 0.2em;
+  vertical-align: sub;
 }
 
-#write a.md-toc-inner::before {
-  content: none;
-}
 #write sup a::before {
   content: none;
 }
@@ -360,7 +354,7 @@ html {
 #write mark {
   font-weight: bolder;
   color: #000;
-  background: #FBE598;
+  background: #fbe598;
 }
 /* 加粗斜体 */
 #write em strong {
@@ -386,7 +380,6 @@ html {
   display: block;
   margin: 20px auto;
   object-fit: contain;
-  page-break-inside: avoid;
 }
 
 /* 图片描述文字 */
@@ -422,18 +415,13 @@ html {
 
 .cm-s-inner.CodeMirror {
   background: #f8f8f8;
-  border-radius:0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
   padding: 20px 10px 20px 20px;
   page-break-before: auto;
   line-height: 1.65rem;
 }
 
 /** 表格内的单元格*/
-
-#write table {
-  page-break-inside: avoid;
-}
-
 #write table tr th,
 #write table tr td {
   font-size: 14px;
@@ -449,14 +437,14 @@ html {
 
 #write table.md-table {
   overflow: hidden;
-  }
-#write table thead{
-    border-top: 1px solid #dedddd;
-    border-bottom: 1px solid #dedddd;
-  }
-#write table tbody{ 
-    border-bottom: 1px solid #dedddd;
-  }
+}
+#write table thead {
+  border-top: 1px solid #dedddd;
+  border-bottom: 1px solid #dedddd;
+}
+#write table tbody {
+  border-bottom: 1px solid #dedddd;
+}
 
 /* 脚注文字 */
 #write .footnote-word {
@@ -487,13 +475,46 @@ html {
 #write .inline-equation svg {
 }
 
+/* 目录 */
 
-
+.md-toc * {
+  font-family: "HarmonyOS_Sans_SC";
+}
+.md-tooltip-hide > span {
+  display: none;
+}
+.md-toc:before {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  content: "目录";
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
+}
+.md-toc {
+  padding: 20px 0;
+  margin: 0 20px;
+  background-color: #fffaf4;
+  border: 2px solid #ffc000;
+  border-radius: 5px;
+}
+.md-toc-item {
+  line-height: 1.8em;
+  display: block;
+  color: #333;
+}
+#write a.md-toc-inner:hover{
+  color: #f68800;
+  font-weight: 700;
+  text-decoration: none;
+}
 
 
 /* 导出HTML的样式 */
-body.typora-export{
-  padding-left: 0px
+body.typora-export {
+  padding-left: 0px;
 }
 .typora-export-content .outline-content::before {
   content: "目录";
@@ -507,24 +528,21 @@ body.typora-export{
   z-index: -1;
 }
 
-.typora-export-sidebar .outline-content{
+.typora-export-sidebar .outline-content {
   height: 100%;
 
   border-right: 1px solid #d2d2d2;
 }
 
-.typora-export-content .typora-export-content{
-
+.typora-export-content .typora-export-content {
   padding-left: 0px;
 }
 
-
-.typora-export-content .outline-expander{
+.typora-export-content .outline-expander {
   width: 0;
 }
 
-.typora-export-content .outline-item-active>.outline-item::after{
-
+.typora-export-content .outline-item-active > .outline-item::after {
   content: "";
   position: relative;
   width: 11px;
@@ -536,9 +554,9 @@ body.typora-export{
   z-index: 100;
   border-radius: 40% 20% 20% 40%;
 }
-.typora-export-content .outline-label{
+.typora-export-content .outline-label {
   max-width: 250px;
-  white-space: nowrap;  
-  overflow: hidden;         
-  text-overflow: ellipsis; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
