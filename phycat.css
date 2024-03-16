@@ -81,7 +81,7 @@ html {
 /* 二级标题 */
 #write h2 {
   font-size: 1.5rem;
-  display: table;
+  display: inline-block;
   font-weight: bold;
   margin: 20px 0;
   padding: 0px 10px;
