@@ -391,9 +391,13 @@ html {
 
 /* 行内代码 */
 #write p code {
-  color: #dc3545;
   font-family: Operator Mono, Consolas, Monaco, Menlo, monospace;
   letter-spacing: 0.5px;
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #c7254e;
+  background-color: #f9f2f4;
+  border-radius: 4px;
 }
 #write li code {
   color: #595959;
