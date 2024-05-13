@@ -1,3 +1,13 @@
+:root{
+	--h1-r-graphic: url("data:image/svg+xml;utf8,<svg fill='rgba(235, 131, 131, 0.4)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M4.8 29.714v0c-1.371 0-2.514-1.143-2.514-2.514v0c0-1.371 1.143-2.514 2.514-2.514v0c1.371 0 2.514 1.143 2.514 2.514v0c0.114 1.371-1.029 2.514-2.514 2.514z'/></svg>") no-repeat  center;
+	--h2-r-graphic: url("data:image/svg+xml;utf8,<svg fill='rgba(174, 154, 203, 0.5)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>") no-repeat  center;
+	--h3-r-graphic: url("data:image/svg+xml;utf8,<svg fill='rgba(125, 181, 205, 0.5)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>") no-repeat  center;
+	--h4-r-graphic: url("data:image/svg+xml;utf8,<svg fill='rgba(113, 167, 150, 0.5)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 22.857c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286z'/></svg>") no-repeat  center;
+	--h5-r-graphic: url("data:image/svg+xml;utf8,<svg fill='rgba(220, 191, 97, 0.5)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 22.857c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286zM4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 11.429c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>") no-repeat  center;
+	--h6-r-graphic: url("data:image/svg+xml;utf8,<svg fill='rgba(221, 163, 106, 0.5)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 11.429c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 16c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286z'/></svg>") no-repeat  center;
+}
+
+
 /* 字体引入：鸿蒙字体 */
 
 @font-face {
@@ -58,9 +68,30 @@ html {
   font-size: 1rem;
   word-spacing: 2px;
 }
+#write h3:after, h4:after, h5:after, h6:after {
+    content: "";
+    position: absolute;
+    float: left;
+    margin-left: 0.2em;
+    height: 2em;
+    width: 1.2em;
+}
+
+#write h3:after {
+  background: var(--h3-r-graphic);
+}
+#write h4:after {
+  background: var(--h4-r-graphic);
+}
+#write h5:after {
+  background: var(--h5-r-graphic);
+}
+#write h6:after {
+  background: var(--h6-r-graphic);
+}
 
 /* 一级标题 */
-#write h1 {
+#write h1:after {
   font-size: 1.8rem;
   text-align: center;
   font-weight: bold;
@@ -69,22 +100,25 @@ html {
 }
 
 /* 一级标题内容 */
-#write h1 .content {
+/* #write h1 .content {
   display: inline-block;
   font-weight: bold;
   color: #000;
-}
-#write h1:after {
+} */
+
+#write h1 {
+  text-align: center;
 }
 
 /* 二级标题 */
 #write h2 {
   font-size: 1.5rem;
-  display: inline-block;
+  line-height: 1.6;
+  width: fit-content;
   font-weight: bold;
   margin: 20px 0;
-  padding: 0px 10px;
-  border-radius: 15px;
+  padding: 1px 12.5px;
+  border-radius: 4px;
   background-color: #f6ae77;
   background: linear-gradient(to right, #f7ce68, #fbabfe);
   background-size: 200% 100%;
@@ -153,6 +187,24 @@ html {
 }
 
 #write h5::before {
+  content: "";
+  margin-right: 7px;
+  display: inline-block;
+  background-color: #ffffff;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  border: #ffc840 2px solid;
+  vertical-align: inherit;
+}
+
+#write h6 {
+  margin: 23px 0;
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+#write h6::before {
   content: "-";
   color: #ffc840;
   margin-right: 7px;
@@ -160,89 +212,66 @@ html {
   vertical-align: inherit;
 }
 
-/* 无序列表整体样式 */
-#write ul {
-  font-size: 15px;
-  color: #000;
+/* 列表 */
+::marker {
+  /* font-weight: bold; */
+  color: #626161;
 }
 
-/* 有序列表整体样式*/
+li.md-list-item {
+  margin: 0.4rem 0;
+}
+
+#write ul,
 #write ol {
-  list-style-type: none;
-  counter-reset: item;
+  margin-top: 0px;
+  margin-left: 16px;
+  margin-bottom: 8px;
+  padding-left: 13px;
 }
 
-#write ol > li {
-  position: relative;
-  /* padding: 0.4rem 0; */
-  line-height: 24px;
-}
-
-#write ol > li::before {
-  content: counter(item);
-  counter-increment: item 1;
-  position: absolute;
-  left: -2.5em;
-  height: 1.6rem;
-  width: 1.6rem;
-  text-align: center;
-  line-height: 1.6rem;
-  background-color: rgb(255, 200, 64);
-  color: rgb(0, 0, 0);
-  border-radius: 8px;
+#write em {
+  padding: 0 3px 0 0;
 }
 
 #write ul {
-  list-style: none;
-  padding-left: 6px !important;
+  list-style-type: disc;
 }
 
-#write > ul > li:not(.task-list-item) {
-  position: relative;
-  padding: 8px 0;
-  padding-left: 25px;
-  line-height: 1rem;
+#write ul ul {
+  list-style-type: circle;
 }
 
-#write > ul > li:not(.task-list-item)::before {
+#write ul ul ul {
+  list-style-type: square;
+}
+
+#write ol {
+  list-style-type: decimal;
+}
+#write ol ol {
+  list-style-type: lower-alpha; 
+}
+#write ol ol ol{
+  list-style-type:lower-roman;
+}
+
+#write li section {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  line-height: 1.7rem;
+  text-align: justify;
+  color: #000000;
+  font-weight: 500;
+}
+
+#write li:before{
   content: "";
-  width: 12px;
-  height: 12px;
-  background: #ffc840;
-  display: inline-block;
-  vertical-align: middle;
-  margin-top: -2px;
-  margin-right: 11px;
-  margin-left: -24px;
-  border-radius: 100%;
-  border: 3px solid #fff;
-  z-index: 100;
-  position: relative;
-}
-
-/* 二级ul上浮一点 */
-#write > ul > li:not(.task-list-item) > ul {
-  top: -0.3rem;
-}
-
-#write > ul > li:not(.task-list-item)::after {
-  content: "";
-  height: 100%;
-  width: 2px;
-  background: #ffc9401d;
+  height: calc(100% - 34px);
+  top: 34px;
   position: absolute;
-  left: 6px;
-  top: 20px;
-}
-
-#write > ul > li:not(.task-list-item):last-child:after {
-  display: none;
-}
-
-#write > ul > li:not(.task-list-item) > p {
-  top: -1.2em;
-  line-height: 1.65rem;
-  margin: 0;
+  border-left: 0.5px solid #d6d6d6;
+  left: -14px;
 }
 
 /* 任务列表样式 */
@@ -265,17 +294,17 @@ html {
   text-align: center;
   vertical-align: middle;
   background-color: #fff;
-  border: 2px solid #ffb600;
+  border: 1px solid #ffb600;
   border-radius: 30%;
 }
 
 #write .md-task-list-item > input[checked]:before {
   content: "✔";
-  color: #555;
+  color: #373737;
   -webkit-text-stroke: 1px #555;
   width: 1.1rem;
   height: 1.1rem;
-  background-color: #ffb600;
+  background-color: #ffffff;
   border: 2px solid #ffb600;
   border-radius: 30%;
   font-size: 0.75rem;
@@ -317,7 +346,7 @@ html {
 }
 
 #write a:hover:not(.md-toc-inner) {
-  font-weight: bolder;
+  /* font-weight: bolder; */
   color: #e46918;
   border-bottom: 1px solid #e46918;
   transform: all linear 0.1s;
@@ -391,13 +420,12 @@ html {
 
 /* 行内代码 */
 #write p code {
+  padding: 0px 3px 0px 7px;
+  color: rgb(220, 53, 69);
+  background: #ffe7e7;
+  border-radius: 3px;
   font-family: Operator Mono, Consolas, Monaco, Menlo, monospace;
   letter-spacing: 0.5px;
-  padding: 2px 4px;
-  font-size: 90%;
-  color: #c7254e;
-  background-color: #f9f2f4;
-  border-radius: 4px;
 }
 #write li code {
   color: #595959;
@@ -534,7 +562,7 @@ body.typora-export {
 
 .typora-export-sidebar .outline-content {
   height: 100%;
-
+  padding-left: 15px;
   border-right: 1px solid #d2d2d2;
 }
 
