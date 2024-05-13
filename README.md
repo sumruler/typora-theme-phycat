@@ -17,7 +17,7 @@
 
 ### Markdown样式
 
-![Markdown样式](https://cdn.phycat.cn/img/github/Phycat-markdown.png)
+![Markdown样式](https://cdn.phycat.cn/img/typora-theme-phycat.png)
 
 ### 侧边栏大纲
 
