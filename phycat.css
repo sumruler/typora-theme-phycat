@@ -74,7 +74,8 @@ html {
   margin-left: 0.2em;
   height: 2em;
   width: 1.2em;
-  vertical-align: middle; /* 使伪元素与文本垂直对齐 */
+  vertical-align: middle; 
+  transform: translateY(-4px);
 }
 
 #write h3:after {
