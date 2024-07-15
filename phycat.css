@@ -69,12 +69,12 @@ html {
   word-spacing: 2px;
 }
 #write h3:after, h4:after, h5:after, h6:after {
-    content: "";
-    position: absolute;
-    float: left;
-    margin-left: 0.2em;
-    height: 2em;
-    width: 1.2em;
+  content: "";
+  display: inline-block;
+  margin-left: 0.2em;
+  height: 2em;
+  width: 1.2em;
+  vertical-align: middle; /* 使伪元素与文本垂直对齐 */
 }
 
 #write h3:after {
@@ -146,6 +146,7 @@ html {
 
 /* 三级标题 */
 #write h3 {
+  width: fit-content;
   margin: 20px 0;
   font-size: 1.3rem;
   text-align: left;
@@ -445,13 +446,129 @@ li.md-list-item {
   background-position: 6px 10px;
 }
 
+
+.CodeMirror-wrap .CodeMirror-scroll {
+  overflow-x: auto;
+}
+
+.md-fences .cm-s-inner.CodeMirror {
+  margin-top: -0.5rem;
+}
+
+.cm-s-inner.CodeMirror {
+  padding: 1.2rem .8rem;
+  color: #4f5467;
+  font-family: 'JetBrainsMono';
+  border-radius: 10px;
+  background-color: #fa0303;
+  /* border: 1px solid #eef2f5;*/
+  line-height: 1.6rem;
+}
+
+.CodeMirror-gutters {
+  border-right: 1px solid #9d9d9d52;
+  background: inherit;
+  white-space: nowrap;
+}
+
+pre.CodeMirror-line {
+  padding: 0 1.2rem;
+}
+
+.CodeMirror-linenumber {
+  padding: 0 3px 0 5px;
+  text-align: right;
+  color:#a3a3a3;
+}
+
+
 .cm-s-inner.CodeMirror {
   background: #f8f8f8;
   border-radius: 0 0 5px 5px;
-  padding: 20px 10px 20px 20px;
+  padding: 20px 10px 20px 10px;
   page-break-before: auto;
-  line-height: 1.65rem;
+  line-height: 1.8rem;
 }
+
+.md-rawblock .md-rawblock-tooltip {
+  inset: auto 0.3rem auto auto;
+  transform: translateY(-120%);
+}
+
+/* 代码块颜色 */
+.cm-keyword {
+    color: #a626a4!important;
+    font-weight: 700!important;
+}
+
+.cm-variable {
+    color: #b92121!important;
+}
+
+.cm-tag {
+    color: var(--color-cm-keyword)!important;
+    font-weight: 700!important;
+}
+
+.cm-variable-3, .cm-variable-2 {
+    color: #7aadad!important;
+    font-weight: 700!important;
+}
+
+.cm-def {
+    color: #c18401!important;
+}
+
+.cm-attribute {
+    color: #8f6aa8!important
+}
+
+.cm-comment, .md-comment, .md-meta {
+    color: #9a9a9a!important;
+}
+
+.cm-string {
+    color: #50a14f!important;
+    font-variant-ligatures: common-ligatures!important;
+}
+
+.cm-link {
+    color: #e46918!important;
+}
+
+.cm-type {
+    color: #626161;
+}
+
+.cm-property {
+    color: #800a84!important;
+}
+
+.cm-tag:not(.cm-bracket) {
+    font-weight: 700;
+}
+
+.cm-operator {
+    color: #0abe00!important;
+}
+
+.cm-number {
+    color:#1694b6!important;
+}
+
+.cm-meta {
+    color: #4078f2!important;
+    font-weight: 700!important;
+}
+
+.cm-builtin {
+    color: #fa6060!important;
+}
+
+
+
+
+
 
 /** 表格内的单元格*/
 #write table tr th,
