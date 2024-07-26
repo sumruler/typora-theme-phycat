@@ -15,6 +15,24 @@
 
 ## 主题预览
 
+### 亮色主题
+
+[普鲁士蓝](https://sumruler.github.io/typora-theme-phycat/phycat-plusblue.html)
+
+[魅惑紫](https://sumruler.github.io/typora-theme-phycat/phycat-purple.html)
+
+[物理猫橙](https://sumruler.github.io/typora-theme-phycat/phycat-orange.html)
+
+[薄荷蓝](https://sumruler.github.io/typora-theme-phycat/phycat-mint.html)
+
+[前端绿](https://sumruler.github.io/typora-theme-phycat/phycat-green.html)
+
+### 暗色主题
+
+[普鲁士蓝](https://sumruler.github.io/typora-theme-phycat/phycat-dark.html)
+
+
+
 ### Markdown样式
 
 ![Markdown样式](https://cdn.phycat.cn/img/typora-theme-phycat.png)
@@ -32,7 +50,8 @@
 打开Typora➡️文件➡️偏好设置➡️外观➡️打开主题文件夹➡️解压压缩包，将文件夹中的内容（phycat文件夹、phycat.css文件、phycat.user.css文件）移动至此目录（themes文件夹下）➡️重启Typora➡️选择主题➡️开始使用
 
 ## 更新日志
-
+### 2024-07-27
+进行了大重构！增加了5套亮色多彩主题，1套暗色主题！
 ### 2024-05-13
 简化修改了列表的CSS样式，使其更加简约直观。为标题添加了after，便于快速分别是几级标题。去除了二级标题的inline-block样式，使用width:fit-content，使其宽度自适应，避免之前issue提到的bug。
 ### 2024-03-29
