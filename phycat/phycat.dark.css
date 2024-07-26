@@ -675,7 +675,7 @@ pre.CodeMirror-line {
 }
 
 #file-library::-webkit-scrollbar {
-  width: 0.5rem;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -688,7 +688,7 @@ pre.CodeMirror-line {
 }
 
 ::-webkit-scrollbar {
-  width: 1rem;
+  width: 5px;
 }
 
 /* 侧边栏 文件 */
