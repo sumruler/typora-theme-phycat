@@ -671,7 +671,7 @@ pre.CodeMirror-line {
 /* 滑块 */
 
 #outline-content::-webkit-scrollbar {
-  width: 0.5rem;
+  width: 5px;
 }
 
 #file-library::-webkit-scrollbar {
