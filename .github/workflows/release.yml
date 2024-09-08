@@ -1,0 +1,38 @@
+name: Release Typora Theme
+
+on:
+  push:
+    branches:
+      - main  # 选择触发的分支
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Get current tag version
+      id: tag
+      run: |
+        TAG=$(git describe --tags --abbrev=0)
+        echo "Current tag: ${TAG}"
+        echo "::set-output name=current_tag::${TAG}"
+
+    - name: Create zip file with tag name
+      run: |
+        TAG=${{ steps.tag.outputs.current_tag }}
+        zip -r typora-theme-${TAG}.zip . -x ".*" "*/.*"
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: typora-theme-${{ steps.tag.outputs.current_tag }}.zip
+        tag_name: ${{ steps.tag.outputs.current_tag }}
+        name: ${{ steps.tag.outputs.current_tag }}
+        body: |
+          版本更新：${{ steps.tag.outputs.current_tag }}
+          更新内容: ${{ github.event.head_commit.message }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
