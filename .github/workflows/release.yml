@@ -2,8 +2,8 @@ name: Release Typora Theme
 
 on:
   push:
-    branches:
-      - main  # 选择触发的分支
+    tags:
+      - '*'  # 监听所有标签的推送
 
 jobs:
   build:
@@ -11,9 +11,9 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2 
+      uses: actions/checkout@v2
 
-    - name: Get current tag version 
+    - name: Get current tag version
       id: tag
       run: |
         TAG=$(git describe --tags --abbrev=0)
