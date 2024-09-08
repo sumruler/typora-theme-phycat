@@ -16,7 +16,7 @@ jobs:
     - name: Get current tag version
       id: tag
       run: |
-        TAG=$(git describe --tags --abbrev=0 || echo "v1.0.0")
+        TAG=$(git describe --tags --abbrev=0)
         echo "Current tag: ${TAG}"
         echo "::set-output name=current_tag::${TAG}"
 
