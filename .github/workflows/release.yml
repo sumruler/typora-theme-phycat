@@ -22,13 +22,12 @@ jobs:
 
     - name: Create zip file with tag name
       run: |
-        TAG=${{ steps.tag.outputs.current_tag }}
-        zip -r typora-theme-${TAG}.zip . -x ".*" "*/.*"
+        zip -r typora-theme-phycat.zip . -x ".*" "*/.*"
         
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
-        files: typora-theme-${{ steps.tag.outputs.current_tag }}.zip
+        files: typora-theme-phycat.zip
         tag_name: ${{ steps.tag.outputs.current_tag }}
         name: ${{ steps.tag.outputs.current_tag }}
         body: |
