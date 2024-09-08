@@ -16,15 +16,10 @@ jobs:
     - name: Get current tag version
       id: tag
       run: |
-        TAG=$(git describe --tags --abbrev=0)
+        TAG=$(git describe --tags --abbrev=0 || echo "v1.0.0")
         echo "Current tag: ${TAG}"
         echo "::set-output name=current_tag::${TAG}"
-
-    - name: Create zip file with tag name
-      run: |
-        TAG=${{ steps.tag.outputs.current_tag }}
-        zip -r typora-theme-${TAG}.zip . -x ".*" "*/.*"
-
+    
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
