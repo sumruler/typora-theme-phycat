@@ -33,6 +33,6 @@ jobs:
         name: ${{ steps.tag.outputs.current_tag }}
         body: |
           版本更新：${{ steps.tag.outputs.current_tag }}
-          更新内容: ${{ github.event.head_commit.message }}
+          更新内容: ${{ github.event.head_commit.message }} 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
