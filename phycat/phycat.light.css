@@ -34,6 +34,10 @@ html {
   p {
     line-height: 1.5rem; /*设置打印内容的行高*/
   }
+  ol,ul,figure,pre {  /*设置一些元素不会被分页截断对应有序列表、无序列表、图片(表格)、代码块*/
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
 }
 
 /* 软件内部Markdown样式 */
