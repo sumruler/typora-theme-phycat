@@ -13,7 +13,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Get current tag version
+    - name: Get current tag version 
       id: tag
       run: |
         TAG=$(git describe --tags --abbrev=0)
