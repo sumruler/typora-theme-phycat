@@ -434,6 +434,13 @@ li.md-list-item {
   color: #595959;
 }
 
+/* Yaml */
+pre.md-meta-block {
+  padding: 8px 15px;
+  border: 2px dotted var(--element-color);
+  background-color: var(--element-color-soo-shallow);
+}
+
 /* 行内代码 */
 #write p code {
   padding: 0px 3px 0px 7px;
