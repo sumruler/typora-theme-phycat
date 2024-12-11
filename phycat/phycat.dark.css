@@ -422,7 +422,6 @@ li.md-list-item {
 /* 图片*/
 #write img {
   border-radius: 6px;
-  display: block;
   margin: 20px auto;
   object-fit: contain;
 }

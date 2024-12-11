@@ -51,6 +51,9 @@ html {
   word-break: break-word;
   word-wrap: break-word;
   text-align: left;
+  background-image: linear-gradient(90deg, rgba(50, 0, 0, 0.05) calc(3%*var(--bg-grid)), rgba(0, 0, 0, 0) calc(3%*var(--bg-grid))), linear-gradient(360deg, rgba(50, 0, 0, 0.05) calc(3%*var(--bg-grid)), rgba(0, 0, 0, 0) calc(3%*var(--bg-grid)));
+  background-size: 20px 20px;
+  background-position: center center;
 }
 
 #write p {
@@ -102,7 +105,8 @@ h6:after {
 
 /* 二级标题 */
 #write h2 {
-  font-size: 1.5rem;
+  color: var(--head-title-h2-color);
+  font-size: 1.4rem;
   line-height: 1.6;
   width: fit-content;
   font-weight: bold;
@@ -196,7 +200,7 @@ h6:after {
 
 /* 列表 */
 ::marker {
-  color: #626161;
+  color: var(--element-color-deep);
 }
 
 li.md-list-item {
@@ -251,7 +255,7 @@ li.md-list-item {
   height: calc(100% - 50px);
   top: 35px;
   position: absolute;
-  border-left: 0.5px solid #d6d6d6;
+  border-left: 0.5px solid var(--element-color);
   left: -14.5px;
 }
 
@@ -307,7 +311,8 @@ li.md-list-item {
 #write blockquote {
   margin-left: 12px;
   padding: 12px;
-  border: 1px solid var(--element-color);
+  background: var(--element-color-soo-shallow);
+  border: 0px solid var(--element-color);
   border-left-color: var(--element-color);
   border-left-width: 4px;
   border-radius: 4px;
@@ -394,7 +399,6 @@ li.md-list-item {
 /* 图片*/
 #write img {
   border-radius: 6px;
-  display: block;
   margin: 20px auto;
   object-fit: contain;
 }
