@@ -31,10 +31,12 @@ Phycat是我精心制作的一款Typora主题。主题经过精心打磨，听�
 
    导出的HTML页面不仅与软件内样式完全相同，而且也专门写了HTML页面侧边大纲的样式，一样的辅助线，一样的小子弹头。你可以点击下面的链接查看导出HTML页面的效果，它们都是在Typora软件中直接导出的。
 
-   | 主题系列 | 主题链接                                                     |
+
+| 主题系列 | 主题链接                                                     |
 | -------- | :----------------------------------------------------------- |
-   | 亮色主题 | [沉稳红](https://sumruler.github.io/typora-theme-phycat/phycat-red.html)、[物理猫橙](https://sumruler.github.io/typora-theme-phycat/phycat-orange.html)、[前端绿](https://sumruler.github.io/typora-theme-phycat/phycat-green.html)、[薄荷青](https://sumruler.github.io/typora-theme-phycat/phycat-mint.html)、[普鲁士蓝](https://sumruler.github.io/typora-theme-phycat/phycat-plusblue.html)、[魅惑紫](https://sumruler.github.io/typora-theme-phycat/phycat-purple.html) |
+| 亮色主题 | [沉稳红](https://sumruler.github.io/typora-theme-phycat/phycat-red.html)、[物理猫橙](https://sumruler.github.io/typora-theme-phycat/phycat-orange.html)、[前端绿](https://sumruler.github.io/typora-theme-phycat/phycat-green.html)、[薄荷青](https://sumruler.github.io/typora-theme-phycat/phycat-mint.html)、[普鲁士蓝](https://sumruler.github.io/typora-theme-phycat/phycat-plusblue.html)、[魅惑紫](https://sumruler.github.io/typora-theme-phycat/phycat-purple.html) |
 | 暗色主题 | [普鲁士蓝](https://sumruler.github.io/typora-theme-phycat/phycat-dark.html) |
+
    
 **每款主题都可以设置开启网格背景，具体方法可以查看下面的Q&A。**
    
