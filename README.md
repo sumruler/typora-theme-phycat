@@ -46,7 +46,7 @@ Phycat是我精心制作的一款Typora主题。主题经过精心打磨，听�
 
 ### 正文
 
-![正文](https://cdn.phycat.cn/localediter/202412131127887.jpg)
+![正文](https://cdn.phycat.cn/localediter/202412131700150.png)
 
 ### 标题
 
