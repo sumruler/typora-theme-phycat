@@ -1,81 +1,106 @@
->此主题仅在Windows下设计和测试，在其他操作系统上的效果未知！
-
 # 物理猫Phycat
-你甚至可以使用下面这个工具在微信公众号中应用这些样式！
-工具地址：https://sumruler.github.io/mdnice/
+
+> 一款结构清晰、层级分明的多彩Typora主题。
+
+> 现在，你甚至可以使用下面这个工具在微信公众号中应用这些样式！
+> 工具地址：https://sumruler.github.io/mdnice/
+>
+> 感谢[Mdnice项目](https://github.com/mdnice/markdown-nice)
+
 ## 主题说明
 
-此主题是我制作用于生成网页课件的Typora主题，橙黄色主色调，简约美观。比较适合Markdown导出为带有样式的HTML文件进行分享
+Phycat是我精心制作的一款Typora主题。主题经过精心打磨，听取了很多使用者的建议。现在共6款亮色主题、1款暗色主题。主题的主要特点有：
 
-具有以下特点：
-1. 优化大纲标题显示样式，层级分明，直观漂亮；
-2. 部分标题增加了hover动画，鼠标移动上去有简单的互动；
-3. 表格样式进行了调整，更加简约，代码块使用了亮色的Mac风格，很漂亮；
-4. 超链接前面会加一个可爱的小图标。
-5. 使用Typora导出网页，大纲目录的样式也进行了同样的优化
+1. 层级分明，清晰直观
 
-## 如何在导出的网页中开启侧边栏大纲
+   1. 标题层级一目了然，无需对比才知几级标题，阅读体验极佳；
+   2. 有序和无序列表有辅助线整理大纲层级，清晰直观；
+   3. 侧边栏的文章大纲视图亦加入辅助线整理文章结构，清晰直观；
+
+2. 配色多彩，易于自定义
+
+   样式CSS文件和配色CSS文件是分开的，目前共有6款亮色主题，默认的主题色非常美观。如果你想自己增加或者修改配色，只需要复制一份phycat-color.css文件，调整主题色、深色、浅色等具体色值即可。
+
+3. 主题样式覆盖齐全、细节丰富
+
+   Phycat主题对标题、文内样式、列表、代码块、文内Toc目录、KBD按键、超链接、图片、脚注、Yaml等等都进行了样式定义，如果发现没覆盖的样式也欢迎提出issue。
+
+   主题中有很多小细节欢迎发现，例如侧边栏大纲的小子弹、超链接前面的小图标，对PDF导出的样式优化，或者你可能会发现Phycat主题是唯一一个在代码块右上角显示代码语言的Typora主题...
+
+4. 可能是对导出HTML页面支持最好的Typora主题
+
+   导出的HTML页面不仅与软件内样式完全相同，而且也专门写了HTML页面侧边大纲的样式，一样的辅助线，一样的小子弹头。你可以点击下面的链接查看导出HTML页面的效果，它们都是在Typora软件中直接导出的。
+
+   | 主题系列 | 主题链接                                                     |
+| -------- | :----------------------------------------------------------- |
+   | 亮色主题 | [沉稳红](https://sumruler.github.io/typora-theme-phycat/phycat-red.html)、[物理猫橙](https://sumruler.github.io/typora-theme-phycat/phycat-orange.html)、[前端绿](https://sumruler.github.io/typora-theme-phycat/phycat-green.html)、[薄荷青](https://sumruler.github.io/typora-theme-phycat/phycat-mint.html)、[普鲁士蓝](https://sumruler.github.io/typora-theme-phycat/phycat-plusblue.html)、[魅惑紫](https://sumruler.github.io/typora-theme-phycat/phycat-purple.html) |
+| 暗色主题 | [普鲁士蓝](https://sumruler.github.io/typora-theme-phycat/phycat-dark.html) |
+   
+**每款主题都可以设置开启网格背景，具体方法可以查看下面的Q&A。**
+   
+这里特别推荐沉稳红、薄荷蓝、普鲁士蓝。
+
+## 主题截图
+
+### 正文
+
+![正文](https://cdn.phycat.cn/localediter/202412131127887.jpg)
+
+### 标题
+
+![Clip_2024-12-13_12-15-19](https://cdn.phycat.cn/localediter/202412131215818.png)
+
+### 列表
+
+![图像-1734063823459](https://cdn.phycat.cn/localediter/202412131224889.jpg)
+
+### 代码
+
+![Clip_2024-12-13_12-24-54](https://cdn.phycat.cn/localediter/202412131226019.png)
+
+### 侧栏大纲
+
+![Clip_2024-12-13_12-26-47](https://cdn.phycat.cn/localediter/202412131227161.png)
+
+## Q&A
+
+### 安装使用方法
+
+1. 打开主题文件夹
+
+   打开Typora➡️文件➡️偏好设置➡️外观➡️打开主题文件夹
+
+2. 下载realses中的[Releases](https://github.com/sumruler/typora-theme-phycat/releases)中的typora-theme-phycat.zip文件
+
+3. 解压所有文件，并将phycat文件夹和所有css文件全部复制到主题文件夹theme中
+
+4. 重启typora软件，切换主题使用
+
+### 如何在导出的网页中开启侧边栏大纲
 1. 在偏好设置>>导出>>HTML中开启侧边大纲并开启使用当前主题
-![Clip_2024-11-19_19-48-52](https://github.com/user-attachments/assets/62c12599-cb39-4483-b466-04fb99be3a0f)
-2. 在编辑器页面显示大纲视图
+2. 在编辑器页面显示大纲视图。
+
 如此导出的HTML页面就包括大纲视图了。
 
-## 主题预览
+### 如何开启网格背景
 
-### 亮色主题
+在主题色的css文件中，例如phycat-red.css，调整--bg-grid的值即可
 
-[普鲁士蓝](https://sumruler.github.io/typora-theme-phycat/phycat-plusblue.html)
+<img src="https://cdn.phycat.cn/localediter/202412131232733.png" alt="Clip_2024-12-13_12-31-00" style="zoom: 67%;" />
 
-[魅惑紫](https://sumruler.github.io/typora-theme-phycat/phycat-purple.html)
+## 鸣谢
 
-[物理猫橙](https://sumruler.github.io/typora-theme-phycat/phycat-orange.html)
+这个主题借鉴参考了众多优秀主题和平台，在此特别感谢
 
-[薄荷蓝](https://sumruler.github.io/typora-theme-phycat/phycat-mint.html)
+1. [Lapis主题](https://github.com/YiNNx/typora-theme-lapis)
+2. [Happysimple主题](https://github.com/HappySimple/Typora-theme-Happysimple)
+3. [Blackout主题](https://obscurefreeman.github.io/typora_theme_blackout)
+4. [思源笔记Savor主题](https://github.com/royc01/notion-theme)
+5. [Mdnice项目](https://github.com/mdnice/markdown-nice)
 
-[前端绿](https://sumruler.github.io/typora-theme-phycat/phycat-green.html)
+## 打赏此主题作者
 
-### 暗色主题
-
-[普鲁士蓝](https://sumruler.github.io/typora-theme-phycat/phycat-dark.html)
-
-
-
-### Markdown样式
-
-![Markdown样式](https://cdn.phycat.cn/img/typora-theme-phycat.png)
-
-### 侧边栏大纲
-
-![大纲样式](https://cdn.phycat.cn/img/github/phycat-outline.png)
-
-### 导出HTML样式
-
-![导出HTML样式](https://cdn.phycat.cn/img/github/phycat-HTML.png)
-
-## 安装使用
-
-打开Typora➡️文件➡️偏好设置➡️外观➡️打开主题文件夹➡️解压压缩包，将文件夹中的内容（phycat文件夹、phycat.css文件、phycat.user.css文件）移动至此目录（themes文件夹下）➡️重启Typora➡️选择主题➡️开始使用
-
-## 更新日志 
-### 2024-09-08
-给代码块增加语言标识.
-### 2024-07-27
-进行了大重构！增加了5套亮色多彩主题，1套暗色主题！
-### 2024-05-13
-简化修改了列表的CSS样式，使其更加简约直观。为标题添加了after，便于快速分别是几级标题。去除了二级标题的inline-block样式，使用width:fit-content，使其宽度自适应，避免之前issue提到的bug。
-### 2024-03-29
-修改了行内代码CSS样式，使其更醒目
-### 2024-03-16
-优化Markdown的目录样式
-### 2024-03-04
-修复打印页面的时候，出现不正常的内容截断
-### 2024-01-19
-修复无序列表二级列表的显示
-### 2024-01-29
-修复代码块显示异常
-### 2024-01-18
-增加了任务列表的样式，对打印出来的页面进行了大小和行间距的设置。 
-
+<img src="https://cdn.phycat.cn/localediter/202412131242586.jpg" alt="PayCOde" style="zoom: 50%;" />
 
 
 
