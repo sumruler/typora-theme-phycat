@@ -12,6 +12,14 @@
   /* 是否开启网格背景？1 是；0 否 */
   --bg-grid: 0;
 
+  /* 自动编号格式设置 无序自动编号可全部注释掉或部分注释掉*/
+  --autonum-h1: counter(h1) ". ";
+  --autonum-h2: counter(h1) "." counter(h2) ". ";
+  --autonum-h3: counter(h1) "." counter(h2) "." counter(h3) ". ";
+  /* --autonum-h4: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) ". ";
+  --autonum-h5: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". ";
+  --autonum-h6: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) ". "; */
+
   /* 主题颜色 */
 
   --head-title-color: #11aa63;

@@ -22,7 +22,7 @@
 }
 @font-face {
   font-family: "CascadiaCode";
-  src: url('Cascadia-Code-Regular.ttf');
+  src: url("Cascadia-Code-Regular.ttf");
 }
 
 html {
@@ -45,7 +45,11 @@ html {
   p {
     line-height: 1.5rem; /*设置打印内容的行高*/
   }
-  ol,ul,figure,pre {  /*设置一些元素不会被分页截断对应有序列表、无序列表、图片(表格)、代码块*/
+  ol,
+  ul,
+  figure,
+  pre {
+    /*设置一些元素不会被分页截断对应有序列表、无序列表、图片(表格)、代码块*/
     page-break-inside: avoid;
     break-inside: avoid;
   }
@@ -62,7 +66,16 @@ html {
   word-break: break-word;
   word-wrap: break-word;
   text-align: left;
-  background-image: linear-gradient(90deg, rgba(50, 0, 0, 0.05) calc(3%*var(--bg-grid)), rgba(0, 0, 0, 0) calc(3%*var(--bg-grid))), linear-gradient(360deg, rgba(50, 0, 0, 0.05) calc(3%*var(--bg-grid)), rgba(0, 0, 0, 0) calc(3%*var(--bg-grid)));
+  background-image: linear-gradient(
+      90deg,
+      rgba(50, 0, 0, 0.05) calc(3% * var(--bg-grid)),
+      rgba(0, 0, 0, 0) calc(3% * var(--bg-grid))
+    ),
+    linear-gradient(
+      360deg,
+      rgba(50, 0, 0, 0.05) calc(3% * var(--bg-grid)),
+      rgba(0, 0, 0, 0) calc(3% * var(--bg-grid))
+    );
   background-size: 20px 20px;
   background-position: center center;
 }
@@ -207,6 +220,66 @@ h6:after {
   margin-right: 7px;
   display: inline-block;
   vertical-align: inherit;
+}
+
+/* 标题自动编号 */
+#write {
+  counter-reset: h1;
+}
+
+h1 {
+  counter-reset: h2;
+}
+
+h2 {
+  counter-reset: h3;
+}
+
+h3 {
+  counter-reset: h4;
+}
+
+h4 {
+  counter-reset: h5;
+}
+
+h5 {
+  counter-reset: h6;
+}
+
+#write h1:before {
+  counter-increment: h1;
+  content: var(--autonum-h1);
+}
+
+#write h2:before {
+  counter-increment: h2;
+  content: var(--autonum-h2);
+  color: var(--head-title-h2-color);
+}
+
+#write h3 > span::before {
+  counter-increment: h3;
+  content: var(--autonum-h3);
+  color: var(--element-color);
+}
+
+#write h4 > span::before {
+  counter-increment: h4;
+  content: var(--autonum-h4);
+  color: var(--element-color);
+}
+
+#write h5 > span::before {
+  counter-increment: h5;
+  content: var(--autonum-h5);
+  color: var(--element-color);
+}
+
+#write h6 > span::before {
+  counter-increment: h6;
+  content: var(--autonum-h6);
+  color: var(--element-color);
 }
 
 /* 列表 */
@@ -585,6 +658,7 @@ pre.CodeMirror-line {
 kbd {
   padding: 2px 4px;
   font-size: 90%;
+  font-weight: bolder;
   color: var(--element-color-linecode);
   border: var(--element-color) solid 1px;
   border-radius: 3px;
@@ -689,7 +763,7 @@ kbd:hover {
 }
 
 #file-library::-webkit-scrollbar {
-  width:5px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {

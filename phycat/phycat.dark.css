@@ -225,6 +225,61 @@ h6:after {
   vertical-align: inherit;
 }
 
+/* 标题自动编号 */
+#write {
+  counter-reset: h1;
+}
+
+h1 {
+  counter-reset: h2;
+}
+
+h2 {
+  counter-reset: h3;
+}
+
+h3 {
+  counter-reset: h4;
+}
+
+h4 {
+  counter-reset: h5;
+}
+
+h5 {
+  counter-reset: h6;
+}
+
+#write h1:before {
+  counter-increment: h1;
+  content: var(--autonum-h1);
+}
+
+#write h2:before {
+  counter-increment: h2;
+  content: var(--autonum-h2);
+}
+
+#write h3 > span::before {
+  counter-increment: h3;
+  content: var(--autonum-h3);
+}
+
+#write h4 > span::before {
+  counter-increment: h4;
+  content: var(--autonum-h4);
+}
+
+#write h5 > span::before {
+  counter-increment: h5;
+  content: var(--autonum-h5);
+}
+
+#write h6 > span::before {
+  counter-increment: h6;
+  content: var(--autonum-h6);
+}
+
 /* 列表 */
 ::marker {
   color: var(--dark-text-color);
