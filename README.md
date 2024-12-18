@@ -91,6 +91,12 @@ Phycat是我精心制作的一款Typora主题。主题经过精心打磨，听�
 
 <img src="https://cdn.phycat.cn/localediter/202412131232733.png" alt="Clip_2024-12-13_12-31-00" style="zoom: 67%;" />
 
+### 如何开启标题自动编号
+
+在主题色的css文件中，例如phycat-red.css，按照说明开启自动编号即可。可选择全部开启或部分开启各级标题的自动编号功能。通过简单修改可以调整自动编号的样式。
+
+<img src="https://cdn.phycat.cn/localediter/202412181946837.png" alt="Clip_2024-12-18_19-46-38" style="zoom: 67%;" />
+
 ## 鸣谢
 
 这个主题借鉴参考了众多优秀主题和平台，在此特别感谢
