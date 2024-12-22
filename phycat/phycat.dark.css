@@ -249,36 +249,147 @@ h4 {
 h5 {
   counter-reset: h6;
 }
+.sidebar-content {
+  counter-reset: h1
+}
+
+.outline-h1 {
+  counter-reset: h2
+}
+
+.outline-h2 {
+  counter-reset: h3
+}
+
+.outline-h3 {
+  counter-reset: h4
+}
+
+.outline-h4 {
+  counter-reset: h5
+}
+
+.outline-h5 {
+  counter-reset: h6
+}
+
+
+
+.md-toc-content {
+  counter-reset: h1toc
+}
+
+.md-toc-h1 {
+  counter-reset: h2toc
+}
+
+.md-toc-h2 {
+  counter-reset: h3toc
+}
+
+.md-toc-h3 {
+  counter-reset: h4toc
+}
+
+.md-toc-h4 {
+  counter-reset: h5toc
+}
+
+.md-toc-h5 {
+  counter-reset: h6toc
+}
+
 
 #write h1:before {
   counter-increment: h1;
   content: var(--autonum-h1);
 }
+#outline-content li.outline-h1>div>span.outline-label:before {
+  counter-increment: h1;
+  content: var(--autonum-h1);
+}
+
+#write span.md-toc-item.md-toc-h1>a:before {
+  counter-increment: h1toc;
+  content: var(--autonum-h1toc);
+}
+
+
 
 #write h2:before {
   counter-increment: h2;
   content: var(--autonum-h2);
 }
+#outline-content li.outline-h2>div>span.outline-label:before {
+  counter-increment: h2;
+  content: var(--autonum-h2);
+}
+
+#write span.md-toc-item.md-toc-h2>a:before {
+  counter-increment: h2toc;
+  content: var(--autonum-h2toc);
+}
+
+
 
 #write h3 > span::before {
   counter-increment: h3;
   content: var(--autonum-h3);
 }
+#outline-content li.outline-h3>div>span.outline-label:before {
+  counter-increment: h3;
+  content: var(--autonum-h3);
+}
+
+#write span.md-toc-item.md-toc-h3>a:before {
+  counter-increment: h3toc;
+  content: var(--autonum-h3toc);
+}
+
+
 
 #write h4 > span::before {
   counter-increment: h4;
   content: var(--autonum-h4);
+}
+#outline-content li.outline-h4>div>span.outline-label:before {
+  counter-increment: h4;
+  content: var(--autonum-h4);
+}
+
+#write span.md-toc-item.md-toc-h4>a:before {
+  counter-increment: h4toc;
+  content: var(--autonum-h4toc);
 }
 
 #write h5 > span::before {
   counter-increment: h5;
   content: var(--autonum-h5);
 }
+#outline-content li.outline-h5>div>span.outline-label:before {
+  counter-increment: h5;
+  content: var(--autonum-h5);
+}
+
+#write span.md-toc-item.md-toc-h5>a:before {
+  counter-increment: h5toc;
+  content: var(--autonum-h5toc);
+}
 
 #write h6 > span::before {
   counter-increment: h6;
   content: var(--autonum-h6);
 }
+#outline-content li.outline-h6>div>span.outline-label:before {
+  counter-increment: h6;
+  content: var(--autonum-h6);
+}
+
+#write span.md-toc-item.md-toc-h6>a:before {
+  counter-increment: h6toc;
+  content: var(--autonum-h6toc);
+}
+
 
 /* 列表 */
 ::marker {

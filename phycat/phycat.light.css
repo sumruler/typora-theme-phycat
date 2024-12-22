@@ -20,6 +20,7 @@
   font-style: normal;
   src: url("HarmonyOS_Sans_SC_Bold.woff");
 }
+
 @font-face {
   font-family: "CascadiaCode";
   src: url("Cascadia-Code-Regular.ttf");
@@ -34,17 +35,25 @@ html {
 
 @media print {
   * {
-    -webkit-print-color-adjust: exact; /*确保打印颜色一致*/
+    -webkit-print-color-adjust: exact;
+    /*确保打印颜色一致*/
     print-color-adjust: exact;
   }
+
   body {
-    width: 21cm; /* 设置页面宽度为A4宽度 */
-    height: 29.7cm; /* 设置页面高度为A4高度 */
-    margin: 1cm; /* 设置页面边距 */
+    width: 21cm;
+    /* 设置页面宽度为A4宽度 */
+    height: 29.7cm;
+    /* 设置页面高度为A4高度 */
+    margin: 1cm;
+    /* 设置页面边距 */
   }
+
   p {
-    line-height: 1.5rem; /*设置打印内容的行高*/
+    line-height: 1.5rem;
+    /*设置打印内容的行高*/
   }
+
   ol,
   ul,
   figure,
@@ -66,16 +75,12 @@ html {
   word-break: break-word;
   word-wrap: break-word;
   text-align: left;
-  background-image: linear-gradient(
-      90deg,
+  background-image: linear-gradient(90deg,
       rgba(50, 0, 0, 0.05) calc(3% * var(--bg-grid)),
-      rgba(0, 0, 0, 0) calc(3% * var(--bg-grid))
-    ),
-    linear-gradient(
-      360deg,
+      rgba(0, 0, 0, 0) calc(3% * var(--bg-grid))),
+    linear-gradient(360deg,
       rgba(50, 0, 0, 0.05) calc(3% * var(--bg-grid)),
-      rgba(0, 0, 0, 0) calc(3% * var(--bg-grid))
-    );
+      rgba(0, 0, 0, 0) calc(3% * var(--bg-grid)));
   background-size: 20px 20px;
   background-position: center center;
 }
@@ -89,6 +94,7 @@ html {
   font-size: 1rem;
   word-spacing: 2px;
 }
+
 #write h3:after,
 h4:after,
 h5:after,
@@ -104,12 +110,15 @@ h6:after {
 #write h3:after {
   background: var(--h3-r-graphic);
 }
+
 #write h4:after {
   background: var(--h4-r-graphic);
 }
+
 #write h5:after {
   background: var(--h5-r-graphic);
 }
+
 #write h6:after {
   background: var(--h6-r-graphic);
 }
@@ -142,12 +151,14 @@ h6:after {
   background-position: 0% 0%;
   transition: all ease-in-out 0.1s;
 }
+
 #write h2.md-heading a {
   text-decoration: underline;
   border-bottom: 0;
   text-decoration-thickness: 1.2px;
   text-underline-offset: 2px;
 }
+
 #write h2:hover {
   background-position: -100% -100%;
   transition: all ease-in-out 0.1s;
@@ -172,6 +183,7 @@ h6:after {
   border-bottom: 2px solid var(--head-title-color);
   transition: all linear 0.1s;
 }
+
 #write h4 {
   margin: 20px 0;
   font-size: 1.15rem;
@@ -222,7 +234,7 @@ h6:after {
   vertical-align: inherit;
 }
 
-/* 标题自动编号 */
+/* 标题自动编号 Write区域*/
 #write {
   counter-reset: h1;
 }
@@ -247,10 +259,72 @@ h5 {
   counter-reset: h6;
 }
 
+.sidebar-content {
+  counter-reset: h1
+}
+
+.outline-h1 {
+  counter-reset: h2
+}
+
+.outline-h2 {
+  counter-reset: h3
+}
+
+.outline-h3 {
+  counter-reset: h4
+}
+
+.outline-h4 {
+  counter-reset: h5
+}
+
+.outline-h5 {
+  counter-reset: h6
+}
+
+
+
+.md-toc-content {
+  counter-reset: h1toc
+}
+
+.md-toc-h1 {
+  counter-reset: h2toc
+}
+
+.md-toc-h2 {
+  counter-reset: h3toc
+}
+
+.md-toc-h3 {
+  counter-reset: h4toc
+}
+
+.md-toc-h4 {
+  counter-reset: h5toc
+}
+
+.md-toc-h5 {
+  counter-reset: h6toc
+}
+
+
 #write h1:before {
   counter-increment: h1;
   content: var(--autonum-h1);
 }
+
+#outline-content li.outline-h1>div>span.outline-label:before {
+  counter-increment: h1;
+  content: var(--autonum-h1);
+}
+
+#write span.md-toc-item.md-toc-h1>a:before {
+  counter-increment: h1toc;
+  content: var(--autonum-h1toc);
+}
+
 
 #write h2:before {
   counter-increment: h2;
@@ -258,29 +332,89 @@ h5 {
   color: var(--head-title-h2-color);
 }
 
-#write h3 > span::before {
+#outline-content li.outline-h2>div>span.outline-label:before {
+  counter-increment: h2;
+  content: var(--autonum-h2);
+}
+
+#write span.md-toc-item.md-toc-h2>a:before {
+  counter-increment: h2toc;
+  content: var(--autonum-h2toc);
+}
+
+
+
+#write h3>span::before {
   counter-increment: h3;
   content: var(--autonum-h3);
   color: var(--element-color);
 }
 
-#write h4 > span::before {
+#outline-content li.outline-h3>div>span.outline-label:before {
+  counter-increment: h3;
+  content: var(--autonum-h3);
+}
+
+#write span.md-toc-item.md-toc-h3>a:before {
+  counter-increment: h3toc;
+  content: var(--autonum-h3toc);
+}
+
+
+
+#write h4>span::before {
   counter-increment: h4;
   content: var(--autonum-h4);
   color: var(--element-color);
 }
 
-#write h5 > span::before {
+#outline-content li.outline-h4>div>span.outline-label:before {
+  counter-increment: h4;
+  content: var(--autonum-h4);
+}
+
+#write span.md-toc-item.md-toc-h4>a:before {
+  counter-increment: h4toc;
+  content: var(--autonum-h4toc);
+}
+
+
+
+#write h5>span::before {
   counter-increment: h5;
   content: var(--autonum-h5);
   color: var(--element-color);
 }
 
-#write h6 > span::before {
+#outline-content li.outline-h5>div>span.outline-label:before {
+  counter-increment: h5;
+  content: var(--autonum-h5);
+}
+
+#write span.md-toc-item.md-toc-h5>a:before {
+  counter-increment: h5toc;
+  content: var(--autonum-h5toc);
+}
+
+
+
+#write h6>span::before {
   counter-increment: h6;
   content: var(--autonum-h6);
   color: var(--element-color);
 }
+
+#outline-content li.outline-h6>div>span.outline-label:before {
+  counter-increment: h6;
+  content: var(--autonum-h6);
+}
+
+#write span.md-toc-item.md-toc-h6>a:before {
+  counter-increment: h6toc;
+  content: var(--autonum-h6toc);
+}
+
+
 
 /* 列表 */
 ::marker {
@@ -318,9 +452,11 @@ li.md-list-item {
 #write ol {
   list-style-type: decimal;
 }
+
 #write ol ol {
   list-style-type: lower-alpha;
 }
+
 #write ol ol ol {
   list-style-type: lower-roman;
 }
@@ -348,14 +484,15 @@ li.md-list-item {
   content: none;
 }
 
-#write .md-task-list-item > input {
+#write .md-task-list-item>input {
   margin: 0px;
   padding: 0px;
   width: 0px;
   height: 0px;
   line-height: 1.2rem;
 }
-#write .md-task-list-item > input:before {
+
+#write .md-task-list-item>input:before {
   display: inline-block;
   content: "";
   width: 1.1rem;
@@ -367,7 +504,7 @@ li.md-list-item {
   border-radius: 30%;
 }
 
-#write .md-task-list-item > input[checked]:before {
+#write .md-task-list-item>input[checked]:before {
   content: "✔";
   color: var(--element-color-deep);
   -webkit-text-stroke: 1px var(--element-color-deep);
@@ -460,6 +597,7 @@ li.md-list-item {
   font-style: italic;
   color: #000;
 }
+
 /* 高亮 */
 #write mark {
   font-weight: bolder;
@@ -665,6 +803,7 @@ kbd {
   transition: all 0.2s linear;
   box-shadow: inset 0 -1px 0 var(--element-color-so-shallow);
 }
+
 kbd:hover {
   background: var(--element-color-so-shallow);
 }
@@ -686,10 +825,12 @@ kbd:hover {
 #write table.md-table {
   overflow: hidden;
 }
+
 #write table thead {
   border-top: 1px solid #dedddd;
   border-bottom: 1px solid #dedddd;
 }
+
 #write table tbody {
   border-bottom: 1px solid #dedddd;
 }
@@ -719,9 +860,11 @@ kbd:hover {
 .md-toc * {
   font-family: "HarmonyOS_Sans_SC";
 }
-.md-tooltip-hide > span {
+
+.md-tooltip-hide>span {
   display: none;
 }
+
 .md-toc:before {
   position: relative;
   display: inline-block;
@@ -732,6 +875,7 @@ kbd:hover {
   font-weight: 700;
   color: #000;
 }
+
 .md-toc {
   padding: 20px 0;
   margin: 0 20px;
@@ -739,6 +883,7 @@ kbd:hover {
   border: 2px solid var(--element-color);
   border-radius: 5px;
 }
+
 .md-toc-item {
   line-height: 1.8em;
   display: block;
@@ -793,7 +938,7 @@ kbd:hover {
   line-height: 1.2rem;
 }
 
-.file-tree-node.active > .file-node-content {
+.file-tree-node.active>.file-node-content {
   color: var(--appui-color);
 }
 
@@ -806,7 +951,7 @@ span.file-node-title {
   padding-right: 0.2rem;
 }
 
-.file-tree-node.active > .file-node-background {
+.file-tree-node.active>.file-node-background {
   font-weight: bolder;
   border-left: 4px solid var(--appui-color);
   border-color: var(--appui-color);
@@ -827,22 +972,23 @@ span.file-node-title {
   border-radius: 3px;
   border-color: var(--appui-color);
 }
+
 #file-library-search-input:focus {
   border-width: 2px;
 }
 
 /* 侧边栏 大纲 */
-#outline-content .outline-h1 > .outline-item {
+#outline-content .outline-h1>.outline-item {
   font-size: larger;
   font-weight: bold;
   color: var(--element-color-deep);
 }
 
-#outline-content .outline-h1:not(:first-of-type) > .outline-item {
+#outline-content .outline-h1:not(:first-of-type)>.outline-item {
   margin-top: 10px;
 }
 
-#outline-content .outline-h2 > .outline-item::before {
+#outline-content .outline-h2>.outline-item::before {
   content: "";
   width: 12px;
   height: 12px;
@@ -870,19 +1016,20 @@ span.file-node-title {
   top: 21px;
 }
 
-#outline-content .outline-h2 > .outline-item:last-child:after {
+#outline-content .outline-h2>.outline-item:last-child:after {
   display: none;
 }
 
-#outline-content .outline-h2 > .outline-item > .outline-label {
+#outline-content .outline-h2>.outline-item>.outline-label {
   line-height: 1.65rem;
   margin: 0;
 }
-#outline-content .outline-h2 > .outline-item {
+
+#outline-content .outline-h2>.outline-item {
   margin-bottom: -3px;
 }
 
-#outline-content .outline-h3 > .outline-item > .outline-label {
+#outline-content .outline-h3>.outline-item>.outline-label {
   border-left: 2px solid var(--element-color);
   padding-left: 8px;
 }
@@ -903,6 +1050,7 @@ span.file-node-title {
 body.typora-export {
   padding-left: 0px;
 }
+
 .typora-export-content .outline-content::before {
   content: "目录";
   font-size: 20px;
@@ -929,7 +1077,7 @@ body.typora-export {
   width: 0;
 }
 
-.typora-export-content .outline-item-active > .outline-item::after {
+.typora-export-content .outline-item-active>.outline-item::after {
   content: "";
   position: relative;
   width: 11px;
@@ -941,6 +1089,7 @@ body.typora-export {
   z-index: 100;
   border-radius: 40% 20% 20% 40%;
 }
+
 .typora-export-content .outline-label {
   max-width: 250px;
   white-space: nowrap;
@@ -948,17 +1097,17 @@ body.typora-export {
   text-overflow: ellipsis;
 }
 
-.outline-content .outline-h1 > .outline-item {
+.outline-content .outline-h1>.outline-item {
   font-size: larger;
   font-weight: bold;
   color: var(--element-color-deep);
 }
 
-.outline-content .outline-h1:not(:first-of-type) > .outline-item {
+.outline-content .outline-h1:not(:first-of-type)>.outline-item {
   margin-top: 10px;
 }
 
-.outline-content .outline-h2 > .outline-item::before {
+.outline-content .outline-h2>.outline-item::before {
   content: "";
   width: 12px;
   height: 12px;
@@ -986,19 +1135,20 @@ body.typora-export {
   top: 21px;
 }
 
-.outline-content .outline-h2 > .outline-item:last-child:after {
+.outline-content .outline-h2>.outline-item:last-child:after {
   display: none;
 }
 
-.outline-content .outline-h2 > .outline-item > .outline-label {
+.outline-content .outline-h2>.outline-item>.outline-label {
   line-height: 1.65rem;
   margin: 0;
 }
-.outline-content .outline-h2 > .outline-item {
+
+.outline-content .outline-h2>.outline-item {
   margin-bottom: -3px;
 }
 
-.outline-content .outline-h3 > .outline-item > .outline-label {
+.outline-content .outline-h3>.outline-item>.outline-label {
   border-left: 2px solid var(--element-color);
   padding-left: 8px;
 }
