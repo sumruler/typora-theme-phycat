@@ -234,7 +234,7 @@ h6:after {
   vertical-align: inherit;
 }
 
-/* 标题自动编号 Write区域*/
+/* 标题自动编号 */
 #write {
   counter-reset: h1;
 }
@@ -262,7 +262,9 @@ h5 {
 .sidebar-content {
   counter-reset: h1
 }
-
+.outline-content {
+  counter-reset: h1
+}
 .outline-h1 {
   counter-reset: h2
 }
@@ -314,25 +316,29 @@ h5 {
   counter-increment: h1;
   content: var(--autonum-h1);
 }
-
 #outline-content li.outline-h1>div>span.outline-label:before {
   counter-increment: h1;
   content: var(--autonum-h1);
 }
-
+.outline-content .outline-h1>.outline-item>.outline-label:before{
+  counter-increment: h1;
+  content: var(--autonum-h1);
+}
 #write span.md-toc-item.md-toc-h1>a:before {
   counter-increment: h1toc;
   content: var(--autonum-h1toc);
 }
-
 
 #write h2:before {
   counter-increment: h2;
   content: var(--autonum-h2);
   color: var(--head-title-h2-color);
 }
-
-#outline-content li.outline-h2>div>span.outline-label:before {
+.outline-content .outline-h2>.outline-item>.outline-label:before {
+  counter-increment: h2;
+  content: var(--autonum-h2);
+}
+li.outline-h2>div>a.outline-label:before {
   counter-increment: h2;
   content: var(--autonum-h2);
 }
@@ -343,23 +349,23 @@ h5 {
 }
 
 
-
 #write h3>span::before {
   counter-increment: h3;
   content: var(--autonum-h3);
   color: var(--element-color);
 }
-
 #outline-content li.outline-h3>div>span.outline-label:before {
   counter-increment: h3;
   content: var(--autonum-h3);
 }
-
+.outline-content .outline-h3>.outline-item>.outline-label:before {
+  counter-increment: h3;
+  content: var(--autonum-h3);
+}
 #write span.md-toc-item.md-toc-h3>a:before {
   counter-increment: h3toc;
   content: var(--autonum-h3toc);
 }
-
 
 
 #write h4>span::before {
@@ -367,17 +373,18 @@ h5 {
   content: var(--autonum-h4);
   color: var(--element-color);
 }
-
 #outline-content li.outline-h4>div>span.outline-label:before {
   counter-increment: h4;
   content: var(--autonum-h4);
 }
-
+.outline-content .outline-h4>.outline-item>.outline-label:before {
+  counter-increment: h4;
+  content: var(--autonum-h4);
+}
 #write span.md-toc-item.md-toc-h4>a:before {
   counter-increment: h4toc;
   content: var(--autonum-h4toc);
 }
-
 
 
 #write h5>span::before {
@@ -385,17 +392,18 @@ h5 {
   content: var(--autonum-h5);
   color: var(--element-color);
 }
-
 #outline-content li.outline-h5>div>span.outline-label:before {
   counter-increment: h5;
   content: var(--autonum-h5);
 }
-
+.outline-content .outline-h5>.outline-item>.outline-label:before {
+  counter-increment: h5;
+  content: var(--autonum-h5);
+}
 #write span.md-toc-item.md-toc-h5>a:before {
   counter-increment: h5toc;
   content: var(--autonum-h5toc);
 }
-
 
 
 #write h6>span::before {
@@ -403,17 +411,18 @@ h5 {
   content: var(--autonum-h6);
   color: var(--element-color);
 }
-
 #outline-content li.outline-h6>div>span.outline-label:before {
   counter-increment: h6;
   content: var(--autonum-h6);
 }
-
+.outline-content .outline-h6>.outline-item>.outline-label:before {
+  counter-increment: h6;
+  content: var(--autonum-h6);
+}
 #write span.md-toc-item.md-toc-h6>a:before {
   counter-increment: h6toc;
   content: var(--autonum-h6toc);
 }
-
 
 
 /* 列表 */
