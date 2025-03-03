@@ -179,10 +179,10 @@ h6:after {
   border-bottom: 2px hidden var(--head-title-color);
 }
 
-#write h3 span:hover {
+/* #write h3 span:hover {
   border-bottom: 2px solid var(--head-title-color);
   transition: all linear 0.1s;
-}
+} */
 
 #write h4 {
   margin: 20px 0;
@@ -349,7 +349,7 @@ li.outline-h2>div>a.outline-label:before {
 }
 
 
-#write h3>span::before {
+#write h3>span:first-of-type::before {
   counter-increment: h3;
   content: var(--autonum-h3);
   color: var(--element-color);
