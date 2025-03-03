@@ -368,7 +368,7 @@ li.outline-h2>div>a.outline-label:before {
 }
 
 
-#write h4>span::before {
+#write h4>span:first-of-type::before {
   counter-increment: h4;
   content: var(--autonum-h4);
   color: var(--element-color);
@@ -387,7 +387,7 @@ li.outline-h2>div>a.outline-label:before {
 }
 
 
-#write h5>span::before {
+#write h5>span:first-of-type::before {
   counter-increment: h5;
   content: var(--autonum-h5);
   color: var(--element-color);
@@ -406,7 +406,7 @@ li.outline-h2>div>a.outline-label:before {
 }
 
 
-#write h6>span::before {
+#write h6>span:first-of-type::before {
   counter-increment: h6;
   content: var(--autonum-h6);
   color: var(--element-color);
