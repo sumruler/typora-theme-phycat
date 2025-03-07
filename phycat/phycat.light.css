@@ -489,51 +489,95 @@ li.md-list-item {
 }
 
 /* 任务列表样式 */
-#write .md-task-list-item:before {
-  content: none;
+
+.task-list-item input{
+  width: 1.25rem;
+  height: 1.25rem;
+  display: block;
+  -webkit-appearance: initial;
+  top: 3px;
+  left: 4px;
 }
 
-#write .md-task-list-item>input {
-  margin: 0px;
-  padding: 0px;
-  width: 0px;
-  height: 0px;
-  line-height: 1.2rem;
+.task-list-item input:focus{
+  outline: none;
+  box-shadow: none;
 }
 
-#write .md-task-list-item>input:before {
+.task-list-item input:before{
+  border: 1px solid var(--element-color-deep);
+  border-radius: 1.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  background: #fff;
+  content: ' ';
+  transition: background-color 200ms ease-in-out;
+  display: block;
+}
+
+.task-list-item input:checked:before,
+.task-list-item input[checked]:before{
+  background: var(--element-color-soo-shallow);
+  border-width: 2px;
+  display:inline-block;
+  transition: background-color 200ms ease-in-out;
+}
+
+.task-list-item input:checked:after,
+.task-list-item input[checked]:after {
+  opacity: 1;
+}
+
+/* .task-list-item input[type="checkbox"]:checked + p span {
+  text-decoration: line-through;
+  text-decoration-color:var(--element-color)
+} */
+
+.task-list-item input[type="checkbox"] + p span {
+  position: relative;
   display: inline-block;
+}
+
+.task-list-item input[type="checkbox"] + p span::after {
   content: "";
-  width: 1.1rem;
-  height: 1.1rem;
-  text-align: center;
-  vertical-align: middle;
-  background-color: #fff;
-  border: 1px solid var(--element-color);
-  border-radius: 30%;
-}
-
-#write .md-task-list-item>input[checked]:before {
-  content: "✔";
-  color: var(--element-color-deep);
-  -webkit-text-stroke: 1px var(--element-color-deep);
-  width: 1.1rem;
-  height: 1.1rem;
-  background-color: #ffffff;
-  border: 2px solid var(--element-color);
-  border-radius: 30%;
-  font-size: 0.75rem;
-  line-height: 0.8rem;
-}
-
-#write input[type="checkbox"] {
   position: absolute;
-  top: 7px;
-  left: -3px;
+  left: 0;
+  top: 52%;
+  width: calc(100%*var(--check-line));
+  height: 2px;
+  background: var(--element-color);
+  transform: scaleX(0); 
+  transform-origin: left center;
+  transition: transform 0.2s ease-in-out; 
 }
 
-#write .md-task-list-item p {
-  margin: 0px 1.8rem;
+.task-list-item input[type="checkbox"]:checked + p span::after {
+  transform: scaleX(1); 
+}
+
+.task-list-item input[type="checkbox"]:not(:checked) + p span::after {
+  transform-origin: right center; 
+  transition-delay: 0.1s; 
+}
+
+.task-list-item input:after {
+  opacity: 1;
+  -webkit-transition: opacity 0.05s ease-in-out;
+  -moz-transition: opacity 0.05s ease-in-out;
+  transition: opacity 0.05s ease-in-out;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  position: absolute;
+  top: 0.325rem;
+  left: 0.28125rem;
+  width: 0.6375rem;
+  height: 0.4rem;
+  border: 3px solid var(--element-color-deep);
+  border-top: 0;
+  border-right: 0;
+  content: ' ';
+  opacity: 0;
 }
 
 /* 引用 */
