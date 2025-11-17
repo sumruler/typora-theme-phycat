@@ -1,8 +1,6 @@
 /* 待完善 */
 /**
- * 1. 代码非等宽字体；
- * 2. kbd样式
- * 3. 行内代码样式优化
+ * 
  */
 
 /* 字体引入：鸿蒙字体 */
@@ -62,6 +60,20 @@ html {
     page-break-inside: avoid;
     break-inside: avoid;
   }
+
+  /* 兼容PDF网格打印 */
+  #write {
+    --bg-grid: 1;
+    background-image:
+      linear-gradient(90deg, rgba(50, 0, 0, 0.05) calc(3% * var(--bg-grid)), rgba(0, 0, 0, 0) calc(3% * var(--bg-grid))),
+      linear-gradient(360deg, rgba(50, 0, 0, 0.05) calc(3% * var(--bg-grid)), rgba(0, 0, 0, 0) calc(3% * var(--bg-grid))) !important;
+    background-size: 20px 20px !important;
+    background-position: center center !important;
+    filter: opacity(1);
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
 }
 
 /* 软件内部Markdown样式 */
@@ -101,10 +113,14 @@ h5:after,
 h6:after {
   content: "";
   display: inline-block;
-  margin-left: 0.2em;
   height: 2em;
-  width: 1.2em;
+  width: 2em;
   vertical-align: top;
+  margin-left: -2px;
+}
+
+#write h3:after {
+  background: var(--h3-r-graphic);
 }
 
 #write h3:after {
@@ -262,9 +278,11 @@ h5 {
 .sidebar-content {
   counter-reset: h1
 }
+
 .outline-content {
   counter-reset: h1
 }
+
 .outline-h1 {
   counter-reset: h2
 }
@@ -316,14 +334,17 @@ h5 {
   counter-increment: h1;
   content: var(--autonum-h1);
 }
+
 #outline-content li.outline-h1>div>span.outline-label:before {
   counter-increment: h1;
   content: var(--autonum-h1);
 }
-.outline-content .outline-h1>.outline-item>.outline-label:before{
+
+.outline-content .outline-h1>.outline-item>.outline-label:before {
   counter-increment: h1;
   content: var(--autonum-h1);
 }
+
 #write span.md-toc-item.md-toc-h1>a:before {
   counter-increment: h1toc;
   content: var(--autonum-h1toc);
@@ -334,10 +355,12 @@ h5 {
   content: var(--autonum-h2);
   color: var(--head-title-h2-color);
 }
+
 .outline-content .outline-h2>.outline-item>.outline-label:before {
   counter-increment: h2;
   content: var(--autonum-h2);
 }
+
 li.outline-h2>div>a.outline-label:before {
   counter-increment: h2;
   content: var(--autonum-h2);
@@ -354,14 +377,17 @@ li.outline-h2>div>a.outline-label:before {
   content: var(--autonum-h3);
   color: var(--element-color);
 }
+
 #outline-content li.outline-h3>div>span.outline-label:before {
   counter-increment: h3;
   content: var(--autonum-h3);
 }
+
 .outline-content .outline-h3>.outline-item>.outline-label:before {
   counter-increment: h3;
   content: var(--autonum-h3);
 }
+
 #write span.md-toc-item.md-toc-h3>a:before {
   counter-increment: h3toc;
   content: var(--autonum-h3toc);
@@ -373,14 +399,17 @@ li.outline-h2>div>a.outline-label:before {
   content: var(--autonum-h4);
   color: var(--element-color);
 }
+
 #outline-content li.outline-h4>div>span.outline-label:before {
   counter-increment: h4;
   content: var(--autonum-h4);
 }
+
 .outline-content .outline-h4>.outline-item>.outline-label:before {
   counter-increment: h4;
   content: var(--autonum-h4);
 }
+
 #write span.md-toc-item.md-toc-h4>a:before {
   counter-increment: h4toc;
   content: var(--autonum-h4toc);
@@ -392,14 +421,17 @@ li.outline-h2>div>a.outline-label:before {
   content: var(--autonum-h5);
   color: var(--element-color);
 }
+
 #outline-content li.outline-h5>div>span.outline-label:before {
   counter-increment: h5;
   content: var(--autonum-h5);
 }
+
 .outline-content .outline-h5>.outline-item>.outline-label:before {
   counter-increment: h5;
   content: var(--autonum-h5);
 }
+
 #write span.md-toc-item.md-toc-h5>a:before {
   counter-increment: h5toc;
   content: var(--autonum-h5toc);
@@ -411,14 +443,17 @@ li.outline-h2>div>a.outline-label:before {
   content: var(--autonum-h6);
   color: var(--element-color);
 }
+
 #outline-content li.outline-h6>div>span.outline-label:before {
   counter-increment: h6;
   content: var(--autonum-h6);
 }
+
 .outline-content .outline-h6>.outline-item>.outline-label:before {
   counter-increment: h6;
   content: var(--autonum-h6);
 }
+
 #write span.md-toc-item.md-toc-h6>a:before {
   counter-increment: h6toc;
   content: var(--autonum-h6toc);
@@ -490,7 +525,7 @@ li.md-list-item {
 
 /* 任务列表样式 */
 
-.task-list-item input{
+.task-list-item input {
   width: 1.25rem;
   height: 1.25rem;
   display: block;
@@ -499,12 +534,12 @@ li.md-list-item {
   left: 4px;
 }
 
-.task-list-item input:focus{
+.task-list-item input:focus {
   outline: none;
   box-shadow: none;
 }
 
-.task-list-item input:before{
+.task-list-item input:before {
   border: 1px solid var(--element-color-deep);
   border-radius: 1.2rem;
   width: 1.2rem;
@@ -516,10 +551,10 @@ li.md-list-item {
 }
 
 .task-list-item input:checked:before,
-.task-list-item input[checked]:before{
+.task-list-item input[checked]:before {
   background: var(--element-color-soo-shallow);
   border-width: 2px;
-  display:inline-block;
+  display: inline-block;
   transition: background-color 200ms ease-in-out;
 }
 
@@ -528,38 +563,16 @@ li.md-list-item {
   opacity: 1;
 }
 
-/* .task-list-item input[type="checkbox"]:checked + p span {
-  text-decoration: line-through;
-  text-decoration-color:var(--element-color)
-} */
-
-.task-list-item input[type="checkbox"] + p span {
+.task-list-item input[type="checkbox"]+p span {
   position: relative;
   display: inline-block;
 }
 
-.task-list-item input[type="checkbox"] + p span::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 52%;
-  width: calc(100%*var(--check-line));
-  height: 2px;
-  background: var(--element-color);
-  transform: scaleX(0); 
-  transform-origin: left center;
-  transition: transform 0.2s ease-in-out; 
+#write li.task-list-item:before{
+  left: -7.5px;
 }
 
-.task-list-item input[type="checkbox"]:checked + p span::after {
-  transform: scaleX(1); 
-}
-
-.task-list-item input[type="checkbox"]:not(:checked) + p span::after {
-  transform-origin: right center; 
-  transition-delay: 0.1s; 
-}
-
+/* 小对号 */
 .task-list-item input:after {
   opacity: 1;
   -webkit-transition: opacity 0.05s ease-in-out;
@@ -579,6 +592,50 @@ li.md-list-item {
   content: ' ';
   opacity: 0;
 }
+
+/* 删除线动画 多行不兼容，先删除，如果喜欢这个动画可取消注释，然后把下面的注释掉*/
+/* .task-list-item input[type="checkbox"]+p span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 52%;
+  width: calc(100%*var(--check-line));
+  height: 2px;
+  background: var(--element-color);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.task-list-item input[type="checkbox"]:checked+p span::after {
+  transform: scaleX(1);
+}
+
+.task-list-item input[type="checkbox"]:not(:checked)+p span::after {
+  transform-origin: right center;
+  transition-delay: 0.1s;
+} */
+
+/* 先暂时使用删除线，没想好怎么搞这个动画，呜呜呜~ */
+.task-list-item input[type="checkbox"] + p span {
+  position: relative;
+  display: inline; 
+  background-image: linear-gradient(to right, var(--element-color) 0 100%);
+  background-repeat: repeat-x; 
+  background-position: 0 55%; 
+  background-size: 100% 2px; 
+  -webkit-text-decoration-color: transparent; 
+}
+
+.task-list-item input[type="checkbox"]:checked + p span {
+  background-size: 100% 2px;
+}
+
+.task-list-item input[type="checkbox"]:not(:checked) + p span {
+  background-size: 0% 2px;
+}
+
+
 
 /* 引用 */
 
@@ -698,7 +755,7 @@ pre.md-meta-block {
   color: var(--element-color-linecode);
   background: var(--element-color-linecode-background);
   border-radius: 3px;
-  font-family: "CascadiaCode" monospace;
+  font-family: "CascadiaCode", monospace;
   letter-spacing: 0.5px;
 }
 
@@ -710,7 +767,7 @@ pre.md-meta-block {
 
 .md-fences:not([lang="mermaid"])::before {
   content: attr(lang);
-  font-family: "CascadiaCode" monospace;
+  font-family: "CascadiaCode", monospace;
   text-align: right;
   padding-right: 15px;
   color: #7e7e7e;
@@ -736,7 +793,7 @@ pre.md-meta-block {
 .cm-s-inner.CodeMirror {
   padding: 1.2rem 0.8rem;
   color: #4f5467;
-  font-family: "CascadiaCode" monospace;
+  font-family: "CascadiaCode", monospace;
   border-radius: 10px;
   background-color: #fa0303;
   /* border: 1px solid #eef2f5;*/

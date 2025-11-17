@@ -36,7 +36,7 @@
 
   --head-title-color: #11aa63;
   /* 标题主色 */
-  --head-title-h2-color: #000;
+  --head-title-h2-color: #FFF;
   --head-title-h2-background: linear-gradient(to right,
       #43bd84,
       #68eaad);
