@@ -9,8 +9,23 @@
   --h5-r-graphic: url("data:image/svg+xml;utf8,<svg fill='rgba(74, 200, 141, 0.5)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 22.857c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286zM4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 11.429c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>") no-repeat center;
   --h6-r-graphic: url("data:image/svg+xml;utf8,<svg fill='rgba(74, 200, 141, 0.5)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 11.429c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 16c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286z'/></svg>") no-repeat center;
 
-  /* 是否开启网格背景？1 是；0 否 */
-  --bg-grid: 0;
+  /* 文档背景样式 */
+  /* 交叉斜线 */
+  --grid-bg1: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h30v30H0z' fill='none'/%3E%3Cpath d='M0 0L15 15M30 0L15 15M0 30L15 15M30 30L15 15' stroke='rgba(24, 206, 0 ,0.15)' stroke-width='0.4'/%3E%3C/svg%3E") !important;
+  /* 星点图案 */
+  --grid-bg2: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M10 10l2-6l2 6l6 2l-6 2l-2 6l-2-6l-6-2Z' fill='rgba(27, 236, 0 ,0.1)'/%3E%3Cpath d='M30 15l1-3l1 3l3 1l-3 1l-1 3l-1-3l-3-1Z' fill='rgba(27, 236, 0 ,0.1)'/%3E%3Cpath d='M25 30l1.5-4.5l1.5 4.5l4.5 1.5l-4.5 1.5l-1.5 4.5l-1.5-4.5l-4.5-1.5Z' fill='rgba(27, 236, 0 ,0.1)'/%3E%3C/svg%3E") !important;
+  /* 六边形图案 */
+  --grid-bg3: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M10 5l10 0l5 8.66l-5 8.66l-10 0l-5-8.66Z' fill='none' stroke='rgba(24, 206, 0 ,0.3)' stroke-width='0.4'/%3E%3Cpath d='M20 22.32l10 0l5 8.66l-5 8.66l-10 0l-5-8.66Z' fill='none' stroke='rgba(24, 206, 0 ,0.3)' stroke-width='0.4'/%3E%3C/svg%3E") !important;
+  /* 十字圆点网格 */
+  --grid-bg4: url("data:image/svg+xml,%3Csvg width='15' height='15' viewBox='0 0 15 15' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='7.5' cy='7.5' r='0.5' fill='rgba(0,0,0,0.1)'/%3E%3Ccircle cx='7.5' cy='2.5' r='0.5' fill='rgba(0,0,0,0.1)'/%3E%3Ccircle cx='7.5' cy='12.5' r='0.5' fill='rgba(0,0,0,0.1)'/%3E%3Ccircle cx='2.5' cy='7.5' r='0.5' fill='rgba(0,0,0,0.1)'/%3E%3Ccircle cx='12.5' cy='7.5' r='0.5' fill='rgba(0,0,0,0.1)'/%3E%3C/svg%3E") !important;
+  /* 三角形图案 */
+  --grid-bg5: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h30v30H0z' fill='none'/%3E%3Cpath d='M0 0L30 0L15 15Z' fill='rgba(24, 206, 0 ,0.03)'/%3E%3Cpath d='M30 30L0 30L15 15Z' fill='rgba(24, 206, 0 ,0.03)'/%3E%3C/svg%3E") !important;
+  /* 网格背景 */
+  --grid-bg6: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v20H0z' fill='none'/%3E%3Cpath d='M20 0v20M0 20h20' stroke='rgba(24, 206, 0 ,0.12)' stroke-width='0.7'/%3E%3C/svg%3E") !important;
+
+  /* 文档背景样式  none 无背景*/
+  --bg-style: var(--grid-bg1);
+  /* --bg-style:none; */
 
   /* 已完成的代办事项是否显示删除线？1 是；0 否 */
   --check-line:1; 
@@ -66,4 +81,12 @@
   --appui-color-text: #333;
   /* 程序UI文字色 */
   --primary-color: #008145;
+}
+
+/* 是否开启PDF打印背景 */
+@media print {
+  #write {
+    /* 交叉斜线 */
+    background-image: var(--bg-style)
+  }
 }

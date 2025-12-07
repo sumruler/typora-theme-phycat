@@ -1,6 +1,8 @@
 /* 待完善 */
 /**
- * 
+ * 1. 代码非等宽字体；
+ * 2. kbd样式
+ * 3. 行内代码样式优化
  */
 
 /* 字体引入：鸿蒙字体 */
@@ -60,20 +62,7 @@ html {
     page-break-inside: avoid;
     break-inside: avoid;
   }
-
-  /* 兼容PDF网格打印 */
-  #write {
-    --bg-grid: 1;
-    background-image:
-      linear-gradient(90deg, rgba(50, 0, 0, 0.05) calc(3% * var(--bg-grid)), rgba(0, 0, 0, 0) calc(3% * var(--bg-grid))),
-      linear-gradient(360deg, rgba(50, 0, 0, 0.05) calc(3% * var(--bg-grid)), rgba(0, 0, 0, 0) calc(3% * var(--bg-grid))) !important;
-    background-size: 20px 20px !important;
-    background-position: center center !important;
-    filter: opacity(1);
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    color-adjust: exact !important;
-  }
+  
 }
 
 /* 软件内部Markdown样式 */
@@ -87,12 +76,7 @@ html {
   word-break: break-word;
   word-wrap: break-word;
   text-align: left;
-  background-image: linear-gradient(90deg,
-      rgba(50, 0, 0, 0.05) calc(3% * var(--bg-grid)),
-      rgba(0, 0, 0, 0) calc(3% * var(--bg-grid))),
-    linear-gradient(360deg,
-      rgba(50, 0, 0, 0.05) calc(3% * var(--bg-grid)),
-      rgba(0, 0, 0, 0) calc(3% * var(--bg-grid)));
+  background-image: var(--bg-style);
   background-size: 20px 20px;
   background-position: center center;
 }
@@ -530,6 +514,7 @@ li.md-list-item {
   height: 1.25rem;
   display: block;
   -webkit-appearance: initial;
+  appearance: initial;
   top: 3px;
   left: 4px;
 }
@@ -593,7 +578,7 @@ li.md-list-item {
   opacity: 0;
 }
 
-/* 删除线动画 多行不兼容，先删除，如果喜欢这个动画可取消注释，然后把下面的注释掉*/
+/* 删除线动画 多行不兼容，先删除*/
 /* .task-list-item input[type="checkbox"]+p span::after {
   content: "";
   position: absolute;
@@ -616,15 +601,13 @@ li.md-list-item {
   transition-delay: 0.1s;
 } */
 
-/* 先暂时使用删除线，没想好怎么搞这个动画，呜呜呜~ */
+
 .task-list-item input[type="checkbox"] + p span {
   position: relative;
-  display: inline; 
-  background-image: linear-gradient(to right, var(--element-color) 0 100%);
-  background-repeat: repeat-x; 
-  background-position: 0 55%; 
-  background-size: 100% 2px; 
-  -webkit-text-decoration-color: transparent; 
+  display: inline;
+  background: linear-gradient(to right, var(--element-color) 0 calc(var(--check-line) * 100%), transparent calc(var(--check-line) * 100%) 100%) repeat-x 0 55% / 100% 2px;
+  -webkit-text-decoration-color: transparent;
+  text-decoration-color: transparent;
 }
 
 .task-list-item input[type="checkbox"]:checked + p span {

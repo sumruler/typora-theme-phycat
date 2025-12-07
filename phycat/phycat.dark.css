@@ -482,6 +482,7 @@ li.md-list-item {
   height: 1.25rem;
   display: block;
   -webkit-appearance: initial;
+  appearance: initial;
   top: 3px;
   left: 4px;
 }
@@ -576,11 +577,12 @@ li.md-list-item {
 .task-list-item input[type="checkbox"] + p span {
   position: relative;
   display: inline; 
-  background-image: linear-gradient(to right, var(--element-color) 0 100%);
+  background-image: linear-gradient(to right, var(--element-color) 0 calc(100%*var(--check-line)));
   background-repeat: repeat-x; 
   background-position: 0 55%; 
   background-size: 100% 2px; 
   -webkit-text-decoration-color: transparent; 
+  text-decoration-color: transparent;
 }
 
 .task-list-item input[type="checkbox"]:checked + p span {
