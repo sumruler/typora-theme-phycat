@@ -1,103 +1,86 @@
-# 物理猫Phycat
+# Phycat theme for Typora
 
-> 一款结构清晰、层级分明的多彩Typora主题。
+> 好看的样式可以提升写作体验。
 
-> 现在，你甚至可以使用下面这个工具在微信公众号中应用这些样式！
-> 工具地址：https://sumruler.github.io/mdnice/
->
-> 感谢[Mdnice项目](https://github.com/mdnice/markdown-nice)
+起源是想找一款层次分明、易于阅读的主题，于是借鉴了Typora、Mdnice、思源笔记等平台的优秀主题，自己尝试写了一些样式，在Typora主题社区第一次发布了Phycat这个主题。我知道这个主题还不是很成熟，不过也收获了不少用户的喜爱。
 
-## 主题说明
-
-Phycat是我精心制作的一款Typora主题。主题经过精心打磨，听取了很多使用者的建议。现在共6款亮色主题、1款暗色主题。主题的主要特点有：
-
-1. 层级分明，清晰直观
-
-   1. 标题层级一目了然，无需对比才知几级标题，阅读体验极佳；
-   2. 有序和无序列表有辅助线整理大纲层级，清晰直观；
-   3. 侧边栏的文章大纲视图亦加入辅助线整理文章结构，清晰直观；
-
-2. 配色多彩，易于自定义
-
-   样式CSS文件和配色CSS文件是分开的，目前共有6款亮色主题，默认的主题色非常美观。如果你想自己增加或者修改配色，只需要复制一份phycat-color.css文件，调整主题色、深色、浅色等具体色值即可。
-
-3. 主题样式覆盖齐全、细节丰富
-
-   Phycat主题对标题、文内样式、列表、代码块、文内Toc目录、KBD按键、超链接、图片、脚注、Yaml等等都进行了样式定义，如果发现没覆盖的样式也欢迎提出issue。
-
-   主题中有很多小细节欢迎发现，例如侧边栏大纲的小子弹、超链接前面的小图标，对PDF导出的样式优化，或者你可能会发现Phycat主题是唯一一个在代码块右上角显示代码语言的Typora主题...
-
-4. 可能是对导出HTML页面支持最好的Typora主题
-
-   导出的HTML页面不仅与软件内样式完全相同，而且也专门写了HTML页面侧边大纲的样式，一样的辅助线，一样的小子弹头。你可以点击下面的链接查看导出HTML页面的效果，它们都是在Typora软件中直接导出的。
-
+不少用户提了很多建议，让我进行了很多的主题优化。我不是专业的前端人员，好在AI时代下很多问题都变得简单起来，现在**Phycat2.0主题**来了！
 
 | 主题系列 | 主题链接                                                     |
 | -------- | :----------------------------------------------------------- |
-| 亮色主题 | [沉稳红](https://sumruler.github.io/typora-theme-phycat/phycat-red.html)、[物理猫橙](https://sumruler.github.io/typora-theme-phycat/phycat-orange.html)、[前端绿](https://sumruler.github.io/typora-theme-phycat/phycat-green.html)、[薄荷青](https://sumruler.github.io/typora-theme-phycat/phycat-mint.html)、[普鲁士蓝](https://sumruler.github.io/typora-theme-phycat/phycat-plusblue.html)、[魅惑紫](https://sumruler.github.io/typora-theme-phycat/phycat-purple.html) |
-| 暗色主题 | [普鲁士蓝](https://sumruler.github.io/typora-theme-phycat/phycat-dark.html) |
+| 亮色主题 | [Cheey（樱桃红）](https://sumruler.github.io/typora-theme-phycat/demo-cherry.html)、[Caramel（焦糖橙）](https://sumruler.github.io/typora-theme-phycat/demo-caramel.html)、[Forest（森绿）](https://sumruler.github.io/typora-theme-phycat/demo-forest.html)、[Mint（薄荷青）](https://sumruler.github.io/typora-theme-phycat/demo-mint.html)、[Sky（天蓝）](https://sumruler.github.io/typora-theme-phycat/demo-sky.html)、[Prussian（普鲁士蓝）](https://sumruler.github.io/typora-theme-phycat/demo-prussian.html)、[Sakura（樱花粉）](https://sumruler.github.io/typora-theme-phycat/demo-sakura.html)[Mauve（淡紫）](https://sumruler.github.io/typora-theme-phycat/demo-Mauve.html) |
+| 暗色主题 | [Dark](https://sumruler.github.io/typora-theme-phycat/demo-dark.html) |
 
-   
+![image-20251224115955956](assets\image-20251224115955956.png)
 
-**每款主题都可以设置开启网格背景，具体方法可以查看下面的Q&A。**
+![image-20251224120012815](assets\image-20251224120012815.png)
 
-这里特别推荐沉稳红、薄荷蓝、普鲁士蓝。
+![image-20251224120026467](assets\image-20251224120026467.png)
 
-## 主题截图
+![image-20251224120056979](assets\image-20251224120056979.png)
 
-### 正文
+![image-20251224120115544](assets\image-20251224120115544.png)
 
-![正文](https://cdn.phycat.cn/localediter/202412131700150.png)
+![image-20251224120135916](assets\image-20251224120135916.png)
 
-### 标题
+## 设计语言
 
-![Clip_2024-12-13_12-15-19](https://cdn.phycat.cn/localediter/202412131215818.png)
+- 清晰、分明、简洁、圆润、灵动、时尚
 
-### 列表
+- 字体
+  - 标题：*HarmonyOS_Sans_SC*
+  - 段落正文：*SourceHanSerifCN*
+- 卡片风格：*气泡*、*毛玻璃*
 
-![图像-1734063823459](https://cdn.phycat.cn/localediter/202412131224889.jpg)
+## 主题特点
 
-### 代码
+1. **美观**：*好看的样式可以提升写作体验* ✍️。
+2. **分明**：标题、列表、大纲都进行了精心设计，标题一眼就能看出是几级标题，列表、大纲目录层级非常**分明易读** 。
+3. **灵动**：精心设计了大量动画效果——**Hover动画** ✨、**任务列表**完成动画等等 ✅。在给你一些小惊喜的同时不影响布局，只增强阅读与编辑体验 ⚖️。
+4. **细节**：大纲目录后跳动的星星 🌟、超链接转动的小图标 🔗、代码块右上角的代码语言 💻、为 Yaml、KBD 键盘专门书写的样式 ⌨️、多套背景样式、PDF 导出样式优化等等，处处都有**小巧思** 💡。
+5. **导出 HTML 深度优化**：导出的 HTML 完美兼容软件内样式 🌐，大纲目录样式也进行了深度优化设计。样式预览页面都是直接导出的 HTML 页面，相信你看了会喜欢的 ❤️。
+6. **配色丰富且易定制**：主题内置了八种配色 🎨：
+   🍒 *Cherry（樱桃红）*、🍮 *Caramel（焦糖橙）*、🌲 *Forest（森绿）*🌿、 *Mint（薄荷青）*、💎 *Sky（天蓝）*、🌊 *Prussian（普鲁士蓝）、*🌸 *Sakura（樱花粉）*、🍇 *Mauve（淡紫）*
+    配色文件与样式文件分离，复制一份即可轻松修改。**如果不会搭配，也可以让 AI 生成一套好看的配色** 🤖。
+7. **便捷功能开关**：在配色 CSS 文件中，可以通过简单调整快速启用或改变**背景样式**、**自动编号**等功能 ⚙️。
 
-![Clip_2024-12-13_12-24-54](https://cdn.phycat.cn/localediter/202412131226019.png)
+## 样式预览
 
-### 侧栏大纲
+点击链接预览即可，都是直接通过Typora导出的HTML文件
 
-![Clip_2024-12-13_12-26-47](https://cdn.phycat.cn/localediter/202412131227161.png)
+| 主题系列 | 主题链接                                                     |
+| -------- | :----------------------------------------------------------- |
+| 亮色主题 | [Cheey（樱桃红）](https://sumruler.github.io/typora-theme-phycat/demo-cherry.html)、[Caramel（焦糖橙）](https://sumruler.github.io/typora-theme-phycat/demo-caramel.html)、[Forest（森绿）](https://sumruler.github.io/typora-theme-phycat/demo-forest.html)、[Mint（薄荷青）](https://sumruler.github.io/typora-theme-phycat/demo-mint.html)、[Sky（天蓝）](https://sumruler.github.io/typora-theme-phycat/demo-sky.html)、[Prussian（普鲁士蓝）](https://sumruler.github.io/typora-theme-phycat/demo-prussian.html)、[Sakura（樱花粉）](https://sumruler.github.io/typora-theme-phycat/demo-sakura.html)[Mauve（淡紫）](https://sumruler.github.io/typora-theme-phycat/demo-Mauve.html) |
+| 暗色主题 | [Dark](https://sumruler.github.io/typora-theme-phycat/demo-dark.html) |
 
-## Q&A
+## 使用方法
 
-### 安装使用方法
+1. 从[Releases · sumruler/typora-theme-phycat](https://github.com/sumruler/typora-theme-phycat/releases)下载最新的主题包
 
-1. 打开主题文件夹
+2. 将`phycat`文件夹与所有CSS文件放进Typora主题目录下
+   复制下面内容，WIN+R运行即可快速打开
 
-   打开Typora➡️文件➡️偏好设置➡️外观➡️打开主题文件夹
+   ```bash
+   %appdata%\Typora\themes
+   ```
 
-2. 下载realses中的[Releases](https://github.com/sumruler/typora-theme-phycat/releases)中的typora-theme-phycat.zip文件
+3. 重启Typora，在主题中启用相应主题即可
 
-3. 解压所有文件，并将phycat文件夹和所有css文件全部复制到主题文件夹theme中
+## 常见问题
 
-4. 重启typora软件，切换主题使用
+### 1. 导出网页如何具有侧边栏大纲
 
-### 如何在导出的网页中开启侧边栏大纲
-1. 在偏好设置>>导出>>HTML中开启侧边大纲并开启使用当前主题
-2. 在编辑器页面显示大纲视图。
+在偏好设置，找到导出，选择HTML，勾选保留侧边栏大纲
 
-如此导出的HTML页面就包括大纲视图了。
+### 2. 如何开启自动编号
 
-### 如何开启网格背景
+在配色CSS文件中（例如phycat-forest.css)，取消注释对应的自动编号级别即可
 
-在主题色的css文件中，例如phycat-red.css，调整--bg-grid的值即可
+### 3. 如何开启或更换背景图案
 
-<img src="https://cdn.phycat.cn/localediter/202412131232733.png" alt="Clip_2024-12-13_12-31-00" style="zoom: 67%;" />
+在配色CSS文件中（例如phycat-forest.css)，更改`--bg-style`变量即可
 
-### 如何开启标题自动编号
-
-在主题色的css文件中，例如phycat-red.css，按照说明开启自动编号即可。可选择全部开启或部分开启各级标题的自动编号功能。通过简单修改可以调整自动编号的样式。如果希望从二级标题开始编号，只需要注释`--autonum-h1: counter(h1) ". "`和` --autonum-h1toc: counter(h1toc) ". ";`并删除其他含有h1的内容即可。
-
-<img src="https://cdn.phycat.cn/localediter/202412181946837.png" alt="Clip_2024-12-18_19-46-38" style="zoom: 67%;" />
-
-## 鸣谢
+## 致谢
 
 这个主题借鉴参考了众多优秀主题和平台，在此特别感谢
 
@@ -107,9 +90,13 @@ Phycat是我精心制作的一款Typora主题。主题经过精心打磨，听�
 4. [思源笔记Savor主题](https://github.com/royc01/notion-theme)
 5. [Mdnice项目](https://github.com/mdnice/markdown-nice)
 
-## 打赏此主题作者
+## 待更新计划
 
-<img src="https://cdn.phycat.cn/localediter/202412131242586.jpg" alt="PayCOde" style="zoom: 50%;" />
+- [ ] 提示框样式的优化
+- [ ] 暗色主题的重构
 
+## 打赏
 
+如果你喜欢这套主题，可以选择打赏支持。不胜感激！
 
+<img src="D:\WorkTop2\typora-theme-phycat\assets\image-20251224165551114.png" alt="image-20251224165551114" style="zoom:33%;" /><img src="D:\WorkTop2\typora-theme-phycat\assets\image-20251224165606988.png" alt="image-20251224165606988" style="zoom:33%;" />

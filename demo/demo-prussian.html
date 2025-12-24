@@ -1,0 +1,2195 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'><style type='text/css'>html {overflow-x: initial !important;}</style>
+<style type='text/css'  id="style-mermaid">:root { --mermaid-theme: default; --mermaid-sequence-numbers: off; --mermaid-flowchart-curve: linear; --mermaid--gantt-left-padding: 75; --sequence-theme: simple; }
+.privacy { display: none; }
+
+</style>
+<style type='text/css'  id="style-base">:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
+.mac-os-11 { --title-bar-height: 28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, "Segoe UI Emoji", "SF Pro", sans-serif; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5 { white-space: pre-wrap; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p *, #write.first-line-indent svg * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; position: relative; }
+#write svg h1, #write svg h2, #write svg h3, #write svg h4, #write svg h5, #write svg h6, #write svg p { position: static; }
+.nodeLabel p { padding-right: 2px; padding-left: 2px; }
+.typora-export .nodeLabel p { padding-right: 0px; padding-left: 0px; }
+foreignobject { overflow: visible; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+li p { orphans: 1; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+thead, tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+svg { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; border-color: transparent !important; padding-top: 0px !important; padding-bottom: 0px !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  #write > p:nth-child(1) { margin-top: 0px; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+  figure { overflow-x: visible; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.reversefootnote { font-family: ui-monospace, sans-serif; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.mermaid-svg { margin: auto; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex: 2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; overflow-wrap: anywhere; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+mjx-container { break-inside: avoid; }
+.md-alert.md-alert-note { border-left-color: rgb(9, 105, 218); }
+.md-alert.md-alert-important { border-left-color: rgb(130, 80, 223); }
+.md-alert.md-alert-warning { border-left-color: rgb(154, 103, 0); }
+.md-alert.md-alert-tip { border-left-color: rgb(31, 136, 61); }
+.md-alert.md-alert-caution { border-left-color: rgb(207, 34, 46); }
+.md-alert { padding: 0px 1em; margin-bottom: 16px; color: inherit; border-left: 0.25em solid rgb(0, 0, 0); }
+.md-alert-text-note { color: rgb(9, 105, 218); }
+.md-alert-text-important { color: rgb(130, 80, 223); }
+.md-alert-text-warning { color: rgb(154, 103, 0); }
+.md-alert-text-tip { color: rgb(31, 136, 61); }
+.md-alert-text-caution { color: rgb(207, 34, 46); }
+.md-alert-text { font-size: 0.9rem; font-weight: 700; }
+.md-alert-text svg { fill: currentcolor; position: relative; top: 0.125em; margin-right: 1ch; overflow: visible; }
+.md-alert-text-container::after { content: attr(data-text); text-transform: capitalize; pointer-events: none; margin-right: 1ch; }
+
+</style>
+<style type='text/css'  id="style-codemirror">.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; outline: 0px; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: auto hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 10px; z-index: 3; overflow-y: hidden; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; inset: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+span.cm-underlined { text-decoration: underline; }
+span.cm-strikethrough { text-decoration: line-through; }
+.cm-tw-syntaxerror { color: rgb(255, 255, 255); background-color: rgb(153, 0, 0); }
+.cm-tw-deleted { text-decoration: line-through; }
+.cm-tw-header5 { font-weight: 700; }
+.cm-tw-listitem:first-child { padding-left: 10px; }
+.cm-tw-box { border-style: solid; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-color: inherit; border-top-width: 0px !important; }
+.cm-tw-underline { text-decoration: underline; }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+</style>
+<style type='text/css'  id="style-theme_css">html {
+  font-size: 16px;
+  font-family: "HarmonyOS_Sans_SC";
+}
+
+/* 打印页面设置 */
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+    /*确保打印颜色一致*/
+    print-color-adjust: exact;
+  }
+
+  body {
+    width: 21cm;
+    /* 设置页面宽度为A4宽度 */
+    height: 29.7cm;
+    /* 设置页面高度为A4高度 */
+    margin: 1cm;
+    /* 设置页面边距 */
+  }
+
+  p {
+    line-height: 1.5rem;
+    /*设置打印内容的行高*/
+  }
+
+  ol,
+  ul,
+  figure,
+  pre {
+    /*设置一些元素不会被分页截断对应有序列表、无序列表、图片(表格)、代码块*/
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+}
+
+/* 软件内部Markdown样式 */
+#write {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 15px;
+  line-height: 2.25;
+  color: #000;
+  letter-spacing: 1.1px;
+  word-break: break-word;
+  word-wrap: break-word;
+  text-align: left;
+
+  /* 关键修改：移除旧的 background-image 定义 */
+  position: relative;
+  z-index: 0;
+  /* 建立层叠上下文 */
+}
+
+/* 新增：使用伪元素实现遮罩背景 */
+#write::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  /* 让鼠标点击穿透，不影响文字选择 */
+  z-index: -1;
+  /* 置于底层 */
+
+  /* 1. 颜色控制：直接使用主题变量 */
+  background-color: var(--element-color);
+
+  /* 2. 透明度控制：统一调整纹理深浅 (0.05 ~ 0.2 之间比较合适) */
+  opacity: 0.12;
+
+  /* 3. 形状控制：使用 Mask */
+  -webkit-mask-image: var(--bg-style);
+  mask-image: var(--bg-style);
+
+  /* 4. 纹理尺寸与重复 (对应原来的 background-size) */
+  -webkit-mask-size: 20px 20px;
+  mask-size: 20px 20px;
+
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+#write p {
+  color: #333;
+  margin: 10px 10px;
+  font-family: Optima-Regular, Optima,"SourceHanSerifCN", PingFangSC-light, PingFangTC-light,
+    "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 1rem;
+  word-spacing: 2px;
+}
+
+#write h3:after,
+h4:after,
+h5:after,
+h6:after:not(.input-group-header) {
+  content: "";
+  display: inline-block;
+  height: 2em;
+  width: 2em;
+  vertical-align: top;
+  margin-left: -2px;
+  background-color: var(--element-color-shallow);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: 24px 24px;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 24px 24px;
+}
+
+#write h3:after {
+  -webkit-mask-image: var(--h3-icon-shape);
+  mask-image: var(--h3-icon-shape);
+}
+
+#write h4:after {
+  -webkit-mask-image: var(--h4-icon-shape);
+  mask-image: var(--h4-icon-shape);
+}
+
+#write h5:after {
+  -webkit-mask-image: var(--h5-icon-shape);
+  mask-image: var(--h5-icon-shape);
+}
+
+#write h6:after {
+  -webkit-mask-image: var(--h6-icon-shape);
+  mask-image: var(--h6-icon-shape);
+}
+
+/* ================= H1 标题样式优化 (方案 1: 经典短线 - 常驻显示) ================= */
+
+#write h1 {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 1em auto 0.8em;
+  line-height: 1.4;
+
+  /* 关键：使用 table 让宽度自适应文字内容，确保线条和文字等宽 */
+  display: table;
+
+  color: #222;
+  position: relative;
+  padding-bottom: 12px;
+  /* 增加底部空间给线条 */
+
+  transition: color 0.3s ease, transform 0.3s ease;
+  border-bottom: none;
+  /* 清除默认下划线 */
+}
+
+/* 底部线条 (伪元素) */
+#write h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+
+  /* [核心设计] 初始宽度：40px (常驻精致短线) */
+  width: 40px;
+  height: 4px;
+  border-radius: 4px;
+
+  /* [优化] 使用主题定义的 H2 渐变背景 (色彩饱满) */
+  /* background-size: 100% 确保完整展示 A->B->A 的对称渐变结构 */
+  background: var(--head-title-h2-background);
+  background-size: 100% auto;
+
+  /* 居中定位 */
+  transform: translateX(-50%);
+
+  /* 动效过渡：贝塞尔曲线让展开更有弹性 */
+  transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Hover 交互效果 */
+#write h1:hover {
+  color: var(--head-title-color);
+  /* 文字变主题色 */
+  transform: translateY(-2px);
+  /* 微微上浮 */
+}
+
+#write h1:hover::after {
+  /* Hover 时展开至 100% */
+  width: 100%;
+}
+
+/* H2 */
+#write h2 {
+  color: var(--head-title-h2-color);
+  font-size: 1.4rem;
+  line-height: 1.5;
+  width: fit-content;
+  font-weight: bold;
+  margin: 20px 0;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: var(--head-title-h2-background);
+  background-size: 200% auto;
+  background-position: 0% center;
+  box-shadow: 0 2px 5px rgba(61, 184, 211, 0.15);
+  transition: background-position 0.5s ease-out, transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+#write h2:hover {
+  background-position: 100% center;
+  transform: scale(1.01);
+  box-shadow: 0 8px 20px rgba(61, 184, 211, 0.35);
+}
+
+/* H3 */
+#write h3 {
+  position: relative;
+  width: fit-content;
+  margin: 20px 0;
+  text-align: left;
+  font-size: 1.3rem;
+  padding-left: 10px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#write h3 {
+  position: relative;
+  width: fit-content;
+  margin: 20px 0;
+  text-align: left;
+  font-size: 1.3rem;
+  padding-left: 10px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#write h3::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 61%;
+  border-radius: 4px;
+  background-color: var(--head-title-color);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#write h3 span {
+  border-bottom: 2px hidden var(--head-title-color);
+  transition: color 0.3s ease;
+}
+
+#write h3:hover {
+  padding-left: 18px;
+  color: var(--head-title-color);
+  cursor: pointer;
+}
+
+#write h3:hover::before {
+  height: 66%;
+  background-color: var(--head-title-color);
+  width: 7px;
+}
+
+/* H4~H5 */
+#write h4,
+#write h5,
+#write h6 {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#write h4::before,
+#write h5::before,
+#write h6::before {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* H4 */
+#write h4 {
+  margin: 20px 0;
+  font-size: 1.15rem;
+  text-align: left;
+}
+
+#write h4::before {
+  content: "";
+  margin-right: 7px;
+  display: inline-block;
+  background-color: var(--head-title-color);
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  border: var(--head-title-color) 1px solid;
+  vertical-align: inherit;
+}
+
+#write h4:hover::before {
+  transform: scale(1.3);
+  box-shadow: 0 0 0 4px var(--element-color-soo-shallow);
+}
+
+/* H5 */
+#write h5 {
+  margin: 23px 0;
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+#write h5::before {
+  content: "";
+  margin-right: 7px;
+  display: inline-block;
+  background-color: #ffffff;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  border: var(--head-title-color) 2px solid;
+  vertical-align: inherit;
+  box-sizing: border-box;
+}
+
+#write h5:hover::before {
+  background-color: var(--head-title-color);
+  transform: scale(1.2);
+  box-shadow: 0 0 0 3px var(--element-color-soo-shallow);
+}
+
+/* H6 */
+#write h6 {
+  margin: 23px 0;
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+#write h6::before {
+  content: "-";
+  color: var(--head-title-color);
+  margin-right: 7px;
+  display: inline-block;
+  vertical-align: inherit;
+}
+
+#write h6:hover::before {
+  transform: scaleX(1.8) translateX(1px);
+  font-weight: bold;
+}
+
+#write h4:hover,
+#write h5:hover,
+#write h6:hover {
+  color: var(--element-color-deep);
+  transform: translateX(6px);
+}
+
+#write {
+  counter-reset: h1;
+}
+
+h1 {
+  counter-reset: h2;
+}
+
+h2 {
+  counter-reset: h3;
+}
+
+h3 {
+  counter-reset: h4;
+}
+
+h4 {
+  counter-reset: h5;
+}
+
+h5 {
+  counter-reset: h6;
+}
+
+.sidebar-content {
+  counter-reset: h1
+}
+
+.outline-content {
+  counter-reset: h1
+}
+
+.outline-h1 {
+  counter-reset: h2
+}
+
+.outline-h2 {
+  counter-reset: h3
+}
+
+.outline-h3 {
+  counter-reset: h4
+}
+
+.outline-h4 {
+  counter-reset: h5
+}
+
+.outline-h5 {
+  counter-reset: h6
+}
+
+
+
+.md-toc-content {
+  counter-reset: h1toc
+}
+
+.md-toc-h1 {
+  counter-reset: h2toc
+}
+
+.md-toc-h2 {
+  counter-reset: h3toc
+}
+
+.md-toc-h3 {
+  counter-reset: h4toc
+}
+
+.md-toc-h4 {
+  counter-reset: h5toc
+}
+
+.md-toc-h5 {
+  counter-reset: h6toc
+}
+
+
+#write h1:before {
+  counter-increment: h1;
+  content: var(--autonum-h1);
+}
+
+#outline-content li.outline-h1>div>span.outline-label:before {
+  counter-increment: h1;
+  content: var(--autonum-h1);
+}
+
+.outline-content .outline-h1>.outline-item>.outline-label:before {
+  counter-increment: h1;
+  content: var(--autonum-h1);
+}
+
+#write span.md-toc-item.md-toc-h1>a:before {
+  counter-increment: h1toc;
+  content: var(--autonum-h1toc);
+}
+
+#write h2:before {
+  counter-increment: h2;
+  content: var(--autonum-h2);
+  color: var(--head-title-h2-color);
+}
+
+.outline-content .outline-h2>.outline-item>.outline-label:before {
+  counter-increment: h2;
+  content: var(--autonum-h2);
+}
+
+li.outline-h2>div>a.outline-label:before {
+  counter-increment: h2;
+  content: var(--autonum-h2);
+}
+
+#write span.md-toc-item.md-toc-h2>a:before {
+  counter-increment: h2toc;
+  content: var(--autonum-h2toc);
+}
+
+
+#write h3>span:first-of-type::before {
+  counter-increment: h3;
+  content: var(--autonum-h3);
+  color: var(--element-color);
+}
+
+#outline-content li.outline-h3>div>span.outline-label:before {
+  counter-increment: h3;
+  content: var(--autonum-h3);
+}
+
+.outline-content .outline-h3>.outline-item>.outline-label:before {
+  counter-increment: h3;
+  content: var(--autonum-h3);
+}
+
+#write span.md-toc-item.md-toc-h3>a:before {
+  counter-increment: h3toc;
+  content: var(--autonum-h3toc);
+}
+
+
+#write h4>span:first-of-type::before {
+  counter-increment: h4;
+  content: var(--autonum-h4);
+  color: var(--element-color);
+}
+
+#outline-content li.outline-h4>div>span.outline-label:before {
+  counter-increment: h4;
+  content: var(--autonum-h4);
+}
+
+.outline-content .outline-h4>.outline-item>.outline-label:before {
+  counter-increment: h4;
+  content: var(--autonum-h4);
+}
+
+#write span.md-toc-item.md-toc-h4>a:before {
+  counter-increment: h4toc;
+  content: var(--autonum-h4toc);
+}
+
+
+#write h5>span:first-of-type::before {
+  counter-increment: h5;
+  content: var(--autonum-h5);
+  color: var(--element-color);
+}
+
+#outline-content li.outline-h5>div>span.outline-label:before {
+  counter-increment: h5;
+  content: var(--autonum-h5);
+}
+
+.outline-content .outline-h5>.outline-item>.outline-label:before {
+  counter-increment: h5;
+  content: var(--autonum-h5);
+}
+
+#write span.md-toc-item.md-toc-h5>a:before {
+  counter-increment: h5toc;
+  content: var(--autonum-h5toc);
+}
+
+
+#write h6>span:first-of-type::before {
+  counter-increment: h6;
+  content: var(--autonum-h6);
+  color: var(--element-color);
+}
+
+#outline-content li.outline-h6>div>span.outline-label:before {
+  counter-increment: h6;
+  content: var(--autonum-h6);
+}
+
+.outline-content .outline-h6>.outline-item>.outline-label:before {
+  counter-increment: h6;
+  content: var(--autonum-h6);
+}
+
+#write span.md-toc-item.md-toc-h6>a:before {
+  counter-increment: h6toc;
+  content: var(--autonum-h6toc);
+}
+
+
+/* 列表 */
+::marker {
+  color: var(--element-color-deep);
+}
+
+li.md-list-item {
+  margin: 0.4rem 0;
+}
+
+#write ul,
+#write ol {
+  margin-top: 0px;
+  margin-left: 16px;
+  margin-bottom: 8px;
+  padding-left: 13px;
+}
+
+#write em {
+  padding: 0 3px 0 0;
+}
+
+#write ul {
+  list-style-type: disc;
+}
+
+#write ul ul {
+  list-style-type: circle;
+}
+
+#write ul ul ul {
+  list-style-type: square;
+}
+
+#write ol {
+  list-style-type: decimal;
+}
+
+#write ol ol {
+  list-style-type: lower-alpha;
+}
+
+#write ol ol ol {
+  list-style-type: lower-roman;
+}
+
+#write li section {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  line-height: 1.7rem;
+  text-align: justify;
+  color: #000000;
+  font-weight: 500;
+}
+
+#write li:before {
+  content: "";
+  height: calc(100% - 50px);
+  top: 35px;
+  position: absolute;
+  border-left: 0.5px solid var(--element-color);
+  left: -14.5px;
+}
+
+/* 任务列表样式 */
+
+#write .task-list-item input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.3rem;
+  height: 1.3rem;
+  position: absolute;
+  top: 3px;
+  left: -22px;
+  outline: none;
+  cursor: pointer;
+  z-index: 1;
+}
+
+#write .task-list-item input::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -2px;
+  left: 18px;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid var(--element-color-deep, #ffa531);
+  background: #fff;
+  transition: all 0.4s cubic-bezier(0.5, 1.6, 0.4, 0.7);
+  box-sizing: border-box;
+}
+
+#write .task-list-item input::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 40%;
+  left: 138%;
+  width: 0.35rem;
+  height: 0.65rem;
+  border: solid #fff;
+  border-width: 0 2.5px 2.5px 0;
+  transform: translate(-50%, -60%) rotate(45deg) scale(1);
+  transition: all 0.3s cubic-bezier(0.5, 1.6, 0.4, 0.7);
+  opacity: 0;
+}
+
+#write .task-list-item input:checked::before {
+  background: var(--element-color, #ffc000);
+  border-color: var(--element-color, #ffc000);
+  transform: scale(1.05);
+  animation: task-pulse 0.4s forwards;
+}
+
+@keyframes task-pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+#write .task-list-item input:checked::after {
+  opacity: 1;
+  transform: translate(-50%, -60%) rotate(45deg) scale(1);
+}
+
+#write .task-list-item input[type="checkbox"]+p span,
+#write .task-list-item input[type="checkbox"]+span {
+  position: relative;
+  display: inline;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: color 0.4s ease;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0% 50%;
+  background-size: 0% 1.5px;
+  background-repeat: no-repeat;
+  transition: background-size 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.4s;
+}
+
+#write .task-list-item input[type="checkbox"]:checked+p span,
+#write .task-list-item input[type="checkbox"]:checked+span {
+  color: #bbb;
+  background-size: 100% 1.5px;
+}
+
+#write li.task-list-item {
+  position: relative;
+}
+
+
+/* 引用 */
+
+#write blockquote {
+  position: relative;
+  margin: 20px 0;
+  padding: 18px 20px 18px 48px;
+  background-color: var(--element-color-soo-shallow);
+  border: none;
+  border-radius: 16px;
+  color: #555;
+  line-height: 1.6;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
+}
+
+/* 图标装饰 (可以把 content 里的 ✨ 换成 💡, 📝, 📌 等) */
+#write blockquote::before {
+  content: "✨";
+  position: absolute;
+  left: 16px;
+  top: 18px;
+  font-size: 20px;
+  line-height: 1;
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+}
+
+#write blockquote p {
+  color: #555;
+  margin-bottom: 0.5em;
+}
+
+#write blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+#write blockquote:hover {
+  transform: scale(1.02);
+}
+
+/* 超链接 */
+#write a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 2px 4px;
+  margin: 0 -2px;
+  border-radius: 4px;
+  background: transparent;
+  border-bottom: none;
+  transition: all 0.2s ease;
+}
+
+#write p a:not(.md-toc-inner)::before {
+  content: '';
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 2px;
+  vertical-align: -0.15em;
+  background-color: var(--element-color);
+  -webkit-mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath d='M477.934459 330.486594A50.844091 50.844091 0 0 1 406.752731 258.796425L512 152.532274a254.220457 254.220457 0 0 1 359.467726 359.467726L762.66137 618.772592a50.844091 50.844091 0 1 1-71.690168-71.690169l106.772591-106.772592a152.532274 152.532274 0 0 0-215.578947-215.578947z m70.164846 361.501489A50.844091 50.844091 0 1 1 619.789474 762.66137l-107.281033 107.281033A254.220457 254.220457 0 0 1 152.532274 512L259.813307 406.752731a50.844091 50.844091 0 1 1 72.19861 69.656405l-107.789474 107.281033a152.532274 152.532274 0 0 0 215.578947 215.578947z m-126.601788-16.77855a50.844091 50.844091 0 1 1-71.690168-71.690169l251.678252-251.678252a50.844091 50.844091 0 0 1 71.690169 71.690169z'/%3E%3C/svg%3E") no-repeat center / contain;
+  mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath d='M477.934459 330.486594A50.844091 50.844091 0 0 1 406.752731 258.796425L512 152.532274a254.220457 254.220457 0 0 1 359.467726 359.467726L762.66137 618.772592a50.844091 50.844091 0 1 1-71.690168-71.690169l106.772591-106.772592a152.532274 152.532274 0 0 0-215.578947-215.578947z m70.164846 361.501489A50.844091 50.844091 0 1 1 619.789474 762.66137l-107.281033 107.281033A254.220457 254.220457 0 0 1 152.532274 512L259.813307 406.752731a50.844091 50.844091 0 1 1 72.19861 69.656405l-107.789474 107.281033a152.532274 152.532274 0 0 0 215.578947 215.578947z m-126.601788-16.77855a50.844091 50.844091 0 1 1-71.690168-71.690169l251.678252-251.678252a50.844091 50.844091 0 0 1 71.690169 71.690169z'/%3E%3C/svg%3E") no-repeat center / contain;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#write a:not(.md-toc-inner):hover {
+  color: var(--element-color-deep);
+  background: var(--element-color-soo-shallow);
+}
+
+/* 图标部分：旋转 180 度 */
+#write a:hover:not(.md-toc-inner)::before {
+  transform: rotate(180deg);
+  background-color: var(--element-color-deep);
+}
+
+#write a:visited {
+  color: var(--element-color-deep);
+}
+
+#write sup a::before {
+  content: none;
+}
+
+/* 高亮 */
+
+#write mark {
+  background-color: var(--element-color-so-shallow);
+  color: inherit;
+  padding: 2px 6px;
+  border-radius: 6px;
+  margin: 0 2px;
+  position: relative;
+  transition: all 0.3s ease;
+  /* 确保跨行时样式连续 */
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+#write mark::before,
+#write mark::after {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--element-color-deep);
+  font-weight: bold;
+  font-family: "Courier New", monospace;
+  font-size: 1.1em;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#write mark::before {
+  content: '{';
+  left: -5px;
+}
+
+#write mark::after {
+  content: '}';
+  right: -5px;
+}
+
+#write mark:hover {
+  background-color: var(--element-color);
+  color: #fff;
+  border-radius: 4px;
+  padding: 2px 12px;
+}
+
+#write mark:hover::before {
+  opacity: 1;
+  left: 3px;
+}
+
+#write mark:hover::after {
+  opacity: 1;
+  right: 3px;
+}
+
+/* 粗体 */
+#write strong {
+  color: var(--element-color);
+  font-weight: bold;
+  display: inline-block;
+  transition: transform 0.2s cubic-bezier(0.5, 1.5, 0.5, 1);
+}
+
+#write strong:hover {
+  transform: translateY(-2px) scale(1.1);
+  text-shadow: 2px 2px 0 var(--element-color-soo-shallow);
+}
+
+/* 斜体 */
+#write em {
+  font-style: italic;
+  color: #555;
+  text-decoration: none;
+  padding: 0 2px;
+  transition: all 0.3s ease;
+}
+
+#write em:hover {
+  color: var(--element-color);
+  text-decoration: underline wavy var(--element-color-shallow);
+  text-underline-offset: 4px;
+}
+
+/* 删除线 */
+#write del {
+  text-decoration: line-through;
+  text-decoration-color: var(--element-color);
+  color: #999;
+  transition: all 0.3s ease;
+}
+
+#write del:hover {
+  opacity: 0.6;
+  text-decoration-color: var(--element-color-deep);
+  cursor: not-allowed;
+}
+
+/* 分割线 */
+#write hr {
+  border: none;
+  border-top: 3px dashed var(--element-color-shallow);
+  margin: 30px 0;
+  opacity: 0.6;
+  transform: scaleX(0.8);
+  transition: all 0.4s ease;
+}
+
+#write hr:hover {
+  transform: scaleX(1);
+  border-color: var(--element-color);
+  opacity: 1;
+}
+
+/* 图片 */
+#write p:has(img) {
+  text-align: center;
+}
+
+#write img {
+  border-radius: 12px;
+  display: inline-block;
+  margin: 15px 5px;
+  object-fit: contain;
+  filter: brightness(1) contrast(1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-width: 100%;
+  cursor: zoom-in;
+}
+
+#write p>img:only-child {
+  display: block;
+  margin: 20px auto;
+}
+
+#write img:hover {
+  filter: brightness(1.05) contrast(1.05);
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px -4px var(--element-color-soo-shallow);
+  z-index: 10;
+}
+
+/* 图片描述 */
+#write figcaption {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #888;
+  text-align: center;
+  line-height: 1.5;
+  font-family: "HarmonyOS_Sans_SC", -apple-system, sans-serif;
+  transition: color 0.3s ease;
+}
+
+#write p:hover>img+figcaption,
+#write figure:hover>figcaption {
+  color: var(--element-color-deep);
+}
+
+/* YMAL */
+pre.md-meta-block {
+  padding: 30px 20px 20px;
+  margin: 20px 0;
+  font-family: var(--monospace);
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+  background-color: var(--element-color-soo-shallow);
+  border: 1.5px dashed var(--element-color);
+  border-radius: 8px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* 右上角的 "YAML" 小吊牌标签 */
+pre.md-meta-block::after {
+  content: "YAML";
+  position: absolute;
+  top: 0;
+  right: 20px;
+  background-color: var(--element-color);
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+
+pre.md-meta-block:hover {
+  background-color: #fff;
+  border-style: solid;
+  border-color: var(--element-color-deep);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+/* 行内代码 */
+#write p code {
+  padding: 3px 3px 1px;
+  color: var(--element-color-linecode);
+  background: var(--element-color-linecode-background);
+  border-radius: 3px;
+  font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
+  letter-spacing: 0.5px;
+}
+
+#write li code {
+  color: var(--element-color-linecode);
+}
+
+/* 代码块 */
+
+.md-fences:not([lang="mermaid"])::before {
+  content: attr(lang);
+  font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
+  text-align: right;
+  padding-right: 15px;
+  color: #7e7e7e;
+  display: block;
+  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNDUwcHgiIGhlaWdodD0iMTMwcHgiPgogIDxlbGxpcHNlIGN4PSI2NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgc3Ryb2tlPSJyZ2IoMjIwLDYwLDU0KSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJyZ2IoMjM3LDEwOCw5NikiLz4KICA8ZWxsaXBzZSBjeD0iMjI1IiBjeT0iNjUiIHJ4PSI1MCIgcnk9IjUyIiAgc3Ryb2tlPSJyZ2IoMjE4LDE1MSwzMykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDI0NywxOTMsODEpIi8+CiAgPGVsbGlwc2UgY3g9IjM4NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgIHN0cm9rZT0icmdiKDI3LDE2MSwzNykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDEwMCwyMDAsODYpIi8+Cjwvc3ZnPg==);
+  height: 30px;
+  width: 100%;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-color: #f8f8f8;
+  border-radius: 5px 5px 0 0;
+  background-position: 6px 10px;
+}
+
+.CodeMirror-wrap .CodeMirror-scroll {
+  overflow-x: auto;
+}
+
+.md-fences .cm-s-inner.CodeMirror {
+  margin-top: -0.5rem;
+}
+
+.cm-s-inner.CodeMirror {
+  padding: 1.2rem 0.8rem;
+  color: #4f5467;
+  font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
+  border-radius: 10px;
+  background-color: #fa0303;
+  line-height: 1.6rem;
+}
+
+.CodeMirror-gutters {
+  border-right: 1px solid #9d9d9d52;
+  background: inherit;
+  white-space: nowrap;
+}
+
+pre.CodeMirror-line {
+  padding: 0 1.2rem;
+}
+
+.CodeMirror-linenumber {
+  padding: 0 3px 0 5px;
+  text-align: right;
+  color: #a3a3a3;
+}
+
+.cm-s-inner.CodeMirror {
+  background: #f8f8f8;
+  border-radius: 0 0 5px 5px;
+  padding: 20px 10px 20px 10px;
+  page-break-before: auto;
+  line-height: 1.8rem;
+}
+
+.md-rawblock .md-rawblock-tooltip {
+  inset: auto 0.3rem auto auto;
+  transform: translateY(-120%);
+}
+
+/* 代码块颜色 */
+.cm-keyword {
+  color: #a626a4 !important;
+  font-weight: 700 !important;
+}
+
+.cm-variable {
+  color: #b92121 !important;
+}
+
+.cm-tag {
+  color: var(--color-cm-keyword) !important;
+  font-weight: 700 !important;
+}
+
+.cm-variable-3,
+.cm-variable-2 {
+  color: #7aadad !important;
+  font-weight: 700 !important;
+}
+
+.cm-def {
+  color: #c18401 !important;
+}
+
+.cm-attribute {
+  color: #8f6aa8 !important;
+}
+
+.cm-comment,
+.md-comment,
+.md-meta {
+  color: #9a9a9a !important;
+}
+
+.cm-string {
+  color: #50a14f !important;
+  font-variant-ligatures: common-ligatures !important;
+}
+
+.cm-link {
+  color: #e46918 !important;
+}
+
+.cm-type {
+  color: #626161;
+}
+
+.cm-property {
+  color: #800a84 !important;
+}
+
+.cm-tag:not(.cm-bracket) {
+  font-weight: 700 !important;
+}
+
+.cm-operator {
+  color: #0abe00 !important;
+}
+
+.cm-number {
+  color: #1694b6 !important;
+}
+
+.cm-meta {
+  color: #4078f2 !important;
+  font-weight: 700 !important;
+}
+
+.cm-builtin {
+  color: #fa6060 !important;
+}
+
+/* KBD键盘 */
+kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  text-align: center;
+  padding: 3px 6px;
+  margin: 0 4px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 0.9em;
+  line-height: 1.4;
+  font-weight: 600;
+  border-radius: 4px;
+  background-color: #fff;
+  color: var(--element-color-deep);
+  border: 1px solid var(--element-color);
+  border-bottom-width: 3px;
+  box-shadow: 0 2px 0 var(--element-color-so-shallow);
+  transition: all 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform: translateY(0);
+}
+
+kbd:hover {
+  border-bottom-width: 1px;
+  transform: translateY(2px);
+  background-color: var(--element-color-soo-shallow);
+  box-shadow: 0 0 0 transparent;
+  color: var(--element-color-deep);
+}
+
+/** 表格内的单元格*/
+#write table {
+  /* 关键：必须 separate 才能实现外框圆角 */
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  margin: 20px 0;
+  border: 1px solid var(--element-color-shallow);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+#write table th,
+#write table td {
+  padding: 8px 12px;
+  color: #333;
+  border-right: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+
+  transition: all 0.2s ease;
+}
+
+
+#write table th:last-child,
+#write table td:last-child {
+  border-right: none;
+}
+
+#write table tr:last-child td {
+  border-bottom: none;
+}
+
+#write table th {
+  background-color: var(--element-color-soo-shallow);
+  color: var(--element-color-deep);
+  font-weight: bold;
+}
+
+#write table tbody tr:hover td {
+  background-color: var(--element-color-soo-shallow);
+  /* 极淡的主题色 */
+}
+
+#write table tbody td:hover {
+  background-color: var(--element-color-soo-shallow);
+  color: var(--element-color-deep);
+  box-shadow: inset 0 0 0 1px var(--element-color-shallow);
+  cursor: default;
+}
+
+/* 脚注文字 */
+#write .footnote-word {
+  font-weight: normal;
+  color: #595959;
+}
+
+/* 脚注上标 */
+#write .footnote-ref {
+  font-weight: normal;
+  color: #595959;
+}
+
+/*脚注链接样式*/
+#write .footnote-item em {
+  font-size: 14px;
+  color: #595959;
+  display: block;
+  background: none;
+}
+
+/* Toc目录 */
+.md-toc {
+  margin: 20px;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.4);
+  background-image:
+    radial-gradient(circle at -22% -42%, var(--element-color-so-shallow), transparent 42%),
+    radial-gradient(circle at 100% 170%, var(--element-color-shallow), transparent 42%);
+  background-repeat: no-repeat;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  font-family: "HarmonyOS_Sans_SC", -apple-system, sans-serif;
+  font-size: 15px;
+  color: #555;
+  position: relative;
+  overflow: hidden;
+
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease;
+}
+
+.md-toc:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+.md-toc:before {
+  content: "目录";
+  display: block;
+  text-align: center;
+  font-family: "HarmonyOS_Sans_SC", -apple-system, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--element-color-deep);
+  margin-bottom: 25px;
+  letter-spacing: 2px;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+  padding-bottom: 15px;
+}
+
+.md-toc-item {
+  display: block;
+  line-height: 1.8em;
+  color: #666;
+  text-decoration: none;
+
+  padding: 6px 15px;
+  border-radius: 50px;
+  margin-bottom: 4px;
+
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.md-toc-item a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+}
+
+.md-toc-h1 {
+  font-weight: 600;
+  color: #333;
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.md-toc-h2 {
+  margin-left: 1em;
+  font-size: 0.95rem;
+}
+
+.md-toc-h3 {
+  margin-left: 2em;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* 6. 条目 Hover 交互 */
+.md-toc-item:hover {
+  /* 悬停时背景变白 */
+  background-color: rgba(255, 255, 255, 0.95);
+  color: var(--element-color-deep);
+
+  /* 灵动右移 */
+  padding-left: 20px;
+  font-weight: 500;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* 隐藏不必要的提示元素 */
+.md-tooltip-hide>span {
+  display: none;
+}
+
+/* 程序UI */
+
+/* 侧边栏 */
+
+#typora-sidebar {
+  height: 100%;
+  color: var(--appui-color-text);
+  font-size: 0.92rem;
+  background-color: #fff;
+}
+
+/* 滑块 */
+
+#outline-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+#file-library::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(179, 179, 179, 0.425);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* 侧边栏 文件 */
+.active-tab-files #info-panel-tab-file .info-panel-tab-border,
+.active-tab-outline #info-panel-tab-outline .info-panel-tab-border,
+.ty-show-search #info-panel-tab-search .info-panel-tab-border {
+  border-radius: 10px;
+  height: 4px;
+  background-color: var(--appui-color);
+}
+
+.file-node-content {
+  line-height: 1.2rem;
+}
+
+.file-tree-node.active>.file-node-content {
+  color: var(--appui-color);
+}
+
+span.file-node-title {
+  color: var(--appui-color-text);
+}
+
+.file-node-icon {
+  color: var(--appui-color-icon);
+  padding-right: 0.2rem;
+}
+
+.file-tree-node.active>.file-node-background {
+  font-weight: bolder;
+  border-left: 4px solid var(--appui-color);
+  border-color: var(--appui-color);
+}
+
+.info-panel-tab-title {
+  font-weight: bolder;
+  color: var(--appui-color-text);
+}
+
+/* 侧边栏 搜索 */
+#file-library-search-panel {
+  background-color: #fff;
+}
+
+#file-library-search-input {
+  border-radius: 3px;
+  border-color: var(--appui-color);
+}
+
+#file-library-search-input:focus {
+  border-width: 2px;
+}
+
+/* 侧边栏大纲 */
+#outline-content .outline-h2::after,
+#outline-content .outline-h2>.outline-item::before {
+  content: none !important;
+  display: none !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+#outline-content .outline-label {
+  border: none !important;
+  background: transparent !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+}
+
+#outline-content .outline-item {
+  display: flex !important;
+  align-items: center !important;
+  width: fit-content;
+  max-width: 100%;
+  padding: 6px 12px;
+  margin-bottom: 2px;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  transition: background-color 0.2s ease,
+    color 0.2s ease,
+    padding-right 0.2s ease,
+    box-shadow 0.2s ease;
+  position: relative;
+  line-height: 1.6;
+}
+
+#outline-content .outline-expander {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 4px;
+  color: inherit;
+}
+
+#outline-content .outline-label {
+  flex: 1;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+#outline-content .outline-h1 {
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+
+#outline-content .outline-h2,
+#outline-content .outline-h3,
+#outline-content .outline-h4,
+#outline-content .outline-h5,
+#outline-content .outline-h6 {
+  border-left: 1.5px solid rgba(0, 0, 0, 0.06);
+  margin-left: 22px;
+  padding-left: 8px;
+}
+
+#outline-content .outline-h1>.outline-item {
+  font-size: larger;
+  font-weight: 700;
+  color: var(--element-color-deep);
+}
+
+#outline-content .outline-item:hover {
+  background-color: var(--element-color-soo-shallow);
+  color: var(--element-color-deep);
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+div.outline-item-active {
+  background-color: var(--element-color) !important;
+  color: #fff !important;
+  font-weight: 600;
+  box-shadow: 0 4px 10px var(--element-color-so-shallow);
+  transform: none;
+  padding-right: 30px !important;
+  padding-left: 12px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border: none !important;
+}
+
+/* 小星星 */
+#outline-content .outline-item-active::after {
+  content: "✦";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  /* 半透明白色 */
+  display: block !important;
+  z-index: 10;
+  animation: outline-twinkle 1.5s infinite alternate;
+}
+
+@keyframes outline-twinkle {
+  from {
+    opacity: 0.7;
+    transform: translateY(-50%) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+  }
+}
+
+/* 导出HTML侧边栏大纲兼容性样式 */
+.typora-export-content .outline-content::before {
+  content: "目录";
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  top: 22px;
+  left: 15px;
+  z-index: -1;
+}
+
+.typora-export-sidebar .outline-content {
+  padding-top: 60px !important;
+  padding-left: 10px !important;
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 30px;
+  box-sizing: border-box;
+}
+
+.typora-export-sidebar .outline-content::before {
+  content: "目录";
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--element-color-deep);
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  z-index: 10;
+  letter-spacing: 2px;
+}
+
+.typora-export-sidebar .outline-h1 {
+  margin-top: 10px !important;
+  margin-bottom: 4px !important;
+  margin-left: 0 !important;
+}
+
+.typora-export-sidebar .outline-h1>.outline-item {
+  font-size: 1.1em !important;
+  font-weight: 700 !important;
+  color: var(--element-color-deep) !important;
+}
+
+.typora-export-sidebar .outline-h2,
+.typora-export-sidebar .outline-h3,
+.typora-export-sidebar .outline-h4,
+.typora-export-sidebar .outline-h5,
+.typora-export-sidebar .outline-h6 {
+  border-left: 1.5px solid rgba(0, 0, 0, 0.06) !important;
+  margin-left: 15px !important;
+  padding-left: 8px !important;
+  list-style: none !important;
+}
+
+.typora-export-sidebar .outline-item {
+  display: flex !important;
+  align-items: center !important;
+  width: fit-content !important;
+  max-width: 95% !important;
+  padding: 6px 12px !important;
+  margin: 2px 0 !important;
+  color: inherit !important;
+  cursor: pointer;
+  text-decoration: none !important;
+  border-radius: 50px !important;
+  border: none !important;
+  transition: all 0.2s ease;
+  line-height: 1.6;
+  overflow: visible !important;
+}
+
+
+.typora-export-sidebar .outline-label {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  flex: 0 1 auto !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.typora-export-sidebar .outline-expander {
+  width: 16px !important;
+  text-align: center;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+.typora-export .outline-expander::before {
+  content: "▸" !important;
+  font-family: Arial, sans-serif !important;
+  font-size: 14px !important;
+  color: #999;
+  top: 0 !important;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.typora-export .outline-item-open>.outline-item>.outline-expander::before,
+.typora-export .outline-expander:hover::before {
+  content: "▾" !important;
+  color: var(--element-color-deep);
+}
+
+.typora-export .outline-item-single .outline-expander::before {
+  display: none !important;
+}
+
+.typora-export-sidebar .outline-item:hover {
+  background-color: var(--element-color-soo-shallow) !important;
+  color: var(--element-color-deep) !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border: none !important;
+}
+
+.typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item {
+  background-color: var(--element-color) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 10px var(--element-color-so-shallow);
+  padding-right: 12px !important;
+  padding-left: 12px !important;
+  margin-left: 0 !important;
+  border: none !important;
+}
+
+.typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item .outline-label {
+  color: #fff !important;
+}
+
+.typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item .outline-expander::before {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item::after {
+  content: "✦";
+  position: static !important;
+  transform: none !important;
+  margin-left: 8px !important;
+  flex-shrink: 0;
+  display: inline-block !important;
+  line-height: 1;
+  font-size: 10px;
+  font-family: Arial, sans-serif;
+  color: rgba(255, 255, 255, 0.9);
+  z-index: 10;
+  animation: outline-twinkle 1.5s infinite alternate;
+}
+
+
+body.typora-export {
+  background-color: #f7f9fc;
+}
+
+.typora-export-sidebar {
+  position: fixed;
+  margin-top: 0 !important;
+  top: 10px;
+  bottom: 10px;
+  left: 20px;
+  width: 320px;
+  background-color: var(--glass-bg-color);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+
+  z-index: 100;
+  overflow: hidden;
+  color: #555;
+  font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light,
+    "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.typora-export-sidebar .outline-content {
+  padding-top: 60px !important;
+  padding-left: 15px !important;
+  padding-right: 5px !important;
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.typora-export #write {
+  margin-left: 350px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  min-height: calc(100vh - 20px);
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  padding: 60px 80px;
+  width: auto;
+  max-width: none;
+}
+
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar {
+    display: none;
+  }
+
+  .typora-export #write {
+    margin: 0;
+    border-radius: 0;
+    width: 100%;
+    box-shadow: none;
+    padding: 20px;
+  }
+}@import url();
+
+:root {
+  /* 标题后小图标，借鉴自思源笔记主题——Savor */
+  --h1-icon-shape: url("data:image/svg+xml;utf8,<svg fill='rgba(255, 176, 176, 0.5)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M4.8 29.714v0c-1.371 0-2.514-1.143-2.514-2.514v0c0-1.371 1.143-2.514 2.514-2.514v0c1.371 0 2.514 1.143 2.514 2.514v0c0.114 1.371-1.029 2.514-2.514 2.514z'/></svg>") no-repeat center;
+  --h2-icon-shape: url("data:image/svg+xml;utf8,<svg fill='rgba(255, 176, 176, 0.5)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>") no-repeat center;
+  --h3-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>");
+  --h4-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 22.857c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286z'/></svg>");
+  --h5-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 22.857c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286zM4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 11.429c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>");
+  --h6-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 11.429c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 16c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286z'/></svg>");
+
+  /* 文档背景样式 */
+  /* 1. 交叉斜线 */
+  --bg-shape-cross: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h30v30H0z' fill='none'/%3E%3Cpath d='M0 0L15 15M30 0L15 15M0 30L15 15M30 30L15 15' stroke='black' stroke-width='0.4'/%3E%3C/svg%3E");
+  /* 2. 星点图案 */
+  --bg-shape-star: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M10 10l2-6l2 6l6 2l-6 2l-2 6l-2-6l-6-2Z' fill='black'/%3E%3Cpath d='M30 15l1-3l1 3l3 1l-3 1l-1 3l-1-3l-3-1Z' fill='black'/%3E%3Cpath d='M25 30l1.5-4.5l1.5 4.5l4.5 1.5l-4.5 1.5l-1.5 4.5l-1.5-4.5l-4.5-1.5Z' fill='black'/%3E%3C/svg%3E");
+  /* 3. 六边形图案 */
+  --bg-shape-hex: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M10 5l10 0l5 8.66l-5 8.66l-10 0l-5-8.66Z' fill='none' stroke='black' stroke-width='0.4'/%3E%3Cpath d='M20 22.32l10 0l5 8.66l-5 8.66l-10 0l-5-8.66Z' fill='none' stroke='black' stroke-width='0.4'/%3E%3C/svg%3E");
+  /* 4. 十字圆点 */
+  --bg-shape-dot: url("data:image/svg+xml,%3Csvg width='15' height='15' viewBox='0 0 15 15' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='7.5' cy='7.5' r='0.5' fill='black'/%3E%3Ccircle cx='7.5' cy='2.5' r='0.5' fill='black'/%3E%3Ccircle cx='7.5' cy='12.5' r='0.5' fill='black'/%3E%3Ccircle cx='2.5' cy='7.5' r='0.5' fill='black'/%3E%3Ccircle cx='12.5' cy='7.5' r='0.5' fill='black'/%3E%3C/svg%3E");
+  /* 5. 三角形 */
+  --bg-shape-tri: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h30v30H0z' fill='none'/%3E%3Cpath d='M0 0L30 0L15 15Z' fill='black'/%3E%3Cpath d='M30 30L0 30L15 15Z' fill='black'/%3E%3C/svg%3E");
+  /* 6. 方格网 */
+  --bg-shape-grid: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v20H0z' fill='none'/%3E%3Cpath d='M20 0v20M0 20h20' stroke='black' stroke-width='0.7'/%3E%3C/svg%3E");
+
+  /* 文档背景样式  none 无背景*/
+  --bg-style: var(--bg-shape-cross);
+  /* --bg-style:none; */
+
+  /* 自动编号格式设置 无需自动编号可全部注释掉或部分注释掉*/
+  /* --autonum-h1: counter(h1) ". ";
+  --autonum-h2: counter(h1) "." counter(h2) ". ";
+  --autonum-h3: counter(h1) "." counter(h2) "." counter(h3) ". ";
+  --autonum-h4: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) ". ";
+  --autonum-h5: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". ";
+  --autonum-h6: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) ". "; */
+
+  /* 下面是文章内Toc目录自动编号，与上面一样即可 */
+  /* --autonum-h1toc: counter(h1toc) ". ";
+  --autonum-h2toc: counter(h1toc) "." counter(h2toc) ". ";
+  --autonum-h3toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) ". ";
+  --autonum-h4toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) ". ";
+  --autonum-h5toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) ". ";
+  --autonum-h6toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) "." counter(h6toc) ". "; */
+
+
+  /* 标题主色：深邃的普鲁士蓝，沉稳大气 */
+  --head-title-color: #1D4E89;
+  
+  /* H2 渐变：从柔和的钢蓝过渡到深普鲁士蓝，像深海的光影 */
+  --head-title-h2-color: #fff;
+  --head-title-h2-background: linear-gradient(to right, #6BA3CC, #1D4E89, #6BA3CC);
+  
+  /* 元素颜色 */
+  --element-color: #1D4E89;             /* 主色 (Steel Blue) */
+  --element-color-deep: #003153;        /* 深色 (Classic Prussian) - 用于强调/文字 */
+  --element-color-shallow: #6BA3CC;     /* 浅色 (Air Force Blue) - 用于图标/装饰 */
+  --element-color-so-shallow: #E1EDF5;  /* 很浅色 (高亮背景) */
+  --element-color-soo-shallow: #F0F6FA; /* 极浅色 (冷调背景白) */
+  --glass-bg-color: #b7d8ff15;          /* 毛玻璃底色 (约 8% 透明度) */
+
+  /* 行内代码：深海午夜蓝 */
+  --element-color-linecode: #0F3057;
+  --element-color-linecode-background: #EBF5FA;
+
+  /* UI 颜色 */
+  --appui-color: #1D4E89;
+  --appui-color-icon: #1D4E89;
+  --appui-color-text: #003153; 
+  --primary-color: #1D4E89;
+
+  --rawblock-edit-panel-bd: var(--element-color-soo-shallow);
+}
+
+/* 是否开启PDF打印背景 */
+@media print {
+  #write {
+    /* 交叉斜线 */
+    background-image: var(--bg-style)
+  }
+}</style>
+<style type='text/css'  id="style-lp">ol, ul {padding-left: 40px}</style>
+
+<title>demo</title>
+</head>
+<body class='typora-export os-windows typora-export-show-outline typora-export-collapse-outline'><div class='typora-export-content'>
+<div class="typora-export-sidebar"><div class="outline-content"><li class="outline-item-wrapper outline-h1 outline-item-open"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#☕-咖啡的炼金术一则关于专注与偶然的样式测试文档">☕ 咖啡的炼金术：一则关于专注与偶然的样式测试文档</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#第一部分基础要素--------咖啡豆的哲学">第一部分：基础要素 —— 咖啡豆的哲学</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#一个简单的冲煮思路流程图">一个简单的冲煮思路流程图</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#第二部分操作指南--------手冲的仪式感">第二部分：操作指南 —— 手冲的仪式感</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#第三部分数据与对比--------器材的理性选择">第三部分：数据与对比 —— 器材的理性选择</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#第四部分萃取的代码隐喻">第四部分：萃取的代码隐喻</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#第五部分超越杯子--------咖啡与生活">第五部分：超越杯子 —— 咖啡与生活</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#最后的提醒或免责声明">最后的提醒（或免责声明）</a></div><ul class="outline-children"></ul></li></ul></li></ul></li></div></div><div id='write'  class=''><h1 id='☕-咖啡的炼金术一则关于专注与偶然的样式测试文档'><span>☕ 咖啡的炼金术：一则关于专注与偶然的样式测试文档</span></h1><figure class='table-figure'><table><thead><tr><th><span>主题系列</span></th><th style='text-align:left;' ><span>主题链接</span></th></tr></thead><tbody><tr><td><span>亮色主题</span></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-cherry.html'><span>Cheey（樱桃红）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-caramel.html'><span>Caramel（焦糖橙）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-forest.html'><span>Forest（森绿）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-mint.html'><span>Mint（薄荷青）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sky.html'><span>Sky（天蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-prussian.html'><span>Prussian（普鲁士蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sakura.html'><span>Sakura（樱花粉）</span></a><a href='https://sumruler.github.io/typora-theme-phycat/demo-Mauve.html'><span>Mauve（淡紫）</span></a></td></tr><tr><td><span>暗色主题</span></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-dark.html'><span>Dark</span></a></td></tr></tbody></table></figure><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n0"><a class="md-toc-inner" href="#☕-咖啡的炼金术一则关于专注与偶然的样式测试文档">☕ 咖啡的炼金术：一则关于专注与偶然的样式测试文档</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n17"><a class="md-toc-inner" href="#第一部分基础要素--------咖啡豆的哲学">第一部分：基础要素 —— 咖啡豆的哲学</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n38"><a class="md-toc-inner" href="#一个简单的冲煮思路流程图">一个简单的冲煮思路流程图</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n40"><a class="md-toc-inner" href="#第二部分操作指南--------手冲的仪式感">第二部分：操作指南 —— 手冲的仪式感</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n63"><a class="md-toc-inner" href="#第三部分数据与对比--------器材的理性选择">第三部分：数据与对比 —— 器材的理性选择</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n90"><a class="md-toc-inner" href="#第四部分萃取的代码隐喻">第四部分：萃取的代码隐喻</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n93"><a class="md-toc-inner" href="#第五部分超越杯子--------咖啡与生活">第五部分：超越杯子 —— 咖啡与生活</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n103"><a class="md-toc-inner" href="#最后的提醒或免责声明">最后的提醒（或免责声明）</a></span></p></div><blockquote><p><span>“我们并非在饮用咖啡，而是在饮用理念。” —— 某位在咖啡馆沉思的匿名者</span></p></blockquote><p><span>这篇文档旨在展示 </span><strong><span>Markdown</span></strong><span> 近乎无限的表现力。我们将借由“制作一杯完美咖啡”的隐喻，探索从混沌的豆粒到清澈灵感的全过程。请观察，这里不仅是格式的演示，也是一场微型的思维实验。</span></p><hr /><h2 id='第一部分基础要素--------咖啡豆的哲学'><span>第一部分：基础要素 —— 咖啡豆的哲学</span></h2><p><span>每一颗咖啡豆都蕴含着一个世界。要释放它，我们需要以下</span><strong><span>核心原则</span></strong><span>：</span></p><ol start='' ><li><p><strong><span>优质原料</span></strong><span>：这是风味的基石。</span></p><ul><li><p><em><span>产地</span></em><span>：埃塞俄比亚的耶加雪菲（花香）、哥伦比亚的蕙兰（坚果巧克力）。</span></p></li><li><p><em><span>处理法</span></em><span>：水洗（清澈）、日晒（醇厚）、蜜处理（甜美）。</span></p></li></ul></li><li><p><strong><span>精确的变量</span></strong><span>：咖啡是科学与艺术的交界点。</span></p><ul><li><p><span>研磨度（从粗盐到面粉）</span></p></li><li><p><span>水温（92°C - 96°C 的黄金区间）</span></p></li><li><p><span>水粉比（例如 </span><strong><span>1:15</span></strong><span>）</span></p></li><li><p><span>时间（萃取不足与过萃的拉锯战）</span></p></li></ul></li></ol><h3 id='一个简单的冲煮思路流程图'><span>一个简单的冲煮思路流程图</span></h3><div class="md-diagram-panel md-fences-adv-panel" lang="mermaid"><svg id="mermaidChart7" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="flowchart mermaid-svg" style="max-width: 1366.984375px;" viewBox="0 0 1366.984375 198" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#mermaidChart7{font-family:sans-serif;font-size:16px;fill:#333;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaidChart7 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaidChart7 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaidChart7 .error-icon{fill:#552222;}#mermaidChart7 .error-text{fill:#552222;stroke:#552222;}#mermaidChart7 .edge-thickness-normal{stroke-width:1px;}#mermaidChart7 .edge-thickness-thick{stroke-width:3.5px;}#mermaidChart7 .edge-pattern-solid{stroke-dasharray:0;}#mermaidChart7 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaidChart7 .edge-pattern-dashed{stroke-dasharray:3;}#mermaidChart7 .edge-pattern-dotted{stroke-dasharray:2;}#mermaidChart7 .marker{fill:#333333;stroke:#333333;}#mermaidChart7 .marker.cross{stroke:#333333;}#mermaidChart7 svg{font-family:sans-serif;font-size:16px;}#mermaidChart7 p{margin:0;}#mermaidChart7 .label{font-family:sans-serif;color:#333;}#mermaidChart7 .cluster-label text{fill:#333;}#mermaidChart7 .cluster-label span{color:#333;}#mermaidChart7 .cluster-label span p{background-color:transparent;}#mermaidChart7 .label text,#mermaidChart7 span{fill:#333;color:#333;}#mermaidChart7 .node rect,#mermaidChart7 .node circle,#mermaidChart7 .node ellipse,#mermaidChart7 .node polygon,#mermaidChart7 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaidChart7 .rough-node .label text,#mermaidChart7 .node .label text,#mermaidChart7 .image-shape .label,#mermaidChart7 .icon-shape .label{text-anchor:middle;}#mermaidChart7 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaidChart7 .rough-node .label,#mermaidChart7 .node .label,#mermaidChart7 .image-shape .label,#mermaidChart7 .icon-shape .label{text-align:center;}#mermaidChart7 .node.clickable{cursor:pointer;}#mermaidChart7 .root .anchor path{fill:#333333!important;stroke-width:0;stroke:#333333;}#mermaidChart7 .arrowheadPath{fill:#333333;}#mermaidChart7 .edgePath .path{stroke:#333333;stroke-width:2.0px;}#mermaidChart7 .flowchart-link{stroke:#333333;fill:none;}#mermaidChart7 .edgeLabel{background-color:rgba(232,232,232, 0.8);text-align:center;}#mermaidChart7 .edgeLabel p{background-color:rgba(232,232,232, 0.8);}#mermaidChart7 .edgeLabel rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#mermaidChart7 .labelBkg{background-color:rgba(232, 232, 232, 0.5);}#mermaidChart7 .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#mermaidChart7 .cluster text{fill:#333;}#mermaidChart7 .cluster span{color:#333;}#mermaidChart7 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:sans-serif;font-size:12px;background:hsl(80, 100%, 96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#mermaidChart7 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#mermaidChart7 rect.text{fill:none;stroke-width:0;}#mermaidChart7 .icon-shape,#mermaidChart7 .image-shape{background-color:rgba(232,232,232, 0.8);text-align:center;}#mermaidChart7 .icon-shape p,#mermaidChart7 .image-shape p{background-color:rgba(232,232,232, 0.8);padding:2px;}#mermaidChart7 .icon-shape rect,#mermaidChart7 .image-shape rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#mermaidChart7 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaidChart7 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaidChart7 :root{--mermaid-alt-font-family:sans-serif;}</style><g><marker id="mermaidChart7_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaidChart7_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaidChart7_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mermaidChart7_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mermaidChart7_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaidChart7_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M157.5,105L182.5,105L203.5,105" id="L_A_B_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart7_flowchart-v2-pointEnd)"></path><path d="M309.906,105L334.906,105L356.407,105.422" id="L_B_C_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart7_flowchart-v2-pointEnd)"></path><path d="M465.482,84.169L536.965,47L609.27,47" id="L_C_D_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart7_flowchart-v2-pointEnd)"></path><path d="M465.482,126.831L536.965,163L583.617,163" id="L_C_E_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart7_flowchart-v2-pointEnd)"></path><path d="M762.77,47L813.422,47L834.422,47" id="L_D_F_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart7_flowchart-v2-pointEnd)"></path><path d="M788.422,163L813.422,163L851.523,163" id="L_E_G_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart7_flowchart-v2-pointEnd)"></path><path d="M1022.125,47L1047.125,47L1092.496,75.854" id="L_F_H_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart7_flowchart-v2-pointEnd)"></path><path d="M1005.023,163L1047.125,163L1092.496,134.146" id="L_G_H_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart7_flowchart-v2-pointEnd)"></path><path d="M1204.531,105L1229.531,105L1250.531,105" id="L_H_I_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart7_flowchart-v2-pointEnd)"></path></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(536.96484375, 47)"><g class="label" transform="translate(-17.1015625, -12)"><foreignObject width="34.203125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>手冲</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(536.96484375, 163)"><g class="label" transform="translate(-25.65234375, -12)"><foreignObject width="51.3046875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>法压壶</p></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default  " id="flowchart-A-0" transform="translate(82.75, 105)"><rect class="basic label-container" style="" x="-74.75" y="-27" width="149.5" height="54"></rect><g class="label" style="" transform="translate(-44.75, -12)"><rect></rect><foreignObject width="89.5" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>称取咖啡豆</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-B-1" transform="translate(258.703125, 105)"><rect class="basic label-container" style="" rx="5" ry="5" x="-51.203125" y="-27" width="102.40625" height="54"></rect><g class="label" style="" transform="translate(-36.203125, -12)"><rect></rect><foreignObject width="72.40625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>研磨成粉</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-C-3" transform="translate(423.109375, 105)"><polygon points="63.203125,0 126.40625,-63.203125 63.203125,-126.40625 0,-63.203125" class="label-container" transform="translate(-63.203125,63.203125)"></polygon><g class="label" style="" transform="translate(-36.203125, -12)"><rect></rect><foreignObject width="72.40625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>选择方法</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-D-5" transform="translate(688.01953125, 47)"><rect class="basic label-container" style="" x="-74.75" y="-39" width="149.5" height="78"></rect><g class="label" style="" transform="translate(-44.75, -24)"><rect></rect><foreignObject width="89.5" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>湿润滤纸<br/>倒入咖啡粉</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-E-7" transform="translate(688.01953125, 163)"><rect class="basic label-container" style="" x="-100.40234375" y="-27" width="200.8046875" height="54"></rect><g class="label" style="" transform="translate(-70.40234375, -12)"><rect></rect><foreignObject width="140.8046875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>咖啡粉与热水混合</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-F-9" transform="translate(930.2734375, 47)"><rect class="basic label-container" style="" x="-91.8515625" y="-27" width="183.703125" height="54"></rect><g class="label" style="" transform="translate(-61.8515625, -12)"><rect></rect><foreignObject width="123.703125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>分段注水与闷蒸</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-G-11" transform="translate(930.2734375, 163)"><rect class="basic label-container" style="" x="-74.75" y="-27" width="149.5" height="54"></rect><g class="label" style="" transform="translate(-44.75, -12)"><rect></rect><foreignObject width="89.5" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>静置四分钟</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-H-14" transform="translate(1138.328125, 105)"><rect class="basic label-container" style="" x="-66.203125" y="-27" width="132.40625" height="54"></rect><g class="label" style="" transform="translate(-36.203125, -12)"><rect></rect><foreignObject width="72.40625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>完成萃取</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-I-16" transform="translate(1306.7578125, 105)"><rect class="basic label-container" style="" x="-52.2265625" y="-27" width="104.453125" height="54"></rect><g class="label" style="" transform="translate(-22.2265625, -12)"><rect></rect><foreignObject width="44.453125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>享用!</p></span></div></foreignObject></g></g></g></g></g></svg></div><h2 id='第二部分操作指南--------手冲的仪式感'><span>第二部分：操作指南 —— 手冲的仪式感</span></h2><p><span>以下是一个经典</span><strong><span>V60手冲</span></strong><span>步骤，它体现了秩序与即兴的结合：</span></p><ol start='' ><li><p><strong><span>预热</span></strong><span>：用热水冲洗滤纸和滤杯，同时温热分享壶。</span></p></li><li><p><strong><span>布粉</span></strong><span>：将研磨好的咖啡粉倒入滤杯，轻轻拍平。</span></p></li><li><p><strong><span>闷蒸</span></strong><span>：</span></p><ul><li><p><span>注入两倍于咖啡粉重量的热水。</span></p></li><li><p><span>等待 </span><strong><span>30秒</span></strong><span>，观察咖啡粉层是否像“呼吸”一样膨胀鼓起。</span></p><ul><li><p><span>✅ 成功：均匀的鼓包，说明咖啡新鲜，萃取均匀。</span></p></li><li><p><span>❌ 失败：局部塌陷，可能导致后续通道效应。</span></p></li></ul></li></ul></li><li><p><strong><span>注水</span></strong><span>：以小圈到中圈的方式缓慢注入剩余热水，总时间控制在 </span><strong><span>2分钟至2分30秒</span></strong><span>。</span></p></li></ol><blockquote><p><strong><span>技术注记</span></strong><span>：闷蒸的目的在于排出二氧化碳，使后续热水能有效接触咖啡粉细胞壁，进行萃取。这是</span><strong><span>科学</span></strong><span>的部分。而注水的手法和节奏，则是</span><strong><span>艺术</span></strong><span>的开始。</span></p></blockquote><h2 id='第三部分数据与对比--------器材的理性选择'><span>第三部分：数据与对比 —— 器材的理性选择</span></h2><p><span>咖啡的呈现方式多样，下表对比了三种常见方法的特性：</span></p><figure class='table-figure'><table><thead><tr><th style='text-align:left;' ><span>冲煮方法</span></th><th style='text-align:left;' ><span>所需器材</span></th><th style='text-align:left;' ><span>风味特点</span></th><th style='text-align:left;' ><span>难度系数</span></th><th style='text-align:left;' ><span>适合场景</span></th></tr></thead><tbody><tr><td style='text-align:left;' ><strong><span>手冲 (Pour-Over)</span></strong></td><td style='text-align:left;' ><span>滤杯、滤纸、手冲壶</span></td><td style='text-align:left;' ><span>干净、层次分明、突出风味细节</span></td><td style='text-align:left;' ><span>⭐⭐⭐⭐</span></td><td style='text-align:left;' ><span>独自品味、追求仪式感</span></td></tr><tr><td style='text-align:left;' ><strong><span>法压壶 (French Press)</span></strong></td><td style='text-align:left;' ><span>法压壶</span></td><td style='text-align:left;' ><span>饱满、醇厚、带有油脂感</span></td><td style='text-align:left;' ><span>⭐⭐</span></td><td style='text-align:left;' ><span>多人分享、喜爱浓郁口感</span></td></tr><tr><td style='text-align:left;' ><strong><span>爱乐压 (AeroPress)</span></strong></td><td style='text-align:left;' ><span>爱乐压、滤纸</span></td><td style='text-align:left;' ><span>口感干净且浓郁、玩法多变</span></td><td style='text-align:left;' ><span>⭐⭐⭐</span></td><td style='text-align:left;' ><span>旅行、办公室、快速出品</span></td></tr></tbody></table></figure><h2 id='第四部分萃取的代码隐喻'><span>第四部分：萃取的代码隐喻</span></h2><p><span>咖啡萃取，本质上是一个物质传递的过程。我们可以用一段伪代码来抽象这一逻辑：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="python" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 32.3984px; left: 67.1953px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 38px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>32</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -38px; width: 38px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 29px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># coffee_extraction.py</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">class</span> <span class="cm-def">PerfectCup</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">__init__</span>(<span class="cm-variable-2">self</span>, <span class="cm-variable">beans</span>, <span class="cm-variable">water</span>, <span class="cm-variable">method</span><span class="cm-operator">=</span><span class="cm-string">"v60"</span>):</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">beans</span> <span class="cm-operator">=</span> <span class="cm-variable">beans</span> &nbsp;<span class="cm-comment"># 咖啡豆对象</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">water</span> <span class="cm-operator">=</span> <span class="cm-variable">water</span> &nbsp;<span class="cm-comment"># 水对象（包含温度、硬度属性）</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">method</span> <span class="cm-operator">=</span> <span class="cm-variable">method</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">tds</span> <span class="cm-operator">=</span> <span class="cm-number">0.0</span> &nbsp;<span class="cm-comment"># 总溶解固体浓度</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">ey</span> <span class="cm-operator">=</span> <span class="cm-number">0.0</span> &nbsp; <span class="cm-comment"># 萃取率</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 29px;">10</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">brew</span>(<span class="cm-variable-2">self</span>):</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">11</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-string">"""执行冲煮的核心算法"""</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">12</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">grind_size</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">_adjust_grind</span>() <span class="cm-comment"># 根据方法调整研磨度</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">13</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">bloom_success</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">_bloom</span>() &nbsp; &nbsp; <span class="cm-comment"># 闷蒸，返回布尔值</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">14</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">15</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">if</span> <span class="cm-variable">bloom_success</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">16</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">extraction_time</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">_control_pour</span>() <span class="cm-comment"># 控制注水</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">17</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">tds</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">_measure_tds</span>() <span class="cm-comment"># 测量浓度</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">18</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">ey</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">_calculate_ey</span>() <span class="cm-comment"># 计算萃取率</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">19</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 29px;">20</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">if</span> <span class="cm-number">18</span> <span class="cm-operator">&lt;=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">ey</span> <span class="cm-operator">&lt;=</span> <span class="cm-number">22</span>: <span class="cm-comment"># 黄金萃取率区间</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">21</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-string">"🎉 完美！这杯咖啡在最佳萃取窗口内。"</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">22</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">elif</span> <span class="cm-variable-2">self</span>.<span class="cm-property">ey</span> <span class="cm-operator">&lt;</span> <span class="cm-number">18</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">23</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-string">"⏳ 萃取不足，可能偏酸、单薄。"</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">24</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">else</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">25</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-string">"🔥 过萃了，可能带有焦苦味。"</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">26</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">else</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">27</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-string">"❌ 闷蒸失败，请检查咖啡豆新鲜度或注水方式。"</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">28</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">29</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># 实例化并运行</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 29px;">30</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">my_morning_cup</span> <span class="cm-operator">=</span> <span class="cm-variable">PerfectCup</span>(<span class="cm-variable">beans</span><span class="cm-operator">=</span><span class="cm-string">"Ethiopia Yirgacheffe"</span>, <span class="cm-variable">water</span><span class="cm-operator">=</span><span class="cm-string">"92C"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">31</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">result</span> <span class="cm-operator">=</span> <span class="cm-variable">my_morning_cup</span>.<span class="cm-property">brew</span>()</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 29px;">32</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-builtin">print</span>(<span class="cm-variable">result</span>)</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 922px;"></div><div class="CodeMirror-gutters" style="height: 922px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 37px;"></div></div></div></div></pre><h2 id='第五部分超越杯子--------咖啡与生活'><span>第五部分：超越杯子 —— 咖啡与生活</span></h2><p><span>一杯好咖啡的影响，远不止于味蕾。</span></p><ul><li><p><strong><span>它是专注的锚点</span></strong><span>：在研磨、注水的几分钟里，世界被简化为水流的弧线与时间的流逝。</span></p></li><li><p><strong><span>它是连接的桥梁</span></strong><span>：“一起喝杯咖啡”是现代社会中一种温和的社交契约。</span></p></li><li><p><strong><span>它是灵感的催化剂</span></strong><span>：多少思绪在咖啡因的轻抚下变得清晰，多少对话在杯沿的热气中得以深入。</span></p></li></ul><hr /><h3 id='最后的提醒或免责声明'><span>最后的提醒（或免责声明）</span></h3><blockquote><p><span>⚠️ </span><strong><span>请注意</span></strong><span>：本文档中关于咖啡的所有描述，都源于作者的主观体验与广泛阅读。咖啡的</span><strong><span>终极奥义</span></strong><span>在于你的个人偏好。如果你喜欢加糖、加奶，或者就爱喝速溶咖啡，那也完全正确。所有关于“完美”的探讨，其目的都是为了</span><strong><span>增进体验的乐趣，而非设立品味的藩篱</span></strong><span>。</span></p></blockquote><p>&nbsp;</p></div></div>
+
+<script>(function(){function e(e,n,i){document.addEventListener(e,function(e){if(!e.defaultPrevented)for(var t=e.target;t&&t!=this;t=t.parentNode)if(t.matches(n)){!1===i.call(t,e)&&(e.preventDefault(),e.stopPropagation());break}},!1)}var t=document.body.parentElement,i=[],r=null,o=document.body.classList.contains("typora-export-collapse-outline");function a(){return t.scrollTop}e("click",".outline-expander",function(e){var t=this.closest(".outline-item-wrapper").classList;return t.contains("outline-item-open")?t.remove("outline-item-open"):t.add("outline-item-open"),u(),!1}),e("click",".outline-item",function(e){var t=this.querySelector(".outline-label");location.hash="#"+t.getAttribute("href"),o&&((t=this.closest(".outline-item-wrapper").classList).contains("outline-item-open")||t.add("outline-item-open"),d(),t.add("outline-item-active"))});function s(){var e=a();r=null;for(var t=0;t<i.length&&i[t][1]-e<60;t++)r=i[t]}function n(){c=setTimeout(function(){var n;i=[],n=a(),document.querySelector("#write").querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(e=>{var t=e.getAttribute("id");i.push([t,n+e.getBoundingClientRect().y])}),s(),u()},300)}var l,c,d=function(){document.querySelectorAll(".outline-item-active").forEach(e=>e.classList.remove("outline-item-active")),document.querySelectorAll(".outline-item-single.outline-item-open").forEach(e=>e.classList.remove("outline-item-open"))},u=function(){if(r&&(d(),t=document.querySelector('.outline-label[href="#'+(CSS.escape?CSS.escape(r[0]):r[0])+'"]')))if(o){var e=t.closest(".outline-item-open>ul>.outline-item-wrapper");if(e)e.classList.add("outline-item-active");else{for(var t,n=(t=t.closest(".outline-item-wrapper")).parentElement.closest(".outline-item-wrapper");n;)n=(t=n).parentElement.closest(".outline-item-wrapper");t.classList.add("outline-item-active")}}else t.closest(".outline-item-wrapper").classList.add("outline-item-active")};window.addEventListener("scroll",function(e){l&&clearTimeout(l),l=setTimeout(function(){s(),u()},300)});window.addEventListener("resize",function(e){c&&clearTimeout(c),n()}),n()})();</script></body>
+</html>
