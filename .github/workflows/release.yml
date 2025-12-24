@@ -3,7 +3,7 @@ name: Release Typora Theme
 on:
   push:
     tags:
-      - '*'  # 监听所有标签的推送
+      - '*'
 
 jobs:
   build:
@@ -11,18 +11,23 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4 # 升级到 v4
 
     - name: Get current tag version
       id: tag
       run: |
         TAG=$(git describe --tags --abbrev=0)
         echo "Current tag: ${TAG}"
-        echo "::set-output name=current_tag::${TAG}"
+        # 使用最新的 GitHub Action 输出语法
+        echo "current_tag=${TAG}" >> $GITHUB_OUTPUT
 
-    - name: Create zip file with tag name
+    - name: Create zip file
       run: |
-        zip -r typora-theme-phycat.zip . -x ".*" "*/.*"
+        # 打包逻辑：
+        # 1. phycat/ 目录（递归）
+        # 2. 根目录下所有的 .css 文件
+        # 3. 根目录下所有的 .md 文件
+        zip -r typora-theme-phycat.zip phycat/ *.css *.md
         
     - name: Create Release
       uses: softprops/action-gh-release@v1
@@ -32,6 +37,6 @@ jobs:
         name: ${{ steps.tag.outputs.current_tag }}
         body: |
           版本更新：${{ steps.tag.outputs.current_tag }}
-          更新内容: ${{ github.event.head_commit.message }} 
+          更新内容: ${{ github.event.head_commit.message }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
