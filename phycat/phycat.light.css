@@ -78,11 +78,8 @@ html {
   word-break: break-word;
   word-wrap: break-word;
   text-align: left;
-
-  /* 关键修改：移除旧的 background-image 定义 */
   position: relative;
   z-index: 0;
-  /* 建立层叠上下文 */
 }
 
 /* 新增：使用伪元素实现遮罩背景 */
@@ -94,27 +91,15 @@ html {
   right: 0;
   bottom: 0;
   pointer-events: none;
-  /* 让鼠标点击穿透，不影响文字选择 */
   z-index: -1;
-  /* 置于底层 */
-
-  /* 1. 颜色控制：直接使用主题变量 */
   background-color: var(--element-color);
-
-  /* 2. 透明度控制：统一调整纹理深浅 (0.05 ~ 0.2 之间比较合适) */
   opacity: 0.12;
-
-  /* 3. 形状控制：使用 Mask */
   -webkit-mask-image: var(--bg-style);
   mask-image: var(--bg-style);
-
-  /* 4. 纹理尺寸与重复 (对应原来的 background-size) */
   -webkit-mask-size: 20px 20px;
   mask-size: 20px 20px;
-
   -webkit-mask-repeat: repeat;
   mask-repeat: repeat;
-
   -webkit-mask-position: center;
   mask-position: center;
 }
@@ -128,11 +113,11 @@ html {
   word-spacing: 2px;
 }
 
-#write h3:after,
-h4:after,
-h5:after,
-h6:after:not(.input-group-header) {
-  content: "";
+#write h3.md-heading:after,
+h4.md-heading:after,
+h5.md-heading:after,
+h6.md-heading:after {
+  content: " ";
   display: inline-block;
   height: 2em;
   width: 2em;
@@ -147,82 +132,62 @@ h6:after:not(.input-group-header) {
   mask-size: 24px 24px;
 }
 
-#write h3:after {
+#write h3.md-heading:after {
   -webkit-mask-image: var(--h3-icon-shape);
   mask-image: var(--h3-icon-shape);
 }
 
-#write h4:after {
+#write h4.md-heading:after {
   -webkit-mask-image: var(--h4-icon-shape);
   mask-image: var(--h4-icon-shape);
 }
 
-#write h5:after {
+#write h5.md-heading:after {
   -webkit-mask-image: var(--h5-icon-shape);
   mask-image: var(--h5-icon-shape);
 }
 
-#write h6:after {
+#write h6.md-heading:after {
   -webkit-mask-image: var(--h6-icon-shape);
   mask-image: var(--h6-icon-shape);
 }
 
-/* ================= H1 标题样式优化 (方案 1: 经典短线 - 常驻显示) ================= */
-
+/* H1 */
 #write h1 {
   text-align: center;
   font-size: 1.8rem;
   font-weight: bold;
   margin: 1em auto 0.8em;
   line-height: 1.4;
-
-  /* 关键：使用 table 让宽度自适应文字内容，确保线条和文字等宽 */
   display: table;
 
   color: #222;
   position: relative;
   padding-bottom: 12px;
-  /* 增加底部空间给线条 */
-
   transition: color 0.3s ease, transform 0.3s ease;
   border-bottom: none;
-  /* 清除默认下划线 */
 }
 
-/* 底部线条 (伪元素) */
 #write h1::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 50%;
-
-  /* [核心设计] 初始宽度：40px (常驻精致短线) */
   width: 40px;
   height: 4px;
   border-radius: 4px;
-
-  /* [优化] 使用主题定义的 H2 渐变背景 (色彩饱满) */
-  /* background-size: 100% 确保完整展示 A->B->A 的对称渐变结构 */
   background: var(--head-title-h2-background);
   background-size: 100% auto;
-
-  /* 居中定位 */
   transform: translateX(-50%);
-
-  /* 动效过渡：贝塞尔曲线让展开更有弹性 */
   transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Hover 交互效果 */
 #write h1:hover {
   color: var(--head-title-color);
-  /* 文字变主题色 */
   transform: translateY(-2px);
-  /* 微微上浮 */
 }
 
 #write h1:hover::after {
-  /* Hover 时展开至 100% */
   width: 100%;
 }
 
@@ -300,7 +265,7 @@ h6:after:not(.input-group-header) {
   width: 7px;
 }
 
-/* H4~H5 */
+/* H4~H6 */
 #write h4,
 #write h5,
 #write h6 {
