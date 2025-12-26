@@ -1,5 +1,9 @@
 # Phycat theme for Typora
 
+[Toc]
+
+
+
 > 好看的样式可以提升写作体验。
 
 起源是想找一款层次分明、易于阅读的主题，于是借鉴了Typora、Mdnice、思源笔记等平台的优秀主题，自己尝试写了一些样式，在Typora主题社区第一次发布了Phycat这个主题。我知道这个主题还不是很成熟，不过也收获了不少用户的喜爱。
@@ -11,17 +15,17 @@
 | 亮色主题 | [Cheey（樱桃红）](https://sumruler.github.io/typora-theme-phycat/demo-cherry.html)、[Caramel（焦糖橙）](https://sumruler.github.io/typora-theme-phycat/demo-caramel.html)、[Forest（森绿）](https://sumruler.github.io/typora-theme-phycat/demo-forest.html)、[Mint（薄荷青）](https://sumruler.github.io/typora-theme-phycat/demo-mint.html)、[Sky（天蓝）](https://sumruler.github.io/typora-theme-phycat/demo-sky.html)、[Prussian（普鲁士蓝）](https://sumruler.github.io/typora-theme-phycat/demo-prussian.html)、[Sakura（樱花粉）](https://sumruler.github.io/typora-theme-phycat/demo-sakura.html)[Mauve（淡紫）](https://sumruler.github.io/typora-theme-phycat/demo-Mauve.html) |
 | 暗色主题 | [Dark](https://sumruler.github.io/typora-theme-phycat/demo-dark.html) |
 
-![image-20251224115955956](assets\image-20251224115955956.png)
+![image-20251224115955956](assets/image-20251224115955956.png)
 
-![image-20251224120012815](assets\image-20251224120012815.png)
+![image-20251224120012815](assets/image-20251224120012815.png)
 
-![image-20251224120026467](assets\image-20251224120026467.png)
+![image-20251224120026467](assets/image-20251224120026467.png)
 
-![image-20251224120056979](assets\image-20251224120056979.png)
+![image-20251224120056979](assets/image-20251224120056979.png)
 
-![image-20251224120115544](assets\image-20251224120115544.png)
+![image-20251224120115544](assets/image-20251224120115544.png)
 
-![image-20251224120135916](assets\image-20251224120135916.png)
+![image-20251224120135916](assets/image-20251224120135916.png)
 
 ## 设计语言
 
@@ -68,15 +72,15 @@
 
 ## 常见问题
 
-### 1. 导出网页如何具有侧边栏大纲
+### 导出网页如何具有侧边栏大纲
 
 在偏好设置，找到导出，选择HTML，勾选保留侧边栏大纲
 
-### 2. 如何开启自动编号
+### 如何开启自动编号
 
 在配色CSS文件中（例如phycat-forest.css)，取消注释对应的自动编号级别即可
 
-### 3. 如何开启或更换背景图案
+### 如何开启或更换背景图案
 
 在配色CSS文件中（例如phycat-forest.css)，更改`--bg-style`变量即可
 
@@ -99,4 +103,4 @@
 
 如果你喜欢这套主题，可以选择打赏支持。不胜感激！
 
-<img src="D:\WorkTop2\typora-theme-phycat\assets\image-20251224165551114.png" alt="image-20251224165551114" style="zoom:33%;" /><img src="D:\WorkTop2\typora-theme-phycat\assets\image-20251224165606988.png" alt="image-20251224165606988" style="zoom:33%;" />
+<img src="assets/image-20251224165551114.png" alt="image-20251224165551114" style="zoom:33%;" /><img src="assets/image-20251224165606988.png" alt="image-20251224165606988" style="zoom:33%;" />
