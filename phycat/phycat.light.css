@@ -18,14 +18,14 @@
 }
 
 @font-face {
-    font-family: "SourceHanSerifCN";
-    src: url('SourceHanSerifCN-Medium.ttf');
+  font-family: "SourceHanSerifCN";
+  src: url('SourceHanSerifCN-Medium.ttf');
 }
 
 @font-face {
-    font-family: "SourceHanSerifCN";
-    src: url('SourceHanSerifCN-Bold.ttf');
-    font-weight: bold;
+  font-family: "SourceHanSerifCN";
+  src: url('SourceHanSerifCN-Bold.ttf');
+  font-weight: bold;
 }
 
 html {
@@ -33,39 +33,6 @@ html {
   font-family: "HarmonyOS_Sans_SC";
 }
 
-/* 打印页面设置 */
-
-@media print {
-  * {
-    -webkit-print-color-adjust: exact;
-    /*确保打印颜色一致*/
-    print-color-adjust: exact;
-  }
-
-  body {
-    width: 21cm;
-    /* 设置页面宽度为A4宽度 */
-    height: 29.7cm;
-    /* 设置页面高度为A4高度 */
-    margin: 1cm;
-    /* 设置页面边距 */
-  }
-
-  p {
-    line-height: 1.5rem;
-    /*设置打印内容的行高*/
-  }
-
-  ol,
-  ul,
-  figure,
-  pre {
-    /*设置一些元素不会被分页截断对应有序列表、无序列表、图片(表格)、代码块*/
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-
-}
 
 /* 软件内部Markdown样式 */
 #write {
@@ -107,7 +74,7 @@ html {
 #write p {
   color: #333;
   margin: 10px 10px;
-  font-family: Optima-Regular, Optima,"SourceHanSerifCN", PingFangSC-light, PingFangTC-light,
+  font-family: Optima-Regular, Optima, "SourceHanSerifCN", PingFangSC-light, PingFangTC-light,
     "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-size: 1rem;
   word-spacing: 2px;
@@ -1030,14 +997,17 @@ pre.md-meta-block:hover {
   color: #7e7e7e;
   display: block;
   background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNDUwcHgiIGhlaWdodD0iMTMwcHgiPgogIDxlbGxpcHNlIGN4PSI2NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgc3Ryb2tlPSJyZ2IoMjIwLDYwLDU0KSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJyZ2IoMjM3LDEwOCw5NikiLz4KICA8ZWxsaXBzZSBjeD0iMjI1IiBjeT0iNjUiIHJ4PSI1MCIgcnk9IjUyIiAgc3Ryb2tlPSJyZ2IoMjE4LDE1MSwzMykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDI0NywxOTMsODEpIi8+CiAgPGVsbGlwc2UgY3g9IjM4NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgIHN0cm9rZT0icmdiKDI3LDE2MSwzNykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDEwMCwyMDAsODYpIi8+Cjwvc3ZnPg==);
-  height: 32px; /* 建议改为 32px，给大字号留空间 */
+  height: 32px;
+  /* 建议改为 32px，给大字号留空间 */
   width: 100%;
   background-size: 40px;
   background-repeat: no-repeat;
   background-color: #f8f8f8;
   border-radius: 5px 5px 0 0;
-  background-position: 6px 11px; /* 稍微下移圆点位置使其居中 */
-  margin-bottom: 0; /* 确保底部没有间距干扰 */
+  background-position: 6px 11px;
+  /* 稍微下移圆点位置使其居中 */
+  margin-bottom: 0;
+  /* 确保底部没有间距干扰 */
 }
 
 .CodeMirror-wrap .CodeMirror-scroll {
@@ -1051,15 +1021,16 @@ pre.md-meta-block:hover {
 }
 
 .md-fences.md-focus {
-  z-index: 100; /* 当用户点击代码块时，将其置于最顶层 */
+  z-index: 100;
+  /* 当用户点击代码块时，将其置于最顶层 */
 }
 
 .md-fences .cm-s-inner.CodeMirror {
-  margin-top: 0; /* -0.5rem导致代码块首行吞字 */
+  margin-top: 0;
 }
 
 .cm-s-inner.CodeMirror {
-  padding: 24px 12px 12px 12px; /* 增加顶部 padding (24px)，减少底部 padding */
+  padding: 20px 12px 12px 20px;
   color: #4f5467;
   font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
   border-radius: 10px;
@@ -1086,13 +1057,9 @@ pre.CodeMirror-line {
 .cm-s-inner.CodeMirror {
   background: #f8f8f8;
   border-radius: 0 0 5px 5px;
-  padding: 24px 12px 12px 12px; /* 增加顶部 padding (24px)，减少底部 padding */
+  padding: 24px 12px 12px 12px;
   page-break-before: auto;
   line-height: 1.8rem;
-}
-
-.CodeMirror-lines {
-  padding-top: 24px !important; /* 强行修改pre.CodeMirror-line导致代码块首行被吞样式问题 */
 }
 
 .md-rawblock .md-rawblock-tooltip {
@@ -1405,6 +1372,7 @@ kbd:hover {
   /* background: rgba(179, 179, 179, 0.425); */
   background: var(--element-color);
 }
+
 ::-webkit-scrollbar-thumb:active {
   background: var(--element-color-shallow);
 }
@@ -1745,8 +1713,10 @@ div.outline-item-active {
 }
 
 
-body.typora-export {
-  background-color: #f7f9fc;
+@media screen {
+  body.typora-export {
+    background-color: transparent;
+  }
 }
 
 .typora-export-sidebar {
@@ -1761,7 +1731,7 @@ body.typora-export {
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.13);
 
   z-index: 100;
   overflow: hidden;
@@ -1787,7 +1757,7 @@ body.typora-export {
   min-height: calc(100vh - 20px);
   background-color: #fff;
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
   padding: 60px 80px;
   width: auto;
   max-width: none;
@@ -1804,5 +1774,67 @@ body.typora-export {
     width: 100%;
     box-shadow: none;
     padding: 20px;
+  }
+
+}
+
+/* PDF导出设置 */
+@media print {
+  @page {
+    margin: 10mm;
+    size: A4;
+  }
+
+  body {
+    background-color: transparent !important;
+  }
+
+  .typora-header {
+    background-color: transparent !important;
+    background: transparent !important;
+    height: 5px;
+  }
+  body {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+  .typora-export #write {
+    margin: 0 auto !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  #write::before {
+    display: block !important;
+    opacity: 0.05 !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    -webkit-mask-image: var(--bg-style) !important;
+    mask-image: var(--bg-style) !important;
+    background-color: var(--element-color) !important;
+    pointer-events: none;
+    z-index: -1;
+  }
+  p {
+    line-height: 1.5rem;
+  }
+
+  ol,
+  ul,
+  figure,
+  pre {
+    page-break-inside: avoid;
+  }
+  .md-toc {
+    background-image: none;
   }
 }

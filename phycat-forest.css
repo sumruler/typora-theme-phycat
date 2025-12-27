@@ -81,11 +81,3 @@
 
   --rawblock-edit-panel-bd:var(--element-color-soo-shallow);
 }
-
-/* 是否开启PDF打印背景 */
-@media print {
-  #write {
-    /* 交叉斜线 */
-    background-image: var(--bg-style)
-  }
-}
