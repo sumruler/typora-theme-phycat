@@ -728,25 +728,36 @@ pre.md-meta-block {
   color: #7e7e7e;
   display: block;
   background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNDUwcHgiIGhlaWdodD0iMTMwcHgiPgogIDxlbGxpcHNlIGN4PSI2NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgc3Ryb2tlPSJyZ2IoMjIwLDYwLDU0KSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJyZ2IoMjM3LDEwOCw5NikiLz4KICA8ZWxsaXBzZSBjeD0iMjI1IiBjeT0iNjUiIHJ4PSI1MCIgcnk9IjUyIiAgc3Ryb2tlPSJyZ2IoMjE4LDE1MSwzMykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDI0NywxOTMsODEpIi8+CiAgPGVsbGlwc2UgY3g9IjM4NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgIHN0cm9rZT0icmdiKDI3LDE2MSwzNykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDEwMCwyMDAsODYpIi8+Cjwvc3ZnPg==);
-  height: 30px;
+  height: 32px; /* 建议改为 32px，给大字号留空间 */
   width: 100%;
   background-size: 40px;
   background-repeat: no-repeat;
   background-color: #222222;
   border-radius: 5px 5px 0 0;
-  background-position: 6px 10px;
+  background-position: 6px 11px; /* 稍微下移圆点位置使其居中 */
+  margin-bottom: 0; /* 确保底部没有间距干扰 */
 }
 
 .CodeMirror-wrap .CodeMirror-scroll {
   overflow-x: auto;
 }
 
+.md-fences {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+}
+
+.md-fences.md-focus {
+  z-index: 100; /* 当用户点击代码块时，将其置于最顶层 */
+}
+
 .md-fences .cm-s-inner.CodeMirror {
-  margin-top: -0.5rem;
+  margin-top: 0; /* -0.5rem导致代码块首行吞字 */
 }
 
 .cm-s-inner.CodeMirror {
-  padding: 1.2rem 0.8rem;
+  padding: 24px 12px 12px 12px; /* 增加顶部 padding (24px)，减少底部 padding */
   color: #4f5467;
   font-family: "CascadiaCode",monospace;
   border-radius: 10px;
@@ -761,11 +772,11 @@ pre.md-meta-block {
 }
 
 pre.CodeMirror-line {
-  padding: 0 1.2rem;
+  padding: 0px 1.2rem;
 }
 
 .CodeMirror-linenumber {
-  padding: 0 3px 0 5px;
+  padding: 0px 3px 0 5px;
   text-align: right;
   color: #a3a3a3;
 }
@@ -773,9 +784,13 @@ pre.CodeMirror-line {
 .cm-s-inner.CodeMirror {
   background: #222222;
   border-radius: 0 0 5px 5px;
-  padding: 20px 10px 20px 10px;
+  padding: 24px 12px 12px 12px; /* 增加顶部 padding (24px)，减少底部 padding */
   page-break-before: auto;
   line-height: 1.8rem;
+}
+
+.CodeMirror-lines {
+  padding-top: 24px !important; /* 强行修改pre.CodeMirror-line导致代码块首行被吞样式问题 */
 }
 
 .md-rawblock .md-rawblock-tooltip {
