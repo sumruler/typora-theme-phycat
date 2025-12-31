@@ -7,6 +7,8 @@
 | 亮色主题 | [Cheey（樱桃红）](https://sumruler.github.io/typora-theme-phycat/demo-cherry.html)、[Caramel（焦糖橙）](https://sumruler.github.io/typora-theme-phycat/demo-caramel.html)、[Forest（森绿）](https://sumruler.github.io/typora-theme-phycat/demo-forest.html)、[Mint（薄荷青）](https://sumruler.github.io/typora-theme-phycat/demo-mint.html)、[Sky（天蓝）](https://sumruler.github.io/typora-theme-phycat/demo-sky.html)、[Prussian（普鲁士蓝）](https://sumruler.github.io/typora-theme-phycat/demo-prussian.html)、[Sakura（樱花粉）](https://sumruler.github.io/typora-theme-phycat/demo-sakura.html)[Mauve（淡紫）](https://sumruler.github.io/typora-theme-phycat/demo-mauve.html) |
 | 暗色主题 | [Dark](https://sumruler.github.io/typora-theme-phycat/demo-dark.html) |
 
+隆重介绍物理猫Phycat主题色工坊，点击>>[Phycat Theme Studio](https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio.html)<<一键生成你的专属主题配色！
+
 [toc]
 
 > “我们并非在饮用咖啡，而是在饮用理念。” —— 某位在咖啡馆沉思的匿名者
@@ -120,3 +122,15 @@ print(result)
 
 > ⚠️ **请注意**：本文档中关于咖啡的所有描述，都源于作者的主观体验与广泛阅读。咖啡的**终极奥义**在于你的个人偏好。如果你喜欢加糖、加奶，或者就爱喝速溶咖啡，那也完全正确。所有关于“完美”的探讨，其目的都是为了**增进体验的乐趣，而非设立品味的藩篱**。
 
+> [!TIP]  
+> 咖啡如果觉得苦，可以加点糖。
+
+> [!WARNING]  
+>
+> 咖啡会导致胃酸分泌多，肠胃不好少喝咖啡哦！
+
+> [!NOTE]  
+> 咖啡和牛奶是很好的搭配呢。
+
+> [!IMPORTANT]  
+> 未成年不建议喝咖啡呢！

@@ -309,39 +309,6 @@ span.cm-strikethrough { text-decoration: line-through; }
   font-family: "HarmonyOS_Sans_SC";
 }
 
-/* 打印页面设置 */
-
-@media print {
-  * {
-    -webkit-print-color-adjust: exact;
-    /*确保打印颜色一致*/
-    print-color-adjust: exact;
-  }
-
-  body {
-    width: 21cm;
-    /* 设置页面宽度为A4宽度 */
-    height: 29.7cm;
-    /* 设置页面高度为A4高度 */
-    margin: 1cm;
-    /* 设置页面边距 */
-  }
-
-  p {
-    line-height: 1.5rem;
-    /*设置打印内容的行高*/
-  }
-
-  ol,
-  ul,
-  figure,
-  pre {
-    /*设置一些元素不会被分页截断对应有序列表、无序列表、图片(表格)、代码块*/
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-
-}
 
 /* 软件内部Markdown样式 */
 #write {
@@ -354,11 +321,8 @@ span.cm-strikethrough { text-decoration: line-through; }
   word-break: break-word;
   word-wrap: break-word;
   text-align: left;
-
-  /* 关键修改：移除旧的 background-image 定义 */
   position: relative;
   z-index: 0;
-  /* 建立层叠上下文 */
 }
 
 /* 新增：使用伪元素实现遮罩背景 */
@@ -370,27 +334,15 @@ span.cm-strikethrough { text-decoration: line-through; }
   right: 0;
   bottom: 0;
   pointer-events: none;
-  /* 让鼠标点击穿透，不影响文字选择 */
   z-index: -1;
-  /* 置于底层 */
-
-  /* 1. 颜色控制：直接使用主题变量 */
   background-color: var(--element-color);
-
-  /* 2. 透明度控制：统一调整纹理深浅 (0.05 ~ 0.2 之间比较合适) */
   opacity: 0.12;
-
-  /* 3. 形状控制：使用 Mask */
   -webkit-mask-image: var(--bg-style);
   mask-image: var(--bg-style);
-
-  /* 4. 纹理尺寸与重复 (对应原来的 background-size) */
   -webkit-mask-size: 20px 20px;
   mask-size: 20px 20px;
-
   -webkit-mask-repeat: repeat;
   mask-repeat: repeat;
-
   -webkit-mask-position: center;
   mask-position: center;
 }
@@ -398,17 +350,17 @@ span.cm-strikethrough { text-decoration: line-through; }
 #write p {
   color: #333;
   margin: 10px 10px;
-  font-family: Optima-Regular, Optima,"SourceHanSerifCN", PingFangSC-light, PingFangTC-light,
+  font-family: Optima-Regular, Optima, "SourceHanSerifCN", PingFangSC-light, PingFangTC-light,
     "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-size: 1rem;
   word-spacing: 2px;
 }
 
-#write h3:after,
-h4:after,
-h5:after,
-h6:after:not(.input-group-header) {
-  content: "";
+#write h3.md-heading:after,
+h4.md-heading:after,
+h5.md-heading:after,
+h6.md-heading:after {
+  content: " ";
   display: inline-block;
   height: 2em;
   width: 2em;
@@ -423,82 +375,62 @@ h6:after:not(.input-group-header) {
   mask-size: 24px 24px;
 }
 
-#write h3:after {
+#write h3.md-heading:after {
   -webkit-mask-image: var(--h3-icon-shape);
   mask-image: var(--h3-icon-shape);
 }
 
-#write h4:after {
+#write h4.md-heading:after {
   -webkit-mask-image: var(--h4-icon-shape);
   mask-image: var(--h4-icon-shape);
 }
 
-#write h5:after {
+#write h5.md-heading:after {
   -webkit-mask-image: var(--h5-icon-shape);
   mask-image: var(--h5-icon-shape);
 }
 
-#write h6:after {
+#write h6.md-heading:after {
   -webkit-mask-image: var(--h6-icon-shape);
   mask-image: var(--h6-icon-shape);
 }
 
-/* ================= H1 标题样式优化 (方案 1: 经典短线 - 常驻显示) ================= */
-
+/* H1 */
 #write h1 {
   text-align: center;
   font-size: 1.8rem;
   font-weight: bold;
   margin: 1em auto 0.8em;
   line-height: 1.4;
-
-  /* 关键：使用 table 让宽度自适应文字内容，确保线条和文字等宽 */
   display: table;
 
   color: #222;
   position: relative;
   padding-bottom: 12px;
-  /* 增加底部空间给线条 */
-
   transition: color 0.3s ease, transform 0.3s ease;
   border-bottom: none;
-  /* 清除默认下划线 */
 }
 
-/* 底部线条 (伪元素) */
 #write h1::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 50%;
-
-  /* [核心设计] 初始宽度：40px (常驻精致短线) */
   width: 40px;
   height: 4px;
   border-radius: 4px;
-
-  /* [优化] 使用主题定义的 H2 渐变背景 (色彩饱满) */
-  /* background-size: 100% 确保完整展示 A->B->A 的对称渐变结构 */
   background: var(--head-title-h2-background);
   background-size: 100% auto;
-
-  /* 居中定位 */
   transform: translateX(-50%);
-
-  /* 动效过渡：贝塞尔曲线让展开更有弹性 */
   transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Hover 交互效果 */
 #write h1:hover {
   color: var(--head-title-color);
-  /* 文字变主题色 */
   transform: translateY(-2px);
-  /* 微微上浮 */
 }
 
 #write h1:hover::after {
-  /* Hover 时展开至 100% */
   width: 100%;
 }
 
@@ -576,7 +508,7 @@ h6:after:not(.input-group-header) {
   width: 7px;
 }
 
-/* H4~H5 */
+/* H4~H6 */
 #write h4,
 #write h5,
 #write h6 {
@@ -1331,6 +1263,11 @@ pre.md-meta-block:hover {
   color: var(--element-color-linecode);
 }
 
+/* 流程图 */
+.md-diagram {
+  background: transparent;
+}
+
 /* 代码块 */
 
 .md-fences:not([lang="mermaid"])::before {
@@ -1341,25 +1278,40 @@ pre.md-meta-block:hover {
   color: #7e7e7e;
   display: block;
   background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNDUwcHgiIGhlaWdodD0iMTMwcHgiPgogIDxlbGxpcHNlIGN4PSI2NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgc3Ryb2tlPSJyZ2IoMjIwLDYwLDU0KSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJyZ2IoMjM3LDEwOCw5NikiLz4KICA8ZWxsaXBzZSBjeD0iMjI1IiBjeT0iNjUiIHJ4PSI1MCIgcnk9IjUyIiAgc3Ryb2tlPSJyZ2IoMjE4LDE1MSwzMykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDI0NywxOTMsODEpIi8+CiAgPGVsbGlwc2UgY3g9IjM4NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgIHN0cm9rZT0icmdiKDI3LDE2MSwzNykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDEwMCwyMDAsODYpIi8+Cjwvc3ZnPg==);
-  height: 30px;
+  height: 32px;
+  /* 建议改为 32px，给大字号留空间 */
   width: 100%;
   background-size: 40px;
   background-repeat: no-repeat;
   background-color: #f8f8f8;
   border-radius: 5px 5px 0 0;
-  background-position: 6px 10px;
+  background-position: 6px 11px;
+  /* 稍微下移圆点位置使其居中 */
+  margin-bottom: 0;
+  /* 确保底部没有间距干扰 */
 }
 
 .CodeMirror-wrap .CodeMirror-scroll {
   overflow-x: auto;
 }
 
+.md-fences {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+}
+
+.md-fences.md-focus {
+  z-index: 100;
+  /* 当用户点击代码块时，将其置于最顶层 */
+}
+
 .md-fences .cm-s-inner.CodeMirror {
-  margin-top: -0.5rem;
+  margin-top: 0;
 }
 
 .cm-s-inner.CodeMirror {
-  padding: 1.2rem 0.8rem;
+  padding: 20px 12px 12px 20px;
   color: #4f5467;
   font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
   border-radius: 10px;
@@ -1374,11 +1326,11 @@ pre.md-meta-block:hover {
 }
 
 pre.CodeMirror-line {
-  padding: 0 1.2rem;
+  padding: 0px 1.2rem;
 }
 
 .CodeMirror-linenumber {
-  padding: 0 3px 0 5px;
+  padding: 0px 3px 0 5px;
   text-align: right;
   color: #a3a3a3;
 }
@@ -1386,7 +1338,7 @@ pre.CodeMirror-line {
 .cm-s-inner.CodeMirror {
   background: #f8f8f8;
   border-radius: 0 0 5px 5px;
-  padding: 20px 10px 20px 10px;
+  padding: 24px 12px 12px 12px;
   page-break-before: auto;
   line-height: 1.8rem;
 }
@@ -1571,6 +1523,206 @@ kbd:hover {
   background: none;
 }
 
+/* ================= Callout / Admonition 样式优化 (最终版: 果冻水印 - 紧凑版) ================= */
+
+/* 1. 基础容器重置与美化 */
+.md-alert {
+  padding: 5px 10px;
+  margin-bottom: 16px;
+  color: #555;
+  /* 正文颜色 */
+
+  /* 核心样式：去边框、大圆角、裁剪溢出水印 */
+  border: none !important;
+  /* 覆盖默认的左边框 */
+  border-radius: 12px;
+  /* 圆角稍微减小一点以匹配紧凑感 */
+  position: relative;
+  overflow: hidden;
+
+  /* 弹性过渡 */
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+/* 2. Hover 交互：整体上浮 + 投影 */
+.md-alert:hover {
+  transform: scale(1.01) translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  z-index: 1;
+  /* 浮起时置顶 */
+}
+
+/* 3. 标题区域 (胶囊化设计 - 紧凑化) */
+.md-alert-text-container {
+  display: inline-flex;
+  align-items: center;
+
+  /* 半透明白底胶囊 */
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(2px);
+  padding: 2px 10px;
+  /* 减小内边距 */
+  border-radius: 50px;
+
+  font-weight: 700;
+  font-size: 14px;
+  /* 字体调整为 14px */
+  margin-bottom: 6px;
+  /* 减少与正文距离 */
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  position: relative;
+  z-index: 2;
+  /* 确保在水印之上 */
+}
+
+/* 覆盖原有的伪元素文本生成，保持胶囊内文字对其 */
+.md-alert-text-container::after {
+  margin-right: 0;
+}
+
+/* 4. 水印大图标 (核心创意 - 适配紧凑版) */
+/* 使用伪元素在右下角生成半透明大图标 */
+.md-alert::after {
+  content: "";
+  /* 具体图标在下方各类型中定义 */
+  position: absolute;
+  right: -10px;
+  bottom: -12px;
+  /* 位置微调 */
+
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
+  font-size: 64px;
+  /* 尺寸缩小适配紧凑高度 */
+  line-height: 1;
+
+  opacity: 0.12;
+  /* 低透明度，不干扰阅读 */
+  transform: rotate(-15deg);
+  /* 初始倾斜 */
+  pointer-events: none;
+  /* 鼠标穿透 */
+  z-index: 0;
+
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 悬停时水印动效：扶正并向内移动 */
+.md-alert:hover::after {
+  transform: rotate(0deg) scale(1.1);
+  opacity: 0.2;
+  right: 0px;
+  bottom: -4px;
+}
+
+/* 5. 图标微调 (标题左侧的小图标) */
+.md-alert-text svg {
+  fill: currentColor;
+  position: relative;
+  top: 1px;
+  /* 微调垂直对齐 */
+  margin-right: 5px;
+  width: 1em;
+  /* 稍微缩小图标 */
+  height: 1em;
+}
+
+/* ================= 各类型配色与图标定义 ================= */
+
+/* --- Note (笔记) --- */
+.md-alert.md-alert-note {
+  background-color: rgba(108, 92, 231, 0.1);
+  /* 浅紫色背景 */
+}
+
+.md-alert-text-note {
+  color: #6c5ce7;
+}
+
+.md-alert.md-alert-note:hover {
+  background-color: rgba(108, 92, 231, 0.15);
+}
+
+.md-alert.md-alert-note::after {
+  content: "📝";
+}
+
+/* 水印 */
+
+/* --- Tip (提示) --- */
+.md-alert.md-alert-tip {
+  background-color: rgba(0, 184, 148, 0.1);
+  /* 薄荷绿背景 */
+}
+
+.md-alert-text-tip {
+  color: #00b894;
+}
+
+.md-alert.md-alert-tip:hover {
+  background-color: rgba(0, 184, 148, 0.15);
+}
+
+.md-alert.md-alert-tip::after {
+  content: "💡";
+}
+
+/* --- Warning (警告) --- */
+.md-alert.md-alert-warning {
+  background-color: rgba(253, 203, 110, 0.15);
+  /* 暖橙色背景 */
+}
+
+.md-alert-text-warning {
+  color: #e17055;
+}
+
+.md-alert.md-alert-warning:hover {
+  background-color: rgba(253, 203, 110, 0.2);
+}
+
+.md-alert.md-alert-warning::after {
+  content: "⚠️";
+}
+
+/* --- Important (重要) --- */
+.md-alert.md-alert-important {
+  background-color: rgba(255, 118, 117, 0.12);
+  /* 珊瑚红背景 */
+}
+
+.md-alert-text-important {
+  color: #ff7675;
+}
+
+.md-alert.md-alert-important:hover {
+  background-color: rgba(255, 118, 117, 0.18);
+}
+
+.md-alert.md-alert-important::after {
+  content: "📌";
+}
+
+/* --- Caution (危险) --- */
+.md-alert.md-alert-caution {
+  background-color: rgba(214, 48, 49, 0.08);
+  /* 警戒红背景 */
+}
+
+.md-alert-text-caution {
+  color: #d63031;
+}
+
+.md-alert.md-alert-caution:hover {
+  background-color: rgba(214, 48, 49, 0.12);
+}
+
+.md-alert.md-alert-caution::after {
+  content: "🔥";
+}
+
 /* Toc目录 */
 .md-toc {
   margin: 20px;
@@ -1701,6 +1853,7 @@ kbd:hover {
   /* background: rgba(179, 179, 179, 0.425); */
   background: var(--element-color);
 }
+
 ::-webkit-scrollbar-thumb:active {
   background: var(--element-color-shallow);
 }
@@ -2041,8 +2194,10 @@ div.outline-item-active {
 }
 
 
-body.typora-export {
-  background-color: #f7f9fc;
+@media screen {
+  body.typora-export {
+    background-color: transparent;
+  }
 }
 
 .typora-export-sidebar {
@@ -2057,7 +2212,7 @@ body.typora-export {
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.13);
 
   z-index: 100;
   overflow: hidden;
@@ -2083,7 +2238,7 @@ body.typora-export {
   min-height: calc(100vh - 20px);
   background-color: #fff;
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
   padding: 60px 80px;
   width: auto;
   max-width: none;
@@ -2100,6 +2255,116 @@ body.typora-export {
     width: 100%;
     box-shadow: none;
     padding: 20px;
+  }
+
+}
+
+/* PDF导出设置 */
+@media print {
+  @page {
+    margin: 10mm;
+    size: A4;
+  }
+
+  body {
+    background-color: transparent !important;
+  }
+
+  body {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  .typora-export #write {
+    margin: 0 auto !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  #write::before {
+    display: block !important;
+    opacity: 0.1 !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    -webkit-mask-image: var(--bg-style) !important;
+    mask-image: var(--bg-style) !important;
+    background-color: var(--element-color) !important;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  p {
+    line-height: 1.5rem;
+  }
+
+  figure,
+  pre {
+    page-break-inside: avoid;
+  }
+
+  ul,
+  ol {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+
+  li {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  pre {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+    white-space: pre-wrap;
+  }
+
+  blockquote {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  p {
+    orphans: 2;
+    widows: 2;
+  }
+
+  .md-toc {
+    background-image: none;
+  }
+}
+
+/* --- 强制分页符样式 --- */
+/* 在Typora中键入  <div class="page-break"/>  即可强制分页 */
+@media print {
+  .page-break {
+    page-break-after: always;
+    break-after: always;
+    height: 0;
+    display: block;
+    visibility: hidden;
   }
 }@import url();
 
@@ -2125,24 +2390,26 @@ body.typora-export {
   --bg-shape-tri: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h30v30H0z' fill='none'/%3E%3Cpath d='M0 0L30 0L15 15Z' fill='black'/%3E%3Cpath d='M30 30L0 30L15 15Z' fill='black'/%3E%3C/svg%3E");
   /* 6. 方格网 */
   --bg-shape-grid: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v20H0z' fill='none'/%3E%3Cpath d='M20 0v20M0 20h20' stroke='black' stroke-width='0.7'/%3E%3C/svg%3E");
+  /* 7. 无背景 (纯白背景) */
+  --bg-shape-none: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=");
 
   /* 文档背景样式  none 无背景*/
-  --bg-style: var(--bg-shape-cross);
-  /* --bg-style:none; */
+  --bg-style: var(--bg-shape-none);
+
 
   /* 自动编号格式设置 无需自动编号可全部注释掉或部分注释掉*/
-  /* --autonum-h1: counter(h1) ". ";
+  --autonum-h1: counter(h1) ". ";
   --autonum-h2: counter(h1) "." counter(h2) ". ";
   --autonum-h3: counter(h1) "." counter(h2) "." counter(h3) ". ";
-  --autonum-h4: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) ". ";
+  /* --autonum-h4: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) ". ";
   --autonum-h5: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". ";
   --autonum-h6: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) ". "; */
 
   /* 下面是文章内Toc目录自动编号，与上面一样即可 */
-  /* --autonum-h1toc: counter(h1toc) ". ";
+  --autonum-h1toc: counter(h1toc) ". ";
   --autonum-h2toc: counter(h1toc) "." counter(h2toc) ". ";
   --autonum-h3toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) ". ";
-  --autonum-h4toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) ". ";
+  /* --autonum-h4toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) ". ";
   --autonum-h5toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) ". ";
   --autonum-h6toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) "." counter(h6toc) ". "; */
 
@@ -2174,21 +2441,16 @@ body.typora-export {
 
   --rawblock-edit-panel-bd: var(--element-color-soo-shallow);
 }
-
-/* 是否开启PDF打印背景 */
-@media print {
-  #write {
-    /* 交叉斜线 */
-    background-image: var(--bg-style)
-  }
-}</style>
+</style>
 <style type='text/css'  id="style-lp">ol, ul {padding-left: 40px}</style>
 
 <title>README</title>
 </head>
 <body class='typora-export os-windows typora-export-show-outline typora-export-collapse-outline'><div class='typora-export-content'>
-<div class="typora-export-sidebar"><div class="outline-content"><li class="outline-item-wrapper outline-h1 outline-item-open"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#phycat-theme-for-typora">Phycat theme for Typora</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#设计语言">设计语言</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#主题特点">主题特点</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#样式预览">样式预览</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#使用方法">使用方法</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#常见问题">常见问题</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#1-导出网页如何具有侧边栏大纲">1. 导出网页如何具有侧边栏大纲</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#2-如何开启自动编号">2. 如何开启自动编号</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#3-如何开启或更换背景图案">3. 如何开启或更换背景图案</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#致谢">致谢</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#待更新计划">待更新计划</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#打赏">打赏</a></div><ul class="outline-children"></ul></li></ul></li></div></div><div id='write'  class=''><h1 id='phycat-theme-for-typora'><span>Phycat theme for Typora</span></h1><blockquote><p><span>好看的样式可以提升写作体验。</span></p></blockquote><p><span>起源是想找一款层次分明、易于阅读的主题，于是借鉴了Typora、Mdnice、思源笔记等平台的优秀主题，自己尝试写了一些样式，在Typora主题社区第一次发布了Phycat这个主题。我知道这个主题还不是很成熟，不过也收获了不少用户的喜爱。</span></p><p><span>不少用户提了很多建议，让我进行了很多的主题优化。我不是专业的前端人员，好在AI时代下很多问题都变得简单起来，现在Phycat2.0主题来了！</span></p><figure class='table-figure'><table><thead><tr><th><span>主题系列</span></th><th style='text-align:left;' ><span>主题链接</span></th></tr></thead><tbody><tr><td><span>亮色主题</span></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-cherry.html'><span>Cheey（樱桃红）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-caramel.html'><span>Caramel（焦糖橙）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-forest.html'><span>Forest（森绿）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-mint.html'><span>Mint（薄荷青）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sky.html'><span>Sky（天蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-prussian.html'><span>Prussian（普鲁士蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sakura.html'><span>Sakura（樱花粉）</span></a><a href='https://sumruler.github.io/typora-theme-phycat/demo-Mauve.html'><span>Mauve（淡紫）</span></a></td></tr><tr><td><span>暗色主题</span></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-dark.html'><span>Dark</span></a></td></tr></tbody></table></figure><p><img src="D:\WorkTop2\typora-theme-phycat\assets\image-20251224115955956.png" alt="image-20251224115955956"></p><p><img src="D:\WorkTop2\typora-theme-phycat\assets\image-20251224120012815.png" alt="image-20251224120012815"></p><p><img src="D:\WorkTop2\typora-theme-phycat\assets\image-20251224120026467.png" alt="image-20251224120026467"></p><p><img src="D:\WorkTop2\typora-theme-phycat\assets\image-20251224120056979.png" alt="image-20251224120056979"></p><p><img src="D:\WorkTop2\typora-theme-phycat\assets\image-20251224120115544.png" alt="image-20251224120115544"></p><p><img src="D:\WorkTop2\typora-theme-phycat\assets\image-20251224120135916.png" alt="image-20251224120135916"></p><h2 id='设计语言'><span>设计语言</span></h2><ul><li><p><span>清晰、分明、简洁、圆润、灵动、时尚</span></p></li><li><p><span>字体</span></p><ul><li><p><span>标题：</span><em><span>HarmonyOS_Sans_SC</span></em></p></li><li><p><span>段落正文：</span><em><span>SourceHanSerifCN</span></em></p></li></ul></li><li><p><span>卡片风格：气泡、毛玻璃</span></p></li></ul><h2 id='主题特点'><span>主题特点</span></h2><ol start='' ><li><p><strong><span>美观</span></strong><span>：好看的样式可以提升写作体验。</span></p></li><li><p><strong><span>分明</span></strong><span>：标题、列表、大纲都进行了精心设计，标题一眼就能看出是积极标题，列表、大纲目录层级非常分明易读。</span></p></li><li><p><strong><span>灵动</span></strong><span>：精心设计了大量动画效果——Hover动画、任务列表完成动画等等，在给你一些小惊喜的同时不影响布局，只增强阅读、编辑，不影响阅读、编辑。</span></p></li><li><p><strong><span>细节</span></strong><span>：大纲目录后跳动的星星、超链接转动的小图标、代码块右上角的代码语言、为Yaml、KBD键盘专门书写样式、多套背景样式、PDF导出的样式优化等等，都有小巧思。</span></p></li><li><p><strong><span>导出HTML深度优化</span></strong><span>：导出的HTML完美兼容软件内样式，大纲目录样式也进行了深度优化设计，样式预览页面都是直接导出的HTML页面，相信你看了会喜欢的。</span></p></li><li><p><strong><span>配色丰富且易定制</span></strong><span>：主题内置了八种配色：Cheey（樱桃红）、Caramel（焦糖橙）、Forest（森绿）、Mint（薄荷青）、Sky（天蓝）、Prussian（普鲁士蓝）、Sakura（樱花粉）、Mauve（淡紫）。配色文件与样式文件分离，复制一份配色文件修改便得到一套配色。如果不会搭配，也可以让AI生成一套好看的配色。</span></p></li><li><p><strong><span>便捷功能开关</span></strong><span>：在配色CSS文件中，可以通过简单调整快速启用或改变背景样式、自动编号等功能。</span></p></li></ol><h2 id='样式预览'><span>样式预览</span></h2><p><span>点击链接预览即可，都是直接通过Typora导出的HTML文件</span></p><figure class='table-figure'><table><thead><tr><th><span>主题系列</span></th><th style='text-align:left;' ><span>主题链接</span></th></tr></thead><tbody><tr><td><span>亮色主题</span></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-cherry.html'><span>Cheey（樱桃红）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-caramel.html'><span>Caramel（焦糖橙）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-forest.html'><span>Forest（森绿）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-mint.html'><span>Mint（薄荷青）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sky.html'><span>Sky（天蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-prussian.html'><span>Prussian（普鲁士蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sakura.html'><span>Sakura（樱花粉）</span></a><a href='https://sumruler.github.io/typora-theme-phycat/demo-Mauve.html'><span>Mauve（淡紫）</span></a></td></tr><tr><td><span>暗色主题</span></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-dark.html'><span>Dark</span></a></td></tr></tbody></table></figure><h2 id='使用方法'><span>使用方法</span></h2><ol start='' ><li><p><span>从</span><a href='https://github.com/sumruler/typora-theme-phycat/releases'><span>Releases · sumruler/typora-theme-phycat</span></a><span>下载最新的主题包</span></p></li><li><p><span>将</span><code>phycat</code><span>文件夹与所有CSS文件放进Typora主题目录下</span>
-<span>复制下面内容，WIN+R运行即可快速打开</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 32.3984px; left: 58.1953px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 29px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -29px; width: 29px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 20px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">%appdata%\Typora\themes</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 29px;"></div><div class="CodeMirror-gutters" style="height: 29px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div></div></div></div></pre></li><li><p><span>重启Typora，在主题中启用相应主题即可</span></p></li></ol><h2 id='常见问题'><span>常见问题</span></h2><h3 id='1-导出网页如何具有侧边栏大纲'><span>1. 导出网页如何具有侧边栏大纲</span></h3><p><span>在偏好设置，找到导出，选择HTML，勾选保留侧边栏大纲</span></p><h3 id='2-如何开启自动编号'><span>2. 如何开启自动编号</span></h3><p><span>在配色CSS文件中（例如phycat-forest.css)，取消注释对应的自动编号级别即可</span></p><h3 id='3-如何开启或更换背景图案'><span>3. 如何开启或更换背景图案</span></h3><p><span>在配色CSS文件中（例如phycat-forest.css)，更改</span><code>--bg-style</code><span>变量即可</span></p><h2 id='致谢'><span>致谢</span></h2><p><span>这个主题借鉴参考了众多优秀主题和平台，在此特别感谢</span></p><ol start='' ><li><p><a href='https://github.com/YiNNx/typora-theme-lapis'><span>Lapis主题</span></a></p></li><li><p><a href='https://github.com/HappySimple/Typora-theme-Happysimple'><span>Happysimple主题</span></a></p></li><li><p><a href='https://obscurefreeman.github.io/typora_theme_blackout'><span>Blackout主题</span></a></p></li><li><p><a href='https://github.com/royc01/notion-theme'><span>思源笔记Savor主题</span></a></p></li><li><p><a href='https://github.com/mdnice/markdown-nice'><span>Mdnice项目</span></a></p></li></ol><h2 id='待更新计划'><span>待更新计划</span></h2><ul><li class='md-task-list-item task-list-item task-list-not-done' ><input type='checkbox' /><p><span>提示框样式的优化</span></p></li><li class='md-task-list-item task-list-item task-list-not-done' ><input type='checkbox' /><p><span>暗色主题的重构</span></p></li></ul><h2 id='打赏'><span>打赏</span></h2><p><span>如果你喜欢这套主题，可以选择打赏支持。不胜感激！</span></p><p><img src="D:\WorkTop2\typora-theme-phycat\assets\image-20251224165551114.png" alt="image-20251224165551114" style="zoom:33%;" /><img src="D:\WorkTop2\typora-theme-phycat\assets\image-20251224165606988.png" alt="image-20251224165606988" style="zoom:33%;" /></p></div></div>
+<div class="typora-export-sidebar"><div class="outline-content"><li class="outline-item-wrapper outline-h1 outline-item-open"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#phycat-theme-for-typora">Phycat theme for Typora</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#设计语言">设计语言</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#主题特点">主题特点</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#样式预览">样式预览</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#使用方法">使用方法</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#常见问题">常见问题</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#导出网页如何具有侧边栏大纲">导出网页如何具有侧边栏大纲</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#如何开启自动编号">如何开启自动编号</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#如何开启或更换背景图案">如何开启或更换背景图案</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#致谢">致谢</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#待更新计划">待更新计划</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#下载链接">下载链接</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#打赏">打赏</a></div><ul class="outline-children"></ul></li></ul></li></div></div><div id='write'  class=''><h1 id='phycat-theme-for-typora'><span>Phycat theme for Typora</span></h1><blockquote><p><span>好看的样式可以提升写作体验。</span></p></blockquote><p><span>起源是想找一款层次分明、易于阅读的主题，于是借鉴了Typora、Mdnice、思源笔记等平台的优秀主题，自己尝试写了一些样式，在Typora主题社区第一次发布了Phycat这个主题。我知道这个主题还不是很成熟，不过也收获了不少用户的喜爱。</span></p><p><span>不少用户提了很多建议，让我进行了很多的主题优化。我不是专业的前端人员，好在AI时代下很多问题都变得简单起来，现在</span><strong><span>Phycat2.0主题</span></strong><span>来了！</span></p><figure class='table-figure'><table><thead><tr><th><span>主题系列</span></th><th style='text-align:left;' ><span>主题链接</span></th></tr></thead><tbody><tr><td><span>亮色主题</span></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-cherry.html'><span>Cheey（樱桃红）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-caramel.html'><span>Caramel（焦糖橙）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-forest.html'><span>Forest（森绿）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-mint.html'><span>Mint（薄荷青）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sky.html'><span>Sky（天蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-prussian.html'><span>Prussian（普鲁士蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sakura.html'><span>Sakura（樱花粉）</span></a><a href='https://sumruler.github.io/typora-theme-phycat/demo-mauve.html'><span>Mauve（淡紫）</span></a></td></tr><tr><td><span>暗色主题</span></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-dark.html'><span>Dark</span></a></td></tr></tbody></table></figure><p><span>隆重介绍物理猫Phycat主题色工坊，点击&gt;&gt;</span><a href='https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio.html'><span>Phycat Theme Studio</span></a><span>&lt;&lt;一键生成你的专属主题配色！</span></p><p>&nbsp;</p><p><img src="assets/image-20251224115955956.png" alt="image-20251224115955956"></p><p><img src="assets/image-20251224120012815.png" alt="image-20251224120012815"></p><p><img src="assets/image-20251224120026467.png" alt="image-20251224120026467"></p><p><img src="assets/image-20251224120056979.png" alt="image-20251224120056979"></p><p><img src="assets/image-20251224120115544.png" alt="image-20251224120115544"></p><p><img src="assets/image-20251224120135916.png" alt="image-20251224120135916"></p><h2 id='设计语言'><span>设计语言</span></h2><ul><li><p><span>清晰、分明、简洁、圆润、灵动、时尚</span></p></li><li><p><span>字体</span></p><ul><li><p><span>标题：</span><em><span>HarmonyOS_Sans_SC</span></em></p></li><li><p><span>段落正文：</span><em><span>SourceHanSerifCN</span></em></p></li></ul></li><li><p><span>卡片风格：</span><em><span>气泡</span></em><span>、</span><em><span>毛玻璃</span></em></p></li></ul><h2 id='主题特点'><span>主题特点</span></h2><ol start='' ><li><p><strong><span>美观</span></strong><span>：</span><em><span>好看的样式可以提升写作体验</span></em><span> ✍️。</span></p></li><li><p><strong><span>分明</span></strong><span>：标题、列表、大纲都进行了精心设计，标题一眼就能看出是几级标题，列表、大纲目录层级非常</span><strong><span>分明易读</span></strong><span> 。</span></p></li><li><p><strong><span>灵动</span></strong><span>：精心设计了大量动画效果——</span><strong><span>Hover动画</span></strong><span> ✨、</span><strong><span>任务列表</span></strong><span>完成动画等等 ✅。在给你一些小惊喜的同时不影响布局，只增强阅读与编辑体验 ⚖️。</span></p></li><li><p><strong><span>细节</span></strong><span>：大纲目录后跳动的星星 🌟、超链接转动的小图标 🔗、代码块右上角的代码语言 💻、为 Yaml、KBD 键盘专门书写的样式 ⌨️、多套背景样式、PDF 导出样式优化等等，处处都有</span><strong><span>小巧思</span></strong><span> 💡。</span></p></li><li><p><strong><span>导出 HTML 深度优化</span></strong><span>：导出的 HTML 完美兼容软件内样式 🌐，大纲目录样式也进行了深度优化设计。样式预览页面都是直接导出的 HTML 页面，相信你看了会喜欢的 ❤️。</span></p></li><li><p><strong><span>配色丰富且易定制</span></strong><span>：主题内置了八种配色 🎨：</span>
+<span>🍒 </span><em><span>Cherry（樱桃红）</span></em><span>、🍮 </span><em><span>Caramel（焦糖橙）</span></em><span>、🌲 </span><em><span>Forest（森绿）</span></em><span>🌿、 </span><em><span>Mint（薄荷青）</span></em><span>、💎 </span><em><span>Sky（天蓝）</span></em><span>、🌊 </span><em><span>Prussian（普鲁士蓝）、</span></em><span>🌸 </span><em><span>Sakura（樱花粉）</span></em><span>、🍇 </span><em><span>Mauve（淡紫）</span></em>
+<span> 配色文件与样式文件分离，复制一份即可轻松修改。</span><strong><span>如果不会搭配，也可以让 AI 生成一套好看的配色</span></strong><span> 🤖。</span></p><p><span>隆重介绍物理猫Phycat主题色工坊，点击&gt;&gt;</span><a href='https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio.html'><span>Phycat Theme Studio</span></a><span>&lt;&lt;一键生成你的专属主题配色！</span></p></li><li><p><strong><span>便捷功能开关</span></strong><span>：在配色 CSS 文件中，可以通过简单调整快速启用或改变</span><strong><span>背景样式</span></strong><span>、</span><strong><span>自动编号</span></strong><span>等功能 ⚙️。</span></p></li></ol><h2 id='样式预览'><span>样式预览</span></h2><p><span>点击链接预览即可，都是直接通过Typora导出的HTML文件</span></p><figure class='table-figure'><table><thead><tr><th><span>主题系列</span></th><th style='text-align:left;' ><span>主题链接</span></th></tr></thead><tbody><tr><td><span>亮色主题</span></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-cherry.html'><span>Cheey（樱桃红）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-caramel.html'><span>Caramel（焦糖橙）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-forest.html'><span>Forest（森绿）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-mint.html'><span>Mint（薄荷青）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sky.html'><span>Sky（天蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-prussian.html'><span>Prussian（普鲁士蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sakura.html'><span>Sakura（樱花粉）</span></a><a href='https://sumruler.github.io/typora-theme-phycat/demo-Mauve.html'><span>Mauve（淡紫）</span></a></td></tr><tr><td><span>暗色主题</span></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-dark.html'><span>Dark</span></a></td></tr></tbody></table></figure><h2 id='使用方法'><span>使用方法</span></h2><ol start='' ><li><p><span>从</span><a href='https://github.com/sumruler/typora-theme-phycat/releases'><span>Releases · sumruler/typora-theme-phycat</span></a><span>下载最新的主题包</span></p></li><li><p><span>将</span><code>phycat</code><span>文件夹与所有CSS文件放进Typora主题目录下</span>
+<span>复制下面内容，WIN+R运行即可快速打开</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 36.3984px; left: 60.1953px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 29px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -29px; width: 29px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 20px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">%appdata%\Typora\themes</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 29px;"></div><div class="CodeMirror-gutters" style="height: 29px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div></div></div></div></pre></li><li><p><span>重启Typora，在主题中启用相应主题即可</span></p></li></ol><h2 id='常见问题'><span>常见问题</span></h2><h3 id='导出网页如何具有侧边栏大纲'><span>导出网页如何具有侧边栏大纲</span></h3><p><span>在偏好设置，找到导出，选择HTML，勾选保留侧边栏大纲</span></p><h3 id='如何开启自动编号'><span>如何开启自动编号</span></h3><p><span>在配色CSS文件中（例如phycat-forest.css)，取消注释对应的自动编号级别即可</span></p><h3 id='如何开启或更换背景图案'><span>如何开启或更换背景图案</span></h3><p><span>在配色CSS文件中（例如phycat-forest.css)，更改</span><code>--bg-style</code><span>变量即可</span></p><h2 id='致谢'><span>致谢</span></h2><p><span>这个主题借鉴参考了众多优秀主题和平台，在此特别感谢</span></p><ol start='' ><li><p><a href='https://github.com/YiNNx/typora-theme-lapis'><span>Lapis主题</span></a></p></li><li><p><a href='https://github.com/HappySimple/Typora-theme-Happysimple'><span>Happysimple主题</span></a></p></li><li><p><a href='https://obscurefreeman.github.io/typora_theme_blackout'><span>Blackout主题</span></a></p></li><li><p><a href='https://github.com/royc01/notion-theme'><span>思源笔记Savor主题</span></a></p></li><li><p><a href='https://github.com/mdnice/markdown-nice'><span>Mdnice项目</span></a></p></li></ol><h2 id='待更新计划'><span>待更新计划</span></h2><ul><li class='md-task-list-item task-list-item task-list-not-done' ><input type='checkbox' /><p><span>提示框样式的优化</span></p></li><li class='md-task-list-item task-list-item task-list-not-done' ><input type='checkbox' /><p><span>暗色主题的重构</span></p></li></ul><h2 id='下载链接'><span>下载链接</span></h2><p><span>加速地址：</span></p><p><a href='https://gh-proxy.org/https://github.com/sumruler/typora-theme-phycat/releases/download/v2.0.2/typora-theme-phycat.zip' target='_blank' class='url'>https://gh-proxy.org/https://github.com/sumruler/typora-theme-phycat/releases/download/v2.0.2/typora-theme-phycat.zip</a></p><p>&nbsp;</p><h2 id='打赏'><span>打赏</span></h2><p><span>如果你喜欢这套主题，可以选择打赏支持。不胜感激！</span></p><p><img src="assets/image-20251224165551114.png" alt="image-20251224165551114" style="zoom:33%;" /><img src="assets/image-20251224165606988.png" alt="image-20251224165606988" style="zoom:33%;" /></p></div></div>
 
 <script>(function(){function e(e,n,i){document.addEventListener(e,function(e){if(!e.defaultPrevented)for(var t=e.target;t&&t!=this;t=t.parentNode)if(t.matches(n)){!1===i.call(t,e)&&(e.preventDefault(),e.stopPropagation());break}},!1)}var t=document.body.parentElement,i=[],r=null,o=document.body.classList.contains("typora-export-collapse-outline");function a(){return t.scrollTop}e("click",".outline-expander",function(e){var t=this.closest(".outline-item-wrapper").classList;return t.contains("outline-item-open")?t.remove("outline-item-open"):t.add("outline-item-open"),u(),!1}),e("click",".outline-item",function(e){var t=this.querySelector(".outline-label");location.hash="#"+t.getAttribute("href"),o&&((t=this.closest(".outline-item-wrapper").classList).contains("outline-item-open")||t.add("outline-item-open"),d(),t.add("outline-item-active"))});function s(){var e=a();r=null;for(var t=0;t<i.length&&i[t][1]-e<60;t++)r=i[t]}function n(){c=setTimeout(function(){var n;i=[],n=a(),document.querySelector("#write").querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(e=>{var t=e.getAttribute("id");i.push([t,n+e.getBoundingClientRect().y])}),s(),u()},300)}var l,c,d=function(){document.querySelectorAll(".outline-item-active").forEach(e=>e.classList.remove("outline-item-active")),document.querySelectorAll(".outline-item-single.outline-item-open").forEach(e=>e.classList.remove("outline-item-open"))},u=function(){if(r&&(d(),t=document.querySelector('.outline-label[href="#'+(CSS.escape?CSS.escape(r[0]):r[0])+'"]')))if(o){var e=t.closest(".outline-item-open>ul>.outline-item-wrapper");if(e)e.classList.add("outline-item-active");else{for(var t,n=(t=t.closest(".outline-item-wrapper")).parentElement.closest(".outline-item-wrapper");n;)n=(t=n).parentElement.closest(".outline-item-wrapper");t.classList.add("outline-item-active")}}else t.closest(".outline-item-wrapper").classList.add("outline-item-active")};window.addEventListener("scroll",function(e){l&&clearTimeout(l),l=setTimeout(function(){s(),u()},300)});window.addEventListener("resize",function(e){c&&clearTimeout(c),n()}),n()})();</script></body>
 </html>

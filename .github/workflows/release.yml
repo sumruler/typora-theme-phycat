@@ -11,23 +11,20 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4 # 升级到 v4
+      uses: actions/checkout@v4
 
     - name: Get current tag version
       id: tag
       run: |
         TAG=$(git describe --tags --abbrev=0)
         echo "Current tag: ${TAG}"
-        # 使用最新的 GitHub Action 输出语法
         echo "current_tag=${TAG}" >> $GITHUB_OUTPUT
 
     - name: Create zip file
       run: |
-        # 打包逻辑：
-        # 1. phycat/ 目录（递归）
-        # 2. 根目录下所有的 .css 文件
-        # 3. 根目录下所有的 .md 文件
-        zip -r typora-theme-phycat.zip phycat/ *.css *.md
+        shopt -s nullglob
+        # 打包内容：phycat目录、所有css、所有md、所有html
+        zip -r typora-theme-phycat.zip phycat/ *.css *.md *.html
         
     - name: Create Release
       uses: softprops/action-gh-release@v1

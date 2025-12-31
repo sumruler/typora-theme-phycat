@@ -987,6 +987,11 @@ pre.md-meta-block:hover {
   color: var(--element-color-linecode);
 }
 
+/* 流程图 */
+.md-diagram {
+  background: transparent;
+}
+
 /* 代码块 */
 
 .md-fences:not([lang="mermaid"])::before {
@@ -1242,6 +1247,151 @@ kbd:hover {
   background: none;
 }
 
+/* Callout */
+.md-alert {
+  padding: 5px 10px;
+  margin-bottom: 16px;
+  color: #555;
+  border: none !important;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+.md-alert:hover {
+  transform: scale(1.01) translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  z-index: 1;
+}
+.md-alert-text-container {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(2px);
+  padding: 2px 10px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  position: relative;
+  z-index: 2;
+}
+.md-alert-text-container::after {
+  margin-right: 0;
+}
+.md-alert::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  bottom: -12px;
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
+  font-size: 64px;
+  line-height: 1;
+  opacity: 0.12;
+  transform: rotate(-15deg);
+  pointer-events: none;
+  z-index: 0;
+
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.md-alert:hover::after {
+  transform: rotate(0deg) scale(1.1);
+  opacity: 0.2;
+  right: 0px;
+  bottom: -4px;
+}
+.md-alert-text svg {
+  fill: currentColor;
+  position: relative;
+  top: 1px;
+  margin-right: 5px;
+  width: 1em;
+  height: 1em;
+}
+
+.md-alert.md-alert-note {
+  background-color: rgba(108, 92, 231, 0.1);
+}
+
+.md-alert-text-note {
+  color: #6c5ce7;
+}
+
+.md-alert.md-alert-note:hover {
+  background-color: rgba(108, 92, 231, 0.15);
+}
+
+.md-alert.md-alert-note::after {
+  content: "📝";
+}
+
+.md-alert.md-alert-tip {
+  background-color: rgba(0, 184, 148, 0.1);
+}
+
+.md-alert-text-tip {
+  color: #00b894;
+}
+
+.md-alert.md-alert-tip:hover {
+  background-color: rgba(0, 184, 148, 0.15);
+}
+
+.md-alert.md-alert-tip::after {
+  content: "💡";
+}
+
+.md-alert.md-alert-warning {
+  background-color: rgba(253, 203, 110, 0.15);
+}
+
+.md-alert-text-warning {
+  color: #e17055;
+}
+
+.md-alert.md-alert-warning:hover {
+  background-color: rgba(253, 203, 110, 0.2);
+}
+
+.md-alert.md-alert-warning::after {
+  content: "⚠️";
+}
+
+.md-alert.md-alert-important {
+  background-color: rgba(255, 118, 117, 0.12);
+}
+
+.md-alert-text-important {
+  color: #ff7675;
+}
+
+.md-alert.md-alert-important:hover {
+  background-color: rgba(255, 118, 117, 0.18);
+}
+
+.md-alert.md-alert-important::after {
+  content: "📌";
+}
+
+.md-alert.md-alert-caution {
+  background-color: rgba(214, 48, 49, 0.08);
+}
+
+.md-alert-text-caution {
+  color: #d63031;
+}
+
+.md-alert.md-alert-caution:hover {
+  background-color: rgba(214, 48, 49, 0.12);
+}
+
+.md-alert.md-alert-caution::after {
+  content: "🔥";
+}
+
 /* Toc目录 */
 .md-toc {
   margin: 20px;
@@ -1324,20 +1474,15 @@ kbd:hover {
   color: #777;
 }
 
-/* 6. 条目 Hover 交互 */
 .md-toc-item:hover {
-  /* 悬停时背景变白 */
   background-color: rgba(255, 255, 255, 0.95);
   color: var(--element-color-deep);
-
-  /* 灵动右移 */
   padding-left: 20px;
   font-weight: 500;
 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* 隐藏不必要的提示元素 */
 .md-tooltip-hide>span {
   display: none;
 }
@@ -1789,15 +1934,11 @@ div.outline-item-active {
     background-color: transparent !important;
   }
 
-  .typora-header {
-    background-color: transparent !important;
-    background: transparent !important;
-    height: 5px;
-  }
   body {
     margin: 0 !important;
     width: 100% !important;
   }
+
   .typora-export #write {
     margin: 0 auto !important;
     padding: 0 !important;
@@ -1807,13 +1948,15 @@ div.outline-item-active {
     box-shadow: none !important;
     background: transparent !important;
   }
+
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
+
   #write::before {
     display: block !important;
-    opacity: 0.05 !important;
+    opacity: 0.1 !important;
     top: 0 !important;
     left: 0 !important;
     width: 100% !important;
@@ -1824,17 +1967,67 @@ div.outline-item-active {
     pointer-events: none;
     z-index: -1;
   }
+
   p {
     line-height: 1.5rem;
   }
 
-  ol,
-  ul,
   figure,
   pre {
     page-break-inside: avoid;
   }
+
+  ul,
+  ol {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+
+  li {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  pre {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+    white-space: pre-wrap;
+  }
+
+  blockquote {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  p {
+    orphans: 2;
+    widows: 2;
+  }
+
   .md-toc {
     background-image: none;
+  }
+}
+
+/* --- 强制分页符样式 --- */
+/* 在Typora中键入  <div class="page-break"/>  即可强制分页 */
+@media print {
+  .page-break {
+    page-break-after: always;
+    break-after: always;
+    height: 0;
+    display: block;
+    visibility: hidden;
   }
 }

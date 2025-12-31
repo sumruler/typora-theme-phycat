@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phycat 主题配色生成器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* -----------------------------------------------------------
+           生成器 UI 自身样式 (避免污染预览区)
+           ----------------------------------------------------------- */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Nunito:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Nunito', 'Noto Sans SC', sans-serif;
+            background-color: #f3f4f6;
+            color: #374151;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        
+        .color-preview-box {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 1px #e5e7eb;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            opacity: 0; /* Hide default UI, use wrapper */
+            position: absolute;
+            top:0; left:0; cursor: pointer;
+        }
+
+        /* -----------------------------------------------------------
+           用户提供的 Typora 样式 (预览核心)
+           注意：这里使用 CSS 变量，这些变量将由 JS 动态注入到 #preview-scope 中
+           ----------------------------------------------------------- */
+        
+        #preview-scope {
+            /* 默认值，会被JS覆盖 */
+            --head-title-color: #ff7096;
+            --head-title-h2-color: #fff;
+            --head-title-h2-background: linear-gradient(to right, #ffb7cd, #ff7096, #ffb7cd);
+            --element-color: #ff7096;
+            --element-color-deep: #e91e63;
+            --element-color-shallow: #ffb7cd;
+            --element-color-so-shallow: #ffe3ec;
+            --element-color-soo-shallow: #fff0f5;
+            --glass-bg-color: #feebf259;
+            --element-color-linecode: #c2185b;
+            --element-color-linecode-background: #fce4ec;
+            --appui-color: #ff7096;
+            --appui-color-icon: #ff7096;
+            --appui-color-text: #5e3a44;
+            --primary-color: #ff7096;
+            
+            /* 预览容器特定样式 */
+            font-family: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* H1 */
+        #write h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 1em auto 0.8em;
+            line-height: 1.4;
+            display: table;
+            color: #222;
+            position: relative;
+            padding-bottom: 12px;
+            transition: color 0.3s ease, transform 0.3s ease;
+            border-bottom: none;
+        }
+
+        #write h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 40px;
+            height: 4px;
+            border-radius: 4px;
+            background: var(--head-title-h2-background);
+            background-size: 100% auto;
+            transform: translateX(-50%);
+            transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        #write h1:hover {
+            color: var(--head-title-color);
+            transform: translateY(-2px);
+        }
+
+        #write h1:hover::after {
+            width: 100%;
+        }
+
+        /* H2 */
+        #write h2 {
+            color: var(--head-title-h2-color);
+            font-size: 1.4rem;
+            line-height: 1.5;
+            width: fit-content;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 5px 12px;
+            border-radius: 8px;
+            background: var(--head-title-h2-background);
+            background-size: 200% auto;
+            background-position: 0% center;
+            box-shadow: 0 2px 5px rgba(61, 184, 211, 0.15);
+            transition: background-position 0.5s ease-out, transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        #write h2:hover {
+            background-position: 100% center;
+            transform: scale(1.01);
+            box-shadow: 0 8px 20px rgba(61, 184, 211, 0.02);
+        }
+
+        /* H3 */
+        #write h3 {
+            position: relative;
+            width: fit-content;
+            margin: 20px 0;
+            text-align: left;
+            font-size: 1.3rem;
+            padding-left: 10px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        #write h3::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 61%;
+            border-radius: 4px;
+            background-color: var(--head-title-color);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        #write h3 span {
+            border-bottom: 2px hidden var(--head-title-color);
+            transition: color 0.3s ease;
+        }
+
+        #write h3:hover {
+            padding-left: 18px;
+            color: var(--head-title-color);
+            cursor: pointer;
+        }
+
+        #write h3:hover::before {
+            height: 66%;
+            background-color: var(--head-title-color);
+            width: 7px;
+        }
+
+        /* 引用 */
+        #write blockquote {
+            position: relative;
+            margin: 20px 0;
+            padding: 18px 20px 18px 48px;
+            background-color: var(--element-color-soo-shallow);
+            border: none;
+            border-radius: 16px;
+            color: #555;
+            line-height: 1.6;
+            /* 移除了 background-color 的 transition 以实现实时响应 */
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        #write blockquote::before {
+            content: "✨";
+            position: absolute;
+            left: 16px;
+            top: 18px;
+            font-size: 20px;
+            line-height: 1;
+            font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+        }
+
+        #write blockquote p {
+            color: #555;
+            margin-bottom: 0.5em;
+        }
+
+        #write blockquote p:last-child {
+            margin-bottom: 0;
+        }
+
+        #write blockquote:hover {
+            transform: scale(1.02);
+        }
+
+        /* 高亮 */
+        #write mark {
+            background-color: var(--element-color-so-shallow);
+            color: inherit;
+            padding: 2px 6px;
+            border-radius: 6px;
+            margin: 0 2px;
+            position: relative;
+            transition: all 0.3s ease;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+        }
+
+        #write mark::before,
+        #write mark::after {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--element-color-deep);
+            font-weight: bold;
+            font-family: "Courier New", monospace;
+            font-size: 1.1em;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        #write mark::before { content: '{'; left: -5px; }
+        #write mark::after { content: '}'; right: -5px; }
+
+        #write mark:hover {
+            background-color: var(--element-color);
+            color: #fff;
+            border-radius: 4px;
+            padding: 2px 12px;
+        }
+
+        #write mark:hover::before { opacity: 1; left: 3px; }
+        #write mark:hover::after { opacity: 1; right: 3px; }
+
+        /* 粗体 */
+        #write strong {
+            color: var(--element-color);
+            font-weight: bold;
+            display: inline-block;
+            transition: transform 0.2s cubic-bezier(0.5, 1.5, 0.5, 1);
+        }
+
+        #write strong:hover {
+            transform: translateY(-2px) scale(1.1);
+            text-shadow: 2px 2px 0 var(--element-color-soo-shallow);
+        }
+
+        /* 斜体 */
+        #write em {
+            font-style: italic;
+            color: #555;
+            text-decoration: none;
+            padding: 0 2px;
+            transition: all 0.3s ease;
+        }
+
+        #write em:hover {
+            color: var(--element-color);
+            text-decoration: underline wavy var(--element-color-shallow);
+            text-underline-offset: 4px;
+        }
+
+        /* 删除线 */
+        #write del {
+            text-decoration: line-through;
+            text-decoration-color: var(--element-color);
+            color: #999;
+            transition: all 0.3s ease;
+        }
+
+        #write del:hover {
+            opacity: 0.6;
+            text-decoration-color: var(--element-color-deep);
+            cursor: not-allowed;
+        }
+
+        /* 分割线 */
+        #write hr {
+            border: none;
+            border-top: 3px dashed var(--element-color-shallow);
+            margin: 30px 0;
+            opacity: 0.6;
+            transform: scaleX(0.8);
+            transition: all 0.4s ease;
+        }
+
+        #write hr:hover {
+            transform: scaleX(1);
+            border-color: var(--element-color);
+            opacity: 1;
+        }
+
+        /* 表格 */
+        #write table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            margin: 20px 0;
+            border: 1px solid var(--element-color-shallow);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        #write table th,
+        #write table td {
+            padding: 8px 12px;
+            color: #333;
+            border-right: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.2s ease;
+        }
+
+        #write table th:last-child,
+        #write table td:last-child { border-right: none; }
+        #write table tr:last-child td { border-bottom: none; }
+
+        #write table th {
+            background-color: var(--element-color-soo-shallow);
+            color: var(--element-color-deep);
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        #write table tbody tr:hover td {
+            background-color: var(--element-color-soo-shallow);
+        }
+
+        #write table tbody td:hover {
+            background-color: var(--element-color-soo-shallow);
+            color: var(--element-color-deep);
+            box-shadow: inset 0 0 0 1px var(--element-color-shallow);
+            cursor: default;
+        }
+        
+        /* 侧边栏大纲模拟 (Preview Specific Adjustments) */
+        .mock-sidebar {
+            width: 250px;
+            background-color: var(--glass-bg-color);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            padding: 20px 10px;
+            font-size: 14px;
+            color: #555;
+            position: sticky;
+            top: 20px;
+        }
+
+        .mock-sidebar-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--element-color-deep);
+            margin-bottom: 15px;
+            padding-left: 10px;
+            letter-spacing: 1px;
+        }
+
+        .mock-outline-item {
+            display: flex;
+            align-items: center;
+            padding: 6px 12px;
+            margin-bottom: 2px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mock-outline-item:hover {
+            background-color: var(--element-color-soo-shallow);
+            color: var(--element-color-deep);
+        }
+
+        .mock-outline-item.active {
+            background-color: var(--element-color);
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 4px 10px var(--element-color-so-shallow);
+        }
+        
+        .mock-outline-item.active::after {
+            content: "✦";
+            margin-left: auto;
+            color: rgba(255,255,255,0.9);
+            font-size: 10px;
+            animation: outline-twinkle 1.5s infinite alternate;
+        }
+
+        @keyframes outline-twinkle {
+            from { opacity: 0.7; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* 导出容器样式模拟 */
+        #write-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            flex: 1;
+            min-height: 600px;
+        }
+
+        .code-inline {
+            color: var(--element-color-linecode);
+            background-color: var(--element-color-linecode-background);
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航 -->
+    <header class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between shrink-0 z-10">
+        <div class="flex items-center gap-3">
+            <div id="phycat-icon" class="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-lg transition-colors duration-300" style="background-color: #ff7096">P</div>
+            <h1 class="text-xl font-bold text-gray-800"><span id="phycat-brand" class="transition-colors duration-300">Phycat</span> 主题配色生成器</h1>
+        </div>
+        <div class="flex gap-3">
+             <button onclick="resetDefaults()" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 transition">
+                重置
+            </button>
+            <button onclick="exportCSS()" class="px-5 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded-lg shadow-lg shadow-gray-200/50 transition flex items-center gap-2 text-sm font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                导出 CSS
+            </button>
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+        
+        <!-- 左侧控制面板 -->
+        <aside class="w-80 bg-white border-r border-gray-200 flex flex-col shrink-0 overflow-y-auto">
+            <div class="p-6 space-y-8">
+                
+                <!-- 主色控制 -->
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">✨ 核心主色 (Primary)</label>
+                    <p class="text-xs text-gray-400 mb-3">选择主色后，开启“自动计算”将为您生成全套配色。</p>
+                    <div class="flex gap-2 items-center">
+                        <div class="relative w-full h-10 rounded-lg overflow-hidden border border-gray-200 shadow-sm cursor-pointer group">
+                             <input type="color" id="main-color-picker" class="absolute inset-0 w-full h-full cursor-pointer transform scale-150" value="#ff7096">
+                        </div>
+                        <input type="text" id="main-color-text" class="w-24 px-2 py-2 text-sm border border-gray-200 rounded-lg text-center font-mono uppercase" value="#ff7096">
+                    </div>
+                    <div class="flex items-center mt-3 gap-2">
+                        <input type="checkbox" id="auto-calc" checked class="w-4 h-4 text-pink-500 rounded border-gray-300 focus:ring-pink-500">
+                        <label for="auto-calc" class="text-xs text-gray-600 select-none cursor-pointer">自动计算衍生色</label>
+                    </div>
+                </div>
+
+                <!-- 详细配色调整 -->
+                <div class="space-y-4">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider">详细配色微调</h3>
+                    
+                    <!-- 动态生成输入框 -->
+                    <div id="color-inputs" class="space-y-4">
+                        <!-- Javascript will populate this -->
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+
+        <!-- 右侧预览区域 -->
+        <main class="flex-1 overflow-y-auto bg-gray-100/50 p-4 md:p-8" id="preview-scope">
+            
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-6 items-start">
+                
+                <!-- 模拟侧边栏 -->
+                <div class="hidden md:block shrink-0">
+                    <div class="mock-sidebar">
+                        <div class="mock-sidebar-title">目录</div>
+                        <div class="mock-outline-item">
+                            <span class="mr-2 text-gray-400">▾</span> 关于主题
+                        </div>
+                        <div class="mock-outline-item active">
+                            <span class="mr-2 text-white">▾</span> 配色预览
+                        </div>
+                        <div class="pl-6 space-y-1 mt-1">
+                            <div class="mock-outline-item text-xs py-1">Heading 1 效果</div>
+                            <div class="mock-outline-item text-xs py-1">Heading 2 渐变</div>
+                            <div class="mock-outline-item text-xs py-1">引用与高亮</div>
+                        </div>
+                        <div class="mock-outline-item mt-2">
+                             <span class="mr-2 text-gray-400">▸</span> 表格样式
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 模拟写作区域 -->
+                <div id="write-container">
+                    <div id="write">
+                        <h1>Typora Theme Preview</h1>
+                        
+                        <p>欢迎使用配色生成工具。这个区域实时展示您的配色方案在 <strong >Typora</strong> 中的实际渲染效果。</p>
+                        
+                        <h2>H2 标题流光渐变效果</h2>
+                        <p>H2 标题使用了动态的 <code>linear-gradient</code> 背景，鼠标悬停时会有微妙的位移和阴影加深效果。请尝试将鼠标悬停在标题上。</p>
+                        
+                        <h3>H3 标题悬停交互</h3>
+                        <p>H3 标题左侧有一个小的指示条，鼠标悬停时会伸长并变色。这是一种<del>过时的</del>经典的交互设计。</p>
+                        
+                        <blockquote>
+                            <p><strong>Blockquote 样式：</strong><br>引用块使用了极浅色背景（So Shallow），并带有 Emoji 装饰。非常适合用来展示提示信息或者名言警句。</p>
+                        </blockquote>
+
+                        <h2>行内元素展示</h2>
+                        <p>
+                            这是一段包含 <mark>高亮文本 (Mark)</mark> 的段落。你可以看到高亮部分左右两侧会在悬停时出现 <code class="code-inline">{}</code> 符号。
+                            此外，还有 <strong>粗体文字 (Bold)</strong>，<em>斜体文字 (Italic)</em> 以及 <del>删除线文本</del> 的效果。
+                        </p>
+                        <p>行内代码看起来像这样：<span class="code-inline">console.log('Hello World');</span>，使用了深玫红配色。</p>
+                        
+                        <hr>
+
+                        <h2>表格样式</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名称</th>
+                                    <th>类型</th>
+                                    <th>默认值</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>--primary-color</td>
+                                    <td>Color</td>
+                                    <td>#ff7096</td>
+                                    <td>核心主色调</td>
+                                </tr>
+                                <tr>
+                                    <td>Opacity</td>
+                                    <td>Number</td>
+                                    <td>1.0</td>
+                                    <td>不透明度</td>
+                                </tr>
+                                <tr>
+                                    <td>Effect</td>
+                                    <td>String</td>
+                                    <td>Glow</td>
+                                    <td>渲染效果</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p style="margin-top: 40px; color: #999; font-size: 0.9em; text-align: center;">
+                            ( End of Preview )
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- 导出弹窗 (隐藏) -->
+    <div id="export-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl p-6 flex flex-col max-h-[90vh]">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-gray-800">CSS 代码导出</h3>
+                <button onclick="document.getElementById('export-modal').classList.add('hidden')" class="text-gray-400 hover:text-gray-600">✕</button>
+            </div>
+            <p class="text-sm text-gray-500 mb-2">复制以下代码，粘贴到你的 Typora 主题 CSS 文件中。</p>
+            <textarea id="css-output" class="w-full flex-1 p-4 bg-gray-50 border border-gray-200 rounded-lg font-mono text-xs resize-none focus:ring-2 focus:ring-pink-500 outline-none" readonly></textarea>
+            <div class="mt-4 flex justify-end gap-3">
+                <button onclick="document.getElementById('export-modal').classList.add('hidden')" class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">关闭</button>
+                <button onclick="copyToClipboard()" class="px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium">复制到剪贴板</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 定义颜色配置项映射
+        const colorConfig = [
+            { key: '--head-title-color', label: '标题主色 (H1/H3)', type: 'color' },
+            { key: '--head-title-h2-color', label: 'H2 文字颜色', type: 'color' },
+            // 将 H2 渐变拆分为 3 部分
+            { key: '--h2-grad-start', label: 'H2 渐变起始 (左)', type: 'color' },
+            { key: '--h2-grad-mid', label: 'H2 渐变中间 (中)', type: 'color' },
+            { key: '--h2-grad-end', label: 'H2 渐变结束 (右)', type: 'color' },
+            
+            { key: '--element-color', label: '通用主色 (Element)', type: 'color' },
+            { key: '--element-color-deep', label: '深色强调 (Deep)', type: 'color' },
+            { key: '--element-color-shallow', label: '浅色装饰 (Shallow)', type: 'color' },
+            { key: '--element-color-so-shallow', label: '高亮背景 (So Shallow)', type: 'color' },
+            { key: '--element-color-soo-shallow', label: '引用/表格 (Soo Shallow)', type: 'color' },
+            // 开启 Alpha 选项
+            { key: '--glass-bg-color', label: '毛玻璃背景 (Glass)', type: 'color', alpha: true },
+            { key: '--element-color-linecode', label: '行内代码文字', type: 'color' },
+            { key: '--element-color-linecode-background', label: '行内代码背景', type: 'color' },
+            { key: '--appui-color-text', label: 'UI 文字颜色', type: 'color' },
+        ];
+
+        // 状态
+        let state = {
+            mainColor: '#ff7096',
+            colors: {} 
+        };
+
+        // 初始化
+        function init() {
+            const container = document.getElementById('color-inputs');
+            container.innerHTML = ''; // Clear previous if any
+
+            // 生成输入框
+            colorConfig.forEach(conf => {
+                const div = document.createElement('div');
+                div.className = 'flex flex-col input-group bg-white p-2 rounded-lg border border-gray-100 shadow-sm';
+                
+                // 顶部：颜色选择器 + Label + Hex 输入框
+                let innerHTML = `
+                    <div class="flex items-center gap-3 w-full">
+                        <div class="color-preview-box shrink-0 group" style="background-color: #ffffff">
+                            <input type="color" id="input-${conf.key}" data-key="${conf.key}">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <label class="block text-xs font-bold text-gray-600 truncate">${conf.label}</label>
+                            <div class="flex items-center mt-0.5">
+                                <input type="text" id="text-${conf.key}" data-key="${conf.key}" 
+                                    class="w-full bg-transparent text-xs font-mono text-gray-500 uppercase outline-none"
+                                    spellcheck="false">
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // 如果启用 Alpha，添加滑块
+                if (conf.alpha) {
+                    innerHTML += `
+                        <div class="mt-2 flex items-center gap-2">
+                             <span class="text-[10px] text-gray-400 font-mono">OPACITY</span>
+                             <input type="range" id="slider-${conf.key}" min="0" max="255" value="255" 
+                                class="flex-1 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-pink-500">
+                             <span id="slider-val-${conf.key}" class="text-[10px] text-gray-400 font-mono w-6 text-right">100</span>
+                        </div>
+                    `;
+                }
+
+                div.innerHTML = innerHTML;
+                container.appendChild(div);
+                
+                // 绑定事件
+                const colorInput = div.querySelector(`input[type="color"]`);
+                const textInput = div.querySelector(`input[type="text"]`);
+                const sliderInput = div.querySelector(`input[type="range"]`);
+                const sliderLabel = div.querySelector(`#slider-val-${conf.key}`);
+
+                // Color Picker Change
+                colorInput.addEventListener('input', (e) => {
+                    let hex = e.target.value;
+                    // 如果有透明度，保持当前透明度
+                    if (conf.alpha && sliderInput) {
+                        const alphaHex = parseInt(sliderInput.value).toString(16).padStart(2, '0');
+                        hex += alphaHex;
+                    }
+                    updateSingleColor(conf.key, hex);
+                });
+
+                // Text Input Change
+                textInput.addEventListener('change', (e) => {
+                    let val = e.target.value;
+                    if(!val.startsWith('#')) val = '#' + val;
+                    // 验证格式
+                    if(/^#[0-9A-Fa-f]{6}$/.test(val) || /^#[0-9A-Fa-f]{8}$/.test(val)) {
+                        updateSingleColor(conf.key, val);
+                    }
+                });
+
+                // Slider Change (Alpha)
+                if (conf.alpha && sliderInput) {
+                    sliderInput.addEventListener('input', (e) => {
+                        const alphaVal = parseInt(e.target.value);
+                        sliderLabel.innerText = Math.round(alphaVal / 255 * 100);
+                        
+                        // 获取当前 Hex6
+                        const currentHex6 = colorInput.value;
+                        const alphaHex = alphaVal.toString(16).padStart(2, '0');
+                        updateSingleColor(conf.key, currentHex6 + alphaHex);
+                    });
+                }
+            });
+
+            // 绑定主色选择器
+            document.getElementById('main-color-picker').addEventListener('input', handleMainColorChange);
+            document.getElementById('main-color-text').addEventListener('change', (e) => {
+                 handleMainColorChange({target: {value: e.target.value}});
+            });
+            
+            // 绑定自动计算开关
+            document.getElementById('auto-calc').addEventListener('change', () => {
+                if(document.getElementById('auto-calc').checked) {
+                    handleMainColorChange({target: {value: state.mainColor}});
+                }
+            });
+
+            // 初始化默认值
+            resetDefaults();
+        }
+
+        function handleMainColorChange(e) {
+            let val = e.target.value;
+            if(!val.startsWith('#')) val = '#' + val;
+            
+            state.mainColor = val;
+            document.getElementById('main-color-picker').value = val.substring(0, 7); // Input type color only accepts hex6
+            document.getElementById('main-color-text').value = val;
+
+            if (document.getElementById('auto-calc').checked) {
+                generateDerivedColors(val);
+            } else {
+                // 如果只改主色不自动计算，也需要更新 element-color 和 primary
+                updateSingleColor('--element-color', val);
+                updateSingleColor('--head-title-color', val);
+                updateSingleColor('--appui-color', val);
+                updateSingleColor('--primary-color', val);
+            }
+        }
+
+        // 颜色算法库 (Tiny implementation)
+        const ColorUtils = {
+            hexToRgb: (hex) => {
+                let r = 0, g = 0, b = 0, a = 1;
+                hex = hex.replace('#', '');
+                if (hex.length === 6) {
+                    r = parseInt(hex.substring(0,2), 16);
+                    g = parseInt(hex.substring(2,4), 16);
+                    b = parseInt(hex.substring(4,6), 16);
+                } else if (hex.length === 8) {
+                    r = parseInt(hex.substring(0,2), 16);
+                    g = parseInt(hex.substring(2,4), 16);
+                    b = parseInt(hex.substring(4,6), 16);
+                    a = parseInt(hex.substring(6,8), 16) / 255;
+                }
+                return {r, g, b, a};
+            },
+            rgbToHex: (r, g, b, a = 1) => {
+                const toHex = (n) => {
+                    const hex = Math.round(Math.max(0, Math.min(255, n))).toString(16);
+                    return hex.length === 1 ? '0' + hex : hex;
+                };
+                let hex = `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+                if (a < 1) {
+                    hex += toHex(a * 255); // Hex8
+                }
+                return hex;
+            },
+            // RGB转HSL
+            rgbToHsl: (r, g, b) => {
+                r /= 255; g /= 255; b /= 255;
+                const max = Math.max(r, g, b), min = Math.min(r, g, b);
+                let h, s, l = (max + min) / 2;
+                if (max === min) {
+                    h = s = 0;
+                } else {
+                    const d = max - min;
+                    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                    switch (max) {
+                        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                        case g: h = (b - r) / d + 2; break;
+                        case b: h = (r - g) / d + 4; break;
+                    }
+                    h /= 6;
+                }
+                return {h: h * 360, s: s * 100, l: l * 100};
+            },
+            // HSL转RGB
+            hslToRgb: (h, s, l) => {
+                h /= 360; s /= 100; l /= 100;
+                let r, g, b;
+                if (s === 0) {
+                    r = g = b = l;
+                } else {
+                    const hue2rgb = (p, q, t) => {
+                        if (t < 0) t += 1;
+                        if (t > 1) t -= 1;
+                        if (t < 1/6) return p + (q - p) * 6 * t;
+                        if (t < 1/2) return q;
+                        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                        return p;
+                    };
+                    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                    const p = 2 * l - q;
+                    r = hue2rgb(p, q, h + 1/3);
+                    g = hue2rgb(p, q, h);
+                    b = hue2rgb(p, q, h - 1/3);
+                }
+                return {r: r * 255, g: g * 255, b: b * 255};
+            }
+        };
+
+        // 核心：根据主色生成衍生色
+        function generateDerivedColors(baseHex) {
+            const rgb = ColorUtils.hexToRgb(baseHex);
+            const hsl = ColorUtils.rgbToHsl(rgb.r, rgb.g, rgb.b);
+
+            // 1. Deep (文字/强调): 增加饱和度，降低亮度
+            const deepRgb = ColorUtils.hslToRgb(hsl.h, Math.min(100, hsl.s + 10), Math.max(20, hsl.l - 15));
+            const deepHex = ColorUtils.rgbToHex(deepRgb.r, deepRgb.g, deepRgb.b);
+
+            // 2. Shallow (Mask图标): 增加亮度，稍微降低饱和度 (偏粉白)
+            const shallowRgb = ColorUtils.hslToRgb(hsl.h, Math.max(0, hsl.s - 10), Math.min(90, hsl.l + 25));
+            const shallowHex = ColorUtils.rgbToHex(shallowRgb.r, shallowRgb.g, shallowRgb.b);
+
+            // 3. So Shallow (高亮背景): 极高亮度
+            const soShallowRgb = ColorUtils.hslToRgb(hsl.h, Math.max(0, hsl.s - 5), Math.min(96, hsl.l + 38));
+            const soShallowHex = ColorUtils.rgbToHex(soShallowRgb.r, soShallowRgb.g, soShallowRgb.b);
+
+            // 4. Soo Shallow (表格/引用): 接近白色
+            const sooShallowRgb = ColorUtils.hslToRgb(hsl.h, 40, 98); // 固定低饱和高亮
+            const sooShallowHex = ColorUtils.rgbToHex(sooShallowRgb.r, sooShallowRgb.g, sooShallowRgb.b);
+
+            // 5. Glass (透明背景): 主色 + 透明度
+            const glassHex = ColorUtils.rgbToHex(rgb.r, rgb.g, rgb.b, 0.02); // 02% opacity
+
+            // 6. Line Code: 深色变种，稍微改变色相使其醒目
+            const codeRgb = ColorUtils.hslToRgb((hsl.h - 10 + 360) % 360, 80, 40);
+            const codeHex = ColorUtils.rgbToHex(codeRgb.r, codeRgb.g, codeRgb.b);
+            
+            // 7. Line Code BG
+            const codeBgRgb = ColorUtils.hslToRgb((hsl.h - 10 + 360) % 360, 50, 96);
+            const codeBgHex = ColorUtils.rgbToHex(codeBgRgb.r, codeBgRgb.g, codeBgRgb.b);
+
+            // 批量更新
+            const updates = {
+                '--head-title-color': baseHex,
+                '--head-title-h2-color': '#ffffff',
+                '--element-color': baseHex,
+                '--element-color-deep': deepHex,
+                '--element-color-shallow': shallowHex,
+                '--element-color-so-shallow': soShallowHex,
+                '--element-color-soo-shallow': sooShallowHex,
+                '--glass-bg-color': glassHex,
+                '--element-color-linecode': codeHex,
+                '--element-color-linecode-background': codeBgHex,
+                '--appui-color-text': '#5e3a44',
+                
+                // 设置 H2 渐变的三个默认颜色 (Shallow -> Main -> Shallow)
+                '--h2-grad-start': shallowHex,
+                '--h2-grad-mid': baseHex,
+                '--h2-grad-end': shallowHex,
+            };
+
+            for (const [key, value] of Object.entries(updates)) {
+                updateSingleColor(key, value);
+            }
+        }
+
+        // 更新单个颜色状态及UI
+        function updateSingleColor(key, value) {
+            state.colors[key] = value;
+            
+            // Update UI Inputs
+            const colorInput = document.getElementById(`input-${key}`);
+            const textInput = document.getElementById(`text-${key}`);
+            
+            if(colorInput && textInput) {
+                // 如果是带透明度的 Hex8，Input[type=color] 只能接受前6位
+                // value 可能为 #RRGGBBAA 或 #RRGGBB
+                const hex6 = value.substring(0, 7);
+                colorInput.value = hex6;
+                textInput.value = value;
+                
+                // 给 colorInput 的父容器设置背景色以显示透明度效果
+                colorInput.parentElement.style.backgroundColor = value;
+
+                // 更新滑块状态（如果存在）
+                const sliderInput = document.getElementById(`slider-${key}`);
+                const sliderLabel = document.getElementById(`slider-val-${key}`);
+                if (sliderInput && sliderLabel && value.length === 9) {
+                    const alphaHex = value.substring(7, 9);
+                    const alphaVal = parseInt(alphaHex, 16);
+                    sliderInput.value = alphaVal;
+                    sliderLabel.innerText = Math.round(alphaVal / 255 * 100);
+                } else if (sliderInput && value.length === 7) {
+                    // 没有透明度信息，默认为 100%
+                    sliderInput.value = 255;
+                    sliderLabel.innerText = 100;
+                }
+            }
+
+            // Update Preview CSS Variables (except H2 special logic)
+            if (!key.startsWith('--h2-grad')) {
+                 const scope = document.getElementById('preview-scope');
+                 scope.style.setProperty(key, value);
+            }
+
+            // 实时更新品牌标题颜色 & 图标背景 (New Feature)
+            if (key === '--element-color') {
+                const brandSpan = document.getElementById('phycat-brand');
+                if (brandSpan) {
+                    brandSpan.style.color = value;
+                }
+                const brandIcon = document.getElementById('phycat-icon');
+                if (brandIcon) {
+                    brandIcon.style.backgroundColor = value;
+                }
+            }
+
+            // H2 渐变部分 (只要涉及到相关变量改变，就重绘渐变)
+            if (key === '--h2-grad-start' || key === '--h2-grad-mid' || key === '--h2-grad-end') {
+                updateH2GradientFromParts();
+            }
+        }
+
+        // 使用三个独立的颜色值构造 H2 渐变
+        function updateH2GradientFromParts() {
+            const start = state.colors['--h2-grad-start'] || '#ffb7cd';
+            const mid = state.colors['--h2-grad-mid'] || '#ff7096';
+            const end = state.colors['--h2-grad-end'] || '#ffb7cd';
+            
+            const gradient = `linear-gradient(to right, ${start}, ${mid}, ${end})`;
+            
+            document.getElementById('preview-scope').style.setProperty('--head-title-h2-background', gradient);
+            state.colors['--head-title-h2-background'] = gradient;
+        }
+
+        // 废弃旧的自动计算 H2 渐变函数 (updateH2Gradient)，逻辑已移至 updateH2GradientFromParts
+
+        function resetDefaults() {
+            handleMainColorChange({target: {value: '#ff7096'}});
+        }
+
+        function exportCSS() {
+            // 用户请求的固定内容
+            const staticContent = `
+  /* 标题后小图标，借鉴自思源笔记主题——Savor */
+  --h1-icon-shape: url("data:image/svg+xml;utf8,<svg fill='rgba(255, 176, 176, 0.5)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M4.8 29.714v0c-1.371 0-2.514-1.143-2.514-2.514v0c0-1.371 1.143-2.514 2.514-2.514v0c1.371 0 2.514 1.143 2.514 2.514v0c0.114 1.371-1.029 2.514-2.514 2.514z'/></svg>") no-repeat center;
+  --h2-icon-shape: url("data:image/svg+xml;utf8,<svg fill='rgba(255, 176, 176, 0.5)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>") no-repeat center;
+  --h3-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>");
+  --h4-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 22.857c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286z'/></svg>");
+  --h5-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 22.857c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286zM4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 11.429c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>");
+  --h6-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 11.429c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 16c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286z'/></svg>");
+
+  /* 文档背景样式 */
+  /* 1. 交叉斜线 */
+  --bg-shape-cross: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h30v30H0z' fill='none'/%3E%3Cpath d='M0 0L15 15M30 0L15 15M0 30L15 15M30 30L15 15' stroke='black' stroke-width='0.4'/%3E%3C/svg%3E");
+  /* 2. 星点图案 */
+  --bg-shape-star: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M10 10l2-6l2 6l6 2l-6 2l-2 6l-2-6l-6-2Z' fill='black'/%3E%3Cpath d='M30 15l1-3l1 3l3 1l-3 1l-1 3l-1-3l-1-3l-3-1Z' fill='black'/%3E%3Cpath d='M25 30l1.5-4.5l1.5 4.5l4.5 1.5l-4.5 1.5l-1.5 4.5l-1.5-4.5l-4.5-1.5Z' fill='black'/%3E%3C/svg%3E");
+  /* 3. 六边形图案 */
+  --bg-shape-hex: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M10 5l10 0l5 8.66l-5 8.66l-10 0l-5-8.66Z' fill='none' stroke='black' stroke-width='0.4'/%3E%3Cpath d='M20 22.32l10 0l5 8.66l-5 8.66l-10 0l-5-8.66Z' fill='none' stroke='black' stroke-width='0.4'/%3E%3C/svg%3E");
+  /* 4. 十字圆点 */
+  --bg-shape-dot: url("data:image/svg+xml,%3Csvg width='15' height='15' viewBox='0 0 15 15' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='7.5' cy='7.5' r='0.5' fill='black'/%3E%3Ccircle cx='7.5' cy='2.5' r='0.5' fill='black'/%3E%3Ccircle cx='7.5' cy='12.5' r='0.5' fill='black'/%3E%3Ccircle cx='2.5' cy='7.5' r='0.5' fill='black'/%3E%3Ccircle cx='12.5' cy='7.5' r='0.5' fill='black'/%3E%3C/svg%3E");
+  /* 5. 三角形 */
+  --bg-shape-tri: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h30v30H0z' fill='none'/%3E%3Cpath d='M0 0L30 0L15 15Z' fill='black'/%3E%3Cpath d='M30 30L0 30L15 15Z' fill='black'/%3E%3C/svg%3E");
+  /* 6. 方格网 */
+  --bg-shape-grid: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v20H0z' fill='none'/%3E%3Cpath d='M20 0v20M0 20h20' stroke='black' stroke-width='0.7'/%3E%3C/svg%3E");
+  /* 7. 无背景 (纯白背景) */
+  --bg-shape-none: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=");
+
+  /* 文档背景样式  none 无背景*/
+  --bg-style: var(--bg-shape-none);
+
+
+  /* 自动编号格式设置 无需自动编号可全部注释掉或部分注释掉*/
+  --autonum-h1: counter(h1) ". ";
+  --autonum-h2: counter(h1) "." counter(h2) ". ";
+  --autonum-h3: counter(h1) "." counter(h2) "." counter(h3) ". ";
+  /* --autonum-h4: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) ". ";
+  --autonum-h5: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". ";
+  --autonum-h6: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) ". "; */
+
+  /* 下面是文章内Toc目录自动编号，与上面一样即可 */
+  --autonum-h1toc: counter(h1toc) ". ";
+  --autonum-h2toc: counter(h1toc) "." counter(h2toc) ". ";
+  --autonum-h3toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) ". ";
+  /* --autonum-h4toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) ". ";
+  --autonum-h5toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) ". ";
+  --autonum-h6toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) "." counter(h6toc) ". "; */
+`;
+
+            // 构建 CSS 内容
+            const cssContent = `@import url(./phycat/phycat.light.css);
+
+:root {${staticContent}
+  /* 标题主色 */
+  --head-title-color: ${state.colors['--head-title-color']};
+  
+  /* H2 渐变 */
+  --head-title-h2-color: ${state.colors['--head-title-h2-color']};
+  --head-title-h2-background: ${state.colors['--head-title-h2-background']};
+  
+  /* 元素颜色 */
+  --element-color: ${state.colors['--element-color']};             /* 主色 */
+  --element-color-deep: ${state.colors['--element-color-deep']};        /* 深色 (文字/强调) */
+  --element-color-shallow: ${state.colors['--element-color-shallow']};     /* 浅色 (Mask图标) */
+  --element-color-so-shallow: ${state.colors['--element-color-so-shallow']};  /* 很浅 (高亮背景) */
+  --element-color-soo-shallow: ${state.colors['--element-color-soo-shallow']}; /* 极浅 (引用/表格) */
+  --glass-bg-color: ${state.colors['--glass-bg-color']};
+
+  /* 行内代码 */
+  --element-color-linecode: ${state.colors['--element-color-linecode']};
+  --element-color-linecode-background: ${state.colors['--element-color-linecode-background']};
+
+  /* UI 颜色 */
+  --appui-color: ${state.colors['--element-color']};
+  --appui-color-icon: ${state.colors['--element-color']};
+  --appui-color-text: ${state.colors['--appui-color-text']};
+  --primary-color: ${state.colors['--element-color']};
+
+  --rawblock-edit-panel-bd: var(--element-color-soo-shallow);
+}`;
+            
+            document.getElementById('css-output').value = cssContent;
+            document.getElementById('export-modal').classList.remove('hidden');
+            document.getElementById('export-modal').classList.add('flex');
+        }
+
+        function copyToClipboard() {
+            const copyText = document.getElementById("css-output");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); 
+            navigator.clipboard.writeText(copyText.value).then(() => {
+                const btn = document.querySelector('#export-modal button.bg-pink-500');
+                const originalText = btn.innerText;
+                btn.innerText = "已复制！";
+                setTimeout(() => btn.innerText = originalText, 2000);
+            });
+        }
+
+        // 启动
+        init();
+
+    </script>
+</body>
+</html>
