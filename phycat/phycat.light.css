@@ -974,17 +974,26 @@ pre.md-meta-block:hover {
 }
 
 /* 行内代码 */
-#write p code {
-  padding: 3px 3px 1px;
-  color: var(--element-color-linecode);
-  background: var(--element-color-linecode-background);
-  border-radius: 3px;
-  font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
-  letter-spacing: 0.5px;
+#write code:not(.md-fences code) {
+    font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
+    color: var(--element-color-linecode);
+    background-color: var(--element-color-linecode-background);
+    padding: 2px 6px; 
+    margin: 0 3px; 
+    border-radius: 6px; 
+    display: inline-block;
+    vertical-align: middle; 
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-#write li code {
-  color: var(--element-color-linecode);
+#write code:not(.md-fences code):hover {
+    background-color: var(--element-color); 
+    color: #fff; 
+    transform: scale(1.1); 
+    box-shadow: 0 4px 10px var(--element-color-so-shallow); 
+    text-decoration: none;
 }
 
 /* 流程图 */
@@ -993,7 +1002,6 @@ pre.md-meta-block:hover {
 }
 
 /* 代码块 */
-
 .md-fences:not([lang="mermaid"])::before {
   content: attr(lang);
   font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
@@ -1003,16 +1011,13 @@ pre.md-meta-block:hover {
   display: block;
   background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNDUwcHgiIGhlaWdodD0iMTMwcHgiPgogIDxlbGxpcHNlIGN4PSI2NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgc3Ryb2tlPSJyZ2IoMjIwLDYwLDU0KSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJyZ2IoMjM3LDEwOCw5NikiLz4KICA8ZWxsaXBzZSBjeD0iMjI1IiBjeT0iNjUiIHJ4PSI1MCIgcnk9IjUyIiAgc3Ryb2tlPSJyZ2IoMjE4LDE1MSwzMykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDI0NywxOTMsODEpIi8+CiAgPGVsbGlwc2UgY3g9IjM4NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgIHN0cm9rZT0icmdiKDI3LDE2MSwzNykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDEwMCwyMDAsODYpIi8+Cjwvc3ZnPg==);
   height: 32px;
-  /* 建议改为 32px，给大字号留空间 */
   width: 100%;
   background-size: 40px;
   background-repeat: no-repeat;
   background-color: #f8f8f8;
   border-radius: 5px 5px 0 0;
   background-position: 6px 11px;
-  /* 稍微下移圆点位置使其居中 */
   margin-bottom: 0;
-  /* 确保底部没有间距干扰 */
 }
 
 .CodeMirror-wrap .CodeMirror-scroll {

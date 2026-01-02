@@ -22,14 +22,14 @@
   --bg-shape-tri: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h30v30H0z' fill='none'/%3E%3Cpath d='M0 0L30 0L15 15Z' fill='black'/%3E%3Cpath d='M30 30L0 30L15 15Z' fill='black'/%3E%3C/svg%3E");
   /* 6. 方格网 */
   --bg-shape-grid: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v20H0z' fill='none'/%3E%3Cpath d='M20 0v20M0 20h20' stroke='black' stroke-width='0.7'/%3E%3C/svg%3E");
-  /* 7. 无背景 (透明图片) */
-  --bg-shape-none: url("data:image/svg+xml;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+  /* 7. 无背景 (纯白背景) */
+  --bg-shape-none: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=");
 
   /* 文档背景样式  none 无背景*/
   --bg-style: var(--bg-shape-cross);
 
   /* 自动编号格式设置 无需自动编号可全部注释掉或部分注释掉*/
- --autonum-h1: counter(h1) ". ";
+  --autonum-h1: counter(h1) ". ";
   --autonum-h2: counter(h1) "." counter(h2) ". ";
   --autonum-h3: counter(h1) "." counter(h2) "." counter(h3) ". ";
    /* --autonum-h4: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) ". ";
@@ -45,33 +45,34 @@
   --autonum-h6toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) "." counter(h6toc) ". "; */
 
 
-  /* 主题颜色 */
-/* 标题主色：深沉的焦糖橙 */
-  --head-title-color: #e08958;
+ /* ================= 3. 主题配色 (流光蜜金 - Liquid Gold) ================= */
   
-  /* H2 渐变 */
+  /* 标题主色：明亮的金琥珀色，像液态黄金 */
+  --head-title-color: #f59e0b;
+  
+  /* H2 渐变：从奶油金 -> 琥珀金 -> 奶油金，增加光泽感 */
   --head-title-h2-color: #fff;
-  --head-title-h2-background: linear-gradient(to right, #ff9f68, #ff6b35, #ff9f68);
+  --head-title-h2-background: linear-gradient(to right, #fcd34d, #f59e0b, #fcd34d);
   
   /* 元素颜色 */
-  --element-color: #e08958;             
-  --element-color-deep: #bf663b;        /* 棕红色 */
-  --element-color-shallow: #fab57f;     /* 浅杏色 */
-  --element-color-so-shallow: #f7e6d9;  
-  --element-color-soo-shallow: #fdfaf7; /* 极浅米色，护眼 */
+  --element-color: #f59e0b;             /* 核心色 (Amber 500) */
+  --element-color-deep: #b45309;        /* 深色 (古铜色) - 保证文字清晰，不发暗 */
+  --element-color-shallow: #fbbf24;     /* 浅色 (向日葵黄) - 用于图标/装饰 */
+  --element-color-so-shallow: #fef3c7;  /* 很浅色 (淡奶黄) - 高亮背景 */
+  --element-color-soo-shallow: #fffbeb; /* 极浅色 (象牙白/奶油色) - 温暖的底色 */
+  
+  /* 毛玻璃底色 */
+  --glass-bg-color: #f59e0b15;
 
-  /* 毛玻璃底色 透明度一定要很低 */
-  --glass-bg-color:#fde2c71c;
-
-  /* 行内代码：深咖啡色，与复古感匹配 */
-  --element-color-linecode: #8c5e46;
-  --element-color-linecode-background: #f2ebe6;
+  /* 行内代码：深焦糖色 */
+  --element-color-linecode: #92400e;
+  --element-color-linecode-background: #fff7ed;
 
   /* UI 颜色 */
-  --appui-color: #e08958;
-  --appui-color-icon: #e08958;
-  --appui-color-text: #5c4e46;
-  --primary-color: #e08958;
+  --appui-color: #f59e0b;
+  --appui-color-icon: #f59e0b;
+  --appui-color-text: #78350f; /* 深棕色文字，比黑色更柔和 */
+  --primary-color: #f59e0b;
 
   --rawblock-edit-panel-bd: var(--element-color-soo-shallow);
 }
