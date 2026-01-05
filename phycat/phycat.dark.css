@@ -1,120 +1,118 @@
 @font-face {
-  font-family: "HarmonyOS_Sans_SC";
-  font-weight: normal;
-  font-style: normal;
-  src: url("HarmonyOS_Sans_SC_Regular.woff");
+    font-family: HarmonyOS_Sans_SC;
+    font-weight: 400;
+    font-style: normal;
+    src: url(HarmonyOS_Sans_SC_Regular.woff)
 }
 
 @font-face {
-  font-family: "HarmonyOS_Sans_SC";
-  font-weight: bold;
-  font-style: normal;
-  src: url("HarmonyOS_Sans_SC_Bold.woff");
+    font-family: HarmonyOS_Sans_SC;
+    font-weight: 700;
+    font-style: normal;
+    src: url(HarmonyOS_Sans_SC_Bold.woff)
 }
 
 @font-face {
-  font-family: "CascadiaCode";
-  src: url("Cascadia-Code-Regular.ttf");
+    font-family: CascadiaCode;
+    src: url(Cascadia-Code-Regular.ttf)
 }
 
 @font-face {
-  font-family: "SourceHanSerifCN";
-  src: url('SourceHanSerifCN-Medium.ttf');
+    font-family: SourceHanSerifCN;
+    src: url(SourceHanSerifCN-Medium.ttf)
 }
 
 @font-face {
-  font-family: "SourceHanSerifCN";
-  src: url('SourceHanSerifCN-Bold.ttf');
-  font-weight: bold;
+    font-family: SourceHanSerifCN;
+    src: url(SourceHanSerifCN-Bold.ttf);
+    font-weight: 700
 }
 
 html {
-  font-size: 16px;
-  font-family: "HarmonyOS_Sans_SC";
+    font-size: 16px;
+    font-family: HarmonyOS_Sans_SC
 }
 
-/* 软件内部Markdown样式 */
 #write {
-  max-width: 950px;
-  margin: 0 auto;
-  padding: 15px;
-  line-height: 2.25;
-  color: var(--text-color);
-  letter-spacing: 1.1px;
-  word-break: break-word;
-  word-wrap: break-word;
-  text-align: left;
-  position: relative;
-  z-index: 0;
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 15px;
+    line-height: 2.25;
+    color: var(--text-color);
+    letter-spacing: 1.1px;
+    word-break: break-word;
+    word-wrap: break-word;
+    text-align: left;
+    position: relative;
+    z-index: 0
 }
 
 #write::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: -1;
-  background-color: var(--texture-mask-color);
-  opacity: var(--texture-opacity);
-  -webkit-mask-image: var(--bg-style);
-  mask-image: var(--bg-style);
-  -webkit-mask-size: 20px 20px;
-  mask-size: 20px 20px;
-  -webkit-mask-repeat: repeat;
-  mask-repeat: repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-color: var(--texture-mask-color);
+    opacity: var(--texture-opacity);
+    -webkit-mask-image: var(--bg-style);
+    mask-image: var(--bg-style);
+    -webkit-mask-size: 20px 20px;
+    mask-size: 20px 20px;
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+    -webkit-mask-position: center;
+    mask-position: center
 }
 
 #write p {
-  color: var(--text-color-secondary);
-  margin: 0px 10px;
-  font-family: Optima-Regular, Optima, "SourceHanSerifCN", PingFangSC-light, PingFangTC-light,
-    "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  font-size: 1rem;
-  word-spacing: 2px;
+    color: var(--text-color-secondary);
+    margin: 0 10px;
+    font-family: Optima-Regular, Optima, SourceHanSerifCN, PingFangSC-light, PingFangTC-light, "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    font-size: 1rem;
+    word-spacing: 2px
 }
 
 #write h3.md-heading:after,
 h4.md-heading:after,
 h5.md-heading:after,
 h6.md-heading:after {
-  content: " ";
-  display: inline-block;
-  height: 2em;
-  width: 2em;
-  vertical-align: top;
-  margin-left: -2px;
-  background-color: var(--primary-color);
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-size: 24px 24px;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: 24px 24px;
+    content: " ";
+    display: inline-block;
+    height: 2em;
+    width: 2em;
+    vertical-align: top;
+    margin-left: -2px;
+    background-color: var(--primary-color);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: 24px 24px;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: 24px 24px
 }
 
 #write h3.md-heading:after {
-  -webkit-mask-image: var(--h3-icon-shape);
-  mask-image: var(--h3-icon-shape);
+    -webkit-mask-image: var(--h3-icon-shape);
+    mask-image: var(--h3-icon-shape)
 }
 
 #write h4.md-heading:after {
-  -webkit-mask-image: var(--h4-icon-shape);
-  mask-image: var(--h4-icon-shape);
+    -webkit-mask-image: var(--h4-icon-shape);
+    mask-image: var(--h4-icon-shape)
 }
 
 #write h5.md-heading:after {
-  -webkit-mask-image: var(--h5-icon-shape);
-  mask-image: var(--h5-icon-shape);
+    -webkit-mask-image: var(--h5-icon-shape);
+    mask-image: var(--h5-icon-shape)
 }
 
 #write h6.md-heading:after {
-  -webkit-mask-image: var(--h6-icon-shape);
-  mask-image: var(--h6-icon-shape);
+    -webkit-mask-image: var(--h6-icon-shape);
+    mask-image: var(--h6-icon-shape)
 }
 
 #write h1,
@@ -123,8 +121,8 @@ h6.md-heading:after {
 #write h4,
 #write h5,
 #write h6 {
-  color: var(--text-color);
-  transition: all 0.3s ease;
+    color: var(--text-color);
+    transition: all .3s ease
 }
 
 #write h1,
@@ -133,1669 +131,1737 @@ h6.md-heading:after {
 #write h4,
 #write h5,
 #write h6 {
-  color: var(--text-color);
-  transition: all 0.3s ease;
+    color: var(--text-color);
+    transition: all .3s ease
 }
 
-/* --- H1: 居中 + 圆润短线 --- */
 #write h1 {
-  text-align: center;
-  font-size: 1.8rem;
-  margin: 15px auto;
-  position: relative;
-  width: fit-content;
-  padding-bottom: 12px;
-  cursor: default;
-  border-bottom: none;
+    text-align: center;
+    font-size: 1.8rem;
+    margin: 15px auto;
+    position: relative;
+    width: fit-content;
+    padding-bottom: 12px;
+    cursor: default;
+    border-bottom: none
 }
 
 #write h1::after {
-  content: '';
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  width: 40px;
-  height: 4px;
-  border-radius: 4px;
-  background: var(--h1-underline-color);
-  transform: translateX(-50%);
-  transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 0 0 5px rgba(255, 85, 85, 0.4);
+    content: '';
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    width: 40px;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--h1-underline-color);
+    transform: translateX(-50%);
+    transition: width .4s cubic-bezier(.25, .8, .25, 1);
+    box-shadow: 0 0 5px rgba(255, 85, 85, .4)
 }
 
-#write h1:hover,
+#write h1.md-focus,
 #write h1:focus,
-#write h1.md-focus {
-  text-shadow: var(--glow-shadow-text);
+#write h1:hover {
+    text-shadow: var(--glow-shadow-text)
 }
 
-#write h1:hover::after,
+#write h1.md-focus::after,
 #write h1:focus::after,
-#write h1.md-focus::after {
-  width: 100%;
-  box-shadow: 0 0 15px var(--h1-underline-color);
+#write h1:hover::after {
+    width: 100%;
+    box-shadow: 0 0 15px var(--h1-underline-color)
 }
 
 #write h2 {
-  font-size: 1.4rem;
-  width: fit-content;
-  margin: 10px 0px;
-  padding: 0px 10px;
-  border-radius: 8px;
-  cursor: default;
-
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  background-color: rgba(255, 255, 255, 0.02);
-  background-image: var(--h2-bg-image);
-  background-repeat: no-repeat;
-
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-left: 1px solid transparent;
-  border-right: 1px solid transparent;
-
-  transition: all 0.5s ease;
+    font-size: 1.4rem;
+    width: fit-content;
+    margin: 1rem 0;
+    padding: 0 10px;
+    border-radius: 8px;
+    cursor: default;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, .02);
+    background-image: var(--h2-bg-image);
+    background-repeat: no-repeat;
+    border-top: 1px solid rgba(255, 255, 255, .08);
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    transition: all .5s ease
 }
 
-#write h2:hover,
+#write h2.md-focus,
 #write h2:focus,
-#write h2.md-focus {
-  color: var(--primary-color);
-  background-image: var(--h2-bg-image-hover);
-  border-bottom-color: var(--h2-border-bottom-hover);
-  text-shadow: var(--glow-shadow-text);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transform: translateY(-1px);
+#write h2:hover {
+    color: var(--primary-color);
+    background-image: var(--h2-bg-image-hover);
+    border-bottom-color: var(--h2-border-bottom-hover);
+    text-shadow: var(--glow-shadow-text);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+    transform: translateY(-1px)
 }
-
 
 #write h3 {
-  position: relative;
-  padding-left: 15px;
-  font-size: 1.25rem;
-  margin-top: 30px;
-  transition: padding-left 0.3s ease, color 0.3s ease;
+    position: relative;
+    padding-left: 15px;
+    font-size: 1.25rem;
+    margin-top: 1rem 0;
+    transition: padding-left .3s ease, color .3s ease
 }
 
 #write h3::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 4px;
-  height: 16px;
-  background: var(--primary-color);
-  border-radius: 2px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  opacity: 0.8;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 16px;
+    background: var(--primary-color);
+    border-radius: 2px;
+    transition: all .3s cubic-bezier(.25, .8, .25, 1);
+    opacity: .8
 }
 
-#write h3:hover,
+#write h3.md-focus,
 #write h3:focus,
-#write h3.md-focus {
-  color: var(--primary-color);
-  padding-left: 20px;
-  text-shadow: var(--glow-shadow-text);
+#write h3:hover {
+    color: var(--primary-color);
+    padding-left: 20px;
+    text-shadow: var(--glow-shadow-text)
 }
 
-#write h3:hover::before,
+#write h3.md-focus::before,
 #write h3:focus::before,
-#write h3.md-focus::before {
-  height: 60%;
-  opacity: 1;
-  box-shadow: var(--glow-shadow-box);
+#write h3:hover::before {
+    height: 60%;
+    opacity: 1;
+    box-shadow: var(--glow-shadow-box)
 }
 
 #write h4 {
-  margin: 20px 0;
-  font-size: 1.15rem;
-  display: flex;
-  align-items: center;
+    margin: 20px 0;
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center
 }
 
 #write h4::before {
-  content: "";
-  margin-right: 10px;
-  display: inline-block;
-  background-color: var(--primary-color);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  transition: all 0.3s ease;
+    content: "";
+    margin-right: 10px;
+    display: inline-block;
+    background-color: var(--primary-color);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    transition: all .3s ease
 }
 
-#write h4:hover,
+#write h4.md-focus,
 #write h4:focus,
-#write h4.md-focus {
-  color: var(--primary-color);
-  text-shadow: var(--glow-shadow-text);
-  transform: translateX(5px);
+#write h4:hover {
+    color: var(--primary-color);
+    text-shadow: var(--glow-shadow-text);
+    transform: translateX(5px)
 }
 
-#write h4:hover::before,
+#write h4.md-focus::before,
 #write h4:focus::before,
-#write h4.md-focus::before {
-  transform: scale(1.2);
-  box-shadow: var(--glow-shadow-box);
+#write h4:hover::before {
+    transform: scale(1.2);
+    box-shadow: var(--glow-shadow-box)
 }
-
 
 #write h5 {
-  margin: 20px 0;
-  font-size: 1.1rem;
-  display: flex;
-  align-items: center;
+    margin: 20px 0;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center
 }
 
 #write h5::before {
-  content: "";
-  margin-right: 10px;
-  display: inline-block;
-  background-color: transparent;
-  border: 1.5px solid var(--primary-color);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
+    content: "";
+    margin-right: 10px;
+    display: inline-block;
+    background-color: transparent;
+    border: 1.5px solid var(--primary-color);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    transition: all .3s ease
 }
 
-#write h5:hover,
+#write h5.md-focus,
 #write h5:focus,
-#write h5.md-focus {
-  color: var(--primary-color);
-  text-shadow: var(--glow-shadow-text);
-  transform: translateX(5px);
+#write h5:hover {
+    color: var(--primary-color);
+    text-shadow: var(--glow-shadow-text);
+    transform: translateX(5px)
 }
 
-#write h5:hover::before,
+#write h5.md-focus::before,
 #write h5:focus::before,
-#write h5.md-focus::before {
-  background-color: transparent;
-  border-color: var(--primary-color);
-  box-shadow: var(--glow-shadow-box);
-  transform: scale(1.2);
+#write h5:hover::before {
+    background-color: transparent;
+    border-color: var(--primary-color);
+    box-shadow: var(--glow-shadow-box);
+    transform: scale(1.2)
 }
-
 
 #write h6 {
-  margin: 20px 0;
-  font-size: 1.1rem;
-  color: var(--text-color);
+    margin: 20px 0;
+    font-size: 1.1rem;
+    color: var(--text-color)
 }
 
 #write h6::before {
-  content: "-";
-  color: var(--primary-color);
-  margin-right: 7px;
-  display: inline-block;
-  font-weight: bold;
-  transition: all 0.3s ease;
+    content: "-";
+    color: var(--primary-color);
+    margin-right: 7px;
+    display: inline-block;
+    font-weight: 700;
+    transition: all .3s ease
 }
 
-#write h6:hover,
+#write h6.md-focus,
 #write h6:focus,
-#write h6.md-focus {
-  color: var(--primary-color);
-  text-shadow: var(--glow-shadow-text);
-  transform: translateX(5px);
+#write h6:hover {
+    color: var(--primary-color);
+    text-shadow: var(--glow-shadow-text);
+    transform: translateX(5px)
 }
 
-#write h6:hover::before,
+#write h6.md-focus::before,
 #write h6:focus::before,
-#write h6.md-focus::before {
-  text-shadow: var(--glow-shadow-text);
-  transform: scaleX(1.5);
+#write h6:hover::before {
+    text-shadow: var(--glow-shadow-text);
+    transform: scaleX(1.5)
 }
-
 
 #write {
-  counter-reset: h1;
+    counter-reset: h1
 }
 
 h1 {
-  counter-reset: h2;
+    counter-reset: h2
 }
 
 h2 {
-  counter-reset: h3;
+    counter-reset: h3
 }
 
 h3 {
-  counter-reset: h4;
+    counter-reset: h4
 }
 
 h4 {
-  counter-reset: h5;
+    counter-reset: h5
 }
 
 h5 {
-  counter-reset: h6;
+    counter-reset: h6
 }
 
 .sidebar-content {
-  counter-reset: h1
+    counter-reset: h1
 }
 
 .outline-content {
-  counter-reset: h1
+    counter-reset: h1
 }
 
 .outline-h1 {
-  counter-reset: h2
+    counter-reset: h2
 }
 
 .outline-h2 {
-  counter-reset: h3
+    counter-reset: h3
 }
 
 .outline-h3 {
-  counter-reset: h4
+    counter-reset: h4
 }
 
 .outline-h4 {
-  counter-reset: h5
+    counter-reset: h5
 }
 
 .outline-h5 {
-  counter-reset: h6
+    counter-reset: h6
 }
 
-
-
 .md-toc-content {
-  counter-reset: h1toc
+    counter-reset: h1toc
 }
 
 .md-toc-h1 {
-  counter-reset: h2toc
+    counter-reset: h2toc
 }
 
 .md-toc-h2 {
-  counter-reset: h3toc
+    counter-reset: h3toc
 }
 
 .md-toc-h3 {
-  counter-reset: h4toc
+    counter-reset: h4toc
 }
 
 .md-toc-h4 {
-  counter-reset: h5toc
+    counter-reset: h5toc
 }
 
 .md-toc-h5 {
-  counter-reset: h6toc
+    counter-reset: h6toc
 }
 
-
 #write h1:before {
-  counter-increment: h1;
-  content: var(--autonum-h1);
+    counter-increment: h1;
+    content: var(--autonum-h1)
 }
 
 #outline-content li.outline-h1>div>span.outline-label:before {
-  counter-increment: h1;
-  content: var(--autonum-h1);
+    counter-increment: h1;
+    content: var(--autonum-h1)
 }
 
 .outline-content .outline-h1>.outline-item>.outline-label:before {
-  counter-increment: h1;
-  content: var(--autonum-h1);
+    counter-increment: h1;
+    content: var(--autonum-h1)
 }
 
 #write span.md-toc-item.md-toc-h1>a:before {
-  counter-increment: h1toc;
-  content: var(--autonum-h1toc);
+    counter-increment: h1toc;
+    content: var(--autonum-h1toc)
 }
 
 #write h2:before {
-  counter-increment: h2;
-  content: var(--autonum-h2);
-  color: var(--head-title-h2-color);
+    counter-increment: h2;
+    content: var(--autonum-h2);
+    color: var(--head-title-h2-color)
 }
 
 .outline-content .outline-h2>.outline-item>.outline-label:before {
-  counter-increment: h2;
-  content: var(--autonum-h2);
+    counter-increment: h2;
+    content: var(--autonum-h2)
 }
 
 li.outline-h2>div>a.outline-label:before {
-  counter-increment: h2;
-  content: var(--autonum-h2);
+    counter-increment: h2;
+    content: var(--autonum-h2)
 }
 
 #write span.md-toc-item.md-toc-h2>a:before {
-  counter-increment: h2toc;
-  content: var(--autonum-h2toc);
+    counter-increment: h2toc;
+    content: var(--autonum-h2toc)
 }
 
-
 #write h3>span:first-of-type::before {
-  counter-increment: h3;
-  content: var(--autonum-h3);
-  color: var(--element-color);
+    counter-increment: h3;
+    content: var(--autonum-h3);
+    color: var(--element-color)
 }
 
 #outline-content li.outline-h3>div>span.outline-label:before {
-  counter-increment: h3;
-  content: var(--autonum-h3);
+    counter-increment: h3;
+    content: var(--autonum-h3)
 }
 
 .outline-content .outline-h3>.outline-item>.outline-label:before {
-  counter-increment: h3;
-  content: var(--autonum-h3);
+    counter-increment: h3;
+    content: var(--autonum-h3)
 }
 
 #write span.md-toc-item.md-toc-h3>a:before {
-  counter-increment: h3toc;
-  content: var(--autonum-h3toc);
+    counter-increment: h3toc;
+    content: var(--autonum-h3toc)
 }
 
-
 #write h4>span:first-of-type::before {
-  counter-increment: h4;
-  content: var(--autonum-h4);
-  color: var(--element-color);
+    counter-increment: h4;
+    content: var(--autonum-h4);
+    color: var(--element-color)
 }
 
 #outline-content li.outline-h4>div>span.outline-label:before {
-  counter-increment: h4;
-  content: var(--autonum-h4);
+    counter-increment: h4;
+    content: var(--autonum-h4)
 }
 
 .outline-content .outline-h4>.outline-item>.outline-label:before {
-  counter-increment: h4;
-  content: var(--autonum-h4);
+    counter-increment: h4;
+    content: var(--autonum-h4)
 }
 
 #write span.md-toc-item.md-toc-h4>a:before {
-  counter-increment: h4toc;
-  content: var(--autonum-h4toc);
+    counter-increment: h4toc;
+    content: var(--autonum-h4toc)
 }
 
-
 #write h5>span:first-of-type::before {
-  counter-increment: h5;
-  content: var(--autonum-h5);
-  color: var(--element-color);
+    counter-increment: h5;
+    content: var(--autonum-h5);
+    color: var(--element-color)
 }
 
 #outline-content li.outline-h5>div>span.outline-label:before {
-  counter-increment: h5;
-  content: var(--autonum-h5);
+    counter-increment: h5;
+    content: var(--autonum-h5)
 }
 
 .outline-content .outline-h5>.outline-item>.outline-label:before {
-  counter-increment: h5;
-  content: var(--autonum-h5);
+    counter-increment: h5;
+    content: var(--autonum-h5)
 }
 
 #write span.md-toc-item.md-toc-h5>a:before {
-  counter-increment: h5toc;
-  content: var(--autonum-h5toc);
+    counter-increment: h5toc;
+    content: var(--autonum-h5toc)
 }
 
-
 #write h6>span:first-of-type::before {
-  counter-increment: h6;
-  content: var(--autonum-h6);
-  color: var(--element-color);
+    counter-increment: h6;
+    content: var(--autonum-h6);
+    color: var(--element-color)
 }
 
 #outline-content li.outline-h6>div>span.outline-label:before {
-  counter-increment: h6;
-  content: var(--autonum-h6);
+    counter-increment: h6;
+    content: var(--autonum-h6)
 }
 
 .outline-content .outline-h6>.outline-item>.outline-label:before {
-  counter-increment: h6;
-  content: var(--autonum-h6);
+    counter-increment: h6;
+    content: var(--autonum-h6)
 }
 
 #write span.md-toc-item.md-toc-h6>a:before {
-  counter-increment: h6toc;
-  content: var(--autonum-h6toc);
+    counter-increment: h6toc;
+    content: var(--autonum-h6toc)
 }
 
-
-/* 列表 */
 ::marker {
-  color: var(--primary-color);
+    color: var(--primary-color)
 }
 
 li.md-list-item {
-  margin: 0.4rem 0;
+    margin: .4rem 0
 }
 
-#write ul,
-#write ol {
-  margin-top: 0px;
-  margin-left: 16px;
-  margin-bottom: 8px;
-  padding-left: 13px;
+#write ol,
+#write ul {
+    margin-top: 0;
+    margin-left: 16px;
+    margin-bottom: 8px;
+    padding-left: 13px
 }
 
 #write em {
-  padding: 0 3px 0 0;
+    padding: 0 3px 0 0
 }
 
 #write ul {
-  list-style-type: disc;
+    list-style-type: disc
 }
 
 #write ul ul {
-  list-style-type: circle;
+    list-style-type: circle
 }
 
 #write ul ul ul {
-  list-style-type: square;
+    list-style-type: square
 }
 
 #write ol {
-  list-style-type: decimal;
+    list-style-type: decimal
 }
 
 #write ol ol {
-  list-style-type: lower-alpha;
+    list-style-type: lower-alpha
 }
 
 #write ol ol ol {
-  list-style-type: lower-roman;
+    list-style-type: lower-roman
 }
 
 #write li section {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  line-height: 1.7rem;
-  text-align: justify;
-  color: #000000;
-  font-weight: 500;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    line-height: 1.7rem;
+    text-align: justify;
+    color: #000;
+    font-weight: 500
 }
 
 #write li:before {
-  content: "";
-  height: calc(100% - 50px);
-  top: 35px;
-  position: absolute;
-  border-left: 0.5px solid var(--primary-color);
-  left: -13.5px;
+    content: "";
+    height: calc(100% - 50px);
+    top: 35px;
+    position: absolute;
+    border-left: .5px solid var(--primary-color);
+    left: -13.5px
 }
 
 #write li.task-list-item:before {
-  left: -6.5px;
+    left: -6.5px
 }
 
-/* 任务列表样式 */
-
 @keyframes task-pulse {
-  0% {
-    transform: scale(1);
-  }
+    0% {
+        transform: scale(1)
+    }
 
-  50% {
-    transform: scale(1.15);
-  }
+    50% {
+        transform: scale(1.15)
+    }
 
-  100% {
-    transform: scale(1);
-  }
+    100% {
+        transform: scale(1)
+    }
 }
 
 .task-list-item {
-  position: relative;
+    position: relative
 }
+
 .task-list-item input {
-  width: 1.25rem;
-  height: 1.25rem;
-  display: block;
-  -webkit-appearance: initial;
-  appearance: initial;
-  position: absolute;
-  top: 9px;
-  left: -19px;
-  margin: 0;
-  cursor: pointer;
-  outline: none;
-  z-index: 1;
+    width: 1.25rem;
+    height: 1.25rem;
+    display: block;
+    -webkit-appearance: initial;
+    appearance: initial;
+    position: absolute;
+    top: 9px;
+    left: -19px;
+    margin: 0;
+    cursor: pointer;
+    outline: 0;
+    z-index: 1
 }
 
 .task-list-item input::before {
-  content: ' ';
-  display: block;
-  width: 1.2rem;
-  height: 1.2rem;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.4);
-  box-sizing: border-box;
+    content: ' ';
+    display: block;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, .2);
+    border: 2px solid rgba(255, 255, 255, .2);
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.4);
+    box-sizing: border-box
 }
 
 .task-list-item input:checked::before {
-  border: 1px solid var(--primary-color);
-  background: rgba(255, 85, 85, 0.2);
-  box-shadow: 0 0 8px var(--primary-color), inset 0 0 5px rgba(255, 85, 85, 0.5);
-  animation: task-pulse 0.4s forwards;
+    border: 1px solid var(--primary-color);
+    background: rgba(255, 85, 85, .2);
+    box-shadow: 0 0 8px var(--primary-color), inset 0 0 5px rgba(255, 85, 85, .5);
+    animation: task-pulse .4s forwards
 }
+
 .task-list-item input::after {
-  content: ' ';
-  position: absolute;
-  top: 0.325rem;
-  left: 0.28125rem;
-  width: 0.6375rem;
-  height: 0.4rem;
-  border: 2.5px solid #fff;
-  border-top: 0;
-  border-right: 0;
-  transform: rotate(-45deg) scale(0);
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+    content: ' ';
+    position: absolute;
+    top: .325rem;
+    left: .28125rem;
+    width: .6375rem;
+    height: .4rem;
+    border: 2.5px solid #fff;
+    border-top: 0;
+    border-right: 0;
+    transform: rotate(-45deg) scale(0);
+    opacity: 0;
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.4)
 }
 
 .task-list-item input:checked::after {
-  opacity: 1;
-  transform: rotate(-45deg) scale(1);
-  text-shadow: 0 0 5px #fff;
+    opacity: 1;
+    transform: rotate(-45deg) scale(1);
+    text-shadow: 0 0 5px #fff
 }
+
 .task-list-item p {
-  position: relative;
-  display: inline;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  background-image: linear-gradient(#888, #888);
-  background-position: 0% 50%;
-  background-size: 0% 1.5px;
-  background-repeat: no-repeat;
-  transition: background-size 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.4s ease, opacity 0.4s ease;
-  text-decoration: none !important;
+    position: relative;
+    display: inline;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    background-image: linear-gradient(#888, #888);
+    background-position: 0 50%;
+    background-size: 0 1.5px;
+    background-repeat: no-repeat;
+    transition: background-size .4s cubic-bezier(.25, .8, .25, 1), color .4s ease, opacity .4s ease;
+    text-decoration: none !important
 }
 
 .task-list-item input:checked+p {
-  color: #888;
-  opacity: 0.6;
-  background-size: 100% 1.5px;
+    color: #888;
+    opacity: .6;
+    background-size: 100% 1.5px
 }
 
 .task-list-item input:checked+p span {
-  color: #888;
-  transition: color 0.4s ease;
+    color: #888;
+    transition: color .4s ease
 }
 
-
-/* 引用 */
 #write blockquote {
-  position: relative;
-  margin: 20px 0;
-  padding: 18px 20px 18px 48px;
-  color: var(--text-color-secondary);
-  background-color: rgba(0, 0, 0, 0.2);
-  border: 1px solid color-mix(in srgb, var(--secondary-color), transparent 70%);
-  border-radius: 16px;
-  transition: all 0.3s ease;
+    position: relative;
+    margin: 20px 0;
+    padding: 18px 20px 18px 48px;
+    color: var(--text-color-secondary);
+    background-color: rgba(0, 0, 0, .2);
+    border: 1px solid color-mix(in srgb, var(--secondary-color), transparent 70%);
+    border-radius: 16px;
+    transition: all .3s ease
 }
 
-/* 图标装饰 */
 #write blockquote::before {
-  content: "💡";
-  /* 你也可以换成 📌, 📝, ✨ */
-  position: absolute;
-  left: 10px;
-  top: 2px;
-  font-size: 20px;
-  filter: grayscale(1);
-  opacity: 0.8;
-  transform: rotate(30deg);
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    content: "💡";
+    position: absolute;
+    left: 10px;
+    top: 2px;
+    font-size: 20px;
+    filter: grayscale(1);
+    opacity: .8;
+    transform: rotate(30deg);
+    transition: all .3s cubic-bezier(.34, 1.56, .64, 1)
 }
 
 #write blockquote p {
-  color: var(--text-color-secondary);
-  margin-bottom: 0.5em;
+    color: var(--text-color-secondary);
+    margin-bottom: .5em
 }
 
 #write blockquote p:last-child {
-  margin-bottom: 0;
+    margin-bottom: 0
 }
 
-#write blockquote:hover,
-#write blockquote:focus,
+#write blockquote.md-focus,
 #write blockquote:active,
-#write blockquote.md-focus {
-  border-color: var(--primary-color);
-  background-color: color-mix(in srgb, var(--hover-background-color), transparent 95%);
-  box-shadow: 0 0 15px color-mix(in srgb, var(--hover-background-color), transparent 90%), inset 0 0 10px color-mix(in srgb, var(--hover-background-color), transparent 95%);
-  transform: scale(1.01);
+#write blockquote:focus,
+#write blockquote:hover {
+    border-color: var(--primary-color);
+    background-color: color-mix(in srgb, var(--hover-background-color), transparent 95%);
+    box-shadow: 0 0 15px color-mix(in srgb, var(--hover-background-color), transparent 90%), inset 0 0 10px color-mix(in srgb, var(--hover-background-color), transparent 95%);
+    transform: scale(1.01)
 }
 
-#write blockquote:hover::before,
+#write blockquote.md-focus::before,
 #write blockquote:focus::before,
-#write blockquote.md-focus::before {
-  filter: grayscale(0);
-  opacity: 1;
-  transform: rotate(0deg);
-  text-shadow: 0 0 10px var(--primary-color);
+#write blockquote:hover::before {
+    filter: grayscale(0);
+    opacity: 1;
+    transform: rotate(0);
+    text-shadow: 0 0 10px var(--primary-color)
 }
 
-/* 超链接 */
 #write a {
-  color: var(--primary-color);
-  text-decoration: none;
-  font-weight: 500;
-  padding: 2px 4px;
-  margin: 0 -2px;
-  border-radius: 4px;
-  background: transparent;
-  border-bottom: none;
-  transition: all 0.2s ease;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 2px 4px;
+    margin: 0 -2px;
+    border-radius: 4px;
+    background: 0 0;
+    border-bottom: none;
+    transition: all .2s ease
 }
 
-/* 图标设置 */
 #write p a:not(.md-toc-inner)::before {
-  content: '';
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  margin-right: 4px;
-  vertical-align: -0.15em;
-  background-color: var(--primary-color);
-  -webkit-mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath d='M477.934459 330.486594A50.844091 50.844091 0 0 1 406.752731 258.796425L512 152.532274a254.220457 254.220457 0 0 1 359.467726 359.467726L762.66137 618.772592a50.844091 50.844091 0 1 1-71.690168-71.690169l106.772591-106.772592a152.532274 152.532274 0 0 0-215.578947-215.578947z m70.164846 361.501489A50.844091 50.844091 0 1 1 619.789474 762.66137l-107.281033 107.281033A254.220457 254.220457 0 0 1 152.532274 512L259.813307 406.752731a50.844091 50.844091 0 1 1 72.19861 69.656405l-107.789474 107.281033a152.532274 152.532274 0 0 0 215.578947 215.578947z m-126.601788-16.77855a50.844091 50.844091 0 1 1-71.690168-71.690169l251.678252-251.678252a50.844091 50.844091 0 0 1 71.690169 71.690169z'/%3E%3C/svg%3E") no-repeat center / contain;
-  mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath d='M477.934459 330.486594A50.844091 50.844091 0 0 1 406.752731 258.796425L512 152.532274a254.220457 254.220457 0 0 1 359.467726 359.467726L762.66137 618.772592a50.844091 50.844091 0 1 1-71.690168-71.690169l106.772591-106.772592a152.532274 152.532274 0 0 0-215.578947-215.578947z m70.164846 361.501489A50.844091 50.844091 0 1 1 619.789474 762.66137l-107.281033 107.281033A254.220457 254.220457 0 0 1 152.532274 512L259.813307 406.752731a50.844091 50.844091 0 1 1 72.19861 69.656405l-107.789474 107.281033a152.532274 152.532274 0 0 0 215.578947 215.578947z m-126.601788-16.77855a50.844091 50.844091 0 1 1-71.690168-71.690169l251.678252-251.678252a50.844091 50.844091 0 0 1 71.690169 71.690169z'/%3E%3C/svg%3E") no-repeat center / contain;
-  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 4px;
+    vertical-align: -.15em;
+    background-color: var(--primary-color);
+    -webkit-mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath d='M477.934459 330.486594A50.844091 50.844091 0 0 1 406.752731 258.796425L512 152.532274a254.220457 254.220457 0 0 1 359.467726 359.467726L762.66137 618.772592a50.844091 50.844091 0 1 1-71.690168-71.690169l106.772591-106.772592a152.532274 152.532274 0 0 0-215.578947-215.578947z m70.164846 361.501489A50.844091 50.844091 0 1 1 619.789474 762.66137l-107.281033 107.281033A254.220457 254.220457 0 0 1 152.532274 512L259.813307 406.752731a50.844091 50.844091 0 1 1 72.19861 69.656405l-107.789474 107.281033a152.532274 152.532274 0 0 0 215.578947 215.578947z m-126.601788-16.77855a50.844091 50.844091 0 1 1-71.690168-71.690169l251.678252-251.678252a50.844091 50.844091 0 0 1 71.690169 71.690169z'/%3E%3C/svg%3E") no-repeat center/contain;
+    mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath d='M477.934459 330.486594A50.844091 50.844091 0 0 1 406.752731 258.796425L512 152.532274a254.220457 254.220457 0 0 1 359.467726 359.467726L762.66137 618.772592a50.844091 50.844091 0 1 1-71.690168-71.690169l106.772591-106.772592a152.532274 152.532274 0 0 0-215.578947-215.578947z m70.164846 361.501489A50.844091 50.844091 0 1 1 619.789474 762.66137l-107.281033 107.281033A254.220457 254.220457 0 0 1 152.532274 512L259.813307 406.752731a50.844091 50.844091 0 1 1 72.19861 69.656405l-107.789474 107.281033a152.532274 152.532274 0 0 0 215.578947 215.578947z m-126.601788-16.77855a50.844091 50.844091 0 1 1-71.690168-71.690169l251.678252-251.678252a50.844091 50.844091 0 0 1 71.690169 71.690169z'/%3E%3C/svg%3E") no-repeat center/contain;
+    transition: transform .4s cubic-bezier(.25, .8, .25, 1)
 }
 
 #write a:not(.md-toc-inner):hover {
-  color: #fff;
-  background: transparent;
-  text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
-  box-shadow: none;
+    color: #fff;
+    background: 0 0;
+    text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
+    box-shadow: none
 }
 
 #write a:hover:not(.md-toc-inner)::before {
-  transform: rotate(180deg);
-  background-color: #fff;
+    transform: rotate(180deg);
+    background-color: #fff
 }
 
 #write a:visited {
-  color: var(--primary-color);
-  text-shadow: 0 0 5px rgba(255, 85, 85, 0.6), 0 0 10px rgba(255, 85, 85, 0.3);
-  opacity: 0.9;
+    color: var(--primary-color);
+    text-shadow: 0 0 5px rgba(255, 85, 85, .6), 0 0 10px rgba(255, 85, 85, .3);
+    opacity: .9
 }
 
 #write a:visited:hover {
-  color: #fff;
-  text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
-  opacity: 1;
+    color: #fff;
+    text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
+    opacity: 1
 }
 
 #write sup a::before {
-  content: none;
+    content: none
 }
 
-/* Mark: 高亮文本 */
 #write mark {
-  background-color: transparent;
-  color: var(--secondary-color);
-  font-weight: bold;
-  padding: 0 4px;
-  margin: 0 2px;
-  border-radius: 4px;
-  position: relative;
-  text-shadow: var(--glow-shadow-box);
-  transition: all 0.3s ease;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
+    background-color: transparent;
+    color: var(--secondary-color);
+    font-weight: 700;
+    padding: 0 4px;
+    margin: 0 2px;
+    border-radius: 4px;
+    position: relative;
+    text-shadow: var(--glow-shadow-box);
+    transition: all .3s ease;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone
 }
 
-#write mark::before,
-#write mark::after {
-  content: none;
+#write mark::after,
+#write mark::before {
+    content: none
 }
 
 #write mark:hover {
-  color: #fff;
-  background-color: rgba(255, 85, 85, 0.2);
-  text-shadow:
-    0 0 1px #fff,
-    0 0 5px #fff,
-    0 0 15px var(--primary-color),
-    0 0 30px var(--primary-color);
-  box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
-  transform: scale(1.05);
+    color: #fff;
+    background-color: rgba(255, 85, 85, .2);
+    text-shadow: 0 0 1px #fff, 0 0 5px #fff, 0 0 15px var(--primary-color), 0 0 30px var(--primary-color);
+    box-shadow: 0 0 15px rgba(255, 85, 85, .3);
+    transform: scale(1.05)
 }
 
-/* Strong: 粗体 */
 #write strong {
-  color: var(--primary-color);
-  font-weight: bold;
-  display: inline-block;
-  transition: transform 0.2s cubic-bezier(0.5, 1.5, 0.5, 1);
+    color: var(--primary-color);
+    font-weight: 700;
+    display: inline-block;
+    transition: transform .2s cubic-bezier(.5, 1.5, .5, 1)
 }
 
 #write strong:hover {
-  transform: translateY(-2px) scale(1.1);
-  text-shadow: 0 0 10px var(--primary-color);
+    transform: translateY(-2px) scale(1.1);
+    text-shadow: 0 0 10px var(--primary-color)
 }
 
-/* Em: 斜体 */
 #write em {
-  font-style: italic;
-  color: var(--secondary-color);
-  padding: 0 2px;
-  transition: all 0.3s ease;
+    font-style: italic;
+    color: var(--secondary-color);
+    padding: 0 2px;
+    transition: all .3s ease
 }
 
 #write em:hover {
-  color: var(--primary-color);
-  text-decoration: underline wavy var(--primary-color);
-  text-underline-offset: 4px;
-  text-shadow: var(--glow-shadow-box);
+    color: var(--primary-color);
+    text-decoration: underline wavy var(--primary-color);
+    text-underline-offset: 4px;
+    text-shadow: var(--glow-shadow-box)
 }
 
-/* Del: 删除线 */
 #write del {
-  text-decoration: line-through;
-  text-decoration-color: var(--primary-color);
-  color: #888;
-  transition: all 0.3s ease;
+    text-decoration: line-through;
+    text-decoration-color: var(--primary-color);
+    color: #888;
+    transition: all .3s ease
 }
 
 #write del:hover {
-  opacity: 1;
-  color: var(--primary-color);
-  text-decoration-color: var(--secondary-color);
-  cursor: not-allowed;
+    opacity: 1;
+    color: var(--primary-color);
+    text-decoration-color: var(--secondary-color);
+    cursor: not-allowed
 }
 
-/* 分割线 */
 #write hr {
-  border: none;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
-  margin: 40px 0;
-  position: relative;
-  overflow: visible;
-  opacity: 0.5;
-  transition: all 0.3s ease;
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    margin: 40px 0;
+    position: relative;
+    overflow: visible;
+    opacity: .5;
+    transition: all .3s ease
 }
 
 #write hr::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
-  width: 8px;
-  height: 8px;
-  border: 2px solid var(--primary-color);
-  background: var(--bg-color); 
-  transition: all 0.3s ease;
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    border: 2px solid var(--primary-color);
+    background: var(--bg-color);
+    transition: all .3s ease
 }
 
 #write hr:hover {
-  opacity: 1;
-  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    opacity: 1;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent)
 }
+
 #write hr:hover::after {
-  border-color: var(--primary-color);
-  background-color: var(--primary-color);
-  box-shadow: 0 0 10px var(--primary-color);
-  transform: translate(-50%, -50%) rotate(225deg) scale(1.5);
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+    transform: translate(-50%, -50%) rotate(225deg) scale(1.5)
 }
+
 #write p:has(img) {
-  text-align: center;
+    text-align: center
 }
 
 #write img {
-  border-radius: 12px;
-  display: inline-block;
-  margin: 15px 5px;
-  object-fit: contain;
-  filter: brightness(1) contrast(1);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  max-width: 100%;
-  cursor: zoom-in;
+    border-radius: 12px;
+    display: inline-block;
+    margin: 15px 5px;
+    object-fit: contain;
+    filter: brightness(1) contrast(1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .05);
+    transition: all .4s cubic-bezier(.34, 1.56, .64, 1);
+    max-width: 100%;
+    cursor: zoom-in
 }
 
 #write p>img:only-child {
-  display: block;
-  margin: 20px auto;
+    display: block;
+    margin: 20px auto
 }
 
 #write img:hover {
-  filter: brightness(1.05) contrast(1.05);
-  transform: scale(1.05);
-  box-shadow: 0 12px 30px -4px var(--element-color-soo-shallow);
-  z-index: 10;
+    filter: brightness(1.05) contrast(1.05);
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px -4px var(--element-color-soo-shallow);
+    z-index: 10
 }
 
 #write figcaption {
-  display: block;
-  margin-top: 12px;
-  font-size: 13px;
-  color: #888;
-  text-align: center;
-  line-height: 1.5;
-  font-family: "HarmonyOS_Sans_SC", -apple-system, sans-serif;
-  transition: color 0.3s ease;
+    display: block;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #888;
+    text-align: center;
+    line-height: 1.5;
+    font-family: HarmonyOS_Sans_SC, -apple-system, sans-serif;
+    transition: color .3s ease
 }
 
-#write p:hover>img+figcaption,
-#write figure:hover>figcaption {
-  color: var(--element-color-deep);
+#write figure:hover>figcaption,
+#write p:hover>img+figcaption {
+    color: var(--element-color-deep)
 }
 
 pre.md-meta-block {
-  padding: 30px 20px 20px;
-  margin: 20px 0;
-  font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
-  font-size: 13px;
-  color: var(--text-color-secondary); 
-  line-height: 1.6;
-  background-color: color-mix(in srgb, var(--primary-color), transparent 98%);
-  border: 1.5px dashed color-mix(in srgb, var(--primary-color), transparent 60%);
-  border-radius: 8px;
-  
-  position: relative;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    padding: 30px 20px 20px;
+    margin: 20px 0;
+    font-family: CascadiaCode, "Lucida Console", Consolas, Courier, monospace;
+    font-size: 13px;
+    color: var(--text-color-secondary);
+    line-height: 1.6;
+    background-color: color-mix(in srgb, var(--primary-color), transparent 98%);
+    border: 1.5px dashed color-mix(in srgb, var(--primary-color), transparent 60%);
+    border-radius: 8px;
+    position: relative;
+    transition: all .3s cubic-bezier(.25, .8, .25, 1)
 }
 
 pre.md-meta-block::after {
-  content: "YAML";
-  position: absolute;
-  top: 0;
-  right: 20px;
-  background-color: var(--primary-color);
-  color: #fff;
-  font-size: 10px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  padding: 4px 12px;
-  border-radius: 0 0 6px 6px;
-  box-shadow: 0 2px 10px color-mix(in srgb, var(--primary-color), transparent 70%);
-  pointer-events: none;
-  transition: all 0.3s ease;
+    content: "YAML";
+    position: absolute;
+    top: 0;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 4px 12px;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 2px 10px color-mix(in srgb, var(--primary-color), transparent 70%);
+    pointer-events: none;
+    transition: all .3s ease
 }
 
 pre.md-meta-block:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 92%);
-  border-style: solid;
-  border-color: var(--primary-color);
-  box-shadow: 0 5px 20px color-mix(in srgb, var(--primary-color), transparent 85%), 
-            inset 0 0 20px color-mix(in srgb, var(--primary-color), transparent 95%);
-  transform: translateY(-2px);
+    background-color: color-mix(in srgb, var(--primary-color), transparent 92%);
+    border-style: solid;
+    border-color: var(--primary-color);
+    box-shadow: 0 5px 20px color-mix(in srgb, var(--primary-color), transparent 85%), inset 0 0 20px color-mix(in srgb, var(--primary-color), transparent 95%);
+    transform: translateY(-2px)
 }
 
 pre.md-meta-block:hover::after {
-  padding-top: 8px; 
-  box-shadow: 0 0 15px var(--primary-color); 
+    padding-top: 8px;
+    box-shadow: 0 0 15px var(--primary-color)
 }
 
-/* 行内代码 */
-#write code:not(.md-fences code) {
-  font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
-  font-size: 0.9em;
-  letter-spacing: 0.5px;
-  color: var(--element-color-linecode);
-  background-color: var(--element-color-linecode-background);
-  padding: 5px 5px;
-  margin: 0 2px;
-  border-radius: 6px;
-  vertical-align: middle;
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+#write code:not(.md-fencescode) {
+    font-family: CascadiaCode, "Lucida Console", Consolas, Courier, monospace;
+    font-size: .9em;
+    letter-spacing: .5px;
+    color: var(--element-color-linecode);
+    background-color: var(--element-color-linecode-background);
+    padding: 5px 5px;
+    margin: 0 2px;
+    border-radius: 6px;
+    vertical-align: middle;
+    transition: all .2s cubic-bezier(.34, 1.56, .64, 1)
 }
 
-#write code:not(.md-fences code):hover {
-  background-color: var(--element-color);
-  color: #fff;
-  transform: scale(1.05);
-  box-shadow: 0 4px 10px var(--element-color-so-shallow);
-  text-decoration: none;
+#write code:not(.md-fencescode):hover {
+    background-color: var(--element-color);
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px var(--element-color-so-shallow);
+    text-decoration: none
 }
 
-/* 流程图 */
-svg[id^="mermaid"] {
-  font-family: "Cascadia Code", "HarmonyOS Sans SC", sans-serif !important;
-  max-width: 100% !important;
+svg[id^=mermaid] {
+    font-family: "Cascadia Code", "HarmonyOS Sans SC", sans-serif !important;
+    max-width: 100% !important
 }
 
-.node rect,
 .node circle,
 .node ellipse,
-.node path {
-  fill: color-mix(in srgb, var(--primary-color), transparent 90%) !important;
-  stroke: var(--primary-color) !important;
-  stroke-width: 1.5px !important;
+.node path,
+.node rect {
+    fill: color-mix(in srgb, var(--primary-color), transparent 90%) !important;
+    stroke: var(--primary-color) !important;
+    stroke-width: 1.5px !important
 }
 
 .node polygon {
-  fill: color-mix(in srgb, var(--secondary-color), transparent 85%) !important;
-  stroke: var(--secondary-color) !important;
-  stroke-width: 1.5px !important;
+    fill: color-mix(in srgb, var(--secondary-color), transparent 85%) !important;
+    stroke: var(--secondary-color) !important;
+    stroke-width: 1.5px !important
 }
+
 .edgePath .path,
 .flowchart-link {
-  stroke: #e0e0e0 !important; 
-  stroke-width: 1.5px !important;
-  opacity: 1 !important; 
+    stroke: #e0e0e0 !important;
+    stroke-width: 1.5px !important;
+    opacity: 1 !important
 }
 
 .marker path,
 marker path {
-  fill: #e0e0e0 !important;
-  stroke: #e0e0e0 !important;
+    fill: #e0e0e0 !important;
+    stroke: #e0e0e0 !important
 }
 
-.node .label,
+.cluster-label text,
 .edgeLabel,
 .edgeLabel .label,
-.edgeLabel span,
 .edgeLabel div,
 .edgeLabel p,
-.cluster-label text,
-.labelBkg {
-  background:#2e2e2e!important;
-  color: #ffffff !important;
-  fill: #ffffff !important; 
-  font-weight: 500 !important;
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.8) !important;
+.edgeLabel span,
+.labelBkg,
+.node .label {
+    background: #2e2e2e !important;
+    color: #fff !important;
+    fill: #fff !important;
+    font-weight: 500 !important;
+    text-shadow: 0 0 4px rgba(0, 0, 0, .8) !important
 }
 
 .edgeLabel rect {
-  fill: var(--bg-color) !important;
-  opacity: 1 !important;
+    fill: var(--bg-color) !important;
+    opacity: 1 !important
 }
 
 .labelBkg {
-  background-color: var(--bg-color) !important;
-  opacity: 1 !important;
-  border-radius: 4px;
-  padding: 0 4px;
+    background-color: var(--bg-color) !important;
+    opacity: 1 !important;
+    border-radius: 4px;
+    padding: 0 4px
 }
 
 .cluster rect {
-  fill: rgba(255, 255, 255, 0.02) !important;
-  stroke: rgba(255, 255, 255, 0.1) !important;
-  rx: 8px !important;
-  ry: 8px !important;
+    fill: rgba(255, 255, 255, .02) !important;
+    stroke: rgba(255, 255, 255, .1) !important
 }
 
-/* 代码块 */
-.md-fences:not([lang="mermaid"])::before {
-  content: attr(lang);
-  font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
-  text-align: right;
-  padding-right: 15px;
-  color: #6272a4; 
-  display: block;
-  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNDUwcHgiIGhlaWdodD0iMTMwcHgiPgogIDxlbGxpcHNlIGN4PSI2NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgc3Ryb2tlPSJyZ2IoMjIwLDYwLDU0KSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJyZ2IoMjM3LDEwOCw5NikiLz4KICA8ZWxsaXBzZSBjeD0iMjI1IiBjeT0iNjUiIHJ4PSI1MCIgcnk9IjUyIiAgc3Ryb2tlPSJyZ2IoMjE4LDE1MSwzMykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDI0NywxOTMsODEpIi8+CiAgPGVsbGlwc2UgY3g9IjM4NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgIHN0cm9rZT0icmdiKDI3LDE2MSwzNykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDEwMCwyMDAsODYpIi8+Cjwvc3ZnPg==);
-  background-repeat: no-repeat;
-  background-size: 40px;
-  background-position: 12px 11px;
-  height: 32px;
-  width: 100%;
-  border-radius: 8px 8px 0 0;
-  margin-bottom: 0;
-  background-color: color-mix(in srgb, var(--secondary-color), transparent 95%);
-  border-bottom: 1px solid color-mix(in srgb, var(--secondary-color), transparent 90%);
-  transition: all 0.3s ease;
+.md-fences:not([lang=mermaid])::before {
+    content: attr(lang);
+    font-family: CascadiaCode, "Lucida Console", Consolas, Courier, monospace;
+    text-align: right;
+    padding-right: 15px;
+    color: #6272a4;
+    display: block;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNDUwcHgiIGhlaWdodD0iMTMwcHgiPgogIDxlbGxpcHNlIGN4PSI2NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgc3Ryb2tlPSJyZ2IoMjIwLDYwLDU0KSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJyZ2IoMjM3LDEwOCw5NikiLz4KICA8ZWxsaXBzZSBjeD0iMjI1IiBjeT0iNjUiIHJ4PSI1MCIgcnk9IjUyIiAgc3Ryb2tlPSJyZ2IoMjE4LDE1MSwzMykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDI0NywxOTMsODEpIi8+CiAgPGVsbGlwc2UgY3g9IjM4NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgIHN0cm9rZT0icmdiKDI3LDE2MSwzNykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDEwMCwyMDAsODYpIi8+Cjwvc3ZnPg==);
+    background-repeat: no-repeat;
+    background-size: 40px;
+    background-position: 12px 11px;
+    height: 32px;
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 0;
+    background-color: color-mix(in srgb, var(--secondary-color), transparent 95%);
+    border-bottom: 1px solid color-mix(in srgb, var(--secondary-color), transparent 90%);
+    transition: all .3s ease
 }
 
 .CodeMirror-wrap .CodeMirror-scroll {
-  overflow-x: auto;
+    overflow-x: auto
 }
 
 .md-fences {
-  position: relative;
-  z-index: 1;
-  overflow: visible;
-  margin: 20px 0;
-  border-radius: 8px;
-  box-shadow: none; 
-  background-color: #282a36; 
-  border: 1px solid color-mix(in srgb, var(--secondary-color), transparent 80%);
-  transition: border-color 0.3s ease;
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: none;
+    background-color: #282a36;
+    border: 1px solid color-mix(in srgb, var(--secondary-color), transparent 80%);
+    transition: border-color .3s ease
 }
 
 .md-fences.md-focus {
-  z-index: 100;
-  border-color: var(--primary-color);
-  box-shadow: none; 
+    z-index: 100;
+    border-color: var(--primary-color);
+    box-shadow: none
 }
 
-.md-fences.md-focus:not([lang="mermaid"])::before {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 95%);
-  border-bottom-color: color-mix(in srgb, var(--primary-color), transparent 80%);
+.md-fences.md-focus:not([lang=mermaid])::before {
+    background-color: color-mix(in srgb, var(--primary-color), transparent 95%);
+    border-bottom-color: color-mix(in srgb, var(--primary-color), transparent 80%)
 }
 
 .md-fences .cm-s-inner.CodeMirror {
-  margin-top: 0;
+    margin-top: 0
 }
 
 .cm-s-inner.CodeMirror {
-  padding: 20px 12px 12px 20px;
-  color: #f8f8f2; 
-  font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
-  border-radius: 0 0 8px 8px;
-  background-color: #282a36; 
-  line-height: 1.6rem;
-  font-size: 0.95rem;
+    padding: 20px 12px 12px 20px;
+    color: #f8f8f2;
+    font-family: CascadiaCode, "Lucida Console", Consolas, Courier, monospace;
+    border-radius: 0 0 8px 8px;
+    background-color: #282a36;
+    line-height: 1.6rem;
+    font-size: .95rem
 }
 
 .CodeMirror-gutters {
-  border-right: 1px solid #44475a; 
-  background: #282a36;
-  white-space: nowrap;
+    border-right: 1px solid #44475a;
+    background: #282a36;
+    white-space: nowrap
 }
 
 pre.CodeMirror-line {
-  padding: 0px 1.2rem;
+    padding: 0 1.2rem
 }
-.CodeMirror-linenumber {
-  padding: 0px 3px 0 5px;
-  text-align: right;
-  color: #6272a4; 
-}
-/* 代码颜色设置 */
-.cm-keyword {color: var(--code-keyword) !important;font-weight: bold !important;}
-.cm-variable {color: var(--code-variable) !important;}
-.cm-tag {color: var(--code-keyword) !important; font-weight: 700 !important;}
-.cm-variable-2 {color: var(--code-function) !important;}
-.cm-variable-3 {color: var(--code-param) !important;}
-.cm-def {color: var(--code-function) !important;}
-.cm-attribute {color: var(--code-function) !important;}
-.cm-comment,.md-comment,.md-meta {color: var(--code-comment) !important;font-style: italic;}
-.cm-string {color: var(--code-string) !important;font-variant-ligatures: common-ligatures !important;}
-.cm-link {color: var(--code-type) !important;text-decoration: underline;}
-.cm-type {color: var(--code-type) !important;font-style: italic;}
-.cm-property {color: var(--code-property) !important;}
-.cm-tag:not(.cm-bracket) {font-weight: 700 !important;}
-.cm-operator {color: var(--code-keyword) !important;}
-.cm-number {color: var(--code-number) !important;}
-.cm-meta {color: var(--code-meta) !important;}
-.cm-builtin {color: var(--code-type) !important;font-style: italic;}
-.CodeMirror-selected, .CodeMirror-selectedtext {background: var(--code-selected-bg) !important;}
 
-/* KBD键盘 */
+.CodeMirror-linenumber {
+    padding: 0 3px 0 5px;
+    text-align: right;
+    color: #6272a4
+}
+
+.cm-keyword {
+    color: var(--code-keyword) !important;
+    font-weight: 700 !important
+}
+
+.cm-variable {
+    color: var(--code-variable) !important
+}
+
+.cm-tag {
+    color: var(--code-keyword) !important;
+    font-weight: 700 !important
+}
+
+.cm-variable-2 {
+    color: var(--code-function) !important
+}
+
+.cm-variable-3 {
+    color: var(--code-param) !important
+}
+
+.cm-def {
+    color: var(--code-function) !important
+}
+
+.cm-attribute {
+    color: var(--code-function) !important
+}
+
+.cm-comment,
+.md-comment,
+.md-meta {
+    color: var(--code-comment) !important;
+    font-style: italic
+}
+
+.cm-string {
+    color: var(--code-string) !important;
+    font-variant-ligatures: common-ligatures !important
+}
+
+.cm-link {
+    color: var(--code-type) !important;
+    text-decoration: underline
+}
+
+.cm-type {
+    color: var(--code-type) !important;
+    font-style: italic
+}
+
+.cm-property {
+    color: var(--code-property) !important
+}
+
+.cm-tag:not(.cm-bracket) {
+    font-weight: 700 !important
+}
+
+.cm-operator {
+    color: var(--code-keyword) !important
+}
+
+.cm-number {
+    color: var(--code-number) !important
+}
+
+.cm-meta {
+    color: var(--code-meta) !important
+}
+
+.cm-builtin {
+    color: var(--code-type) !important;
+    font-style: italic
+}
+
+.CodeMirror-selected,
+.CodeMirror-selectedtext {
+    background: var(--code-selected-bg) !important
+}
+
 #write kbd {
-  background-color: #333;
-  color: var(--text-color);
-  font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
-  font-size: 0.9em;
-  padding: 4px 8px;
-  border-radius: 6px;
-  border: 1px solid #444;
-  border-top-color: #555; 
-  border-bottom-color: #222;
-  box-shadow: 0 4px 0 #222, 0 5px 5px rgba(0,0,0,0.4);
-  transition: all 0.1s ease;
-  display: inline-block;
-  line-height: 1;
-  margin: 0 4px;
-  vertical-align: middle;
+    background-color: #333;
+    color: var(--text-color);
+    font-family: CascadiaCode, "Lucida Console", Consolas, Courier, monospace;
+    font-size: .9em;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    border-top-color: #555;
+    border-bottom-color: #222;
+    box-shadow: 0 4px 0 #222, 0 5px 5px rgba(0, 0, 0, .4);
+    transition: all .1s ease;
+    display: inline-block;
+    line-height: 1;
+    margin: 0 4px;
+    vertical-align: middle
 }
 
 #write kbd:hover {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 #222, 0 3px 3px rgba(0,0,0,0.4);
-  color: var(--primary-color);
-  border-color: var(--primary-color);
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #222, 0 3px 3px rgba(0, 0, 0, .4);
+    color: var(--primary-color);
+    border-color: var(--primary-color)
 }
-
-/* 表格 */
 
 #write table {
-  border-collapse: separate;
-  border-spacing: 0;
-  width: 100%;
-  margin: 20px 0;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  font-size: 14px;
-  line-height: 1.6;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    margin: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, .02);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    font-size: 14px;
+    line-height: 1.6
 }
 
-#write table th,
-#write table td {
-  padding: 10px 15px;
-  color: var(--text-color);
-  border-right: 1px solid color-mix(in srgb, #fff, transparent 95%);
-  border-bottom: 1px solid color-mix(in srgb, #fff, transparent 95%);
-  transition: all 0.2s ease;
+#write table td,
+#write table th {
+    padding: 10px 15px;
+    color: var(--text-color);
+    border-right: 1px solid color-mix(in srgb, #fff, transparent 95%);
+    border-bottom: 1px solid color-mix(in srgb, #fff, transparent 95%);
+    transition: all .2s ease
 }
 
-#write table th:last-child,
-#write table td:last-child {
-  border-right: none;
+#write table td:last-child,
+#write table th:last-child {
+    border-right: none
 }
 
 #write table tr:last-child td {
-  border-bottom: none;
+    border-bottom: none
 }
 
 #write table th {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 95%);
-  color: var(--primary-color);
-  font-weight: bold;
-  white-space: nowrap;
-  border-bottom: 1px solid color-mix(in srgb, var(--primary-color), transparent 85%);
+    background-color: color-mix(in srgb, var(--primary-color), transparent 95%);
+    color: var(--primary-color);
+    font-weight: 700;
+    white-space: nowrap;
+    border-bottom: 1px solid color-mix(in srgb, var(--primary-color), transparent 85%)
 }
 
 #write table tbody tr:hover td {
-  background-color: rgba(255, 255, 255, 0.03);
+    background-color: rgba(255, 255, 255, .03)
 }
 
 #write table tbody td:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 85%);
-  color: #fff;
-  box-shadow: inset 0 0 0 1px var(--primary-color);
-  text-shadow: 0 0 8px var(--primary-color);
-  cursor: default;
+    background-color: color-mix(in srgb, var(--primary-color), transparent 85%);
+    color: #fff;
+    box-shadow: inset 0 0 0 1px var(--primary-color);
+    text-shadow: 0 0 8px var(--primary-color);
+    cursor: default
 }
 
 #write .footnote-word {
-  font-weight: normal;
-  color: #888;
+    font-weight: 400;
+    color: #888
 }
 
 #write .footnote-ref {
-  font-weight: bold;
-  color: var(--accent-color);
-  cursor: pointer;
-  margin-left: 2px;
+    font-weight: 700;
+    color: var(--accent-color);
+    cursor: pointer;
+    margin-left: 2px
 }
 
 #write .footnote-item em {
-  font-size: 14px;
-  color: #888;
-  font-style: italic;
-  display: block;
-  background: none;
+    font-size: 14px;
+    color: #888;
+    font-style: italic;
+    display: block;
+    background: 0 0
 }
 
 .md-alert {
-  padding: 12px 16px;
-  margin-bottom: 16px;
-  color: var(--text-color);
-  border: 1px solid transparent; 
-  border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.02); 
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.3s ease,
-              border-color 0.3s ease,
-              background-color 0.3s ease;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    color: var(--text-color);
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, .02);
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease, border-color .3s ease, background-color .3s ease
 }
 
 .md-alert-text-container {
-  display: inline-flex;
-  align-items: center;
-  margin-bottom: 8px;
-  font-weight: 700;
-  font-size: 14px;
-  position: relative;
-  z-index: 2;
-  background-color: rgba(255, 255, 255, 0.06); 
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 4px 10px;
-  border-radius: 50px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    position: relative;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .1);
+    padding: 4px 10px;
+    border-radius: 50px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .1)
 }
 
 .md-alert-text-container span {
-  background: none;
-  padding: 0;
-  box-shadow: none;
-  color: inherit;
+    background: 0 0;
+    padding: 0;
+    box-shadow: none;
+    color: inherit
 }
 
 .md-alert-text svg {
-  fill: currentColor;
-  position: relative;
-  top: 1px;
-  margin-right: 5px;
-  width: 1em;
-  height: 1em;
+    fill: currentColor;
+    position: relative;
+    top: 1px;
+    margin-right: 5px;
+    width: 1em;
+    height: 1em
 }
 
 .md-alert::after {
-  content: "";
-  position: absolute;
-  right: -10px;
-  bottom: -15px;
-  font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
-  font-size: 64px;
-  line-height: 1;
-  opacity: 0.15;
-  transform: rotate(-15deg);
-  pointer-events: none;
-  z-index: 0;
-  filter: grayscale(100%);
-  text-shadow: 0 0 10px currentColor;
-  transition: 
-    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-    opacity 0.4s ease,
-    right 0.4s ease,
-    bottom 0.4s ease,
-    filter 0.4s ease,
-    text-shadow 0.4s ease;
+    content: "";
+    position: absolute;
+    right: -10px;
+    bottom: -15px;
+    font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
+    font-size: 64px;
+    line-height: 1;
+    opacity: .15;
+    transform: rotate(-15deg);
+    pointer-events: none;
+    z-index: 0;
+    filter: grayscale(100%);
+    text-shadow: 0 0 10px currentColor;
+    transition: transform .4s cubic-bezier(.34, 1.56, .64, 1), opacity .4s ease, right .4s ease, bottom .4s ease, filter .4s ease, text-shadow .4s ease
 }
 
 .md-alert:hover {
-  transform: scale(1.01) translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+    transform: scale(1.01) translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
+    z-index: 1
 }
 
 .md-alert:hover::after {
-  transform: rotate(0deg) scale(1.1);
-  opacity: 0.25;
-  right: 5px;
-  bottom: -5px;
-  filter: grayscale(0%);
-  text-shadow: 0 0 25px currentColor;
+    transform: rotate(0) scale(1.1);
+    opacity: .25;
+    right: 5px;
+    bottom: -5px;
+    filter: grayscale(0);
+    text-shadow: 0 0 25px currentColor
 }
 
-/* --- Note (笔记 - 紫) --- */
-.md-alert.md-alert-note { border-color: rgba(189, 147, 249, 0.3); background-color: rgba(189, 147, 249, 0.05); }
-.md-alert.md-alert-note:hover { box-shadow: 0 4px 20px rgba(189, 147, 249, 0.15); border-color: var(--secondary-color); }
-.md-alert.md-alert-note .md-alert-text-container { color: var(--secondary-color); }
-.md-alert.md-alert-note::after { content: "📝"; color: var(--secondary-color); }
+.md-alert.md-alert-note {
+    border-color: rgba(189, 147, 249, .3);
+    background-color: rgba(189, 147, 249, .05)
+}
 
-/* --- Tip (提示 - 青) --- */
-.md-alert.md-alert-tip { border-color: rgba(139, 233, 253, 0.3); background-color: rgba(139, 233, 253, 0.05); }
-.md-alert.md-alert-tip:hover { box-shadow: 0 4px 20px rgba(139, 233, 253, 0.15); border-color: var(--accent-color); }
-.md-alert.md-alert-tip .md-alert-text-container { color: var(--accent-color); }
-.md-alert.md-alert-tip::after { content: "💡"; color: var(--accent-color); }
+.md-alert.md-alert-note:hover {
+    box-shadow: 0 4px 20px rgba(189, 147, 249, .15);
+    border-color: var(--secondary-color)
+}
 
-/* --- Warning (警告 - 橙) --- */
-.md-alert.md-alert-warning { border-color: rgba(255, 184, 108, 0.3); background-color: rgba(255, 184, 108, 0.05); }
-.md-alert.md-alert-warning:hover { box-shadow: 0 4px 20px rgba(255, 184, 108, 0.15); border-color: #ffb86c; }
-.md-alert.md-alert-warning .md-alert-text-container { color: #ffb86c; }
-.md-alert.md-alert-warning::after { content: "⚠️"; color: #ffb86c; }
+.md-alert.md-alert-note .md-alert-text-container {
+    color: var(--secondary-color)
+}
 
-/* --- Important (重要 - 红) --- */
-.md-alert.md-alert-important { border-color: rgba(255, 85, 85, 0.3); background-color: rgba(255, 85, 85, 0.05); }
-.md-alert.md-alert-important:hover { box-shadow: 0 4px 20px rgba(255, 85, 85, 0.15); border-color: var(--primary-color); }
-.md-alert.md-alert-important .md-alert-text-container { color: var(--primary-color); }
-.md-alert.md-alert-important::after { content: "🔥"; color: var(--primary-color); }
+.md-alert.md-alert-note::after {
+    content: "📝";
+    color: var(--secondary-color)
+}
 
-/* --- Caution (危险 - 警戒红) --- */
-.md-alert.md-alert-caution { border-color: rgba(214, 48, 49, 0.3); background-color: rgba(214, 48, 49, 0.05); }
-.md-alert.md-alert-caution:hover { box-shadow: 0 4px 20px rgba(214, 48, 49, 0.15); border-color: #d63031; }
-.md-alert.md-alert-caution .md-alert-text-container { color: #d63031; }
-.md-alert.md-alert-caution::after { content: "💀"; color: #d63031; }
+.md-alert.md-alert-tip {
+    border-color: rgba(139, 233, 253, .3);
+    background-color: rgba(139, 233, 253, .05)
+}
 
-/* Toc目录 */
+.md-alert.md-alert-tip:hover {
+    box-shadow: 0 4px 20px rgba(139, 233, 253, .15);
+    border-color: var(--accent-color)
+}
+
+.md-alert.md-alert-tip .md-alert-text-container {
+    color: var(--accent-color)
+}
+
+.md-alert.md-alert-tip::after {
+    content: "💡";
+    color: var(--accent-color)
+}
+
+.md-alert.md-alert-warning {
+    border-color: rgba(255, 184, 108, .3);
+    background-color: rgba(255, 184, 108, .05)
+}
+
+.md-alert.md-alert-warning:hover {
+    box-shadow: 0 4px 20px rgba(255, 184, 108, .15);
+    border-color: #ffb86c
+}
+
+.md-alert.md-alert-warning .md-alert-text-container {
+    color: #ffb86c
+}
+
+.md-alert.md-alert-warning::after {
+    content: "⚠️";
+    color: #ffb86c
+}
+
+.md-alert.md-alert-important {
+    border-color: rgba(255, 85, 85, .3);
+    background-color: rgba(255, 85, 85, .05)
+}
+
+.md-alert.md-alert-important:hover {
+    box-shadow: 0 4px 20px rgba(255, 85, 85, .15);
+    border-color: var(--primary-color)
+}
+
+.md-alert.md-alert-important .md-alert-text-container {
+    color: var(--primary-color)
+}
+
+.md-alert.md-alert-important::after {
+    content: "🔥";
+    color: var(--primary-color)
+}
+
+.md-alert.md-alert-caution {
+    border-color: rgba(214, 48, 49, .3);
+    background-color: rgba(214, 48, 49, .05)
+}
+
+.md-alert.md-alert-caution:hover {
+    box-shadow: 0 4px 20px rgba(214, 48, 49, .15);
+    border-color: #d63031
+}
+
+.md-alert.md-alert-caution .md-alert-text-container {
+    color: #d63031
+}
+
+.md-alert.md-alert-caution::after {
+    content: "💀";
+    color: #d63031
+}
+
 .md-toc {
-  margin: 20px 0;
-  padding: 30px;
-  background-color: rgba(255, 255, 255, 0.02);
-  background-image:
-    radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--primary-color), transparent 90%), transparent 40%),
-    radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--secondary-color), transparent 90%), transparent 40%);
-  background-repeat: no-repeat;
-  
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  border-radius: 16px;
-  
-  font-family: "HarmonyOS Sans SC", sans-serif;
-  font-size: 15px;
-  color: var(--text-color-secondary);
-  
-  position: relative;
-  overflow: hidden;
-  
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    margin: 20px 0;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, .02);
+    background-image: radial-gradient(circle at 0 0, color-mix(in srgb, var(--primary-color), transparent 90%), transparent 40%), radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--secondary-color), transparent 90%), transparent 40%);
+    background-repeat: no-repeat;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, .05);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .2);
+    border-radius: 16px;
+    font-family: "HarmonyOS Sans SC", sans-serif;
+    font-size: 15px;
+    color: var(--text-color-secondary);
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease
 }
 
 .md-toc:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-  border-color: color-mix(in srgb, var(--primary-color), transparent 80%);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, .4);
+    border-color: color-mix(in srgb, var(--primary-color), transparent 80%)
 }
 
 .md-toc:before {
-  content: "目录";
-  display: block;
-  text-align: center;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  margin-bottom: 25px;
-  letter-spacing: 2px;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
-  padding-bottom: 15px;
-  text-shadow: 0 0 10px color-mix(in srgb, var(--primary-color), transparent 70%);
+    content: "目录";
+    display: block;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+    border-bottom: 1px dashed rgba(255, 255, 255, .1);
+    padding-bottom: 15px;
+    text-shadow: 0 0 10px color-mix(in srgb, var(--primary-color), transparent 70%)
 }
 
 .md-toc-item {
-  display: block;
-  line-height: 1.8em;
-  color: var(--text-color-secondary);
-  text-decoration: none;
-  
-  padding: 6px 15px;
-  border-radius: 8px;
-  margin-bottom: 4px;
-  
-  position: relative;
-  transition: all 0.2s ease;
-  cursor: pointer;
+    display: block;
+    line-height: 1.8em;
+    color: var(--text-color-secondary);
+    text-decoration: none;
+    padding: 6px 15px;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    position: relative;
+    transition: all .2s ease;
+    cursor: pointer
 }
 
 .md-toc-item a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  width: 100%;
-  border-bottom: none;
-}
-.md-toc-h1 { 
-  margin-top: 10px;
-  font-weight: 600;
-}
-.md-toc-h2 { 
-  margin-left: 1.5em; 
-  font-size: 0.95em; 
-}
-.md-toc-h3 { 
-  margin-left: 3em; 
-  font-size: 0.9em; 
-  opacity: 0.8; 
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+    border-bottom: none
 }
 
-/* 条目 Hover 交互 */
+.md-toc-h1 {
+    margin-top: 10px;
+    font-weight: 600
+}
+
+.md-toc-h2 {
+    margin-left: 1.5em;
+    font-size: .95em
+}
+
+.md-toc-h3 {
+    margin-left: 3em;
+    font-size: .9em;
+    opacity: .8
+}
+
 .md-toc-item:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 90%);
-  color: #fff; 
-  padding-left: 20px;
-  font-weight: 500;
-  
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-shadow: 0 0 5px var(--primary-color); 
+    background-color: color-mix(in srgb, var(--primary-color), transparent 90%);
+    color: #fff;
+    padding-left: 20px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+    text-shadow: 0 0 5px var(--primary-color)
 }
 
-
-.md-tooltip-hide > span {
-  display: none;
+.md-tooltip-hide>span {
+    display: none
 }
-/* 程序UI */
 
 #typora-sidebar {
-  height: 100%;
-  color: var(--text-color-secondary);
-  font-size: 0.92rem;
-  background-color: #191a21; 
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
+    height: 100%;
+    color: var(--text-color-secondary);
+    font-size: .92rem;
+    background-color: #191a21;
+    border-right: 1px solid rgba(255, 255, 255, .05)
 }
 
 .file-node-content {
-  line-height: 1.8rem;
-  padding-top: 0;
-  padding-bottom: 0;
+    line-height: 1.8rem;
+    padding-top: 0;
+    padding-bottom: 0
 }
 
-.file-tree-node.active > .file-node-background {
-  background-image: linear-gradient(90deg, color-mix(in srgb, var(--primary-color), transparent 85%), transparent);
-  background-color: transparent;
-  border-left: 3px solid var(--primary-color);
-  border-color: var(--primary-color);
-  box-shadow: inset 2px 0 10px color-mix(in srgb, var(--primary-color), transparent 80%);
+.file-tree-node.active>.file-node-background {
+    background-image: linear-gradient(90deg, color-mix(in srgb, var(--primary-color), transparent 85%), transparent);
+    background-color: transparent;
+    border-left: 3px solid var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: inset 2px 0 10px color-mix(in srgb, var(--primary-color), transparent 80%)
 }
 
-.file-tree-node.active > .file-node-content {
-  color: #fff;
-  font-weight: bold;
+.file-tree-node.active>.file-node-content {
+    color: #fff;
+    font-weight: 700
 }
 
 .file-node-content:hover {
-  background-color: rgba(255, 255, 255, 0.03);
+    background-color: rgba(255, 255, 255, .03)
 }
 
 .file-node-icon {
-  color: var(--secondary-color); 
-  padding-right: 0.2rem;
-  opacity: 0.7;
+    color: var(--secondary-color);
+    padding-right: .2rem;
+    opacity: .7
 }
 
 .file-tree-node.active .file-node-icon {
-  color: var(--primary-color); 
-  opacity: 1;
+    color: var(--primary-color);
+    opacity: 1
 }
 
 .info-panel-tab-title {
-  font-weight: 600;
-  color: var(--text-color-secondary);
+    font-weight: 600;
+    color: var(--text-color-secondary)
 }
 
 .active-tab-files #info-panel-tab-file .info-panel-tab-border,
 .active-tab-outline #info-panel-tab-outline .info-panel-tab-border,
 .ty-show-search #info-panel-tab-search .info-panel-tab-border {
-  height: 2px;
-  background-color: var(--primary-color);
-  box-shadow: 0 0 8px var(--primary-color);
+    height: 2px;
+    background-color: var(--primary-color);
+    box-shadow: 0 0 8px var(--primary-color)
 }
 
 #file-library-search-panel {
-  background-color: #191a21;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: #191a21;
+    border-bottom: 1px solid rgba(255, 255, 255, .05)
 }
 
 #file-library-search-input {
-  background-color: rgba(0, 0, 0, 0.2);
-  color: var(--text-color);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+    background-color: rgba(0, 0, 0, .2);
+    color: var(--text-color);
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 4px
 }
 
 #file-library-search-input:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 5px color-mix(in srgb, var(--primary-color), transparent 80%);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px color-mix(in srgb, var(--primary-color), transparent 80%)
 }
 
-#outline-content::-webkit-scrollbar,
-#file-library::-webkit-scrollbar {
-  width: 4px; 
+#file-library::-webkit-scrollbar,
+#outline-content::-webkit-scrollbar {
+    width: 4px
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+    background: 0 0
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background: color-mix(in srgb, var(--primary-color), transparent 70%);
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--primary-color), transparent 70%)
 }
 
-::-webkit-scrollbar-thumb:hover,
-::-webkit-scrollbar-thumb:active {
-  background: var(--primary-color); 
-  box-shadow: 0 0 5px var(--primary-color);
+::-webkit-scrollbar-thumb:active,
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+    box-shadow: 0 0 5px var(--primary-color)
 }
 
-.nav-group-item.active,
+.context-menu .menu-item.active,
+.context-menu .menu-item:hover,
 .dropdown-menu li:hover,
 .menu-item-container:hover,
-.context-menu .menu-item.active, 
-.context-menu .menu-item:hover {
-  background-color: var(--active-file-bg-color) !important;
-  color: var(--active-file-text-color) !important;
-  border-left: 3px solid var(--primary-color);
+.nav-group-item.active {
+    background-color: var(--active-file-bg-color) !important;
+    color: var(--active-file-text-color) !important;
+    border-left: 3px solid var(--primary-color)
 }
 
-.dropdown-menu, 
-.context-menu {
-  background-color: #191a21 !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
-  padding: 5px 0 !important;
+.context-menu,
+.dropdown-menu {
+    background-color: #191a21 !important;
+    border: 1px solid rgba(255, 255, 255, .05) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .5) !important;
+    padding: 5px 0 !important
 }
 
-.dropdown-menu li,
-.context-menu li {
-  border: none !important;
-  background: transparent !important;
-  padding: 0 !important;
-  margin: 0 !important;
+.context-menu li,
+.dropdown-menu li {
+    border: none !important;
+    background: 0 0 !important;
+    padding: 0 !important;
+    margin: 0 !important
 }
 
-.dropdown-menu li > a {
-  display: block;
-  padding: 6px 20px;
-  color: var(--text-color-secondary) !important;
-  border-left: 3px solid transparent;
-  transition: all 0.1s;
+.dropdown-menu li>a {
+    display: block;
+    padding: 6px 20px;
+    color: var(--text-color-secondary) !important;
+    border-left: 3px solid transparent;
+    transition: all .1s
 }
 
-.dropdown-menu li > a:hover {
-  background-color: var(--active-file-bg-color) !important;
-  color: #fff !important;
-  border-left-color: var(--primary-color); 
-  text-decoration: none;
+.dropdown-menu li>a:hover {
+    background-color: var(--active-file-bg-color) !important;
+    color: #fff !important;
+    border-left-color: var(--primary-color);
+    text-decoration: none
 }
 
 .context-menu .menu-item {
-  padding: 6px 20px;
-  color: var(--text-color-secondary) !important;
-  border-left: 3px solid transparent; 
-  background: transparent !important; 
+    padding: 6px 20px;
+    color: var(--text-color-secondary) !important;
+    border-left: 3px solid transparent;
+    background: 0 0 !important
 }
 
 .context-menu .menu-item.active,
 .context-menu .menu-item:hover {
-  background-color: var(--active-file-bg-color) !important;
-  color: #fff !important;
-  border-left-color: var(--primary-color); 
+    background-color: var(--active-file-bg-color) !important;
+    color: #fff !important;
+    border-left-color: var(--primary-color)
 }
 
-.context-menu .menu-item > * {
-  border: none !important;
-  background: transparent !important;
+.context-menu .menu-item>* {
+    border: none !important;
+    background: 0 0 !important
 }
 
-.dropdown-menu li > a > i,
-.context-menu .menu-item > i {
-  width: 1.2em;
-  text-align: center;
-  margin-right: 8px;
-  opacity: 0.7;
+.context-menu .menu-item>i,
+.dropdown-menu li>a>i {
+    width: 1.2em;
+    text-align: center;
+    margin-right: 8px;
+    opacity: .7
 }
 
-.dropdown-menu li > a:hover > i,
-.context-menu .menu-item:hover > i {
-  opacity: 1;
-  color: #fff;
+.context-menu .menu-item:hover>i,
+.dropdown-menu li>a:hover>i {
+    opacity: 1;
+    color: #fff
 }
-
 
 .export-detail,
 .export-items-list-control {
-  background-color: var(--bg-color) !important;
-  color: var(--text-color) !important;
-  border-color: rgba(255, 255, 255, 0.05) !important;
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    border-color: rgba(255, 255, 255, .05) !important
 }
 
 .export-item.active {
-  background-color: var(--active-file-bg-color) !important;
-  color: var(--active-file-text-color) !important;
-  border-left: 3px solid var(--primary-color) !important;
-  padding-left: 7px !important; 
+    background-color: var(--active-file-bg-color) !important;
+    color: var(--active-file-text-color) !important;
+    border-left: 3px solid var(--primary-color) !important;
+    padding-left: 7px !important
 }
 
 .export-item:hover:not(.active) {
-  background-color: rgba(255, 255, 255, 0.03) !important;
+    background-color: rgba(255, 255, 255, .03) !important
 }
 
 .typora-sourceview-on #toggle-sourceview-btn {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 85%) !important;
-  color: var(--primary-color) !important;
-  border-left: 3px solid var(--primary-color);
-  padding-left: 10px;
-  margin-left: -2px;
-  transition: all 0.2s ease;
+    background-color: color-mix(in srgb, var(--primary-color), transparent 85%) !important;
+    color: var(--primary-color) !important;
+    border-left: 3px solid var(--primary-color);
+    padding-left: 10px;
+    margin-left: -2px;
+    transition: all .2s ease
 }
 
 .typora-sourceview-on #toggle-sourceview-btn:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 75%) !important;
-  color: #fff !important;
-  box-shadow: 0 0 10px color-mix(in srgb, var(--primary-color), transparent 80%);
+    background-color: color-mix(in srgb, var(--primary-color), transparent 75%) !important;
+    color: #fff !important;
+    box-shadow: 0 0 10px color-mix(in srgb, var(--primary-color), transparent 80%)
 }
 
 #footer-word-count:hover,
 #spell-check-panel:hover {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  color: #fff !important;
+    background-color: rgba(255, 255, 255, .05) !important;
+    color: #fff !important
 }
 
 .typora-sourceview-on .CodeMirror-gutters {
-  background-color: var(--bg-color) !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background-color: var(--bg-color) !important;
+    border-right: 1px solid rgba(255, 255, 255, .05) !important
 }
 
-/* 侧边栏大纲 */
 #outline-content .outline-h2::after,
-#outline-content .outline-h2 > .outline-item::before {
-  content: none !important;
-  display: none !important;
-  border: none !important;
-  background: transparent !important;
+#outline-content .outline-h2>.outline-item::before {
+    content: none !important;
+    display: none !important;
+    border: none !important;
+    background: 0 0 !important
 }
 
 #outline-content .outline-label {
-  border: none !important;
-  background: transparent !important;
-  padding-left: 0 !important;
-  margin: 0 !important;
-  flex: 1;
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    border: none !important;
+    background: 0 0 !important;
+    padding-left: 0 !important;
+    margin: 0 !important;
+    flex: 1;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
 }
 
 #outline-content .outline-item {
-  display: flex !important;
-  align-items: center !important;
-  width: fit-content;
-  max-width: 100%;
-  padding: 6px 12px;
-  margin-bottom: 2px;
-  color: var(--text-color-secondary);
-  cursor: pointer;
-  text-decoration: none;
-  border-radius: 50px; 
-  border: 1px solid transparent; 
-  outline: none;
-  transition: all 0.2s ease;
-  position: relative;
-  line-height: 1.6;
+    display: flex !important;
+    align-items: center !important;
+    width: fit-content;
+    max-width: 100%;
+    padding: 6px 12px;
+    margin-bottom: 2px;
+    color: var(--text-color-secondary);
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 50px;
+    border: 1px solid transparent;
+    outline: 0;
+    transition: all .2s ease;
+    position: relative;
+    line-height: 1.6
 }
 
 #outline-content .outline-expander {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 4px;
-  color: inherit;
-  opacity: 0.6;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 4px;
+    color: inherit;
+    opacity: .6
 }
 
 #outline-content .outline-h1 {
-  margin-top: 10px;
-  margin-bottom: 4px;
+    margin-top: 10px;
+    margin-bottom: 4px
 }
 
 #outline-content .outline-h2,
@@ -1803,650 +1869,659 @@ pre.CodeMirror-line {
 #outline-content .outline-h4,
 #outline-content .outline-h5,
 #outline-content .outline-h6 {
-  border-left: 1.5px solid rgba(255, 255, 255, 0.05);
-  margin-left: 22px;
-  padding-left: 8px;
+    border-left: 1.5px solid rgba(255, 255, 255, .05);
+    margin-left: 22px;
+    padding-left: 8px
 }
 
-#outline-content .outline-h1 > .outline-item {
-  font-size: larger;
-  font-weight: 700;
-  color: #fff; 
+#outline-content .outline-h1>.outline-item {
+    font-size: larger;
+    font-weight: 700;
+    color: #fff
 }
+
 #outline-content .outline-item:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 90%);
-  color: #fff;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  border-left-color: transparent !important;
-  padding-left: 18px; 
+    background-color: color-mix(in srgb, var(--primary-color), transparent 90%);
+    color: #fff;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    border-left-color: transparent !important;
+    padding-left: 18px
 }
 
 div.outline-item-active {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 85%) !important;
-  border: 1px solid color-mix(in srgb, var(--primary-color), transparent 70%) !important;
-  color: var(--primary-color) !important;
-  font-weight: bold;
-  box-shadow: 0 0 10px color-mix(in srgb, var(--primary-color), transparent 90%);
-  transform: none;
-  padding-right: 30px !important;
-  padding-left: 12px !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+    background-color: color-mix(in srgb, var(--primary-color), transparent 85%) !important;
+    border: 1px solid color-mix(in srgb, var(--primary-color), transparent 70%) !important;
+    color: var(--primary-color) !important;
+    font-weight: 700;
+    box-shadow: 0 0 10px color-mix(in srgb, var(--primary-color), transparent 90%);
+    transform: none;
+    padding-right: 30px !important;
+    padding-left: 12px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important
 }
 
 @keyframes outline-twinkle {
-  from {
-    opacity: 0.5;
-    transform: translateY(-50%) scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(-50%) scale(1.2);
-  }
+    from {
+        opacity: .5;
+        transform: translateY(-50%) scale(.8)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.2)
+    }
 }
 
 #outline-content .outline-item-active::after {
-  content: "✦";
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 10px;
-  color: var(--primary-color); 
-  display: block !important;
-  z-index: 10;
-  animation: outline-twinkle 1.5s infinite alternate;
+    content: "✦";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: var(--primary-color);
+    display: block !important;
+    z-index: 10;
+    animation: outline-twinkle 1.5s infinite alternate
 }
 
-/* 导出HTML样式优化 */
 .typora-export-sidebar {
-  position: fixed;
-  top: 20px;
-  bottom: 20px;
-  left: 20px;
-  width: 320px;
-  margin-top: 0px;
-  display: flex;
-  flex-direction: column;
-  background-color: rgba(30, 30, 40, 0.85);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  border: 1px solid color-mix(in srgb, var(--primary-color), transparent 80%);
-  border-radius: 20px;
-  overflow: hidden;
-  z-index: 100;
-  color: var(--text-color-secondary);
-  font-family: inherit;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    position: fixed;
+    top: 20px;
+    bottom: 20px;
+    left: 20px;
+    width: 320px;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(30, 30, 40, .85);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid color-mix(in srgb, var(--primary-color), transparent 80%);
+    border-radius: 20px;
+    overflow: hidden;
+    z-index: 100;
+    color: var(--text-color-secondary);
+    font-family: inherit;
+    transition: border-color .3s ease, box-shadow .3s ease
 }
 
 .typora-export-sidebar:hover {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 20px color-mix(in srgb, var(--primary-color), transparent 80%),
-              0 10px 40px rgba(0, 0, 0, 0.5);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--primary-color), transparent 80%), 0 10px 40px rgba(0, 0, 0, .5)
 }
 
 .typora-export-sidebar::before {
-  content: "目录";
-  display: block;
-  position: absolute;
-  top: 25px;
-  left: 24px;
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--primary-color);
-  z-index: 10;
-  letter-spacing: 2px;
-  text-shadow: 0 0 10px color-mix(in srgb, var(--primary-color), transparent 70%);
-  pointer-events: none;
+    content: "目录";
+    display: block;
+    position: absolute;
+    top: 25px;
+    left: 24px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary-color);
+    z-index: 10;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px color-mix(in srgb, var(--primary-color), transparent 70%);
+    pointer-events: none
 }
-
 
 .typora-export-sidebar .outline-content {
-  flex: 1;
-  height: auto !important; 
-  overflow-y: auto;
-  padding-top: 70px !important; 
-  padding-left: 15px !important;
-  padding-bottom: 30px;
-  box-sizing: border-box;
+    flex: 1;
+    height: auto !important;
+    overflow-y: auto;
+    padding-top: 70px !important;
+    padding-left: 15px !important;
+    padding-bottom: 30px;
+    box-sizing: border-box
 }
 
+.typora-export-sidebar .outline-h1 {
+    margin-top: 5px;
+    margin-bottom: 4px;
+    margin-left: 0 !important
+}
 
-.typora-export-sidebar .outline-h1 { margin-top: 5px; margin-bottom: 4px; margin-left: 0 !important; }
 .typora-export-sidebar .outline-h2,
 .typora-export-sidebar .outline-h3,
 .typora-export-sidebar .outline-h4,
 .typora-export-sidebar .outline-h5,
 .typora-export-sidebar .outline-h6 {
-  border-left: 1.5px solid rgba(255, 255, 255, 0.05) !important; 
-  margin-left: 15px !important;
-  padding-left: 8px !important;
-  list-style: none !important;
+    border-left: 1.5px solid rgba(255, 255, 255, .05) !important;
+    margin-left: 15px !important;
+    padding-left: 8px !important;
+    list-style: none !important
 }
 
 .typora-export-sidebar .outline-item {
-  display: flex !important;
-  align-items: center !important;
-  width: fit-content !important;
-  max-width: 95% !important;
-  padding: 6px 12px !important;
-  margin: 2px 0 !important;
-  color: inherit !important;
-  cursor: pointer;
-  text-decoration: none !important;
-  border-radius: 50px !important;
-  border: none !important;
-  transition: all 0.2s ease;
-  line-height: 1.6;
-  overflow: visible !important;
+    display: flex !important;
+    align-items: center !important;
+    width: fit-content !important;
+    max-width: 95% !important;
+    padding: 6px 12px !important;
+    margin: 2px 0 !important;
+    color: inherit !important;
+    cursor: pointer;
+    text-decoration: none !important;
+    border-radius: 50px !important;
+    border: none !important;
+    transition: all .2s ease;
+    line-height: 1.6;
+    overflow: visible !important
 }
 
-.typora-export-sidebar .outline-h1 > .outline-item {
-  font-size: 1.1em !important;
-  font-weight: 700 !important;
-  color: #fff !important;
+.typora-export-sidebar .outline-h1>.outline-item {
+    font-size: 1.1em !important;
+    font-weight: 700 !important;
+    color: #fff !important
 }
 
 .typora-export-sidebar .outline-label {
-  padding: 0 !important;
-  margin: 0 !important;
-  border: none !important;
-  text-decoration: none !important;
-  color: inherit !important;
-  flex: 0 1 auto !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    text-decoration: none !important;
+    color: inherit !important;
+    flex: 0 1 auto !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
 }
 
 .typora-export-sidebar .outline-expander {
-  width: 16px !important;
-  text-align: center;
-  margin-right: 4px;
-  flex-shrink: 0;
-  color: inherit;
-  opacity: 0.6;
+    width: 16px !important;
+    text-align: center;
+    margin-right: 4px;
+    flex-shrink: 0;
+    color: inherit;
+    opacity: .6
 }
 
 .typora-export .outline-expander::before {
-  content: "▸" !important;
-  font-family: Arial, sans-serif !important;
-  font-size: 14px !important;
-  display: inline-block;
+    content: "▸" !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 14px !important;
+    display: inline-block
 }
-.typora-export .outline-item-open > .outline-item > .outline-expander::before,
-.typora-export .outline-expander:hover::before {
-  content: "▾" !important;
-  color: var(--primary-color) !important;
+
+.typora-export .outline-expander:hover::before,
+.typora-export .outline-item-open>.outline-item>.outline-expander::before {
+    content: "▾" !important;
+    color: var(--primary-color) !important
 }
+
 .typora-export .outline-item-single .outline-expander::before {
-  display: none !important;
+    display: none !important
 }
 
 .typora-export-sidebar .outline-item:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 90%) !important;
-  color: #fff !important;
-  padding-left: 18px !important;
-  margin-left: 0 !important;
-  border: none !important;
+    background-color: color-mix(in srgb, var(--primary-color), transparent 90%) !important;
+    color: #fff !important;
+    padding-left: 18px !important;
+    margin-left: 0 !important;
+    border: none !important
 }
 
-.typora-export-sidebar .outline-item-wrapper.outline-item-active > .outline-item {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 40%) !important;
-  color: #fff !important;
-  font-weight: 600 !important;
-  box-shadow: 0 4px 10px color-mix(in srgb, var(--primary-color), transparent 70%);
-  padding-right: 30px !important;
-  padding-left: 12px !important;
-  margin-left: 0 !important;
-  border: none !important;
+.typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item {
+    background-color: color-mix(in srgb, var(--primary-color), transparent 40%) !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 10px color-mix(in srgb, var(--primary-color), transparent 70%);
+    padding-right: 30px !important;
+    padding-left: 12px !important;
+    margin-left: 0 !important;
+    border: none !important
 }
 
-.typora-export-sidebar .outline-item-wrapper.outline-item-active > .outline-item .outline-label {
-  color: #fff !important;
+.typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item .outline-label {
+    color: #fff !important
 }
 
-.typora-export-sidebar .outline-item-wrapper.outline-item-active > .outline-item .outline-expander::before {
-  color: rgba(255, 255, 255, 0.8) !important;
+.typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item .outline-expander::before {
+    color: rgba(255, 255, 255, .8) !important
 }
 
-.typora-export-sidebar .outline-item-wrapper.outline-item-active > .outline-item::after {
-  content: "✦";
-  position: static !important;
-  transform: none !important;
-  margin-left: 8px !important;
-  flex-shrink: 0;
-  display: inline-block !important;
-  line-height: 1;
-  font-size: 10px;
-  font-family: Arial, sans-serif;
-  color: rgba(255, 255, 255, 0.9);
-  z-index: 10;
-  animation: outline-twinkle 1.5s infinite alternate;
+.typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item::after {
+    content: "✦";
+    position: static !important;
+    transform: none !important;
+    margin-left: 8px !important;
+    flex-shrink: 0;
+    display: inline-block !important;
+    line-height: 1;
+    font-size: 10px;
+    font-family: Arial, sans-serif;
+    color: rgba(255, 255, 255, .9);
+    z-index: 10;
+    animation: outline-twinkle 1.5s infinite alternate
 }
 
 .typora-export body {
-  background-color: var(--bg-color); 
-  color: var(--text-color);
+    background-color: var(--bg-color);
+    color: var(--text-color)
 }
+
 .typora-export #write {
-  box-shadow: none;
-  margin-left: 340px; 
-  width: auto;
-  max-width: 1000px;
+    box-shadow: none;
+    margin-left: 340px;
+    width: auto;
+    max-width: 1000px
 }
+
 ::-webkit-scrollbar {
-  width: 8px;  
-  height: 8px; 
+    width: 8px;
+    height: 8px
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+    background: 0 0
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 4px; 
-  background: color-mix(in srgb, var(--primary-color), transparent 70%);
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--primary-color), transparent 70%)
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-color);
+    background: var(--primary-color)
 }
 
 ::-webkit-scrollbar-corner {
-  background: transparent;
+    background: 0 0
 }
 
+@media screen and (max-width:800px) {
+    .typora-export-sidebar {
+        display: none
+    }
 
-@media screen and (max-width: 800px) {
-  .typora-export-sidebar {
-    display: none;
-  }
-  .typora-export #write {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
+    .typora-export #write {
+        margin-left: 20px;
+        margin-right: 20px
+    }
 }
 
-/* 移动端适配：隐藏侧边栏 */
-@media screen and (max-width: 800px) {
-  .typora-export-sidebar {
-    display: none;
-  }
-  .typora-export #write {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
+@media screen and (max-width:800px) {
+    .typora-export-sidebar {
+        display: none
+    }
+
+    .typora-export #write {
+        margin-left: 20px;
+        margin-right: 20px
+    }
 }
-/* PDF导出设置 */
+
 @media print {
-  @page {
-    margin: 0;
-    padding: 15mm;
-    size: A4;
-  }
+    @page {
+        margin: 0;
+        padding: 15mm;
+        size: A4
+    }
 
-  body {
-    background-color: transparent !important;
-    margin: 0 !important;
-    width: 100% !important;
-  }
+    body {
+        background-color: transparent !important;
+        margin: 0 !important;
+        width: 100% !important
+    }
 
-  .typora-export #write {
-    margin: 0 auto !important;
-    padding: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    border: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-  }
+    .typora-export #write {
+        margin: 0 auto !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: 0 0 !important
+    }
 
-  * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important
+    }
 
-  /* 打印时的背景纹理 - 使用主题色 */
-  #write::before {
-    display: block !important;
-    opacity: 0.1 !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    -webkit-mask-image: var(--bg-style) !important;
-    mask-image: var(--bg-style) !important;
-    background-color: var(--primary-color) !important;
-    pointer-events: none;
-    z-index: -1;
-  }
+    #write::before {
+        display: block !important;
+        opacity: .1 !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        -webkit-mask-image: var(--bg-style) !important;
+        mask-image: var(--bg-style) !important;
+        background-color: var(--primary-color) !important;
+        pointer-events: none;
+        z-index: -1
+    }
 
-  p {
-    line-height: 1.5rem;
-    text-shadow:none;
-  }
+    p {
+        line-height: 1.5rem;
+        text-shadow: none
+    }
 
-  figure,
-  pre {
-    page-break-inside: avoid;
-  }
+    figure,
+    pre {
+        page-break-inside: avoid
+    }
 
-  ul,
-  ol {
-    page-break-inside: auto !important;
-    break-inside: auto !important;
-  }
+    ol,
+    ul {
+        page-break-inside: auto !important;
+        break-inside: auto !important
+    }
 
-  li {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
+    li {
+        page-break-inside: avoid;
+        break-inside: avoid
+    }
 
-  pre {
-    page-break-inside: auto !important;
-    break-inside: auto !important;
-    white-space: pre-wrap;
-  }
+    pre {
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+        white-space: pre-wrap
+    }
 
-  blockquote {
-    page-break-inside: auto !important;
-    break-inside: auto !important;
-  }
+    blockquote {
+        page-break-inside: auto !important;
+        break-inside: auto !important
+    }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    page-break-after: avoid !important;
-    break-after: avoid !important;
-    page-break-inside: avoid !important;
-  }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+        page-break-inside: avoid !important
+    }
 
-  p {
-    orphans: 2;
-    widows: 2;
-  }
+    p {
+        orphans: 2;
+        widows: 2
+    }
 
-  .md-toc {
-    background-image: none;
-    text-shadow:none;
-  }
-  #write strong {
-    text-shadow:none;
-  }
+    .md-toc {
+        background-image: none;
+        text-shadow: none
+    }
+
+    #write strong {
+        text-shadow: none
+    }
 }
 
 ::selection {
-  background: var(--select-text-bg-color); 
-  color: inherit;
+    background: var(--select-text-bg-color);
+    color: inherit
 }
 
 #write,
+[contenteditable],
 input,
-textarea,
-[contenteditable] {
-  caret-color: var(--primary-color);
+textarea {
+    caret-color: var(--primary-color)
 }
 
-/* --- 强制分页符样式 --- */
-/* 在Typora中键入  <div class="page-break"/>  即可强制分页 */
 @media print {
-  .page-break {
-    page-break-after: always;
-    break-after: always;
-    height: 0;
-    display: block;
-    visibility: hidden;
-  }
+    .page-break {
+        page-break-after: always;
+        break-after: always;
+        height: 0;
+        display: block;
+        visibility: hidden
+    }
 }
 
-/* 一体化风格样式优化 */
 .megamenu-content {
-  background: var(--bg-color) !important;
-  color: var(--text-color) !important;
-}
-.megamenu-opened header {
-  background-image: none !important;
-  background-color: transparent !important;
-  border-bottom: none !important;
+    background: var(--bg-color) !important;
+    color: var(--text-color) !important
 }
 
-.megamenu-menu, 
-#megamenu-menu-sidebar {
-  background-color: #191a21 !important; 
-  color: var(--text-color) !important;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.3) !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+.megamenu-opened header {
+    background-image: none !important;
+    background-color: transparent !important;
+    border-bottom: none !important
+}
+
+#megamenu-menu-sidebar,
+.megamenu-menu {
+    background-color: #191a21 !important;
+    color: var(--text-color) !important;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, .3) !important;
+    border-right: 1px solid rgba(255, 255, 255, .05) !important
 }
 
 .megamenu-menu-header {
-  background-color: transparent !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-  color: var(--text-color) !important;
+    background-color: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, .05) !important;
+    color: var(--text-color) !important
 }
 
-#megamenu-menu-header-title, #megamenu-back-btn {
-  color: var(--text-color) !important;
+#megamenu-back-btn,
+#megamenu-menu-header-title {
+    color: var(--text-color) !important
 }
 
 #megamenu-menu-list {
-  background-color: transparent !important;
-  padding: 10px 0 !important;
-  margin: 0 !important;
-  box-shadow: none !important;
-  border: none !important;
+    background-color: transparent !important;
+    padding: 10px 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important
 }
 
 #megamenu-menu-list li:hover {
-  background-color: transparent !important;
-  border: none !important;
-  padding-left: 0 !important;
+    background-color: transparent !important;
+    border: none !important;
+    padding-left: 0 !important
 }
 
 #megamenu-menu-list li a {
-  color: var(--text-color-secondary) !important;
-  background-color: transparent !important;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  margin: 2px 15px !important; 
-  width: auto !important; 
-  height: auto !important;
-  line-height: 2.5em !important; 
-  padding-left: 15px !important; 
-  transition: all 0.2s ease;
-  display: block;
+    color: var(--text-color-secondary) !important;
+    background-color: transparent !important;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    margin: 2px 15px !important;
+    width: auto !important;
+    height: auto !important;
+    line-height: 2.5em !important;
+    padding-left: 15px !important;
+    transition: all .2s ease;
+    display: block
 }
 
-#megamenu-menu-list li a:hover,
-#megamenu-menu-list li a.active {
-  background-color: var(--active-file-bg-color) !important;
-  color: #fff !important;
-  border-left: 3px solid var(--primary-color) !important;
-  padding-left: 12px !important; 
-  box-shadow: inset 0 0 10px color-mix(in srgb, var(--primary-color), transparent 85%);
+#megamenu-menu-list li a.active,
+#megamenu-menu-list li a:hover {
+    background-color: var(--active-file-bg-color) !important;
+    color: #fff !important;
+    border-left: 3px solid var(--primary-color) !important;
+    padding-left: 12px !important;
+    box-shadow: inset 0 0 10px color-mix(in srgb, var(--primary-color), transparent 85%)
 }
 
 #megamenu-menu-list li a i {
-  color: var(--secondary-color) !important;
-  width: 20px;
-  text-align: center;
-  margin-right: 8px;
+    color: var(--secondary-color) !important;
+    width: 20px;
+    text-align: center;
+    margin-right: 8px
 }
-#megamenu-menu-list li a:hover i,
-#megamenu-menu-list li a.active i {
-  color: #fff !important;
+
+#megamenu-menu-list li a.active i,
+#megamenu-menu-list li a:hover i {
+    color: #fff !important
 }
 
 .megamenu-menu-panel {
-  background-color: transparent !important;
+    background-color: transparent !important
 }
 
 .megamenu-menu-panel h1,
 .megamenu-menu-panel h2 {
-  color: var(--primary-color) !important;
-  font-weight: bold !important;
-  border-color: transparent !important;
+    color: var(--primary-color) !important;
+    font-weight: 700 !important;
+    border-color: transparent !important
 }
 
 .long-btn {
-  background-color: rgba(255, 255, 255, 0.02) !important;
-  color: var(--text-color) !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
-  border-radius: 8px !important;
-  transition: all 0.2s ease;
+    background-color: rgba(255, 255, 255, .02) !important;
+    color: var(--text-color) !important;
+    border: 1px solid rgba(255, 255, 255, .05) !important;
+    border-radius: 8px !important;
+    transition: all .2s ease
 }
 
 .long-btn:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 90%) !important;
-  color: #fff !important;
-  border-color: var(--primary-color) !important;
-  box-shadow: 0 0 10px color-mix(in srgb, var(--primary-color), transparent 80%);
+    background-color: color-mix(in srgb, var(--primary-color), transparent 90%) !important;
+    color: #fff !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 10px color-mix(in srgb, var(--primary-color), transparent 80%)
 }
 
-.long-btn i { color: var(--secondary-color) !important; }
-.long-btn:hover i { color: #fff !important; }
+.long-btn i {
+    color: var(--secondary-color) !important
+}
+
+.long-btn:hover i {
+    color: #fff !important
+}
 
 #recent-file-panel {
-  padding: 10px 0;
-  color: var(--text-color) !important;
+    padding: 10px 0;
+    color: var(--text-color) !important
 }
 
 #recent-file-panel tbody tr:nth-child(2n-1) {
-  background-color: transparent !important;
+    background-color: transparent !important
 }
 
 .recent-file-item {
-  color: var(--text-color-secondary) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.02) !important;
-  transition: all 0.2s ease;
+    color: var(--text-color-secondary) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, .02) !important;
+    transition: all .2s ease
 }
 
 .megamenu-menu-panel table tr {
-  border: none !important;
+    border: none !important
 }
 
 .megamenu-menu-panel tbody tr:hover,
 .recent-file-item:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 90%) !important;
-  color: #fff !important;
+    background-color: color-mix(in srgb, var(--primary-color), transparent 90%) !important;
+    color: #fff !important
 }
 
 .recent-file-item:hover .recent-file-name {
-  color: var(--primary-color) !important;
+    color: var(--primary-color) !important
 }
 
 #recent-document-table thead tr th {
-  color: var(--secondary-color) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-  font-weight: bold;
+    color: var(--secondary-color) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, .1) !important;
+    font-weight: 700
 }
 
 #recent-file-panel-search-input {
-  background-color: rgba(0, 0, 0, 0.3) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  color: var(--text-color) !important;
-  box-shadow: none !important;
+    background-color: rgba(0, 0, 0, .3) !important;
+    border: 1px solid rgba(255, 255, 255, .1) !important;
+    color: var(--text-color) !important;
+    box-shadow: none !important
 }
 
 #recent-file-panel-search-input:focus {
-  border-color: var(--primary-color) !important;
-  box-shadow: 0 0 8px color-mix(in srgb, var(--primary-color), transparent 80%) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 8px color-mix(in srgb, var(--primary-color), transparent 80%) !important
 }
 
 #recent-file-panel-action-btn {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  color: var(--text-color) !important;
+    background-color: rgba(255, 255, 255, .05) !important;
+    border: 1px solid rgba(255, 255, 255, .1) !important;
+    color: var(--text-color) !important
 }
 
 .theme-preview-div {
-  border: 2px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 8px;
-  transition: all 0.3s;
+    border: 2px solid rgba(255, 255, 255, .1) !important;
+    border-radius: 8px;
+    transition: all .3s
 }
 
-.theme-preview-div:hover,
-.theme-preview-div.active {
-  border-color: var(--primary-color) !important;
-  box-shadow: 0 0 15px color-mix(in srgb, var(--primary-color), transparent 60%);
-  transform: scale(1.05);
+.theme-preview-div.active,
+.theme-preview-div:hover {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 15px color-mix(in srgb, var(--primary-color), transparent 60%);
+    transform: scale(1.05)
 }
 
 .megamenu-content::-webkit-scrollbar,
 .megamenu-menu::-webkit-scrollbar {
-  width: 6px;
+    width: 6px
 }
+
 .megamenu-content::-webkit-scrollbar-thumb,
 .megamenu-menu::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
+    background-color: rgba(255, 255, 255, .2);
+    border-radius: 3px
 }
 
-
 #theme-preview-grid {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
-  gap: 20px !important;
-  max-width: 100% !important;
-  padding-right: 10px;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+    gap: 20px !important;
+    max-width: 100% !important;
+    padding-right: 10px
 }
 
 .theme-preview-div {
-  width: 100% !important; 
-  margin: 0 !important;
-  height: 160px !important; 
-  border: 2px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 8px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-sizing: border-box;
-  position: relative;
-  overflow: hidden;
+    width: 100% !important;
+    margin: 0 !important;
+    height: 160px !important;
+    border: 2px solid rgba(255, 255, 255, .1) !important;
+    border-radius: 8px;
+    transition: all .3s cubic-bezier(.25, .8, .25, 1);
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden
 }
 
 .theme-preview-content {
-  width: 100% !important;
-  height: 100% !important;
-  border: none !important;
-  pointer-events: none;
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+    pointer-events: none
 }
 
-.theme-preview-div:hover,
-.theme-preview-div.active {
-  border-color: var(--primary-color) !important;
-  box-shadow: 0 5px 20px color-mix(in srgb, var(--primary-color), transparent 70%);
-  transform: translateY(-5px);
-  z-index: 10;
+.theme-preview-div.active,
+.theme-preview-div:hover {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 5px 20px color-mix(in srgb, var(--primary-color), transparent 70%);
+    transform: translateY(-5px);
+    z-index: 10
 }
 
 .theme-preview-div .fa-check-circle {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  font-size: 24px;
-  color: var(--primary-color) !important;
-  background: transparent; 
-  border-radius: 0;
-  box-shadow: none;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.8), 0 0 10px var(--primary-color);
-  
-  opacity: 1 !important; 
-  z-index: 20;
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    font-size: 24px;
+    color: var(--primary-color) !important;
+    background: 0 0;
+    border-radius: 0;
+    box-shadow: none;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, .8), 0 0 10px var(--primary-color);
+    opacity: 1 !important;
+    z-index: 20
 }
 
 .megamenu-content::-webkit-scrollbar,
 .megamenu-menu::-webkit-scrollbar {
-  width: 6px;
+    width: 6px
 }
+
 .megamenu-content::-webkit-scrollbar-thumb,
 .megamenu-menu::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
+    background-color: rgba(255, 255, 255, .2);
+    border-radius: 3px
 }
-
-
-

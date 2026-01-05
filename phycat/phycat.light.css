@@ -1,1646 +1,1572 @@
 @font-face {
-  font-family: "HarmonyOS_Sans_SC";
-  font-weight: normal;
-  font-style: normal;
-  src: url("HarmonyOS_Sans_SC_Regular.woff");
+    font-family: HarmonyOS_Sans_SC;
+    font-weight: 400;
+    font-style: normal;
+    src: url(HarmonyOS_Sans_SC_Regular.woff)
 }
 
 @font-face {
-  font-family: "HarmonyOS_Sans_SC";
-  font-weight: bold;
-  font-style: normal;
-  src: url("HarmonyOS_Sans_SC_Bold.woff");
+    font-family: HarmonyOS_Sans_SC;
+    font-weight: 700;
+    font-style: normal;
+    src: url(HarmonyOS_Sans_SC_Bold.woff)
 }
 
 @font-face {
-  font-family: "CascadiaCode";
-  src: url("Cascadia-Code-Regular.ttf");
+    font-family: CascadiaCode;
+    src: url(Cascadia-Code-Regular.ttf)
 }
 
 @font-face {
-  font-family: "SourceHanSerifCN";
-  src: url('SourceHanSerifCN-Medium.ttf');
+    font-family: SourceHanSerifCN;
+    src: url(SourceHanSerifCN-Medium.ttf)
 }
 
 @font-face {
-  font-family: "SourceHanSerifCN";
-  src: url('SourceHanSerifCN-Bold.ttf');
-  font-weight: bold;
+    font-family: SourceHanSerifCN;
+    src: url(SourceHanSerifCN-Bold.ttf);
+    font-weight: 700
 }
 
 html {
-  font-size: 16px;
-  font-family: "HarmonyOS_Sans_SC";
+    font-size: 16px;
+    font-family: HarmonyOS_Sans_SC
 }
 
-
-/* 软件内部Markdown样式 */
 #write {
-  max-width: 950px;
-  margin: 0 auto;
-  padding: 15px;
-  line-height: 2.25;
-  color: #000;
-  letter-spacing: 1.1px;
-  word-break: break-word;
-  word-wrap: break-word;
-  text-align: left;
-  position: relative;
-  z-index: 0;
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 15px;
+    line-height: 2.25;
+    color: #000;
+    letter-spacing: 1.1px;
+    word-break: break-word;
+    word-wrap: break-word;
+    text-align: left;
+    position: relative;
+    z-index: 0
 }
 
-/* 新增：使用伪元素实现遮罩背景 */
 #write::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: -1;
-  background-color: var(--element-color);
-  opacity: 0.12;
-  -webkit-mask-image: var(--bg-style);
-  mask-image: var(--bg-style);
-  -webkit-mask-size: 20px 20px;
-  mask-size: 20px 20px;
-  -webkit-mask-repeat: repeat;
-  mask-repeat: repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-color: var(--element-color);
+    opacity: .12;
+    -webkit-mask-image: var(--bg-style);
+    mask-image: var(--bg-style);
+    -webkit-mask-size: 20px 20px;
+    mask-size: 20px 20px;
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+    -webkit-mask-position: center;
+    mask-position: center
 }
 
 #write p {
-  color: #333;
-  margin: 10px 10px;
-  font-family: Optima-Regular, Optima, "SourceHanSerifCN", PingFangSC-light, PingFangTC-light,
-    "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  font-size: 1rem;
-  word-spacing: 2px;
+    color: #333;
+    margin: 10px 10px;
+    font-family: Optima-Regular, Optima, SourceHanSerifCN, PingFangSC-light, PingFangTC-light, "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    font-size: 1rem;
+    word-spacing: 2px
 }
 
 #write h3.md-heading:after,
 h4.md-heading:after,
 h5.md-heading:after,
 h6.md-heading:after {
-  content: " ";
-  display: inline-block;
-  height: 2em;
-  width: 2em;
-  vertical-align: top;
-  margin-left: -2px;
-  background-color: var(--element-color-shallow);
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-size: 24px 24px;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: 24px 24px;
+    content: " ";
+    display: inline-block;
+    height: 2em;
+    width: 2em;
+    vertical-align: top;
+    margin-left: -2px;
+    background-color: var(--element-color-shallow);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: 24px 24px;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: 24px 24px
 }
 
 #write h3.md-heading:after {
-  -webkit-mask-image: var(--h3-icon-shape);
-  mask-image: var(--h3-icon-shape);
+    -webkit-mask-image: var(--h3-icon-shape);
+    mask-image: var(--h3-icon-shape)
 }
 
 #write h4.md-heading:after {
-  -webkit-mask-image: var(--h4-icon-shape);
-  mask-image: var(--h4-icon-shape);
+    -webkit-mask-image: var(--h4-icon-shape);
+    mask-image: var(--h4-icon-shape)
 }
 
 #write h5.md-heading:after {
-  -webkit-mask-image: var(--h5-icon-shape);
-  mask-image: var(--h5-icon-shape);
+    -webkit-mask-image: var(--h5-icon-shape);
+    mask-image: var(--h5-icon-shape)
 }
 
 #write h6.md-heading:after {
-  -webkit-mask-image: var(--h6-icon-shape);
-  mask-image: var(--h6-icon-shape);
+    -webkit-mask-image: var(--h6-icon-shape);
+    mask-image: var(--h6-icon-shape)
 }
 
-/* H1 */
 #write h1 {
-  text-align: center;
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin: 1em auto 0.8em;
-  line-height: 1.4;
-  display: table;
-
-  color: #222;
-  position: relative;
-  padding-bottom: 12px;
-  transition: color 0.3s ease, transform 0.3s ease;
-  border-bottom: none;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 1em auto .8em;
+    line-height: 1.4;
+    display: table;
+    color: #222;
+    position: relative;
+    padding-bottom: 12px;
+    transition: color .3s ease, transform .3s ease;
+    border-bottom: none
 }
 
 #write h1::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 40px;
-  height: 4px;
-  border-radius: 4px;
-  background: var(--head-title-h2-background);
-  background-size: 100% auto;
-  transform: translateX(-50%);
-  transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 40px;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--head-title-h2-background);
+    background-size: 100% auto;
+    transform: translateX(-50%);
+    transition: width .4s cubic-bezier(.25, .8, .25, 1)
 }
 
 #write h1:hover {
-  color: var(--head-title-color);
-  transform: translateY(-2px);
+    color: var(--head-title-color);
+    transform: translateY(-2px)
 }
 
 #write h1:hover::after {
-  width: 100%;
+    width: 100%
 }
 
-/* H2 */
 #write h2 {
-  color: var(--head-title-h2-color);
-  font-size: 1.4rem;
-  line-height: 1.5;
-  width: fit-content;
-  font-weight: bold;
-  margin: 20px 0;
-  padding: 5px 12px;
-  border-radius: 8px;
-  background: var(--head-title-h2-background);
-  background-size: 200% auto;
-  background-position: 0% center;
-  box-shadow: 0 2px 5px rgba(61, 184, 211, 0.15);
-  transition: background-position 0.5s ease-out, transform 0.4s ease, box-shadow 0.4s ease;
+    color: var(--head-title-h2-color);
+    font-size: 1.4rem;
+    line-height: 1.5;
+    width: fit-content;
+    font-weight: 700;
+    margin: 20px 0;
+    padding: 5px 12px;
+    border-radius: 8px;
+    background: var(--head-title-h2-background);
+    background-size: 200% auto;
+    background-position: 0 center;
+    box-shadow: 0 2px 5px rgba(61, 184, 211, .15);
+    transition: background-position .5s ease-out, transform .4s ease, box-shadow .4s ease
 }
 
 #write h2:hover {
-  background-position: 100% center;
-  transform: scale(1.01);
-  box-shadow: 0 8px 20px rgba(61, 184, 211, 0.35);
-}
-
-/* H3 */
-#write h3 {
-  position: relative;
-  width: fit-content;
-  margin: 20px 0;
-  text-align: left;
-  font-size: 1.3rem;
-  padding-left: 10px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background-position: 100% center;
+    transform: scale(1.01);
+    box-shadow: 0 8px 20px rgba(61, 184, 211, .35)
 }
 
 #write h3 {
-  position: relative;
-  width: fit-content;
-  margin: 20px 0;
-  text-align: left;
-  font-size: 1.3rem;
-  padding-left: 10px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    width: fit-content;
+    margin: 20px 0;
+    text-align: left;
+    font-size: 1.3rem;
+    padding-left: 10px;
+    transition: all .3s cubic-bezier(.25, .8, .25, 1)
+}
+
+#write h3 {
+    position: relative;
+    width: fit-content;
+    margin: 20px 0;
+    text-align: left;
+    font-size: 1.3rem;
+    padding-left: 10px;
+    transition: all .3s cubic-bezier(.25, .8, .25, 1)
 }
 
 #write h3::before {
-  content: '';
-  position: absolute;
-  left: -6px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 5px;
-  height: 61%;
-  border-radius: 4px;
-  background-color: var(--head-title-color);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 61%;
+    border-radius: 4px;
+    background-color: var(--head-title-color);
+    transition: all .3s cubic-bezier(.25, .8, .25, 1)
 }
 
 #write h3 span {
-  border-bottom: 2px hidden var(--head-title-color);
-  transition: color 0.3s ease;
+    border-bottom: 2px hidden var(--head-title-color);
+    transition: color .3s ease
 }
 
 #write h3:hover {
-  padding-left: 18px;
-  color: var(--head-title-color);
-  cursor: pointer;
+    padding-left: 18px;
+    color: var(--head-title-color);
+    cursor: pointer
 }
 
 #write h3:hover::before {
-  height: 66%;
-  background-color: var(--head-title-color);
-  width: 7px;
+    height: 66%;
+    background-color: var(--head-title-color);
+    width: 7px
 }
 
-/* H4~H6 */
 #write h4,
 #write h5,
 #write h6 {
-  transition: color 0.3s ease, transform 0.3s ease;
+    transition: color .3s ease, transform .3s ease
 }
 
 #write h4::before,
 #write h5::before,
 #write h6::before {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all .3s cubic-bezier(.34, 1.56, .64, 1)
 }
 
-/* H4 */
 #write h4 {
-  margin: 20px 0;
-  font-size: 1.15rem;
-  text-align: left;
+    margin: 20px 0;
+    font-size: 1.15rem;
+    text-align: left
 }
 
 #write h4::before {
-  content: "";
-  margin-right: 7px;
-  display: inline-block;
-  background-color: var(--head-title-color);
-  width: 10px;
-  height: 10px;
-  border-radius: 100%;
-  border: var(--head-title-color) 1px solid;
-  vertical-align: inherit;
+    content: "";
+    margin-right: 7px;
+    display: inline-block;
+    background-color: var(--head-title-color);
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    border: var(--head-title-color) 1px solid;
+    vertical-align: inherit
 }
 
 #write h4:hover::before {
-  transform: scale(1.3);
-  box-shadow: 0 0 0 4px var(--element-color-soo-shallow);
+    transform: scale(1.3);
+    box-shadow: 0 0 0 4px var(--element-color-soo-shallow)
 }
 
-/* H5 */
 #write h5 {
-  margin: 23px 0;
-  font-size: 1.1rem;
-  text-align: left;
+    margin: 23px 0;
+    font-size: 1.1rem;
+    text-align: left
 }
 
 #write h5::before {
-  content: "";
-  margin-right: 7px;
-  display: inline-block;
-  background-color: #ffffff;
-  width: 10px;
-  height: 10px;
-  border-radius: 100%;
-  border: var(--head-title-color) 2px solid;
-  vertical-align: inherit;
-  box-sizing: border-box;
+    content: "";
+    margin-right: 7px;
+    display: inline-block;
+    background-color: #fff;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    border: var(--head-title-color) 2px solid;
+    vertical-align: inherit;
+    box-sizing: border-box
 }
 
 #write h5:hover::before {
-  background-color: var(--head-title-color);
-  transform: scale(1.2);
-  box-shadow: 0 0 0 3px var(--element-color-soo-shallow);
+    background-color: var(--head-title-color);
+    transform: scale(1.2);
+    box-shadow: 0 0 0 3px var(--element-color-soo-shallow)
 }
 
-/* H6 */
 #write h6 {
-  margin: 23px 0;
-  font-size: 1.1rem;
-  text-align: left;
+    margin: 23px 0;
+    font-size: 1.1rem;
+    text-align: left
 }
 
 #write h6::before {
-  content: "-";
-  color: var(--head-title-color);
-  margin-right: 7px;
-  display: inline-block;
-  vertical-align: inherit;
+    content: "-";
+    color: var(--head-title-color);
+    margin-right: 7px;
+    display: inline-block;
+    vertical-align: inherit
 }
 
 #write h6:hover::before {
-  transform: scaleX(1.8) translateX(1px);
-  font-weight: bold;
+    transform: scaleX(1.8) translateX(1px);
+    font-weight: 700
 }
 
 #write h4:hover,
 #write h5:hover,
 #write h6:hover {
-  color: var(--element-color-deep);
-  transform: translateX(6px);
+    color: var(--element-color-deep);
+    transform: translateX(6px)
 }
 
 #write {
-  counter-reset: h1;
+    counter-reset: h1
 }
 
 h1 {
-  counter-reset: h2;
+    counter-reset: h2
 }
 
 h2 {
-  counter-reset: h3;
+    counter-reset: h3
 }
 
 h3 {
-  counter-reset: h4;
+    counter-reset: h4
 }
 
 h4 {
-  counter-reset: h5;
+    counter-reset: h5
 }
 
 h5 {
-  counter-reset: h6;
+    counter-reset: h6
 }
 
 .sidebar-content {
-  counter-reset: h1
+    counter-reset: h1
 }
 
 .outline-content {
-  counter-reset: h1
+    counter-reset: h1
 }
 
 .outline-h1 {
-  counter-reset: h2
+    counter-reset: h2
 }
 
 .outline-h2 {
-  counter-reset: h3
+    counter-reset: h3
 }
 
 .outline-h3 {
-  counter-reset: h4
+    counter-reset: h4
 }
 
 .outline-h4 {
-  counter-reset: h5
+    counter-reset: h5
 }
 
 .outline-h5 {
-  counter-reset: h6
+    counter-reset: h6
 }
 
-
-
 .md-toc-content {
-  counter-reset: h1toc
+    counter-reset: h1toc
 }
 
 .md-toc-h1 {
-  counter-reset: h2toc
+    counter-reset: h2toc
 }
 
 .md-toc-h2 {
-  counter-reset: h3toc
+    counter-reset: h3toc
 }
 
 .md-toc-h3 {
-  counter-reset: h4toc
+    counter-reset: h4toc
 }
 
 .md-toc-h4 {
-  counter-reset: h5toc
+    counter-reset: h5toc
 }
 
 .md-toc-h5 {
-  counter-reset: h6toc
+    counter-reset: h6toc
 }
 
-
 #write h1:before {
-  counter-increment: h1;
-  content: var(--autonum-h1);
+    counter-increment: h1;
+    content: var(--autonum-h1)
 }
 
 #outline-content li.outline-h1>div>span.outline-label:before {
-  counter-increment: h1;
-  content: var(--autonum-h1);
+    counter-increment: h1;
+    content: var(--autonum-h1)
 }
 
 .outline-content .outline-h1>.outline-item>.outline-label:before {
-  counter-increment: h1;
-  content: var(--autonum-h1);
+    counter-increment: h1;
+    content: var(--autonum-h1)
 }
 
 #write span.md-toc-item.md-toc-h1>a:before {
-  counter-increment: h1toc;
-  content: var(--autonum-h1toc);
+    counter-increment: h1toc;
+    content: var(--autonum-h1toc)
 }
 
 #write h2:before {
-  counter-increment: h2;
-  content: var(--autonum-h2);
-  color: var(--head-title-h2-color);
+    counter-increment: h2;
+    content: var(--autonum-h2);
+    color: var(--head-title-h2-color)
 }
 
 .outline-content .outline-h2>.outline-item>.outline-label:before {
-  counter-increment: h2;
-  content: var(--autonum-h2);
+    counter-increment: h2;
+    content: var(--autonum-h2)
 }
 
 li.outline-h2>div>a.outline-label:before {
-  counter-increment: h2;
-  content: var(--autonum-h2);
+    counter-increment: h2;
+    content: var(--autonum-h2)
 }
 
 #write span.md-toc-item.md-toc-h2>a:before {
-  counter-increment: h2toc;
-  content: var(--autonum-h2toc);
+    counter-increment: h2toc;
+    content: var(--autonum-h2toc)
 }
 
-
 #write h3>span:first-of-type::before {
-  counter-increment: h3;
-  content: var(--autonum-h3);
-  color: var(--element-color);
+    counter-increment: h3;
+    content: var(--autonum-h3);
+    color: var(--element-color)
 }
 
 #outline-content li.outline-h3>div>span.outline-label:before {
-  counter-increment: h3;
-  content: var(--autonum-h3);
+    counter-increment: h3;
+    content: var(--autonum-h3)
 }
 
 .outline-content .outline-h3>.outline-item>.outline-label:before {
-  counter-increment: h3;
-  content: var(--autonum-h3);
+    counter-increment: h3;
+    content: var(--autonum-h3)
 }
 
 #write span.md-toc-item.md-toc-h3>a:before {
-  counter-increment: h3toc;
-  content: var(--autonum-h3toc);
+    counter-increment: h3toc;
+    content: var(--autonum-h3toc)
 }
 
-
 #write h4>span:first-of-type::before {
-  counter-increment: h4;
-  content: var(--autonum-h4);
-  color: var(--element-color);
+    counter-increment: h4;
+    content: var(--autonum-h4);
+    color: var(--element-color)
 }
 
 #outline-content li.outline-h4>div>span.outline-label:before {
-  counter-increment: h4;
-  content: var(--autonum-h4);
+    counter-increment: h4;
+    content: var(--autonum-h4)
 }
 
 .outline-content .outline-h4>.outline-item>.outline-label:before {
-  counter-increment: h4;
-  content: var(--autonum-h4);
+    counter-increment: h4;
+    content: var(--autonum-h4)
 }
 
 #write span.md-toc-item.md-toc-h4>a:before {
-  counter-increment: h4toc;
-  content: var(--autonum-h4toc);
+    counter-increment: h4toc;
+    content: var(--autonum-h4toc)
 }
 
-
 #write h5>span:first-of-type::before {
-  counter-increment: h5;
-  content: var(--autonum-h5);
-  color: var(--element-color);
+    counter-increment: h5;
+    content: var(--autonum-h5);
+    color: var(--element-color)
 }
 
 #outline-content li.outline-h5>div>span.outline-label:before {
-  counter-increment: h5;
-  content: var(--autonum-h5);
+    counter-increment: h5;
+    content: var(--autonum-h5)
 }
 
 .outline-content .outline-h5>.outline-item>.outline-label:before {
-  counter-increment: h5;
-  content: var(--autonum-h5);
+    counter-increment: h5;
+    content: var(--autonum-h5)
 }
 
 #write span.md-toc-item.md-toc-h5>a:before {
-  counter-increment: h5toc;
-  content: var(--autonum-h5toc);
+    counter-increment: h5toc;
+    content: var(--autonum-h5toc)
 }
 
-
 #write h6>span:first-of-type::before {
-  counter-increment: h6;
-  content: var(--autonum-h6);
-  color: var(--element-color);
+    counter-increment: h6;
+    content: var(--autonum-h6);
+    color: var(--element-color)
 }
 
 #outline-content li.outline-h6>div>span.outline-label:before {
-  counter-increment: h6;
-  content: var(--autonum-h6);
+    counter-increment: h6;
+    content: var(--autonum-h6)
 }
 
 .outline-content .outline-h6>.outline-item>.outline-label:before {
-  counter-increment: h6;
-  content: var(--autonum-h6);
+    counter-increment: h6;
+    content: var(--autonum-h6)
 }
 
 #write span.md-toc-item.md-toc-h6>a:before {
-  counter-increment: h6toc;
-  content: var(--autonum-h6toc);
+    counter-increment: h6toc;
+    content: var(--autonum-h6toc)
 }
 
-
-/* 列表 */
 ::marker {
-  color: var(--element-color-deep);
+    color: var(--element-color-deep)
 }
 
 li.md-list-item {
-  margin: 0.4rem 0;
+    margin: .4rem 0
 }
 
-#write ul,
-#write ol {
-  margin-top: 0px;
-  margin-left: 16px;
-  margin-bottom: 8px;
-  padding-left: 13px;
+#write ol,
+#write ul {
+    margin-top: 0;
+    margin-left: 16px;
+    margin-bottom: 8px;
+    padding-left: 13px
 }
 
 #write em {
-  padding: 0 3px 0 0;
+    padding: 0 3px 0 0
 }
 
 #write ul {
-  list-style-type: disc;
+    list-style-type: disc
 }
 
 #write ul ul {
-  list-style-type: circle;
+    list-style-type: circle
 }
 
 #write ul ul ul {
-  list-style-type: square;
+    list-style-type: square
 }
 
 #write ol {
-  list-style-type: decimal;
+    list-style-type: decimal
 }
 
 #write ol ol {
-  list-style-type: lower-alpha;
+    list-style-type: lower-alpha
 }
 
 #write ol ol ol {
-  list-style-type: lower-roman;
+    list-style-type: lower-roman
 }
 
 #write li section {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  line-height: 1.7rem;
-  text-align: justify;
-  color: #000000;
-  font-weight: 500;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    line-height: 1.7rem;
+    text-align: justify;
+    color: #000;
+    font-weight: 500
 }
 
 #write li:before {
-  content: "";
-  height: calc(100% - 50px);
-  top: 35px;
-  position: absolute;
-  border-left: 0.5px solid var(--element-color);
-  left: -14.5px;
+    content: "";
+    height: calc(100% - 50px);
+    top: 35px;
+    position: absolute;
+    border-left: .5px solid var(--element-color);
+    left: -14.5px
 }
 
-/* 任务列表样式 */
-
 #write .task-list-item input {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 1.3rem;
-  height: 1.3rem;
-  position: absolute;
-  top: 3px;
-  left: -22px;
-  outline: none;
-  cursor: pointer;
-  z-index: 1;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.3rem;
+    height: 1.3rem;
+    position: absolute;
+    top: 3px;
+    left: -22px;
+    outline: 0;
+    cursor: pointer;
+    z-index: 1
 }
 
 #write .task-list-item input::before {
-  content: '';
-  display: block;
-  position: absolute;
-  top: -2px;
-  left: 18px;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 1px solid var(--element-color-deep, #ffa531);
-  background: #fff;
-  transition: all 0.4s cubic-bezier(0.5, 1.6, 0.4, 0.7);
-  box-sizing: border-box;
+    content: '';
+    display: block;
+    position: absolute;
+    top: -2px;
+    left: 18px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid var(--element-color-deep, #ffa531);
+    background: #fff;
+    transition: all .4s cubic-bezier(.5, 1.6, .4, .7);
+    box-sizing: border-box
 }
 
 #write .task-list-item input::after {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 40%;
-  left: 138%;
-  width: 0.35rem;
-  height: 0.65rem;
-  border: solid #fff;
-  border-width: 0 2.5px 2.5px 0;
-  transform: translate(-50%, -60%) rotate(45deg) scale(1);
-  transition: all 0.3s cubic-bezier(0.5, 1.6, 0.4, 0.7);
-  opacity: 0;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 40%;
+    left: 138%;
+    width: .35rem;
+    height: .65rem;
+    border: solid #fff;
+    border-width: 0 2.5px 2.5px 0;
+    transform: translate(-50%, -60%) rotate(45deg) scale(1);
+    transition: all .3s cubic-bezier(.5, 1.6, .4, .7);
+    opacity: 0
 }
 
 #write .task-list-item input:checked::before {
-  background: var(--element-color, #ffc000);
-  border-color: var(--element-color, #ffc000);
-  transform: scale(1.05);
-  animation: task-pulse 0.4s forwards;
+    background: var(--element-color, #ffc000);
+    border-color: var(--element-color, #ffc000);
+    transform: scale(1.05);
+    animation: task-pulse .4s forwards
 }
 
 @keyframes task-pulse {
-  0% {
-    transform: scale(1);
-  }
+    0% {
+        transform: scale(1)
+    }
 
-  50% {
-    transform: scale(1.15);
-  }
+    50% {
+        transform: scale(1.15)
+    }
 
-  100% {
-    transform: scale(1);
-  }
+    100% {
+        transform: scale(1)
+    }
 }
 
 #write .task-list-item input:checked::after {
-  opacity: 1;
-  transform: translate(-50%, -60%) rotate(45deg) scale(1);
+    opacity: 1;
+    transform: translate(-50%, -60%) rotate(45deg) scale(1)
 }
 
-#write .task-list-item input[type="checkbox"]+p span,
-#write .task-list-item input[type="checkbox"]+span {
-  position: relative;
-  display: inline;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  transition: color 0.4s ease;
-  background-image: linear-gradient(currentColor, currentColor);
-  background-position: 0% 50%;
-  background-size: 0% 1.5px;
-  background-repeat: no-repeat;
-  transition: background-size 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.4s;
+#write .task-list-item input[type=checkbox]+p span,
+#write .task-list-item input[type=checkbox]+span {
+    position: relative;
+    display: inline;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    transition: color .4s ease;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 50%;
+    background-size: 0 1.5px;
+    background-repeat: no-repeat;
+    transition: background-size .4s cubic-bezier(.25, .8, .25, 1), color .4s
 }
 
-#write .task-list-item input[type="checkbox"]:checked+p span,
-#write .task-list-item input[type="checkbox"]:checked+span {
-  color: #bbb;
-  background-size: 100% 1.5px;
+#write .task-list-item input[type=checkbox]:checked+p span,
+#write .task-list-item input[type=checkbox]:checked+span {
+    color: #bbb;
+    background-size: 100% 1.5px
 }
 
 #write li.task-list-item {
-  position: relative;
+    position: relative
 }
-
-
-/* 引用 */
 
 #write blockquote {
-  position: relative;
-  margin: 20px 0;
-  padding: 18px 20px 18px 48px;
-  background-color: var(--element-color-soo-shallow);
-  border: none;
-  border-radius: 16px;
-  color: #555;
-  line-height: 1.6;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
+    position: relative;
+    margin: 20px 0;
+    padding: 18px 20px 18px 48px;
+    background-color: var(--element-color-soo-shallow);
+    border: none;
+    border-radius: 16px;
+    color: #555;
+    line-height: 1.6;
+    transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), background-color .3s ease
 }
 
-/* 图标装饰 (可以把 content 里的 ✨ 换成 💡, 📝, 📌 等) */
 #write blockquote::before {
-  content: "✨";
-  position: absolute;
-  left: 16px;
-  top: 18px;
-  font-size: 20px;
-  line-height: 1;
-  font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+    content: "✨";
+    position: absolute;
+    left: 16px;
+    top: 18px;
+    font-size: 20px;
+    line-height: 1;
+    font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif
 }
 
 #write blockquote p {
-  color: #555;
-  margin-bottom: 0.5em;
+    color: #555;
+    margin-bottom: .5em
 }
 
 #write blockquote p:last-child {
-  margin-bottom: 0;
+    margin-bottom: 0
 }
 
 #write blockquote:hover {
-  transform: scale(1.02);
+    transform: scale(1.02)
 }
 
-/* 超链接 */
 #write a {
-  color: #333;
-  text-decoration: none;
-  font-weight: 500;
-  padding: 2px 4px;
-  margin: 0 -2px;
-  border-radius: 4px;
-  background: transparent;
-  border-bottom: none;
-  transition: all 0.2s ease;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 2px 4px;
+    margin: 0 -2px;
+    border-radius: 4px;
+    background: 0 0;
+    border-bottom: none;
+    transition: all .2s ease
 }
 
 #write p a:not(.md-toc-inner)::before {
-  content: '';
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  margin-right: 2px;
-  vertical-align: -0.15em;
-  background-color: var(--element-color);
-  -webkit-mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath d='M477.934459 330.486594A50.844091 50.844091 0 0 1 406.752731 258.796425L512 152.532274a254.220457 254.220457 0 0 1 359.467726 359.467726L762.66137 618.772592a50.844091 50.844091 0 1 1-71.690168-71.690169l106.772591-106.772592a152.532274 152.532274 0 0 0-215.578947-215.578947z m70.164846 361.501489A50.844091 50.844091 0 1 1 619.789474 762.66137l-107.281033 107.281033A254.220457 254.220457 0 0 1 152.532274 512L259.813307 406.752731a50.844091 50.844091 0 1 1 72.19861 69.656405l-107.789474 107.281033a152.532274 152.532274 0 0 0 215.578947 215.578947z m-126.601788-16.77855a50.844091 50.844091 0 1 1-71.690168-71.690169l251.678252-251.678252a50.844091 50.844091 0 0 1 71.690169 71.690169z'/%3E%3C/svg%3E") no-repeat center / contain;
-  mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath d='M477.934459 330.486594A50.844091 50.844091 0 0 1 406.752731 258.796425L512 152.532274a254.220457 254.220457 0 0 1 359.467726 359.467726L762.66137 618.772592a50.844091 50.844091 0 1 1-71.690168-71.690169l106.772591-106.772592a152.532274 152.532274 0 0 0-215.578947-215.578947z m70.164846 361.501489A50.844091 50.844091 0 1 1 619.789474 762.66137l-107.281033 107.281033A254.220457 254.220457 0 0 1 152.532274 512L259.813307 406.752731a50.844091 50.844091 0 1 1 72.19861 69.656405l-107.789474 107.281033a152.532274 152.532274 0 0 0 215.578947 215.578947z m-126.601788-16.77855a50.844091 50.844091 0 1 1-71.690168-71.690169l251.678252-251.678252a50.844091 50.844091 0 0 1 71.690169 71.690169z'/%3E%3C/svg%3E") no-repeat center / contain;
-  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 2px;
+    vertical-align: -.15em;
+    background-color: var(--element-color);
+    -webkit-mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath d='M477.934459 330.486594A50.844091 50.844091 0 0 1 406.752731 258.796425L512 152.532274a254.220457 254.220457 0 0 1 359.467726 359.467726L762.66137 618.772592a50.844091 50.844091 0 1 1-71.690168-71.690169l106.772591-106.772592a152.532274 152.532274 0 0 0-215.578947-215.578947z m70.164846 361.501489A50.844091 50.844091 0 1 1 619.789474 762.66137l-107.281033 107.281033A254.220457 254.220457 0 0 1 152.532274 512L259.813307 406.752731a50.844091 50.844091 0 1 1 72.19861 69.656405l-107.789474 107.281033a152.532274 152.532274 0 0 0 215.578947 215.578947z m-126.601788-16.77855a50.844091 50.844091 0 1 1-71.690168-71.690169l251.678252-251.678252a50.844091 50.844091 0 0 1 71.690169 71.690169z'/%3E%3C/svg%3E") no-repeat center/contain;
+    mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath d='M477.934459 330.486594A50.844091 50.844091 0 0 1 406.752731 258.796425L512 152.532274a254.220457 254.220457 0 0 1 359.467726 359.467726L762.66137 618.772592a50.844091 50.844091 0 1 1-71.690168-71.690169l106.772591-106.772592a152.532274 152.532274 0 0 0-215.578947-215.578947z m70.164846 361.501489A50.844091 50.844091 0 1 1 619.789474 762.66137l-107.281033 107.281033A254.220457 254.220457 0 0 1 152.532274 512L259.813307 406.752731a50.844091 50.844091 0 1 1 72.19861 69.656405l-107.789474 107.281033a152.532274 152.532274 0 0 0 215.578947 215.578947z m-126.601788-16.77855a50.844091 50.844091 0 1 1-71.690168-71.690169l251.678252-251.678252a50.844091 50.844091 0 0 1 71.690169 71.690169z'/%3E%3C/svg%3E") no-repeat center/contain;
+    transition: transform .4s cubic-bezier(.25, .8, .25, 1)
 }
 
 #write a:not(.md-toc-inner):hover {
-  color: var(--element-color-deep);
-  background: var(--element-color-soo-shallow);
+    color: var(--element-color-deep);
+    background: var(--element-color-soo-shallow)
 }
 
-/* 图标部分：旋转 180 度 */
 #write a:hover:not(.md-toc-inner)::before {
-  transform: rotate(180deg);
-  background-color: var(--element-color-deep);
+    transform: rotate(180deg);
+    background-color: var(--element-color-deep)
 }
 
 #write a:visited {
-  color: var(--element-color-deep);
+    color: var(--element-color-deep)
 }
 
 #write sup a::before {
-  content: none;
+    content: none
 }
-
-/* 高亮 */
 
 #write mark {
-  background-color: var(--element-color-so-shallow);
-  color: inherit;
-  padding: 2px 6px;
-  border-radius: 6px;
-  margin: 0 2px;
-  position: relative;
-  transition: all 0.3s ease;
-  /* 确保跨行时样式连续 */
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
+    background-color: var(--element-color-so-shallow);
+    color: inherit;
+    padding: 2px 6px;
+    border-radius: 6px;
+    margin: 0 2px;
+    position: relative;
+    transition: all .3s ease;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone
 }
 
-#write mark::before,
-#write mark::after {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--element-color-deep);
-  font-weight: bold;
-  font-family: "Courier New", monospace;
-  font-size: 1.1em;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+#write mark::after,
+#write mark::before {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--element-color-deep);
+    font-weight: 700;
+    font-family: "Courier New", monospace;
+    font-size: 1.1em;
+    opacity: 0;
+    pointer-events: none;
+    transition: all .3s cubic-bezier(.34, 1.56, .64, 1)
 }
 
 #write mark::before {
-  content: '{';
-  left: -5px;
+    content:'{';
+    left: -5px
 }
 
 #write mark::after {
-  content: '}';
-  right: -5px;
+    content: '}';
+    right: -5px
 }
 
 #write mark:hover {
-  background-color: var(--element-color);
-  color: #fff;
-  border-radius: 4px;
-  padding: 2px 12px;
+    background-color: var(--element-color);
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 12px
 }
 
 #write mark:hover::before {
-  opacity: 1;
-  left: 3px;
+    opacity: 1;
+    left: 3px
 }
 
 #write mark:hover::after {
-  opacity: 1;
-  right: 3px;
+    opacity: 1;
+    right: 3px
 }
 
-/* 粗体 */
 #write strong {
-  color: var(--element-color);
-  font-weight: bold;
-  display: inline-block;
-  transition: transform 0.2s cubic-bezier(0.5, 1.5, 0.5, 1);
+    color: var(--element-color);
+    font-weight: 700;
+    display: inline-block;
+    transition: transform .2s cubic-bezier(.5, 1.5, .5, 1)
 }
 
 #write strong:hover {
-  transform: translateY(-2px) scale(1.1);
-  text-shadow: 2px 2px 0 var(--element-color-soo-shallow);
+    transform: translateY(-2px) scale(1.1);
+    text-shadow: 2px 2px 0 var(--element-color-soo-shallow)
 }
 
-/* 斜体 */
 #write em {
-  font-style: italic;
-  color: #555;
-  text-decoration: none;
-  padding: 0 2px;
-  transition: all 0.3s ease;
+    font-style: italic;
+    color: #555;
+    text-decoration: none;
+    padding: 0 2px;
+    transition: all .3s ease
 }
 
 #write em:hover {
-  color: var(--element-color);
-  text-decoration: underline wavy var(--element-color-shallow);
-  text-underline-offset: 4px;
+    color: var(--element-color);
+    text-decoration: underline wavy var(--element-color-shallow);
+    text-underline-offset: 4px
 }
 
-/* 删除线 */
 #write del {
-  text-decoration: line-through;
-  text-decoration-color: var(--element-color);
-  color: #999;
-  transition: all 0.3s ease;
+    text-decoration: line-through;
+    text-decoration-color: var(--element-color);
+    color: #999;
+    transition: all .3s ease
 }
 
 #write del:hover {
-  opacity: 0.6;
-  text-decoration-color: var(--element-color-deep);
-  cursor: not-allowed;
+    opacity: .6;
+    text-decoration-color: var(--element-color-deep);
+    cursor: not-allowed
 }
 
-/* 分割线 */
 #write hr {
-  border: none;
-  border-top: 3px dashed var(--element-color-shallow);
-  margin: 30px 0;
-  opacity: 0.6;
-  transform: scaleX(0.8);
-  transition: all 0.4s ease;
+    border: none;
+    border-top: 3px dashed var(--element-color-shallow);
+    margin: 30px 0;
+    opacity: .6;
+    transform: scaleX(.8);
+    transition: all .4s ease
 }
 
 #write hr:hover {
-  transform: scaleX(1);
-  border-color: var(--element-color);
-  opacity: 1;
+    transform: scaleX(1);
+    border-color: var(--element-color);
+    opacity: 1
 }
 
-/* 图片 */
 #write p:has(img) {
-  text-align: center;
+    text-align: center
 }
 
 #write img {
-  border-radius: 12px;
-  display: inline-block;
-  margin: 15px 5px;
-  object-fit: contain;
-  filter: brightness(1) contrast(1);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  max-width: 100%;
-  cursor: zoom-in;
+    border-radius: 12px;
+    display: inline-block;
+    margin: 15px 5px;
+    object-fit: contain;
+    filter: brightness(1) contrast(1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .05);
+    transition: all .4s cubic-bezier(.34, 1.56, .64, 1);
+    max-width: 100%;
+    cursor: zoom-in
 }
 
 #write p>img:only-child {
-  display: block;
-  margin: 20px auto;
+    display: block;
+    margin: 20px auto
 }
 
 #write img:hover {
-  filter: brightness(1.05) contrast(1.05);
-  transform: scale(1.05);
-  box-shadow: 0 12px 30px -4px var(--element-color-soo-shallow);
-  z-index: 10;
+    filter: brightness(1.05) contrast(1.05);
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px -4px var(--element-color-soo-shallow);
+    z-index: 10
 }
 
-/* 图片描述 */
 #write figcaption {
-  display: block;
-  margin-top: 12px;
-  font-size: 13px;
-  color: #888;
-  text-align: center;
-  line-height: 1.5;
-  font-family: "HarmonyOS_Sans_SC", -apple-system, sans-serif;
-  transition: color 0.3s ease;
+    display: block;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #888;
+    text-align: center;
+    line-height: 1.5;
+    font-family: HarmonyOS_Sans_SC, -apple-system, sans-serif;
+    transition: color .3s ease
 }
 
-#write p:hover>img+figcaption,
-#write figure:hover>figcaption {
-  color: var(--element-color-deep);
+#write figure:hover>figcaption,
+#write p:hover>img+figcaption {
+    color: var(--element-color-deep)
 }
 
-/* YMAL */
 pre.md-meta-block {
-  padding: 30px 20px 20px;
-  margin: 20px 0;
-  font-family: var(--monospace);
-  font-size: 13px;
-  color: #555;
-  line-height: 1.6;
-  background-color: var(--element-color-soo-shallow);
-  border: 1.5px dashed var(--element-color);
-  border-radius: 8px;
-  position: relative;
-  transition: all 0.3s ease;
+    padding: 30px 20px 20px;
+    margin: 20px 0;
+    font-family: var(--monospace);
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
+    background-color: var(--element-color-soo-shallow);
+    border: 1.5px dashed var(--element-color);
+    border-radius: 8px;
+    position: relative;
+    transition: all .3s ease
 }
 
-/* 右上角的 "YAML" 小吊牌标签 */
 pre.md-meta-block::after {
-  content: "YAML";
-  position: absolute;
-  top: 0;
-  right: 20px;
-  background-color: var(--element-color);
-  color: #fff;
-  font-size: 10px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  padding: 3px 10px;
-  border-radius: 0 0 6px 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  pointer-events: none;
+    content: "YAML";
+    position: absolute;
+    top: 0;
+    right: 20px;
+    background-color: var(--element-color);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+    pointer-events: none
 }
 
 pre.md-meta-block:hover {
-  background-color: #fff;
-  border-style: solid;
-  border-color: var(--element-color-deep);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  transform: translateY(-2px);
+    background-color: #fff;
+    border-style: solid;
+    border-color: var(--element-color-deep);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .05);
+    transform: translateY(-2px)
 }
 
-/* 行内代码 */
-#write code:not(.md-fences code) {
-    font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
-    font-size: 0.9em;
-    letter-spacing: 0.5px;
+#write code:not(.md-fencescode) {
+    font-family: CascadiaCode, "Lucida Console", Consolas, Courier, monospace;
+    font-size: .9em;
+    letter-spacing: .5px;
     color: var(--element-color-linecode);
     background-color: var(--element-color-linecode-background);
-    padding: 2px 6px; 
-    margin: 0 3px; 
-    border-radius: 6px; 
+    padding: 2px 6px;
+    margin: 0 3px;
+    border-radius: 6px;
     display: inline-block;
-    vertical-align: middle; 
-    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    vertical-align: middle;
+    transition: all .2s cubic-bezier(.34, 1.56, .64, 1)
 }
 
-#write code:not(.md-fences code):hover {
-    background-color: var(--element-color); 
-    color: #fff; 
-    transform: scale(1.1); 
-    box-shadow: 0 4px 10px var(--element-color-so-shallow); 
-    text-decoration: none;
+#write code:not(.md-fencescode):hover {
+    background-color: var(--element-color);
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px var(--element-color-so-shallow);
+    text-decoration: none
 }
 
-/* 流程图 */
 .md-diagram {
-  background: transparent;
+    background: 0 0
 }
 
-/* 代码块 */
-.md-fences:not([lang="mermaid"])::before {
-  content: attr(lang);
-  font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
-  text-align: right;
-  padding-right: 15px;
-  color: #7e7e7e;
-  display: block;
-  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNDUwcHgiIGhlaWdodD0iMTMwcHgiPgogIDxlbGxpcHNlIGN4PSI2NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgc3Ryb2tlPSJyZ2IoMjIwLDYwLDU0KSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJyZ2IoMjM3LDEwOCw5NikiLz4KICA8ZWxsaXBzZSBjeD0iMjI1IiBjeT0iNjUiIHJ4PSI1MCIgcnk9IjUyIiAgc3Ryb2tlPSJyZ2IoMjE4LDE1MSwzMykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDI0NywxOTMsODEpIi8+CiAgPGVsbGlwc2UgY3g9IjM4NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgIHN0cm9rZT0icmdiKDI3LDE2MSwzNykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDEwMCwyMDAsODYpIi8+Cjwvc3ZnPg==);
-  height: 32px;
-  width: 100%;
-  background-size: 40px;
-  background-repeat: no-repeat;
-  background-color: #f8f8f8;
-  border-radius: 5px 5px 0 0;
-  background-position: 6px 11px;
-  margin-bottom: 0;
+.md-fences:not([lang=mermaid])::before {
+    content: attr(lang);
+    font-family: CascadiaCode, "Lucida Console", Consolas, Courier, monospace;
+    text-align: right;
+    padding-right: 15px;
+    color: #7e7e7e;
+    display: block;
+    background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNDUwcHgiIGhlaWdodD0iMTMwcHgiPgogIDxlbGxpcHNlIGN4PSI2NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgc3Ryb2tlPSJyZ2IoMjIwLDYwLDU0KSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJyZ2IoMjM3LDEwOCw5NikiLz4KICA8ZWxsaXBzZSBjeD0iMjI1IiBjeT0iNjUiIHJ4PSI1MCIgcnk9IjUyIiAgc3Ryb2tlPSJyZ2IoMjE4LDE1MSwzMykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDI0NywxOTMsODEpIi8+CiAgPGVsbGlwc2UgY3g9IjM4NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgIHN0cm9rZT0icmdiKDI3LDE2MSwzNykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDEwMCwyMDAsODYpIi8+Cjwvc3ZnPg==);
+    height: 32px;
+    width: 100%;
+    background-size: 40px;
+    background-repeat: no-repeat;
+    background-color: #f8f8f8;
+    border-radius: 5px 5px 0 0;
+    background-position: 6px 11px;
+    margin-bottom: 0
 }
 
 .CodeMirror-wrap .CodeMirror-scroll {
-  overflow-x: auto;
+    overflow-x: auto
 }
 
 .md-fences {
-  position: relative;
-  z-index: 1;
-  overflow: visible;
+    position: relative;
+    z-index: 1;
+    overflow: visible
 }
 
 .md-fences.md-focus {
-  z-index: 100;
-  /* 当用户点击代码块时，将其置于最顶层 */
+    z-index: 100
 }
 
 .md-fences .cm-s-inner.CodeMirror {
-  margin-top: 0;
+    margin-top: 0
 }
 
 .cm-s-inner.CodeMirror {
-  padding: 20px 12px 12px 20px;
-  color: #4f5467;
-  font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
-  border-radius: 10px;
-  background-color: #fa0303;
-  line-height: 1.6rem;
+    padding: 20px 12px 12px 20px;
+    color: #4f5467;
+    font-family: CascadiaCode, "Lucida Console", Consolas, Courier, monospace;
+    border-radius: 10px;
+    background-color: #fa0303;
+    line-height: 1.6rem
 }
 
 .CodeMirror-gutters {
-  border-right: 1px solid #9d9d9d52;
-  background: inherit;
-  white-space: nowrap;
+    border-right: 1px solid #9d9d9d52;
+    background: inherit;
+    white-space: nowrap
 }
 
 pre.CodeMirror-line {
-  padding: 0px 1.2rem;
+    padding: 0 1.2rem
 }
 
 .CodeMirror-linenumber {
-  padding: 0px 3px 0 5px;
-  text-align: right;
-  color: #a3a3a3;
+    padding: 0 3px 0 5px;
+    text-align: right;
+    color: #a3a3a3
 }
 
 .cm-s-inner.CodeMirror {
-  background: #f8f8f8;
-  border-radius: 0 0 5px 5px;
-  padding: 24px 12px 12px 12px;
-  page-break-before: auto;
-  line-height: 1.8rem;
+    background: #f8f8f8;
+    border-radius: 0 0 5px 5px;
+    padding: 24px 12px 12px 12px;
+    page-break-before: auto;
+    line-height: 1.8rem
 }
 
 .md-rawblock .md-rawblock-tooltip {
-  inset: auto 0.3rem auto auto;
-  transform: translateY(-120%);
+    inset: auto .3rem auto auto;
+    transform: translateY(-120%)
 }
 
-/* 代码块颜色 */
 .cm-keyword {
-  color: #a626a4 !important;
-  font-weight: 700 !important;
+    color: #a626a4 !important;
+    font-weight: 700 !important
 }
 
 .cm-variable {
-  color: #b92121 !important;
+    color: #b92121 !important
 }
 
 .cm-tag {
-  color: var(--color-cm-keyword) !important;
-  font-weight: 700 !important;
+    color: var(--color-cm-keyword) !important;
+    font-weight: 700 !important
 }
 
-.cm-variable-3,
-.cm-variable-2 {
-  color: #7aadad !important;
-  font-weight: 700 !important;
+.cm-variable-2,
+.cm-variable-3 {
+    color: #7aadad !important;
+    font-weight: 700 !important
 }
 
 .cm-def {
-  color: #c18401 !important;
+    color: #c18401 !important
 }
 
 .cm-attribute {
-  color: #8f6aa8 !important;
+    color: #8f6aa8 !important
 }
 
 .cm-comment,
 .md-comment,
 .md-meta {
-  color: #9a9a9a !important;
+    color: #9a9a9a !important
 }
 
 .cm-string {
-  color: #50a14f !important;
-  font-variant-ligatures: common-ligatures !important;
+    color: #50a14f !important;
+    font-variant-ligatures: common-ligatures !important
 }
 
 .cm-link {
-  color: #e46918 !important;
+    color: #e46918 !important
 }
 
 .cm-type {
-  color: #626161;
+    color: #626161
 }
 
 .cm-property {
-  color: #800a84 !important;
+    color: #800a84 !important
 }
 
 .cm-tag:not(.cm-bracket) {
-  font-weight: 700 !important;
+    font-weight: 700 !important
 }
 
 .cm-operator {
-  color: #0abe00 !important;
+    color: #0abe00 !important
 }
 
 .cm-number {
-  color: #1694b6 !important;
+    color: #1694b6 !important
 }
 
 .cm-meta {
-  color: #4078f2 !important;
-  font-weight: 700 !important;
+    color: #4078f2 !important;
+    font-weight: 700 !important
 }
 
 .cm-builtin {
-  color: #fa6060 !important;
+    color: #fa6060 !important
 }
 
-/* KBD键盘 */
 kbd {
-  display: inline-block;
-  min-width: 1.6em;
-  text-align: center;
-  padding: 3px 6px;
-  margin: 0 4px;
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  font-size: 0.9em;
-  line-height: 1.4;
-  font-weight: 600;
-  border-radius: 4px;
-  background-color: #fff;
-  color: var(--element-color-deep);
-  border: 1px solid var(--element-color);
-  border-bottom-width: 3px;
-  box-shadow: 0 2px 0 var(--element-color-so-shallow);
-  transition: all 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
-  transform: translateY(0);
+    display: inline-block;
+    min-width: 1.6em;
+    text-align: center;
+    padding: 3px 6px;
+    margin: 0 4px;
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: .9em;
+    line-height: 1.4;
+    font-weight: 600;
+    border-radius: 4px;
+    background-color: #fff;
+    color: var(--element-color-deep);
+    border: 1px solid var(--element-color);
+    border-bottom-width: 3px;
+    box-shadow: 0 2px 0 var(--element-color-so-shallow);
+    transition: all .15s cubic-bezier(.25, .8, .25, 1);
+    transform: translateY(0)
 }
 
 kbd:hover {
-  border-bottom-width: 1px;
-  transform: translateY(2px);
-  background-color: var(--element-color-soo-shallow);
-  box-shadow: 0 0 0 transparent;
-  color: var(--element-color-deep);
+    border-bottom-width: 1px;
+    transform: translateY(2px);
+    background-color: var(--element-color-soo-shallow);
+    box-shadow: 0 0 0 transparent;
+    color: var(--element-color-deep)
 }
 
-/** 表格内的单元格*/
 #write table {
-  /* 关键：必须 separate 才能实现外框圆角 */
-  border-collapse: separate;
-  border-spacing: 0;
-  width: 100%;
-  margin: 20px 0;
-  border: 1px solid var(--element-color-shallow);
-  border-radius: 8px;
-  overflow: hidden;
-  font-size: 14px;
-  line-height: 1.6;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    margin: 20px 0;
+    border: 1px solid var(--element-color-shallow);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 1.6
 }
 
-#write table th,
-#write table td {
-  padding: 8px 12px;
-  color: #333;
-  border-right: 1px solid #f0f0f0;
-  border-bottom: 1px solid #f0f0f0;
-
-  transition: all 0.2s ease;
+#write table td,
+#write table th {
+    padding: 8px 12px;
+    color: #333;
+    border-right: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+    transition: all .2s ease
 }
 
-
-#write table th:last-child,
-#write table td:last-child {
-  border-right: none;
+#write table td:last-child,
+#write table th:last-child {
+    border-right: none
 }
 
 #write table tr:last-child td {
-  border-bottom: none;
+    border-bottom: none
 }
 
 #write table th {
-  background-color: var(--element-color-soo-shallow);
-  color: var(--element-color-deep);
-  font-weight: bold;
-  white-space: nowrap;
+    background-color: var(--element-color-soo-shallow);
+    color: var(--element-color-deep);
+    font-weight: 700;
+    white-space: nowrap
 }
 
 #write table tbody tr:hover td {
-  background-color: var(--element-color-soo-shallow);
-  /* 极淡的主题色 */
+    background-color: var(--element-color-soo-shallow)
 }
 
 #write table tbody td:hover {
-  background-color: var(--element-color-soo-shallow);
-  color: var(--element-color-deep);
-  box-shadow: inset 0 0 0 1px var(--element-color-shallow);
-  cursor: default;
+    background-color: var(--element-color-soo-shallow);
+    color: var(--element-color-deep);
+    box-shadow: inset 0 0 0 1px var(--element-color-shallow);
+    cursor: default
 }
 
-/* 脚注文字 */
 #write .footnote-word {
-  font-weight: normal;
-  color: #595959;
+    font-weight: 400;
+    color: #595959
 }
 
-/* 脚注上标 */
 #write .footnote-ref {
-  font-weight: normal;
-  color: #595959;
+    font-weight: 400;
+    color: #595959
 }
 
-/*脚注链接样式*/
 #write .footnote-item em {
-  font-size: 14px;
-  color: #595959;
-  display: block;
-  background: none;
+    font-size: 14px;
+    color: #595959;
+    display: block;
+    background: 0 0
 }
 
-/* Callout */
 .md-alert {
-  padding: 5px 10px;
-  margin-bottom: 16px;
-  color: #555;
-  border: none !important;
-  border-radius: 12px;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.3s ease,
-    background-color 0.3s ease;
+    padding: 5px 10px;
+    margin-bottom: 16px;
+    color: #555;
+    border: none !important;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease, background-color .3s ease
 }
-.md-alert:hover {
-  transform: scale(1.01) translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  z-index: 1;
-}
-.md-alert-text-container {
-  display: inline-flex;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(2px);
-  padding: 2px 10px;
-  border-radius: 50px;
-  font-weight: 700;
-  font-size: 14px;
-  margin-bottom: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-  position: relative;
-  z-index: 2;
-}
-.md-alert-text-container::after {
-  margin-right: 0;
-}
-.md-alert::after {
-  content: "";
-  position: absolute;
-  right: -10px;
-  bottom: -12px;
-  font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
-  font-size: 64px;
-  line-height: 1;
-  opacity: 0.12;
-  transform: rotate(-15deg);
-  pointer-events: none;
-  z-index: 0;
 
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+.md-alert:hover {
+    transform: scale(1.01) translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .08);
+    z-index: 1
 }
+
+.md-alert-text-container {
+    display: inline-flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, .7);
+    backdrop-filter: blur(2px);
+    padding: 2px 10px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .03);
+    position: relative;
+    z-index: 2
+}
+
+.md-alert-text-container::after {
+    margin-right: 0
+}
+
+.md-alert::after {
+    content: "";
+    position: absolute;
+    right: -10px;
+    bottom: -12px;
+    font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
+    font-size: 64px;
+    line-height: 1;
+    opacity: .12;
+    transform: rotate(-15deg);
+    pointer-events: none;
+    z-index: 0;
+    transition: all .4s cubic-bezier(.34, 1.56, .64, 1)
+}
+
 .md-alert:hover::after {
-  transform: rotate(0deg) scale(1.1);
-  opacity: 0.2;
-  right: 0px;
-  bottom: -4px;
+    transform: rotate(0) scale(1.1);
+    opacity: .2;
+    right: 0;
+    bottom: -4px
 }
+
 .md-alert-text svg {
-  fill: currentColor;
-  position: relative;
-  top: 1px;
-  margin-right: 5px;
-  width: 1em;
-  height: 1em;
+    fill: currentColor;
+    position: relative;
+    top: 1px;
+    margin-right: 5px;
+    width: 1em;
+    height: 1em
 }
 
 .md-alert.md-alert-note {
-  background-color: rgba(108, 92, 231, 0.1);
+    background-color: rgba(108, 92, 231, .1)
 }
 
 .md-alert-text-note {
-  color: #6c5ce7;
+    color: #6c5ce7
 }
 
 .md-alert.md-alert-note:hover {
-  background-color: rgba(108, 92, 231, 0.15);
+    background-color: rgba(108, 92, 231, .15)
 }
 
 .md-alert.md-alert-note::after {
-  content: "📝";
+    content: "📝"
 }
 
 .md-alert.md-alert-tip {
-  background-color: rgba(0, 184, 148, 0.1);
+    background-color: rgba(0, 184, 148, .1)
 }
 
 .md-alert-text-tip {
-  color: #00b894;
+    color: #00b894
 }
 
 .md-alert.md-alert-tip:hover {
-  background-color: rgba(0, 184, 148, 0.15);
+    background-color: rgba(0, 184, 148, .15)
 }
 
 .md-alert.md-alert-tip::after {
-  content: "💡";
+    content: "💡"
 }
 
 .md-alert.md-alert-warning {
-  background-color: rgba(253, 203, 110, 0.15);
+    background-color: rgba(253, 203, 110, .15)
 }
 
 .md-alert-text-warning {
-  color: #e17055;
+    color: #e17055
 }
 
 .md-alert.md-alert-warning:hover {
-  background-color: rgba(253, 203, 110, 0.2);
+    background-color: rgba(253, 203, 110, .2)
 }
 
 .md-alert.md-alert-warning::after {
-  content: "⚠️";
+    content: "⚠️"
 }
 
 .md-alert.md-alert-important {
-  background-color: rgba(255, 118, 117, 0.12);
+    background-color: rgba(255, 118, 117, .12)
 }
 
 .md-alert-text-important {
-  color: #ff7675;
+    color: #ff7675
 }
 
 .md-alert.md-alert-important:hover {
-  background-color: rgba(255, 118, 117, 0.18);
+    background-color: rgba(255, 118, 117, .18)
 }
 
 .md-alert.md-alert-important::after {
-  content: "📌";
+    content: "📌"
 }
 
 .md-alert.md-alert-caution {
-  background-color: rgba(214, 48, 49, 0.08);
+    background-color: rgba(214, 48, 49, .08)
 }
 
 .md-alert-text-caution {
-  color: #d63031;
+    color: #d63031
 }
 
 .md-alert.md-alert-caution:hover {
-  background-color: rgba(214, 48, 49, 0.12);
+    background-color: rgba(214, 48, 49, .12)
 }
 
 .md-alert.md-alert-caution::after {
-  content: "🔥";
+    content: "🔥"
 }
 
-/* Toc目录 */
 .md-toc {
-  margin: 20px;
-  padding: 30px;
-  background-color: rgba(255, 255, 255, 0.4);
-  background-image:
-    radial-gradient(circle at -22% -42%, var(--element-color-so-shallow), transparent 42%),
-    radial-gradient(circle at 100% 170%, var(--element-color-shallow), transparent 42%);
-  background-repeat: no-repeat;
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-  border-radius: 16px;
-  font-family: "HarmonyOS_Sans_SC", -apple-system, sans-serif;
-  font-size: 15px;
-  color: #555;
-  position: relative;
-  overflow: hidden;
-
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.3s ease;
+    margin: 20px;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, .4);
+    background-image: radial-gradient(circle at -22% -42%, var(--element-color-so-shallow), transparent 42%), radial-gradient(circle at 100% 170%, var(--element-color-shallow), transparent 42%);
+    background-repeat: no-repeat;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, .6);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .05);
+    border-radius: 16px;
+    font-family: HarmonyOS_Sans_SC, -apple-system, sans-serif;
+    font-size: 15px;
+    color: #555;
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease
 }
 
 .md-toc:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, .1)
 }
 
 .md-toc:before {
-  content: "目录";
-  display: block;
-  text-align: center;
-  font-family: "HarmonyOS_Sans_SC", -apple-system, sans-serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--element-color-deep);
-  margin-bottom: 25px;
-  letter-spacing: 2px;
-  border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
-  padding-bottom: 15px;
+    content: "目录";
+    display: block;
+    text-align: center;
+    font-family: HarmonyOS_Sans_SC, -apple-system, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--element-color-deep);
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+    border-bottom: 1px dashed rgba(0, 0, 0, .08);
+    padding-bottom: 15px
 }
 
 .md-toc-item {
-  display: block;
-  line-height: 1.8em;
-  color: #666;
-  text-decoration: none;
-
-  padding: 6px 15px;
-  border-radius: 50px;
-  margin-bottom: 4px;
-
-  position: relative;
-  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: block;
+    line-height: 1.8em;
+    color: #666;
+    text-decoration: none;
+    padding: 6px 15px;
+    border-radius: 50px;
+    margin-bottom: 4px;
+    position: relative;
+    transition: all .2s cubic-bezier(.25, .8, .25, 1)
 }
 
 .md-toc-item a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  width: 100%;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%
 }
 
 .md-toc-h1 {
-  font-weight: 600;
-  color: #333;
-  margin-top: 10px;
-  background: rgba(255, 255, 255, 0.4);
+    font-weight: 600;
+    color: #333;
+    margin-top: 10px;
+    background: rgba(255, 255, 255, .4)
 }
 
 .md-toc-h2 {
-  margin-left: 1em;
-  font-size: 0.95rem;
+    margin-left: 1em;
+    font-size: .95rem
 }
 
 .md-toc-h3 {
-  margin-left: 2em;
-  font-size: 0.9rem;
-  color: #777;
+    margin-left: 2em;
+    font-size: .9rem;
+    color: #777
 }
 
 .md-toc-item:hover {
-  background-color: rgba(255, 255, 255, 0.95);
-  color: var(--element-color-deep);
-  padding-left: 20px;
-  font-weight: 500;
-
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    background-color: rgba(255, 255, 255, .95);
+    color: var(--element-color-deep);
+    padding-left: 20px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .05)
 }
 
 .md-tooltip-hide>span {
-  display: none;
+    display: none
 }
-
-/* 程序UI */
-
-/* 侧边栏 */
 
 #typora-sidebar {
-  height: 100%;
-  color: var(--appui-color-text);
-  font-size: 0.92rem;
-  background-color: #fff;
+    height: 100%;
+    color: var(--appui-color-text);
+    font-size: .92rem;
+    background-color: #fff
 }
 
-/* 滑块 */
-
 #outline-content::-webkit-scrollbar {
-  width: 5px;
+    width: 5px
 }
 
 #file-library::-webkit-scrollbar {
-  width: 5px;
+    width: 5px
 }
 
 ::-webkit-scrollbar-track {
-  border-radius: 10px;
+    border-radius: 10px
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  /* background: rgba(179, 179, 179, 0.425); */
-  background: var(--element-color);
+    border-radius: 10px;
+    background: var(--element-color)
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background: var(--element-color-shallow);
+    background: var(--element-color-shallow)
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 8px;
+    width: 5px;
+    height: 8px
 }
 
-/* 侧边栏 文件 */
 .active-tab-files #info-panel-tab-file .info-panel-tab-border,
 .active-tab-outline #info-panel-tab-outline .info-panel-tab-border,
 .ty-show-search #info-panel-tab-search .info-panel-tab-border {
-  border-radius: 10px;
-  height: 4px;
-  background-color: var(--appui-color);
+    border-radius: 10px;
+    height: 4px;
+    background-color: var(--appui-color)
 }
 
 .file-node-content {
-  line-height: 1.2rem;
+    line-height: 1.2rem
 }
 
 .file-tree-node.active>.file-node-content {
-  color: var(--appui-color);
+    color: var(--appui-color)
 }
 
 span.file-node-title {
-  color: var(--appui-color-text);
+    color: var(--appui-color-text)
 }
 
 .file-node-icon {
-  color: var(--appui-color-icon);
-  padding-right: 0.2rem;
+    color: var(--appui-color-icon);
+    padding-right: .2rem
 }
 
 .file-tree-node.active>.file-node-background {
-  font-weight: bolder;
-  border-left: 4px solid var(--appui-color);
-  border-color: var(--appui-color);
+    font-weight: bolder;
+    border-left: 4px solid var(--appui-color);
+    border-color: var(--appui-color)
 }
 
 .info-panel-tab-title {
-  font-weight: bolder;
-  color: var(--appui-color-text);
+    font-weight: bolder;
+    color: var(--appui-color-text)
 }
 
-/* 侧边栏 搜索 */
 #file-library-search-panel {
-  background-color: #fff;
+    background-color: #fff
 }
 
 #file-library-search-input {
-  border-radius: 3px;
-  border-color: var(--appui-color);
+    border-radius: 3px;
+    border-color: var(--appui-color)
 }
 
 #file-library-search-input:focus {
-  border-width: 2px;
+    border-width: 2px
 }
 
-/* 侧边栏大纲 */
 #outline-content .outline-h2::after,
 #outline-content .outline-h2>.outline-item::before {
-  content: none !important;
-  display: none !important;
-  border: none !important;
-  background: transparent !important;
+    content: none !important;
+    display: none !important;
+    border: none !important;
+    background: 0 0 !important
 }
 
 #outline-content .outline-label {
-  border: none !important;
-  background: transparent !important;
-  padding-left: 0 !important;
-  margin: 0 !important;
+    border: none !important;
+    background: 0 0 !important;
+    padding-left: 0 !important;
+    margin: 0 !important
 }
 
 #outline-content .outline-item {
-  display: flex !important;
-  align-items: center !important;
-  width: fit-content;
-  max-width: 100%;
-  padding: 6px 12px;
-  margin-bottom: 2px;
-  color: inherit;
-  cursor: pointer;
-  text-decoration: none;
-  border-radius: 50px;
-  border: none;
-  outline: none;
-  transition: background-color 0.2s ease,
-    color 0.2s ease,
-    padding-right 0.2s ease,
-    box-shadow 0.2s ease;
-  position: relative;
-  line-height: 1.6;
+    display: flex !important;
+    align-items: center !important;
+    width: fit-content;
+    max-width: 100%;
+    padding: 6px 12px;
+    margin-bottom: 2px;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 50px;
+    border: none;
+    outline: 0;
+    transition: background-color .2s ease, color .2s ease, padding-right .2s ease, box-shadow .2s ease;
+    position: relative;
+    line-height: 1.6
 }
 
 #outline-content .outline-expander {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 4px;
-  color: inherit;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 4px;
+    color: inherit
 }
 
 #outline-content .outline-label {
-  flex: 1;
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    flex: 1;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
 }
 
-
 #outline-content .outline-h1 {
-  margin-top: 10px;
-  margin-bottom: 4px;
+    margin-top: 10px;
+    margin-bottom: 4px
 }
 
 #outline-content .outline-h2,
@@ -1648,108 +1574,105 @@ span.file-node-title {
 #outline-content .outline-h4,
 #outline-content .outline-h5,
 #outline-content .outline-h6 {
-  border-left: 1.5px solid rgba(0, 0, 0, 0.06);
-  margin-left: 22px;
-  padding-left: 8px;
+    border-left: 1.5px solid rgba(0, 0, 0, .06);
+    margin-left: 22px;
+    padding-left: 8px
 }
 
 #outline-content .outline-h1>.outline-item {
-  font-size: larger;
-  font-weight: 700;
-  color: var(--element-color-deep);
+    font-size: larger;
+    font-weight: 700;
+    color: var(--element-color-deep)
 }
 
 #outline-content .outline-item:hover {
-  background-color: var(--element-color-soo-shallow);
-  color: var(--element-color-deep);
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  border-left: none !important;
-  border-right: none !important;
+    background-color: var(--element-color-soo-shallow);
+    color: var(--element-color-deep);
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    border-left: none !important;
+    border-right: none !important
 }
 
 div.outline-item-active {
-  background-color: var(--element-color) !important;
-  color: #fff !important;
-  font-weight: 600;
-  box-shadow: 0 4px 10px var(--element-color-so-shallow);
-  transform: none;
-  padding-right: 30px !important;
-  padding-left: 12px !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  border: none !important;
+    background-color: var(--element-color) !important;
+    color: #fff !important;
+    font-weight: 600;
+    box-shadow: 0 4px 10px var(--element-color-so-shallow);
+    transform: none;
+    padding-right: 30px !important;
+    padding-left: 12px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    border: none !important
 }
 
-/* 小星星 */
 #outline-content .outline-item-active::after {
-  content: "✦";
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.9);
-  /* 半透明白色 */
-  display: block !important;
-  z-index: 10;
-  animation: outline-twinkle 1.5s infinite alternate;
+    content: "✦";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: rgba(255, 255, 255, .9);
+    display: block !important;
+    z-index: 10;
+    animation: outline-twinkle 1.5s infinite alternate
 }
 
 @keyframes outline-twinkle {
-  from {
-    opacity: 0.7;
-    transform: translateY(-50%) scale(0.9);
-  }
+    from {
+        opacity: .7;
+        transform: translateY(-50%) scale(.9)
+    }
 
-  to {
-    opacity: 1;
-    transform: translateY(-50%) scale(1.1);
-  }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.1)
+    }
 }
 
-/* 导出HTML侧边栏大纲兼容性样式 */
 .typora-export-content .outline-content::before {
-  content: "目录";
-  font-size: 20px;
-  font-weight: bold;
-  position: absolute;
-  top: 22px;
-  left: 15px;
-  z-index: -1;
+    content: "目录";
+    font-size: 20px;
+    font-weight: 700;
+    position: absolute;
+    top: 22px;
+    left: 15px;
+    z-index: -1
 }
 
 .typora-export-sidebar .outline-content {
-  padding-top: 60px !important;
-  padding-left: 10px !important;
-  height: 100%;
-  overflow-y: auto;
-  padding-bottom: 30px;
-  box-sizing: border-box;
+    padding-top: 60px !important;
+    padding-left: 10px !important;
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: 30px;
+    box-sizing: border-box
 }
 
 .typora-export-sidebar .outline-content::before {
-  content: "目录";
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--element-color-deep);
-  position: absolute;
-  top: 20px;
-  left: 24px;
-  z-index: 10;
-  letter-spacing: 2px;
+    content: "目录";
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--element-color-deep);
+    position: absolute;
+    top: 20px;
+    left: 24px;
+    z-index: 10;
+    letter-spacing: 2px
 }
 
 .typora-export-sidebar .outline-h1 {
-  margin-top: 10px !important;
-  margin-bottom: 4px !important;
-  margin-left: 0 !important;
+    margin-top: 10px !important;
+    margin-bottom: 4px !important;
+    margin-left: 0 !important
 }
 
 .typora-export-sidebar .outline-h1>.outline-item {
-  font-size: 1.1em !important;
-  font-weight: 700 !important;
-  color: var(--element-color-deep) !important;
+    font-size: 1.1em !important;
+    font-weight: 700 !important;
+    color: var(--element-color-deep) !important
 }
 
 .typora-export-sidebar .outline-h2,
@@ -1757,282 +1680,274 @@ div.outline-item-active {
 .typora-export-sidebar .outline-h4,
 .typora-export-sidebar .outline-h5,
 .typora-export-sidebar .outline-h6 {
-  border-left: 1.5px solid rgba(0, 0, 0, 0.06) !important;
-  margin-left: 15px !important;
-  padding-left: 8px !important;
-  list-style: none !important;
+    border-left: 1.5px solid rgba(0, 0, 0, .06) !important;
+    margin-left: 15px !important;
+    padding-left: 8px !important;
+    list-style: none !important
 }
 
 .typora-export-sidebar .outline-item {
-  display: flex !important;
-  align-items: center !important;
-  width: fit-content !important;
-  max-width: 95% !important;
-  padding: 6px 12px !important;
-  margin: 2px 0 !important;
-  color: inherit !important;
-  cursor: pointer;
-  text-decoration: none !important;
-  border-radius: 50px !important;
-  border: none !important;
-  transition: all 0.2s ease;
-  line-height: 1.6;
-  overflow: visible !important;
+    display: flex !important;
+    align-items: center !important;
+    width: fit-content !important;
+    max-width: 95% !important;
+    padding: 6px 12px !important;
+    margin: 2px 0 !important;
+    color: inherit !important;
+    cursor: pointer;
+    text-decoration: none !important;
+    border-radius: 50px !important;
+    border: none !important;
+    transition: all .2s ease;
+    line-height: 1.6;
+    overflow: visible !important
 }
 
-
 .typora-export-sidebar .outline-label {
-  padding: 0 !important;
-  margin: 0 !important;
-  border: none !important;
-  text-decoration: none !important;
-  color: inherit !important;
-  flex: 0 1 auto !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    text-decoration: none !important;
+    color: inherit !important;
+    flex: 0 1 auto !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
 }
 
 .typora-export-sidebar .outline-expander {
-  width: 16px !important;
-  text-align: center;
-  margin-right: 4px;
-  flex-shrink: 0;
+    width: 16px !important;
+    text-align: center;
+    margin-right: 4px;
+    flex-shrink: 0
 }
 
 .typora-export .outline-expander::before {
-  content: "▸" !important;
-  font-family: Arial, sans-serif !important;
-  font-size: 14px !important;
-  color: #999;
-  top: 0 !important;
-  display: inline-block;
-  transition: transform 0.2s;
+    content: "▸" !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 14px !important;
+    color: #999;
+    top: 0 !important;
+    display: inline-block;
+    transition: transform .2s
 }
 
-.typora-export .outline-item-open>.outline-item>.outline-expander::before,
-.typora-export .outline-expander:hover::before {
-  content: "▾" !important;
-  color: var(--element-color-deep);
+.typora-export .outline-expander:hover::before,
+.typora-export .outline-item-open>.outline-item>.outline-expander::before {
+    content: "▾" !important;
+    color: var(--element-color-deep)
 }
 
 .typora-export .outline-item-single .outline-expander::before {
-  display: none !important;
+    display: none !important
 }
 
 .typora-export-sidebar .outline-item:hover {
-  background-color: var(--element-color-soo-shallow) !important;
-  color: var(--element-color-deep) !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  border: none !important;
+    background-color: var(--element-color-soo-shallow) !important;
+    color: var(--element-color-deep) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    border: none !important
 }
 
 .typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item {
-  background-color: var(--element-color) !important;
-  color: #fff !important;
-  font-weight: 600 !important;
-  box-shadow: 0 4px 10px var(--element-color-so-shallow);
-  padding-right: 12px !important;
-  padding-left: 12px !important;
-  margin-left: 0 !important;
-  border: none !important;
+    background-color: var(--element-color) !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 10px var(--element-color-so-shallow);
+    padding-right: 12px !important;
+    padding-left: 12px !important;
+    margin-left: 0 !important;
+    border: none !important
 }
 
 .typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item .outline-label {
-  color: #fff !important;
+    color: #fff !important
 }
 
 .typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item .outline-expander::before {
-  color: rgba(255, 255, 255, 0.8) !important;
+    color: rgba(255, 255, 255, .8) !important
 }
 
 .typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item::after {
-  content: "✦";
-  position: static !important;
-  transform: none !important;
-  margin-left: 8px !important;
-  flex-shrink: 0;
-  display: inline-block !important;
-  line-height: 1;
-  font-size: 10px;
-  font-family: Arial, sans-serif;
-  color: rgba(255, 255, 255, 0.9);
-  z-index: 10;
-  animation: outline-twinkle 1.5s infinite alternate;
+    content: "✦";
+    position: static !important;
+    transform: none !important;
+    margin-left: 8px !important;
+    flex-shrink: 0;
+    display: inline-block !important;
+    line-height: 1;
+    font-size: 10px;
+    font-family: Arial, sans-serif;
+    color: rgba(255, 255, 255, .9);
+    z-index: 10;
+    animation: outline-twinkle 1.5s infinite alternate
 }
 
-
 @media screen {
-  body.typora-export {
-    background-color: transparent;
-  }
+    body.typora-export {
+        background-color: transparent
+    }
 }
 
 .typora-export-sidebar {
-  position: fixed;
-  margin-top: 0 !important;
-  top: 10px;
-  bottom: 10px;
-  left: 20px;
-  width: 320px;
-  background-color: var(--glass-bg-color);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.13);
-
-  z-index: 100;
-  overflow: hidden;
-  color: #555;
-  font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light,
-    "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    position: fixed;
+    margin-top: 0 !important;
+    top: 10px;
+    bottom: 10px;
+    left: 20px;
+    width: 320px;
+    background-color: var(--glass-bg-color);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, .6);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .13);
+    z-index: 100;
+    overflow: hidden;
+    color: #555;
+    font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif
 }
 
 .typora-export-sidebar .outline-content {
-  padding-top: 60px !important;
-  padding-left: 15px !important;
-  padding-right: 5px !important;
-  height: 100%;
-  overflow-y: auto;
-  scrollbar-width: none;
+    padding-top: 60px !important;
+    padding-left: 15px !important;
+    padding-right: 5px !important;
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: none
 }
 
 .typora-export #write {
-  margin-left: 350px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-right: 20px;
-  min-height: calc(100vh - 20px);
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
-  padding: 60px 80px;
-  width: auto;
-  max-width: none;
+    margin-left: 350px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    min-height: calc(100vh - 20px);
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .1);
+    padding: 60px 80px;
+    width: auto;
+    max-width: none
 }
 
-@media screen and (max-width: 800px) {
-  .typora-export-sidebar {
-    display: none;
-  }
+@media screen and (max-width:800px) {
+    .typora-export-sidebar {
+        display: none
+    }
 
-  .typora-export #write {
-    margin: 0;
-    border-radius: 0;
-    width: 100%;
-    box-shadow: none;
-    padding: 20px;
-  }
-
+    .typora-export #write {
+        margin: 0;
+        border-radius: 0;
+        width: 100%;
+        box-shadow: none;
+        padding: 20px
+    }
 }
 
-/* PDF导出设置 */
 @media print {
-  @page {
-    margin: 10mm;
-    size: A4;
-  }
+    @page {
+        margin: 10mm;
+        size: A4
+    }
 
-  body {
-    background-color: transparent !important;
-  }
+    body {
+        background-color: transparent !important
+    }
 
-  body {
-    margin: 0 !important;
-    width: 100% !important;
-  }
+    body {
+        margin: 0 !important;
+        width: 100% !important
+    }
 
-  .typora-export #write {
-    margin: 0 auto !important;
-    padding: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    border: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-  }
+    .typora-export #write {
+        margin: 0 auto !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: 0 0 !important
+    }
 
-  * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important
+    }
 
-  #write::before {
-    display: block !important;
-    opacity: 0.1 !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    -webkit-mask-image: var(--bg-style) !important;
-    mask-image: var(--bg-style) !important;
-    background-color: var(--element-color) !important;
-    pointer-events: none;
-    z-index: -1;
-  }
+    #write::before {
+        display: block !important;
+        opacity: .1 !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        -webkit-mask-image: var(--bg-style) !important;
+        mask-image: var(--bg-style) !important;
+        background-color: var(--element-color) !important;
+        pointer-events: none;
+        z-index: -1
+    }
 
-  p {
-    line-height: 1.5rem;
-  }
+    p {
+        line-height: 1.5rem
+    }
 
-  figure,
-  pre {
-    page-break-inside: avoid;
-  }
+    figure,
+    pre {
+        page-break-inside: avoid
+    }
 
-  ul,
-  ol {
-    page-break-inside: auto !important;
-    break-inside: auto !important;
-  }
+    ol,
+    ul {
+        page-break-inside: auto !important;
+        break-inside: auto !important
+    }
 
-  li {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
+    li {
+        page-break-inside: avoid;
+        break-inside: avoid
+    }
 
-  pre {
-    page-break-inside: auto !important;
-    break-inside: auto !important;
-    white-space: pre-wrap;
-  }
+    pre {
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+        white-space: pre-wrap
+    }
 
-  blockquote {
-    page-break-inside: auto !important;
-    break-inside: auto !important;
-  }
+    blockquote {
+        page-break-inside: auto !important;
+        break-inside: auto !important
+    }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    page-break-after: avoid !important;
-    break-after: avoid !important;
-    page-break-inside: avoid !important;
-  }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+        page-break-inside: avoid !important
+    }
 
-  p {
-    orphans: 2;
-    widows: 2;
-  }
+    p {
+        orphans: 2;
+        widows: 2
+    }
 
-  .md-toc {
-    background-image: none;
-  }
+    .md-toc {
+        background-image: none
+    }
 }
 
-/* --- 强制分页符样式 --- */
-/* 在Typora中键入  <div class="page-break"/>  即可强制分页 */
 @media print {
-  .page-break {
-    page-break-after: always;
-    break-after: always;
-    height: 0;
-    display: block;
-    visibility: hidden;
-  }
+    .page-break {
+        page-break-after: always;
+        break-after: always;
+        height: 0;
+        display: block;
+        visibility: hidden
+    }
 }
