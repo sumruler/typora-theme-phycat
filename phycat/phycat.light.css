@@ -121,7 +121,9 @@ h6.md-heading:after {
     font-weight: 700;
     margin: 1em auto .8em;
     line-height: 1.4;
-    display: table;
+    width: fit-content;
+    min-width: 120px;
+    min-height: 1.4em;
     color: #222;
     position: relative;
     padding-bottom: 12px;
@@ -143,7 +145,7 @@ h6.md-heading:after {
     transition: width .4s cubic-bezier(.25, .8, .25, 1)
 }
 
-#write h1:hover {
+#write h1:not(.md-focus):hover {
     color: var(--head-title-color);
     transform: translateY(-2px)
 }
@@ -809,6 +811,16 @@ li.md-list-item {
     text-shadow: 2px 2px 0 var(--element-color-soo-shallow)
 }
 
+#write mark strong {
+    color: var(--element-color-deep)
+}
+
+#write mark:hover strong {
+    color: #fff;
+    text-shadow: none;
+    transform: translateY(-2px) scale(1.1)
+}
+
 #write em {
     font-style: italic;
     color: #555;
@@ -939,10 +951,9 @@ pre.md-meta-block:hover {
     letter-spacing: .5px;
     color: var(--element-color-linecode);
     background-color: var(--element-color-linecode-background);
-    padding: 2px 6px;
-    margin: 0 3px;
+    padding: 5px 5px;
+    margin: 0 2px;
     border-radius: 6px;
-    display: inline-block;
     vertical-align: middle;
     transition: all .2s cubic-bezier(.34, 1.56, .64, 1)
 }
@@ -950,13 +961,89 @@ pre.md-meta-block:hover {
 #write code:not(.md-fencescode):hover {
     background-color: var(--element-color);
     color: #fff;
-    transform: scale(1.1);
+    transform: scale(1.05);
     box-shadow: 0 4px 10px var(--element-color-so-shallow);
     text-decoration: none
 }
 
 .md-diagram {
-    background: 0 0
+    background: 0 0 !important;
+    margin: 20px 0
+}
+
+svg[id^=mermaid] {
+    font-family: "Cascadia Code", "HarmonyOS Sans SC", sans-serif !important;
+    max-width: 100% !important
+}
+
+.node circle,
+.node ellipse,
+.node path,
+.node rect {
+    fill: var(--element-color-so-shallow) !important;
+    stroke: var(--primary-color) !important;
+    stroke-width: 1.5px !important;
+    transition: all .3s ease
+}
+
+.node polygon {
+    fill: color-mix(in srgb, var(--element-color-shallow), transparent 50%) !important;
+    stroke: var(--element-color-deep) !important;
+    stroke-width: 1.5px !important
+}
+
+.edgePath .path,
+.flowchart-link {
+    stroke: var(--element-color-deep) !important;
+    stroke-width: 1.5px !important;
+    opacity: .8 !important
+}
+
+.marker path,
+marker path {
+    fill: var(--element-color-deep) !important;
+    stroke: var(--element-color-deep) !important
+}
+
+.cluster-label text,
+.edgeLabel,
+.edgeLabel .label,
+.edgeLabel div,
+.edgeLabel p,
+.edgeLabel span,
+.labelBkg,
+.node .label {
+    background-color: #fff !important;
+    color: var(--appui-color-text) !important;
+    fill: var(--appui-color-text) !important;
+    font-weight: 500 !important;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff !important
+}
+
+.edgeLabel rect {
+    fill: #fff !important;
+    opacity: .9 !important
+}
+
+.labelBkg {
+    background-color: #fff !important;
+    opacity: .9 !important;
+    border-radius: 4px;
+    padding: 0 4px
+}
+
+.cluster rect {
+    fill: color-mix(in srgb, var(--element-color-soo-shallow), transparent 50%) !important;
+    stroke: var(--element-color-shallow) !important;
+    stroke-dasharray: 4px !important
+}
+
+.cluster span,
+.cluster-label text {
+    fill: var(--element-color-deep) !important;
+    color: var(--element-color-deep) !important;
+    background: 0 0 !important;
+    font-weight: 700 !important
 }
 
 .md-fences:not([lang=mermaid])::before {
@@ -1198,6 +1285,17 @@ kbd:hover {
     background: 0 0
 }
 
+#write sup.md-footnote {
+    font-size: 9px;
+    padding: 1px 5px;
+    top: -11px;
+    left: 3px;
+    background-color: rgba(238, 238, 238, .7);
+    color: #555;
+    border-radius: 50%;
+    cursor: pointer
+}
+
 .md-alert {
     padding: 5px 10px;
     margin-bottom: 16px;
@@ -1434,9 +1532,9 @@ kbd:hover {
 
 #typora-sidebar {
     height: 100%;
-    color: var(--appui-color-text);
+    color: var(--text-color);
     font-size: .92rem;
-    background-color: #fff
+    background-color: var(--bg-color)
 }
 
 #outline-content::-webkit-scrollbar {

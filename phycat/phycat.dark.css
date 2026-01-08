@@ -141,28 +141,30 @@ h6.md-heading:after {
     margin: 15px auto;
     position: relative;
     width: fit-content;
+    min-width: 120px;
+    min-height: 1.4em;
     padding-bottom: 12px;
-    cursor: default;
-    border-bottom: none
+    border-bottom: none;
+    cursor: text;
+    transition: color .3s ease, transform .3s ease, text-shadow .3s ease
 }
 
 #write h1::after {
     content: '';
     position: absolute;
-    bottom: 15px;
+    bottom: 0;
     left: 50%;
     width: 40px;
     height: 4px;
     border-radius: 4px;
     background: var(--h1-underline-color);
+    box-shadow: 0 0 5px rgba(255, 85, 85, .4);
     transform: translateX(-50%);
-    transition: width .4s cubic-bezier(.25, .8, .25, 1);
-    box-shadow: 0 0 5px rgba(255, 85, 85, .4)
+    transition: width .4s cubic-bezier(.25, .8, .25, 1), box-shadow .3s ease
 }
 
-#write h1.md-focus,
-#write h1:focus,
-#write h1:hover {
+#write h1:not(.md-focus):hover {
+    transform: translateY(-2px);
     text-shadow: var(--glow-shadow-text)
 }
 
@@ -1003,9 +1005,10 @@ pre.md-meta-block:hover::after {
     font-family: CascadiaCode, "Lucida Console", Consolas, Courier, monospace;
     font-size: .9em;
     letter-spacing: .5px;
-    color: var(--element-color-linecode);
-    background-color: var(--element-color-linecode-background);
-    padding: 5px 5px;
+    background-color: color-mix(in srgb, var(--primary-color), transparent 90%);
+    color: var(--primary-color);
+    border: 1px solid color-mix(in srgb, var(--primary-color), transparent 85%);
+    padding: 2px 6px;
     margin: 0 2px;
     border-radius: 6px;
     vertical-align: middle;
@@ -1013,10 +1016,11 @@ pre.md-meta-block:hover::after {
 }
 
 #write code:not(.md-fencescode):hover {
-    background-color: var(--element-color);
+    background-color: var(--primary-color);
     color: #fff;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px color-mix(in srgb, var(--primary-color), transparent 60%);
     transform: scale(1.05);
-    box-shadow: 0 4px 10px var(--element-color-so-shallow);
     text-decoration: none
 }
 
