@@ -91,7 +91,7 @@
   --code-property: #4cd964;      /* 属性 -> 薄荷绿 */
   --code-number: #f78c6c;        /* 数字 -> 珊瑚色 */
   --code-meta: #ff5370;          /* 元数据 -> 柔和红 */
-  --code-selected-bg: #282c28;   /* 选中背景 -> 深灰块 */
+  --code-selected-bg: #447344;   /* 选中背景 -> 深灰块 */
 
   /* --- UI 控件/原生菜单覆盖 --- */
   --active-file-bg-color: color-mix(in srgb, var(--primary-color), transparent 85%);

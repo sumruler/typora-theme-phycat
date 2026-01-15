@@ -1,36 +1,16 @@
 @font-face {
-    font-family: HarmonyOS_Sans_SC;
-    font-weight: 400;
-    font-style: normal;
-    src: url(HarmonyOS_Sans_SC_Regular.woff)
-}
-
-@font-face {
-    font-family: HarmonyOS_Sans_SC;
-    font-weight: 700;
-    font-style: normal;
-    src: url(HarmonyOS_Sans_SC_Bold.woff)
-}
-
-@font-face {
     font-family: CascadiaCode;
     src: url(Cascadia-Code-Regular.ttf)
 }
 
 @font-face {
-    font-family: SourceHanSerifCN;
-    src: url(SourceHanSerifCN-Medium.ttf)
-}
-
-@font-face {
-    font-family: SourceHanSerifCN;
-    src: url(SourceHanSerifCN-Bold.ttf);
-    font-weight: 700
+    font-family: LXGWWenKai;
+    src: url(LXGWWenKai-Regular.ttf)
 }
 
 html {
     font-size: 16px;
-    font-family: HarmonyOS_Sans_SC
+    font-family: LXGWWenKai
 }
 
 #write {
@@ -71,7 +51,7 @@ html {
 #write p {
     color: var(--text-color-secondary);
     margin: 0 10px;
-    font-family: Optima-Regular, Optima, SourceHanSerifCN, PingFangSC-light, PingFangTC-light, "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    font-family: Optima-Regular, Optima, LXGWWenKai, PingFangSC-light, PingFangTC-light, "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     font-size: 1rem;
     word-spacing: 2px
 }
@@ -948,7 +928,7 @@ li.md-list-item {
     color: #888;
     text-align: center;
     line-height: 1.5;
-    font-family: HarmonyOS_Sans_SC, -apple-system, sans-serif;
+    font-family: LXGWWenKai, -apple-system, sans-serif;
     transition: color .3s ease
 }
 
