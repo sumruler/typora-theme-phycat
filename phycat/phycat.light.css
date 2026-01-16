@@ -788,7 +788,7 @@ li.md-list-item {
 
 #write strong:hover {
     transform: translateY(-2px) scale(1.1);
-    text-shadow: 2px 2px 0 var(--element-color-soo-shallow)
+    text-shadow: 2px 2px 0 color-mix(in srgb, var(--element-color-shallow), transparent 70%)
 }
 
 #write mark strong {
@@ -1164,6 +1164,12 @@ pre.CodeMirror-line {
 
 .cm-builtin {
     color: #fa6060 !important
+}
+
+.cm-s-inner .cm-atom,
+.cm-s-inner.cm-atom {
+    color: #a626a4 !important;
+    font-weight: 700
 }
 
 kbd {

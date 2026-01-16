@@ -1479,6 +1479,12 @@ pre.CodeMirror-line {
     background: var(--code-selected-bg) !important
 }
 
+.cm-s-inner .cm-atom,
+.cm-s-inner.cm-atom {
+    color: var(--code-keyword) !important;
+    font-weight: 700
+}
+
 #write kbd {
     background-color: #333;
     color: var(--text-color);
