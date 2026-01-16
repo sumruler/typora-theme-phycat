@@ -99,6 +99,6 @@
   --item-hover-bg-color: rgba(76, 217, 100, 0.08);
   --menu-divider-color: rgba(76, 217, 100, 0.1);
   --window-border: 1px solid var(--primary-color) !important;
-
   --rawblock-edit-panel-bd: var(--item-hover-bg-color);
+  --mermaid-theme: night;
 }

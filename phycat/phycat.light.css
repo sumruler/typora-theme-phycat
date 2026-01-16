@@ -950,11 +950,6 @@ pre.md-meta-block:hover {
     margin: 20px 0
 }
 
-svg[id^=mermaid] {
-    font-family: "Cascadia Code", "HarmonyOS Sans SC", sans-serif !important;
-    max-width: 100% !important
-}
-
 .node circle,
 .node ellipse,
 .node path,
@@ -1493,6 +1488,24 @@ kbd:hover {
     margin-left: 2em;
     font-size: .9rem;
     color: #777
+}
+
+.md-toc-h4 {
+    margin-left: 3em;
+    font-size: .85em;
+    opacity: .8
+}
+
+.md-toc-h5 {
+    margin-left: 4em;
+    font-size: .85em;
+    opacity: .7
+}
+
+.md-toc-h6 {
+    margin-left: 5em;
+    font-size: .85em;
+    opacity: .6
 }
 
 .md-toc-item:hover {

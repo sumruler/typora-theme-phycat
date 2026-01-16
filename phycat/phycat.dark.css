@@ -1005,68 +1005,314 @@ pre.md-meta-block:hover::after {
 }
 
 svg[id^=mermaid] {
-    font-family: "Cascadia Code", "HarmonyOS Sans SC", sans-serif !important;
-    max-width: 100% !important
+    font-family: "JetBrains Mono", "Fira Code", sans-serif !important;
+    font-size: 14px !important
 }
 
-.node circle,
-.node ellipse,
-.node path,
-.node rect {
-    fill: color-mix(in srgb, var(--primary-color), transparent 90%) !important;
-    stroke: var(--primary-color) !important;
-    stroke-width: 1.5px !important
+svg[id^=mermaid] .label text,
+svg[id^=mermaid] span,
+svg[id^=mermaid] text {
+    fill: var(--code-variable) !important;
+    color: var(--code-variable) !important;
+    font-weight: 500 !important
 }
 
-.node polygon {
-    fill: color-mix(in srgb, var(--secondary-color), transparent 85%) !important;
-    stroke: var(--secondary-color) !important;
-    stroke-width: 1.5px !important
-}
-
-.edgePath .path,
-.flowchart-link {
-    stroke: #e0e0e0 !important;
-    stroke-width: 1.5px !important;
-    opacity: 1 !important
-}
-
-.marker path,
-marker path {
-    fill: #e0e0e0 !important;
-    stroke: #e0e0e0 !important
-}
-
-.cluster-label text,
-.edgeLabel,
-.edgeLabel .label,
-.edgeLabel div,
-.edgeLabel p,
-.edgeLabel span,
-.labelBkg,
-.node .label {
-    background: #2e2e2e !important;
-    color: #fff !important;
+g>foreignObject>div>span>p,
+svg[id^=mermaid] .edgeLabel .label span,
+svg[id^=mermaid] .label text,
+svg[id^=mermaid] .node .label text {
     fill: #fff !important;
-    font-weight: 500 !important;
-    text-shadow: 0 0 4px rgba(0, 0, 0, .8) !important
+    color: #fff !important;
+    text-shadow: 0 0 3px #000, 1px 1px 1px #000 !important;
+    font-weight: 600 !important
 }
 
-.edgeLabel rect {
-    fill: var(--bg-color) !important;
+svg[id^=mermaid] .node circle,
+svg[id^=mermaid] .node ellipse,
+svg[id^=mermaid] .node path,
+svg[id^=mermaid] .node polygon,
+svg[id^=mermaid] .node rect {
+    fill: #282a36 !important;
+    fill-opacity: 1 !important
+}
+
+svg[id^=mermaid] .node[style*="#9f6"] rect,
+svg[id^=mermaid] .node[style*="fill: #9f6"] polygon,
+svg[id^=mermaid] .success path,
+svg[id^=mermaid] .success polygon,
+svg[id^=mermaid] .success rect {
+    stroke: var(--code-function) !important;
+    stroke-width: 2px !important;
+    filter: drop-shadow(0 0 5px var(--code-function))
+}
+
+svg[id^=mermaid] .node[style*="#ff9"] polygon,
+svg[id^=mermaid] .node[style*="fill: #ff9"] path,
+svg[id^=mermaid] .warning path,
+svg[id^=mermaid] .warning polygon,
+svg[id^=mermaid] .warning rect {
+    stroke: var(--code-meta) !important;
+    stroke-width: 2px !important;
+    stroke-dasharray: 5 5 !important;
+    filter: drop-shadow(0 0 5px var(--code-meta))
+}
+
+svg[id^=mermaid] .node circle,
+svg[id^=mermaid] .node ellipse {
+    stroke: var(--secondary-color) !important;
+    stroke-width: 2px !important;
+    filter: drop-shadow(0 0 5px var(--secondary-color))
+}
+
+svg[id^=mermaid] .node rect {
+    stroke: var(--primary-color) !important
+}
+
+svg[id^=mermaid] .edgePath .path {
+    stroke: var(--code-comment) !important;
+    stroke-width: 1.5px !important;
+    opacity: .7
+}
+
+svg[id^=mermaid] .edgeLabel rect {
+    fill: #282a36 !important;
+    stroke: var(--border-color) !important;
     opacity: 1 !important
 }
 
-.labelBkg {
-    background-color: var(--bg-color) !important;
-    opacity: 1 !important;
-    border-radius: 4px;
-    padding: 0 4px
+.actor {
+    stroke: var(--secondary-color) !important;
+    fill: #282a36 !important;
+    stroke-width: 2px !important
 }
 
-.cluster rect {
+text.actor>tspan {
+    fill: var(--secondary-color) !important;
+    font-weight: 700 !important
+}
+
+.actor-line {
+    stroke: var(--border-color) !important;
+    stroke-width: 2px !important
+}
+
+.messageLine0,
+.messageLine1 {
+    stroke: var(--accent-color) !important;
+    stroke-width: 1.5px !important
+}
+
+#arrowhead path {
+    fill: var(--accent-color) !important;
+    stroke: none !important
+}
+
+.activation0,
+.activation1,
+.activation2 {
+    fill: rgba(139, 233, 253, .2) !important;
+    stroke: var(--accent-color) !important
+}
+
+.note {
+    stroke: var(--code-meta) !important;
+    fill: rgba(255, 184, 108, .1) !important
+}
+
+.noteText>tspan {
+    fill: var(--code-meta) !important
+}
+
+.loopLine {
+    stroke: var(--code-comment) !important;
+    stroke-dasharray: 4 4
+}
+
+rect.rect {
+    fill: rgba(255, 255, 255, .03) !important;
+    stroke: none !important
+}
+
+.state {
+    fill: #282a36 !important;
+    stroke: var(--code-function) !important;
+    stroke-width: 1.5px !important
+}
+
+.nodeCircle {
+    fill: var(--primary-color) !important;
+    stroke: none !important
+}
+
+.transition {
+    stroke: var(--code-comment) !important;
+    stroke-width: 1.5px !important
+}
+
+svg[id^=mermaid] .taskText,
+svg[id^=mermaid] .taskText0,
+svg[id^=mermaid] .taskText1,
+svg[id^=mermaid] .taskText2,
+svg[id^=mermaid] .taskText3 {
+    text-anchor: middle !important;
+    dominant-baseline: central !important;
+    transform: translateY(-3.5px) !important;
+    font-family: "Microsoft YaHei", sans-serif !important;
+    font-size: 12px !important;
+    fill: #fff !important
+}
+
+svg[id^=mermaid] .taskTextOutsideLeft,
+svg[id^=mermaid] .taskTextOutsideRight {
+    fill: var(--code-variable) !important;
+    font-weight: 700 !important;
+    font-size: 12px !important
+}
+
+svg[id^=mermaid] .done0,
+svg[id^=mermaid] .done1,
+svg[id^=mermaid] .done2,
+svg[id^=mermaid] .done3 {
+    fill: #2e2e2e !important;
+    stroke: var(--border-color) !important;
+    stroke-width: 1.5px !important
+}
+
+svg[id^=mermaid] .active0,
+svg[id^=mermaid] .active1,
+svg[id^=mermaid] .active2,
+svg[id^=mermaid] .active3 {
+    fill: var(--primary-color) !important;
+    stroke: var(--primary-color) !important;
+    filter: drop-shadow(0 0 3px var(--glow-color))
+}
+
+svg[id^=mermaid] .crit0,
+svg[id^=mermaid] .crit1,
+svg[id^=mermaid] .crit2,
+svg[id^=mermaid] .crit3 {
+    fill: var(--code-meta) !important;
+    stroke: var(--code-meta) !important
+}
+
+svg[id^=mermaid] .section0,
+svg[id^=mermaid] .section2 {
     fill: rgba(255, 255, 255, .02) !important;
-    stroke: rgba(255, 255, 255, .1) !important
+    opacity: 1 !important
+}
+
+svg[id^=mermaid] .section1,
+svg[id^=mermaid] .section3 {
+    fill: rgba(255, 255, 255, .05) !important;
+    opacity: 1 !important
+}
+
+svg[id^=mermaid] .sectionTitle,
+svg[id^=mermaid] .sectionTitle0,
+svg[id^=mermaid] .sectionTitle1,
+svg[id^=mermaid] .sectionTitle2 {
+    fill: var(--secondary-color) !important;
+    font-weight: 700 !important
+}
+
+svg[id^=mermaid] .grid .tick line {
+    stroke: var(--border-color) !important;
+    opacity: .3 !important
+}
+
+svg[id^=mermaid] .grid .tick text {
+    fill: var(--code-comment) !important
+}
+
+svg[id^=mermaid] .today {
+    stroke: var(--accent-color) !important;
+    stroke-width: 2px !important
+}
+
+g.classGroup rect {
+    fill: #282a36 !important;
+    stroke: var(--code-property) !important;
+    stroke-width: 1.5px !important
+}
+
+g.classGroup line {
+    stroke: var(--code-property) !important
+}
+
+.relation {
+    stroke: var(--code-comment) !important;
+    stroke-width: 1.5px !important
+}
+
+.pieCircle {
+    stroke: var(--bg-color) !important;
+    stroke-width: 2px !important;
+    opacity: .9
+}
+
+.pieOuterCircle:nth-of-type(1) {
+    fill: var(--primary-color) !important
+}
+
+.pieOuterCircle:nth-of-type(2) {
+    fill: var(--secondary-color) !important
+}
+
+.pieOuterCircle:nth-of-type(3) {
+    fill: var(--code-function) !important
+}
+
+.pieOuterCircle:nth-of-type(4) {
+    fill: var(--code-meta) !important
+}
+
+.commit {
+    stroke: #fff !important;
+    stroke-width: 1px
+}
+
+.commit0 {
+    fill: var(--primary-color) !important
+}
+
+.commit1 {
+    fill: var(--secondary-color) !important
+}
+
+.commit2 {
+    fill: var(--accent-color) !important
+}
+
+.commit-arrows path {
+    stroke: var(--code-comment) !important;
+    stroke-width: 2px !important
+}
+
+.commit-label-bkg,
+.tag-label-bkg {
+    fill: var(--bg-color) !important;
+    stroke: var(--border-color) !important;
+    opacity: .9 !important
+}
+
+.commit-label,
+.tag-label {
+    fill: var(--code-variable) !important
+}
+
+g>foreignObject>div,
+g>foreignObject>div>p,
+g>foreignObject>div>span {
+    color: var(--code-variable) !important;
+    background-color: transparent !important
+}
+
+.error-icon {
+    fill: var(--primary-color) !important
+}
+
+.error-text {
+    fill: var(--primary-color) !important
 }
 
 .md-fences:not([lang=mermaid])::before {
@@ -1091,6 +1337,11 @@ marker path {
 
 .CodeMirror-wrap .CodeMirror-scroll {
     overflow-x: auto
+}
+
+.CodeMirror div.CodeMirror-cursor {
+    border-left: 1px solid var(--primary-color);
+    z-index: 3
 }
 
 .md-fences {
@@ -1124,7 +1375,7 @@ marker path {
     padding: 20px 12px 12px 20px;
     color: #f8f8f2;
     font-family: CascadiaCode, "Lucida Console", Consolas, Courier, monospace;
-    border-radius: 0 0 8px 8px;
+    border-radius: 8px;
     background-color: #282a36;
     line-height: 1.6rem;
     font-size: .95rem
@@ -1507,7 +1758,6 @@ pre.CodeMirror-line {
     border: 1px solid rgba(255, 255, 255, .05);
     box-shadow: 0 8px 32px rgba(0, 0, 0, .2);
     border-radius: 16px;
-    font-family: "HarmonyOS Sans SC", sans-serif;
     font-size: 15px;
     color: var(--text-color-secondary);
     position: relative;
@@ -1570,6 +1820,24 @@ pre.CodeMirror-line {
     margin-left: 3em;
     font-size: .9em;
     opacity: .8
+}
+
+.md-toc-h4 {
+    margin-left: 4em;
+    font-size: .85em;
+    opacity: .8
+}
+
+.md-toc-h5 {
+    margin-left: 5em;
+    font-size: .85em;
+    opacity: .7
+}
+
+.md-toc-h6 {
+    margin-left: 6em;
+    font-size: .85em;
+    opacity: .6
 }
 
 .md-toc-item:hover {
