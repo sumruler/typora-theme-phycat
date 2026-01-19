@@ -1913,30 +1913,40 @@ div.outline-item-active {
 }
 
 .typora-export #write {
-    margin-left: 350px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-right: 20px;
-    min-height: calc(100vh - 20px);
+    margin: 20px auto;
+    max-width: 950px;
+    width: 90%;
+    min-height: calc(100vh - 40px);
     background-color: #fff;
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, .1);
-    padding: 60px 80px;
-    width: auto;
-    max-width: none
+    padding: 60px 80px
 }
 
-@media screen and (max-width:800px) {
+.typora-export-sidebar+#write {
+    margin-left: 350px;
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: auto;
+    max-width: none;
+    min-height: calc(100vh - 20px)
+}
+
+@media screen and (max-width:1200px) {
     .typora-export-sidebar {
         display: none
     }
 
-    .typora-export #write {
+    .typora-export #write,
+    .typora-export-sidebar+#write {
         margin: 0;
         border-radius: 0;
         width: 100%;
+        max-width: 100%;
         box-shadow: none;
-        padding: 20px
+        padding: 20px;
+        min-height: 100vh
     }
 }
 
