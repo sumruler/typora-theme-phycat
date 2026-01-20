@@ -306,8 +306,9 @@ span.cm-strikethrough { text-decoration: line-through; }
 </style>
 <style type='text/css'  id="style-theme_css">html {
   font-size: 16px;
-  font-family: "HarmonyOS_Sans_SC";
+  font-family: "LXGW WenKai";
 }
+
 
 /* 软件内部Markdown样式 */
 #write {
@@ -315,7 +316,7 @@ span.cm-strikethrough { text-decoration: line-through; }
   margin: 0 auto;
   padding: 15px;
   line-height: 2.25;
-  color: var(--text-color);
+  color: #000;
   letter-spacing: 1.1px;
   word-break: break-word;
   word-wrap: break-word;
@@ -324,6 +325,7 @@ span.cm-strikethrough { text-decoration: line-through; }
   z-index: 0;
 }
 
+/* 新增：使用伪元素实现遮罩背景 */
 #write::before {
   content: "";
   position: absolute;
@@ -333,8 +335,8 @@ span.cm-strikethrough { text-decoration: line-through; }
   bottom: 0;
   pointer-events: none;
   z-index: -1;
-  background-color: var(--texture-mask-color);
-  opacity: var(--texture-opacity);
+  background-color: var(--element-color);
+  opacity: 0.12;
   -webkit-mask-image: var(--bg-style);
   mask-image: var(--bg-style);
   -webkit-mask-size: 20px 20px;
@@ -346,9 +348,9 @@ span.cm-strikethrough { text-decoration: line-through; }
 }
 
 #write p {
-  color: var(--text-color-secondary);
-  margin: 0px 10px;
-  font-family: Optima-Regular, Optima, "SourceHanSerifCN", PingFangSC-light, PingFangTC-light,
+  color: #333;
+  margin: 10px 10px;
+  font-family: Optima-Regular, Optima, "LXGW WenKai", PingFangSC-light, PingFangTC-light,
     "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-size: 1rem;
   word-spacing: 2px;
@@ -364,7 +366,7 @@ h6.md-heading:after {
   width: 2em;
   vertical-align: top;
   margin-left: -2px;
-  background-color: var(--primary-color);
+  background-color: var(--element-color-shallow);
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   -webkit-mask-size: 24px 24px;
@@ -393,239 +395,229 @@ h6.md-heading:after {
   mask-image: var(--h6-icon-shape);
 }
 
-#write h1,
-#write h2,
-#write h3,
-#write h4,
-#write h5,
-#write h6 {
-  color: var(--text-color);
-  transition: all 0.3s ease;
-}
+/* ================= H1 标题样式优化 (方案 1: 经典短线 - 常驻显示 - 修复编辑bug) ================= */
 
-#write h1,
-#write h2,
-#write h3,
-#write h4,
-#write h5,
-#write h6 {
-  color: var(--text-color);
-  transition: all 0.3s ease;
-}
-
-/* --- H1: 居中 + 圆润短线 --- */
 #write h1 {
-  text-align: center;
-  font-size: 1.8rem;
-  margin: 15px auto;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 1em auto 0.8em;
+    line-height: 1.4;
+    
+    /* [关键修复] 使用 fit-content 代替 table */
+    /* table 属性会导致空标题在编辑模式下无法获取光标焦点 */
+    /* fit-content 既能实现宽度自适应，又能保持正常的编辑体验 */
+    width: fit-content; 
+    
+    /* [修复 Bug] 添加最小宽度和最小高度，确保空内容时也有足够大的点击区域 */
+    min-width: 120px;
+    min-height: 1.4em; /* 确保有一行文字的高度 */
+    
+    color: #222;
+    position: relative;
+    padding-bottom: 12px; /* 增加底部空间给线条 */
+    
+    transition: color 0.3s ease, transform 0.3s ease;
+    border-bottom: none; /* 清除默认下划线 */
+}
+
+/* 底部线条 (伪元素) */
+#write h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    
+    /* [核心设计] 初始宽度：40px (常驻精致短线) */
+    width: 40px; 
+    height: 4px;
+    border-radius: 4px;
+    
+    /* [优化] 使用主题定义的 H2 渐变背景 (色彩饱满且对称) */
+    background: var(--head-title-h2-background);
+    background-size: 100% auto; 
+    
+    /* 居中定位 */
+    transform: translateX(-50%);
+    
+    /* 动效过渡 */
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Hover 交互效果 */
+/* 只有当标题没有处于输入焦点时，悬停才上浮 */
+#write h1:not(.md-focus):hover {
+  color: var(--head-title-color);
+  transform: translateY(-2px);
+}
+
+#write h1:hover::after {
+    /* Hover 时展开至 100% */
+    width: 100%; 
+}
+/* H2 */
+#write h2 {
+  color: var(--head-title-h2-color);
+  font-size: 1.4rem;
+  line-height: 1.5;
+  width: fit-content;
+  font-weight: bold;
+  margin: 20px 0;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: var(--head-title-h2-background);
+  background-size: 200% auto;
+  background-position: 0% center;
+  box-shadow: 0 2px 5px rgba(61, 184, 211, 0.15);
+  transition: background-position 0.5s ease-out, transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+#write h2:hover {
+  background-position: 100% center;
+  transform: scale(1.01);
+  box-shadow: 0 8px 20px rgba(61, 184, 211, 0.35);
+}
+
+/* H3 */
+#write h3 {
   position: relative;
   width: fit-content;
-  padding-bottom: 12px;
-  cursor: default;
-  border-bottom: none;
+  margin: 20px 0;
+  text-align: left;
+  font-size: 1.3rem;
+  padding-left: 10px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-
-#write h1::after {
-  content: '';
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  width: 40px;
-  height: 4px;
-  border-radius: 4px;
-  background: var(--h1-underline-color);
-  transform: translateX(-50%);
-  transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 0 0 5px rgba(255, 85, 85, 0.4);
-}
-
-#write h1:hover,
-#write h1:focus,
-#write h1.md-focus {
-  text-shadow: var(--glow-shadow-text);
-}
-
-#write h1:hover::after,
-#write h1:focus::after,
-#write h1.md-focus::after {
-  width: 100%;
-  box-shadow: 0 0 15px var(--h1-underline-color);
-}
-
-#write h2 {
-  font-size: 1.4rem;
-  width: fit-content;
-  margin: 1rem 0;
-  padding: 0px 10px;
-  border-radius: 8px;
-  cursor: default;
-
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  background-color: rgba(255, 255, 255, 0.02);
-  background-image: var(--h2-bg-image);
-  background-repeat: no-repeat;
-
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-left: 1px solid transparent;
-  border-right: 1px solid transparent;
-
-  transition: all 0.5s ease;
-}
-
-#write h2:hover,
-#write h2:focus,
-#write h2.md-focus {
-  color: var(--primary-color);
-  background-image: var(--h2-bg-image-hover);
-  border-bottom-color: var(--h2-border-bottom-hover);
-  text-shadow: var(--glow-shadow-text);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transform: translateY(-1px);
-}
-
 
 #write h3 {
   position: relative;
-  padding-left: 15px;
-  font-size: 1.25rem;
-  margin-top: 1rem 0;
-  transition: padding-left 0.3s ease, color 0.3s ease;
+  width: fit-content;
+  margin: 20px 0;
+  text-align: left;
+  font-size: 1.3rem;
+  padding-left: 10px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 #write h3::before {
   content: '';
   position: absolute;
-  left: 0;
+  left: -6px;
   top: 50%;
   transform: translateY(-50%);
-  width: 4px;
-  height: 16px;
-  background: var(--primary-color);
-  border-radius: 2px;
+  width: 5px;
+  height: 61%;
+  border-radius: 4px;
+  background-color: var(--head-title-color);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  opacity: 0.8;
 }
 
-#write h3:hover,
-#write h3:focus,
-#write h3.md-focus {
-  color: var(--primary-color);
-  padding-left: 20px;
-  text-shadow: var(--glow-shadow-text);
+#write h3 span {
+  border-bottom: 2px hidden var(--head-title-color);
+  transition: color 0.3s ease;
 }
 
-#write h3:hover::before,
-#write h3:focus::before,
-#write h3.md-focus::before {
-  height: 60%;
-  opacity: 1;
-  box-shadow: var(--glow-shadow-box);
+#write h3:hover {
+  padding-left: 18px;
+  color: var(--head-title-color);
+  cursor: pointer;
 }
 
+#write h3:hover::before {
+  height: 66%;
+  background-color: var(--head-title-color);
+  width: 7px;
+}
+
+/* H4~H6 */
+#write h4,
+#write h5,
+#write h6 {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#write h4::before,
+#write h5::before,
+#write h6::before {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* H4 */
 #write h4 {
   margin: 20px 0;
   font-size: 1.15rem;
-  display: flex;
-  align-items: center;
+  text-align: left;
 }
 
 #write h4::before {
   content: "";
-  margin-right: 10px;
+  margin-right: 7px;
   display: inline-block;
-  background-color: var(--primary-color);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  transition: all 0.3s ease;
+  background-color: var(--head-title-color);
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  border: var(--head-title-color) 1px solid;
+  vertical-align: inherit;
 }
 
-#write h4:hover,
-#write h4:focus,
-#write h4.md-focus {
-  color: var(--primary-color);
-  text-shadow: var(--glow-shadow-text);
-  transform: translateX(5px);
+#write h4:hover::before {
+  transform: scale(1.3);
+  box-shadow: 0 0 0 4px var(--element-color-soo-shallow);
 }
 
-#write h4:hover::before,
-#write h4:focus::before,
-#write h4.md-focus::before {
-  transform: scale(1.2);
-  box-shadow: var(--glow-shadow-box);
-}
-
-
+/* H5 */
 #write h5 {
-  margin: 20px 0;
+  margin: 23px 0;
   font-size: 1.1rem;
-  display: flex;
-  align-items: center;
+  text-align: left;
 }
 
 #write h5::before {
   content: "";
-  margin-right: 10px;
+  margin-right: 7px;
   display: inline-block;
-  background-color: transparent;
-  border: 1.5px solid var(--primary-color);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+  background-color: #ffffff;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  border: var(--head-title-color) 2px solid;
+  vertical-align: inherit;
   box-sizing: border-box;
-  transition: all 0.3s ease;
 }
 
-#write h5:hover,
-#write h5:focus,
-#write h5.md-focus {
-  color: var(--primary-color);
-  text-shadow: var(--glow-shadow-text);
-  transform: translateX(5px);
-}
-
-#write h5:hover::before,
-#write h5:focus::before,
-#write h5.md-focus::before {
-  background-color: transparent;
-  border-color: var(--primary-color);
-  box-shadow: var(--glow-shadow-box);
+#write h5:hover::before {
+  background-color: var(--head-title-color);
   transform: scale(1.2);
+  box-shadow: 0 0 0 3px var(--element-color-soo-shallow);
 }
 
-
+/* H6 */
 #write h6 {
-  margin: 20px 0;
+  margin: 23px 0;
   font-size: 1.1rem;
-  color: var(--text-color);
+  text-align: left;
 }
 
 #write h6::before {
   content: "-";
-  color: var(--primary-color);
+  color: var(--head-title-color);
   margin-right: 7px;
   display: inline-block;
+  vertical-align: inherit;
+}
+
+#write h6:hover::before {
+  transform: scaleX(1.8) translateX(1px);
   font-weight: bold;
-  transition: all 0.3s ease;
 }
 
-#write h6:hover,
-#write h6:focus,
-#write h6.md-focus {
-  color: var(--primary-color);
-  text-shadow: var(--glow-shadow-text);
-  transform: translateX(5px);
+#write h4:hover,
+#write h5:hover,
+#write h6:hover {
+  color: var(--element-color-deep);
+  transform: translateX(6px);
 }
-
-#write h6:hover::before,
-#write h6:focus::before,
-#write h6.md-focus::before {
-  text-shadow: var(--glow-shadow-text);
-  transform: scaleX(1.5);
-}
-
 
 #write {
   counter-reset: h1;
@@ -838,7 +830,7 @@ li.outline-h2>div>a.outline-label:before {
 
 /* 列表 */
 ::marker {
-  color: var(--primary-color);
+  color: var(--element-color-deep);
 }
 
 li.md-list-item {
@@ -895,15 +887,61 @@ li.md-list-item {
   height: calc(100% - 50px);
   top: 35px;
   position: absolute;
-  border-left: 0.5px solid var(--primary-color);
-  left: -13.5px;
-}
-
-#write li.task-list-item:before {
-  left: -6.5px;
+  border-left: 0.5px solid var(--element-color);
+  left: -12.5px;
 }
 
 /* 任务列表样式 */
+
+#write .task-list-item input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.3rem;
+  height: 1.3rem;
+  position: absolute;
+  top: 3px;
+  left: -22px;
+  outline: none;
+  cursor: pointer;
+  z-index: 1;
+}
+
+#write .task-list-item input::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -2px;
+  left: 18px;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid var(--element-color-deep, #ffa531);
+  background: #fff;
+  transition: all 0.4s cubic-bezier(0.5, 1.6, 0.4, 0.7);
+  box-sizing: border-box;
+}
+
+#write .task-list-item input::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 40%;
+  left: 138%;
+  width: 0.35rem;
+  height: 0.65rem;
+  border: solid #fff;
+  border-width: 0 2.5px 2.5px 0;
+  transform: translate(-50%, -60%) rotate(45deg) scale(1);
+  transition: all 0.3s cubic-bezier(0.5, 1.6, 0.4, 0.7);
+  opacity: 0;
+}
+
+#write .task-list-item input:checked::before {
+  background: var(--element-color, #ffc000);
+  border-color: var(--element-color, #ffc000);
+  transform: scale(1.05);
+  animation: task-pulse 0.4s forwards;
+}
 
 @keyframes task-pulse {
   0% {
@@ -919,115 +957,63 @@ li.md-list-item {
   }
 }
 
-.task-list-item {
-  position: relative;
-}
-.task-list-item input {
-  width: 1.25rem;
-  height: 1.25rem;
-  display: block;
-  -webkit-appearance: initial;
-  appearance: initial;
-  position: absolute;
-  top: 9px;
-  left: -19px;
-  margin: 0;
-  cursor: pointer;
-  outline: none;
-  z-index: 1;
-}
-
-.task-list-item input::before {
-  content: ' ';
-  display: block;
-  width: 1.2rem;
-  height: 1.2rem;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.4);
-  box-sizing: border-box;
-}
-
-.task-list-item input:checked::before {
-  border: 1px solid var(--primary-color);
-  background: rgba(255, 85, 85, 0.2);
-  box-shadow: 0 0 8px var(--primary-color), inset 0 0 5px rgba(255, 85, 85, 0.5);
-  animation: task-pulse 0.4s forwards;
-}
-.task-list-item input::after {
-  content: ' ';
-  position: absolute;
-  top: 0.325rem;
-  left: 0.28125rem;
-  width: 0.6375rem;
-  height: 0.4rem;
-  border: 2.5px solid #fff;
-  border-top: 0;
-  border-right: 0;
-  transform: rotate(-45deg) scale(0);
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.4);
-}
-
-.task-list-item input:checked::after {
+#write .task-list-item input:checked::after {
   opacity: 1;
-  transform: rotate(-45deg) scale(1);
-  text-shadow: 0 0 5px #fff;
+  transform: translate(-50%, -60%) rotate(45deg) scale(1);
 }
-.task-list-item p {
+
+#write .task-list-item input[type="checkbox"]+p span,
+#write .task-list-item input[type="checkbox"]+span {
   position: relative;
   display: inline;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-  background-image: linear-gradient(#888, #888);
+  transition: color 0.4s ease;
+  background-image: linear-gradient(currentColor, currentColor);
   background-position: 0% 50%;
   background-size: 0% 1.5px;
   background-repeat: no-repeat;
-  transition: background-size 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.4s ease, opacity 0.4s ease;
-  text-decoration: none !important;
+  transition: background-size 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.4s;
 }
 
-.task-list-item input:checked+p {
-  color: #888;
-  opacity: 0.6;
+#write .task-list-item input[type="checkbox"]:checked+p span,
+#write .task-list-item input[type="checkbox"]:checked+span {
+  color: #bbb;
   background-size: 100% 1.5px;
 }
 
-.task-list-item input:checked+p span {
-  color: #888;
-  transition: color 0.4s ease;
+#write li.task-list-item {
+  position: relative;
 }
 
 
 /* 引用 */
+
 #write blockquote {
   position: relative;
   margin: 20px 0;
   padding: 18px 20px 18px 48px;
-  color: var(--text-color-secondary);
-  background-color: rgba(0, 0, 0, 0.2);
-  border: 1px solid color-mix(in srgb, var(--secondary-color), transparent 70%);
+  background-color: var(--element-color-soo-shallow);
+  border: none;
   border-radius: 16px;
-  transition: all 0.3s ease;
+  color: #555;
+  line-height: 1.6;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
 }
 
-/* 图标装饰 */
+/* 图标装饰 (可以把 content 里的 ✨ 换成 💡, 📝, 📌 等) */
 #write blockquote::before {
-  content: "💡";
-  /* 你也可以换成 📌, 📝, ✨ */
+  content: "✨";
   position: absolute;
-  left: 10px;
-  top: 2px;
+  left: 16px;
+  top: 18px;
   font-size: 20px;
-  filter: grayscale(1);
-  opacity: 0.8;
-  transform: rotate(30deg);
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  line-height: 1;
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
 }
 
 #write blockquote p {
-  color: var(--text-color-secondary);
+  color: #555;
   margin-bottom: 0.5em;
 }
 
@@ -1035,28 +1021,13 @@ li.md-list-item {
   margin-bottom: 0;
 }
 
-#write blockquote:hover,
-#write blockquote:focus,
-#write blockquote:active,
-#write blockquote.md-focus {
-  border-color: var(--primary-color);
-  background-color: color-mix(in srgb, var(--hover-background-color), transparent 95%);
-  box-shadow: 0 0 15px color-mix(in srgb, var(--hover-background-color), transparent 90%), inset 0 0 10px color-mix(in srgb, var(--hover-background-color), transparent 95%);
-  transform: scale(1.01);
-}
-
-#write blockquote:hover::before,
-#write blockquote:focus::before,
-#write blockquote.md-focus::before {
-  filter: grayscale(0);
-  opacity: 1;
-  transform: rotate(0deg);
-  text-shadow: 0 0 10px var(--primary-color);
+#write blockquote:hover {
+  transform: scale(1.02);
 }
 
 /* 超链接 */
 #write a {
-  color: var(--primary-color);
+  color: #333;
   text-decoration: none;
   font-weight: 500;
   padding: 2px 4px;
@@ -1067,83 +1038,97 @@ li.md-list-item {
   transition: all 0.2s ease;
 }
 
-/* 图标设置 */
 #write p a:not(.md-toc-inner)::before {
   content: '';
   display: inline-block;
   width: 1em;
   height: 1em;
-  margin-right: 4px;
+  margin-right: 2px;
   vertical-align: -0.15em;
-  background-color: var(--primary-color);
+  background-color: var(--element-color);
   -webkit-mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath d='M477.934459 330.486594A50.844091 50.844091 0 0 1 406.752731 258.796425L512 152.532274a254.220457 254.220457 0 0 1 359.467726 359.467726L762.66137 618.772592a50.844091 50.844091 0 1 1-71.690168-71.690169l106.772591-106.772592a152.532274 152.532274 0 0 0-215.578947-215.578947z m70.164846 361.501489A50.844091 50.844091 0 1 1 619.789474 762.66137l-107.281033 107.281033A254.220457 254.220457 0 0 1 152.532274 512L259.813307 406.752731a50.844091 50.844091 0 1 1 72.19861 69.656405l-107.789474 107.281033a152.532274 152.532274 0 0 0 215.578947 215.578947z m-126.601788-16.77855a50.844091 50.844091 0 1 1-71.690168-71.690169l251.678252-251.678252a50.844091 50.844091 0 0 1 71.690169 71.690169z'/%3E%3C/svg%3E") no-repeat center / contain;
   mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath d='M477.934459 330.486594A50.844091 50.844091 0 0 1 406.752731 258.796425L512 152.532274a254.220457 254.220457 0 0 1 359.467726 359.467726L762.66137 618.772592a50.844091 50.844091 0 1 1-71.690168-71.690169l106.772591-106.772592a152.532274 152.532274 0 0 0-215.578947-215.578947z m70.164846 361.501489A50.844091 50.844091 0 1 1 619.789474 762.66137l-107.281033 107.281033A254.220457 254.220457 0 0 1 152.532274 512L259.813307 406.752731a50.844091 50.844091 0 1 1 72.19861 69.656405l-107.789474 107.281033a152.532274 152.532274 0 0 0 215.578947 215.578947z m-126.601788-16.77855a50.844091 50.844091 0 1 1-71.690168-71.690169l251.678252-251.678252a50.844091 50.844091 0 0 1 71.690169 71.690169z'/%3E%3C/svg%3E") no-repeat center / contain;
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 #write a:not(.md-toc-inner):hover {
-  color: #fff;
-  background: transparent;
-  text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
-  box-shadow: none;
+  color: var(--element-color-deep);
+  background: var(--element-color-soo-shallow);
 }
 
+/* 图标部分：旋转 180 度 */
 #write a:hover:not(.md-toc-inner)::before {
   transform: rotate(180deg);
-  background-color: #fff;
+  background-color: var(--element-color-deep);
 }
 
 #write a:visited {
-  color: var(--primary-color);
-  text-shadow: 0 0 5px rgba(255, 85, 85, 0.6), 0 0 10px rgba(255, 85, 85, 0.3);
-  opacity: 0.9;
-}
-
-#write a:visited:hover {
-  color: #fff;
-  text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
-  opacity: 1;
+  color: var(--element-color-deep);
 }
 
 #write sup a::before {
   content: none;
 }
 
-/* Mark: 高亮文本 */
+/* 高亮 */
+
 #write mark {
-  background-color: transparent;
-  color: var(--secondary-color);
-  font-weight: bold;
-  padding: 0 4px;
+  background-color: var(--element-color-so-shallow);
+  color: inherit;
+  padding: 2px 6px;
+  border-radius: 6px;
   margin: 0 2px;
-  border-radius: 4px;
   position: relative;
-  text-shadow: var(--glow-shadow-box);
   transition: all 0.3s ease;
+  /* 确保跨行时样式连续 */
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
 
 #write mark::before,
 #write mark::after {
-  content: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--element-color-deep);
+  font-weight: bold;
+  font-family: "Courier New", monospace;
+  font-size: 1.1em;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#write mark::before {
+  content: '{';
+  left: -5px;
+}
+
+#write mark::after {
+  content: '}';
+  right: -5px;
 }
 
 #write mark:hover {
+  background-color: var(--element-color);
   color: #fff;
-  background-color: rgba(255, 85, 85, 0.2);
-  text-shadow:
-    0 0 1px #fff,
-    0 0 5px #fff,
-    0 0 15px var(--primary-color),
-    0 0 30px var(--primary-color);
-  box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
-  transform: scale(1.05);
+  border-radius: 4px;
+  padding: 2px 12px;
 }
 
-/* Strong: 粗体 */
+#write mark:hover::before {
+  opacity: 1;
+  left: 3px;
+}
+
+#write mark:hover::after {
+  opacity: 1;
+  right: 3px;
+}
+
+/* 粗体 */
 #write strong {
-  color: var(--primary-color);
+  color: var(--element-color);
   font-weight: bold;
   display: inline-block;
   transition: transform 0.2s cubic-bezier(0.5, 1.5, 0.5, 1);
@@ -1151,74 +1136,132 @@ li.md-list-item {
 
 #write strong:hover {
   transform: translateY(-2px) scale(1.1);
-  text-shadow: 0 0 10px var(--primary-color);
+  text-shadow: 2px 2px 0 color-mix(in srgb, var(--element-color-shallow), transparent 70%);
 }
 
-/* Em: 斜体 */
+/* 1. 常态优化：提升对比度 */
+/* 当粗体出现在高亮块中时，强制使用 Deep 色，防止在浅色高亮背景里看不清 */
+#write mark strong {
+    color: var(--element-color-deep); 
+}
+
+/* 2. Hover 修复：防止文字隐形 */
+/* 当悬停高亮块时，背景变为主色。
+   此时必须显式地将内部的粗体变为白色，
+   否则它会保持原有的主色，导致“主色字撞主色底”看不见。 */
+#write mark:hover strong {
+    color: #fff;
+    /* 可选：去掉粗体原有的阴影，保持干净 */
+    text-shadow: none; 
+    /* 保持加粗状态下的微动效同步 (可选) */
+    transform: translateY(-2px) scale(1.1); 
+}
+
+/* ================= 斜体 (Em) 样式优化 (防抖动终极版) ================= */
+
+/* 1. 基础样式 */
 #write em {
-  font-style: italic;
-  color: var(--secondary-color);
-  padding: 0 2px;
-  transition: all 0.3s ease;
+    font-style: italic;
+    
+    /* 常态颜色 */
+    color: var(--element-color); 
+    
+    text-decoration: none; /* 禁用默认下划线 */
+    padding: 0 2px 2px;    /* 底部留出波浪空间 */
+    position: relative;
+    
+    /* 注意：去掉了 font-weight 的 transition
+       改为监听 color 和 stroke 的变化
+    */
+    transition: color 0.2s ease, -webkit-text-stroke 0.2s ease;
+    z-index: 0;
 }
 
+/* 2. 波浪线 (伪元素 + Mask) */
+#write em::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px; /* 波浪高度 */
+    
+    /* 使用 Mask 制作波浪形状 */
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='black' stroke-width='2' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E");
+    -webkit-mask-repeat: repeat-x;
+    -webkit-mask-size: 12px 4px;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='black' stroke-width='2' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E");
+    mask-repeat: repeat-x;
+    mask-size: 12px 4px;
+    
+    /* 默认浅色背景 */
+    background-color: var(--element-color-shallow); 
+    
+    z-index: -1;
+    transition: background-color 0.3s ease;
+}
+
+/* 3. Hover 交互 (防抖动核心) */
 #write em:hover {
-  color: var(--primary-color);
-  text-decoration: underline wavy var(--primary-color);
-  text-underline-offset: 4px;
-  text-shadow: var(--glow-shadow-box);
+    color: var(--element-color-deep); 
+    
+    /* [关键修复] 
+       不要使用 font-weight: 700 (这会改变布局宽度)
+       改用 text-stroke 模拟加粗效果，不占空间
+    */
+    font-weight: normal; 
+    -webkit-text-stroke: 0.6px var(--element-color-deep);
 }
 
-/* Del: 删除线 */
+/* Hover 时波浪线变色 + 动画 */
+#write em:hover::after {
+    background-color: var(--element-color); 
+    animation: waveFlow 1s linear infinite;
+}
+
+/* 波浪流动动画定义 */
+@keyframes waveFlow {
+    0% { 
+        -webkit-mask-position-x: 0; 
+        mask-position-x: 0; 
+    }
+    100% { 
+        -webkit-mask-position-x: 12px; 
+        mask-position-x: 12px; 
+    }
+}
+
+/* 删除线 */
 #write del {
   text-decoration: line-through;
-  text-decoration-color: var(--primary-color);
-  color: #888;
+  text-decoration-color: var(--element-color);
+  color: #999;
   transition: all 0.3s ease;
 }
 
 #write del:hover {
-  opacity: 1;
-  color: var(--primary-color);
-  text-decoration-color: var(--secondary-color);
+  opacity: 0.6;
+  text-decoration-color: var(--element-color-deep);
   cursor: not-allowed;
 }
 
 /* 分割线 */
 #write hr {
   border: none;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
-  margin: 40px 0;
-  position: relative;
-  overflow: visible;
-  opacity: 0.5;
-  transition: all 0.3s ease;
-}
-
-#write hr::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
-  width: 8px;
-  height: 8px;
-  border: 2px solid var(--primary-color);
-  background: var(--bg-color); 
-  transition: all 0.3s ease;
+  border-top: 3px dashed var(--element-color-shallow);
+  margin: 30px 0;
+  opacity: 0.6;
+  transform: scaleX(0.8);
+  transition: all 0.4s ease;
 }
 
 #write hr:hover {
+  transform: scaleX(1);
+  border-color: var(--element-color);
   opacity: 1;
-  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
 }
-#write hr:hover::after {
-  border-color: var(--primary-color);
-  background-color: var(--primary-color);
-  box-shadow: 0 0 10px var(--primary-color);
-  transform: translate(-50%, -50%) rotate(225deg) scale(1.5);
-}
+
+/* 图片 */
 #write p:has(img) {
   text-align: center;
 }
@@ -1247,6 +1290,7 @@ li.md-list-item {
   z-index: 10;
 }
 
+/* 图片描述 */
 #write figcaption {
   display: block;
   margin-top: 12px;
@@ -1254,7 +1298,6 @@ li.md-list-item {
   color: #888;
   text-align: center;
   line-height: 1.5;
-  font-family: "HarmonyOS_Sans_SC", -apple-system, sans-serif;
   transition: color 0.3s ease;
 }
 
@@ -1263,107 +1306,121 @@ li.md-list-item {
   color: var(--element-color-deep);
 }
 
+/* YMAL */
 pre.md-meta-block {
   padding: 30px 20px 20px;
   margin: 20px 0;
-  font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
+  font-family: var(--monospace);
   font-size: 13px;
-  color: var(--text-color-secondary); 
+  color: #555;
   line-height: 1.6;
-  background-color: color-mix(in srgb, var(--primary-color), transparent 98%);
-  border: 1.5px dashed color-mix(in srgb, var(--primary-color), transparent 60%);
+  background-color: var(--element-color-soo-shallow);
+  border: 1.5px dashed var(--element-color);
   border-radius: 8px;
-  
   position: relative;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s ease;
 }
 
+/* 右上角的 "YAML" 小吊牌标签 */
 pre.md-meta-block::after {
   content: "YAML";
   position: absolute;
   top: 0;
   right: 20px;
-  background-color: var(--primary-color);
+  background-color: var(--element-color);
   color: #fff;
   font-size: 10px;
   font-weight: bold;
   letter-spacing: 1px;
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: 0 0 6px 6px;
-  box-shadow: 0 2px 10px color-mix(in srgb, var(--primary-color), transparent 70%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   pointer-events: none;
-  transition: all 0.3s ease;
 }
 
 pre.md-meta-block:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 92%);
+  background-color: #fff;
   border-style: solid;
-  border-color: var(--primary-color);
-  box-shadow: 0 5px 20px color-mix(in srgb, var(--primary-color), transparent 85%), 
-            inset 0 0 20px color-mix(in srgb, var(--primary-color), transparent 95%);
+  border-color: var(--element-color-deep);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transform: translateY(-2px);
-}
-
-pre.md-meta-block:hover::after {
-  padding-top: 8px; 
-  box-shadow: 0 0 15px var(--primary-color); 
 }
 
 /* 行内代码 */
 #write code:not(.md-fences code) {
-  font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
-  font-size: 0.9em;
-  letter-spacing: 0.5px;
-  color: var(--element-color-linecode);
-  background-color: var(--element-color-linecode-background);
-  padding: 5px 5px;
-  margin: 0 2px;
-  border-radius: 6px;
-  vertical-align: middle;
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
+    font-size: 0.9em; 
+    letter-spacing: 0.5px;
+    color: var(--element-color-linecode);
+    background-color: var(--element-color-linecode-background);
+    padding: 5px 5px; 
+    margin: 0 2px;
+    border-radius: 6px; 
+    vertical-align: middle;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-
 #write code:not(.md-fences code):hover {
-  background-color: var(--element-color);
-  color: #fff;
-  transform: scale(1.05);
-  box-shadow: 0 4px 10px var(--element-color-so-shallow);
-  text-decoration: none;
+    background-color: var(--element-color);
+    color: #fff; 
+    transform: scale(1.05); 
+    box-shadow: 0 4px 10px var(--element-color-so-shallow); 
+    text-decoration: none;
 }
 
-/* 流程图 */
-svg[id^="mermaid"] {
-  font-family: "Cascadia Code", "HarmonyOS Sans SC", sans-serif !important;
-  max-width: 100% !important;
+
+/* =================================================================
+   Mermaid 流程图 - 亮色主题适配版 (Pink & Warm Brown)
+   ================================================================= */
+
+/* 1. 基础容器与字体 */
+.md-diagram {
+  background: transparent !important;
+  margin: 20px 0;
 }
 
+
+/* 2. 节点样式 (矩形、圆形、椭圆) */
 .node rect,
 .node circle,
 .node ellipse,
 .node path {
-  fill: color-mix(in srgb, var(--primary-color), transparent 90%) !important;
+  /* 背景：使用极浅粉色，保持清爽 */
+  fill: var(--element-color-so-shallow) !important; 
+  
+  /* 边框：使用主色粉红 */
   stroke: var(--primary-color) !important;
   stroke-width: 1.5px !important;
+  
+  transition: all 0.3s ease;
 }
 
+/* 3. 判定节点 (菱形/多边形) - 稍微加深一点以示区分 */
 .node polygon {
-  fill: color-mix(in srgb, var(--secondary-color), transparent 85%) !important;
-  stroke: var(--secondary-color) !important;
+  /* 背景：稍微深一点点的粉，或者混合一点主色 */
+  fill: color-mix(in srgb, var(--element-color-shallow), transparent 50%) !important;
+  
+  /* 边框：使用深粉红，强调逻辑判断 */
+  stroke: var(--element-color-deep) !important;
   stroke-width: 1.5px !important;
 }
+
+/* 4. 连接线 (Edges) */
 .edgePath .path,
 .flowchart-link {
-  stroke: #e0e0e0 !important; 
+  /* 线条颜色：使用深玫红，保证在白底上清晰可见，不会像浅粉色那样看不清 */
+  stroke: var(--element-color-deep) !important; 
   stroke-width: 1.5px !important;
-  opacity: 1 !important; 
+  opacity: 0.8 !important; /* 稍微一点点透明度让线条不那么生硬 */
 }
 
+/* 5. 箭头 (Markers) - 必须与线条颜色一致 */
 .marker path,
 marker path {
-  fill: #e0e0e0 !important;
-  stroke: #e0e0e0 !important;
+  fill: var(--element-color-deep) !important;
+  stroke: var(--element-color-deep) !important;
 }
 
+/* 6. 标签与文字 (关键优化) */
 .node .label,
 .edgeLabel,
 .edgeLabel .label,
@@ -1372,51 +1429,71 @@ marker path {
 .edgeLabel p,
 .cluster-label text,
 .labelBkg {
-  background:#2e2e2e!important;
-  color: #ffffff !important;
-  fill: #ffffff !important; 
+  /* 背景：必须是白色！用来遮挡穿过文字的线条 */
+  background-color: #ffffff !important; 
+  
+  /* 文字颜色：使用暖褐色，对比度高且柔和 */
+  color: var(--appui-color-text) !important;
+  fill: var(--appui-color-text) !important; 
+  
   font-weight: 500 !important;
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.8) !important;
+  /* 亮色模式通常不需要文字阴影，或者用极淡的白色光晕增强可读性 */
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff !important; 
 }
 
+/* 线条上的标签背景块 */
 .edgeLabel rect {
-  fill: var(--bg-color) !important;
-  opacity: 1 !important;
+  fill: #ffffff !important; /* 确保遮挡线条 */
+  opacity: 0.9 !important;
 }
 
 .labelBkg {
-  background-color: var(--bg-color) !important;
-  opacity: 1 !important;
+  background-color: #ffffff !important;
+  opacity: 0.9 !important;
   border-radius: 4px;
   padding: 0 4px;
 }
 
+/* 7. 子图/群组 (Cluster) */
 .cluster rect {
-  fill: rgba(255, 255, 255, 0.02) !important;
-  stroke: rgba(255, 255, 255, 0.1) !important;
+  /* 极淡的粉色背景块 */
+  fill: color-mix(in srgb, var(--element-color-soo-shallow), transparent 50%) !important;
+  stroke: var(--element-color-shallow) !important;
+  stroke-dasharray: 4px !important; /* 虚线边框，增加设计感 */
   rx: 8px !important;
   ry: 8px !important;
 }
 
+/* 子图标题 */
+.cluster-label text,
+.cluster span {
+    fill: var(--element-color-deep) !important;
+    color: var(--element-color-deep) !important;
+    background: transparent !important; /* 标题不需要白底 */
+    font-weight: bold !important;
+}
+
 /* 代码块 */
+
 .md-fences:not([lang="mermaid"])::before {
   content: attr(lang);
   font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
   text-align: right;
   padding-right: 15px;
-  color: #6272a4; 
+  color: #7e7e7e;
   display: block;
-  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNDUwcHgiIGhlaWdodD0iMTMwcHgiPgogIDxlbGxpcHNlIGN4PSI2NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgc3Ryb2tlPSJyZ2IoMjIwLDYwLDU0KSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJyZ2IoMjM3LDEwOCw5NikiLz4KICA8ZWxsaXBzZSBjeD0iMjI1IiBjeT0iNjUiIHJ4PSI1MCIgcnk9IjUyIiAgc3Ryb2tlPSJyZ2IoMjE4LDE1MSwzMykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDI0NywxOTMsODEpIi8+CiAgPGVsbGlwc2UgY3g9IjM4NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgIHN0cm9rZT0icmdiKDI3LDE2MSwzNykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDEwMCwyMDAsODYpIi8+Cjwvc3ZnPg==);
-  background-repeat: no-repeat;
-  background-size: 40px;
-  background-position: 12px 11px;
+  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNDUwcHgiIGhlaWdodD0iMTMwcHgiPgogIDxlbGxpcHNlIGN4PSI2NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgc3Ryb2tlPSJyZ2IoMjIwLDYwLDU0KSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJyZ2IoMjM3LDEwOCw5NikiLz4KICA8ZWxsaXBzZSBjeD0iMjI1IiBjeT0iNjUiIHJ4PSI1MCIgcnk9IjUyIiAgc3Ryb2tlPSJyZ2IoMjE4LDE1MSwzMykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDI0NywxOTMsODEpIi8+CiAgPGVsbGlwc2UgY3g9IjM4NSIgY3k9IjY1IiByeD0iNTAiIHJ5PSI1MiIgIHN0cm9rZT0icmdiKDI3LDE2MSwzNykiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiKDEwMCwyMDAsODYpIi8+Cjwvc3ZnPg==);
   height: 32px;
+  /* 建议改为 32px，给大字号留空间 */
   width: 100%;
-  border-radius: 8px 8px 0 0;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-color: #f8f8f8;
+  border-radius: 5px 5px 0 0;
+  background-position: 6px 11px;
+  /* 稍微下移圆点位置使其居中 */
   margin-bottom: 0;
-  background-color: color-mix(in srgb, var(--secondary-color), transparent 95%);
-  border-bottom: 1px solid color-mix(in srgb, var(--secondary-color), transparent 90%);
-  transition: all 0.3s ease;
+  /* 确保底部没有间距干扰 */
 }
 
 .CodeMirror-wrap .CodeMirror-scroll {
@@ -1427,23 +1504,11 @@ marker path {
   position: relative;
   z-index: 1;
   overflow: visible;
-  margin: 20px 0;
-  border-radius: 8px;
-  box-shadow: none; 
-  background-color: #282a36; 
-  border: 1px solid color-mix(in srgb, var(--secondary-color), transparent 80%);
-  transition: border-color 0.3s ease;
 }
 
 .md-fences.md-focus {
   z-index: 100;
-  border-color: var(--primary-color);
-  box-shadow: none; 
-}
-
-.md-fences.md-focus:not([lang="mermaid"])::before {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 95%);
-  border-bottom-color: color-mix(in srgb, var(--primary-color), transparent 80%);
+  /* 当用户点击代码块时，将其置于最顶层 */
 }
 
 .md-fences .cm-s-inner.CodeMirror {
@@ -1452,99 +1517,171 @@ marker path {
 
 .cm-s-inner.CodeMirror {
   padding: 20px 12px 12px 20px;
-  color: #f8f8f2; 
+  color: #4f5467;
   font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
-  border-radius: 0 0 8px 8px;
-  background-color: #282a36; 
+  border-radius: 10px;
+  background-color: #fa0303;
   line-height: 1.6rem;
-  font-size: 0.95rem;
 }
 
 .CodeMirror-gutters {
-  border-right: 1px solid #44475a; 
-  background: #282a36;
+  border-right: 1px solid #9d9d9d52;
+  background: inherit;
   white-space: nowrap;
 }
 
 pre.CodeMirror-line {
   padding: 0px 1.2rem;
 }
+
 .CodeMirror-linenumber {
   padding: 0px 3px 0 5px;
   text-align: right;
-  color: #6272a4; 
+  color: #a3a3a3;
 }
-/* 代码颜色设置 */
-.cm-keyword {color: var(--code-keyword) !important;font-weight: bold !important;}
-.cm-variable {color: var(--code-variable) !important;}
-.cm-tag {color: var(--code-keyword) !important; font-weight: 700 !important;}
-.cm-variable-2 {color: var(--code-function) !important;}
-.cm-variable-3 {color: var(--code-param) !important;}
-.cm-def {color: var(--code-function) !important;}
-.cm-attribute {color: var(--code-function) !important;}
-.cm-comment,.md-comment,.md-meta {color: var(--code-comment) !important;font-style: italic;}
-.cm-string {color: var(--code-string) !important;font-variant-ligatures: common-ligatures !important;}
-.cm-link {color: var(--code-type) !important;text-decoration: underline;}
-.cm-type {color: var(--code-type) !important;font-style: italic;}
-.cm-property {color: var(--code-property) !important;}
-.cm-tag:not(.cm-bracket) {font-weight: 700 !important;}
-.cm-operator {color: var(--code-keyword) !important;}
-.cm-number {color: var(--code-number) !important;}
-.cm-meta {color: var(--code-meta) !important;}
-.cm-builtin {color: var(--code-type) !important;font-style: italic;}
-.CodeMirror-selected, .CodeMirror-selectedtext {background: var(--code-selected-bg) !important;}
+
+.cm-s-inner.CodeMirror {
+  background: #f8f8f8;
+  border-radius: 0 0 5px 5px;
+  padding: 24px 12px 12px 12px;
+  page-break-before: auto;
+  line-height: 1.8rem;
+}
+
+.md-rawblock .md-rawblock-tooltip {
+  inset: auto 0.3rem auto auto;
+  transform: translateY(-120%);
+}
+
+/* 代码块颜色 */
+.cm-keyword {
+  color: #a626a4 !important;
+  font-weight: 700 !important;
+}
+
+.cm-variable {
+  color: #b92121 !important;
+}
+
+.cm-tag {
+  color: var(--color-cm-keyword) !important;
+  font-weight: 700 !important;
+}
+
+.cm-variable-3,
+.cm-variable-2 {
+  color: #7aadad !important;
+  font-weight: 700 !important;
+}
+
+.cm-def {
+  color: #c18401 !important;
+}
+
+.cm-attribute {
+  color: #8f6aa8 !important;
+}
+
+.cm-comment,
+.md-comment,
+.md-meta {
+  color: #9a9a9a !important;
+}
+
+.cm-string {
+  color: #50a14f !important;
+  font-variant-ligatures: common-ligatures !important;
+}
+
+.cm-link {
+  color: #e46918 !important;
+}
+
+.cm-type {
+  color: #626161;
+}
+
+.cm-property {
+  color: #800a84 !important;
+}
+
+.cm-tag:not(.cm-bracket) {
+  font-weight: 700 !important;
+}
+
+.cm-operator {
+  color: #0abe00 !important;
+}
+
+.cm-number {
+  color: #1694b6 !important;
+}
+
+.cm-meta {
+  color: #4078f2 !important;
+  font-weight: 700 !important;
+}
+
+.cm-builtin {
+  color: #fa6060 !important;
+}
+
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom{color: #a626a4 !important;font-weight: bold;}
+
 
 /* KBD键盘 */
-#write kbd {
-  background-color: #333;
-  color: var(--text-color);
-  font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
-  font-size: 0.9em;
-  padding: 4px 8px;
-  border-radius: 6px;
-  border: 1px solid #444;
-  border-top-color: #555; 
-  border-bottom-color: #222;
-  box-shadow: 0 4px 0 #222, 0 5px 5px rgba(0,0,0,0.4);
-  transition: all 0.1s ease;
+kbd {
   display: inline-block;
-  line-height: 1;
+  min-width: 1.6em;
+  text-align: center;
+  padding: 3px 6px;
   margin: 0 4px;
-  vertical-align: middle;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 0.9em;
+  line-height: 1.4;
+  font-weight: 600;
+  border-radius: 4px;
+  background-color: #fff;
+  color: var(--element-color-deep);
+  border: 1px solid var(--element-color);
+  border-bottom-width: 3px;
+  box-shadow: 0 2px 0 var(--element-color-so-shallow);
+  transition: all 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform: translateY(0);
 }
 
-#write kbd:hover {
+kbd:hover {
+  border-bottom-width: 1px;
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #222, 0 3px 3px rgba(0,0,0,0.4);
-  color: var(--primary-color);
-  border-color: var(--primary-color);
+  background-color: var(--element-color-soo-shallow);
+  box-shadow: 0 0 0 transparent;
+  color: var(--element-color-deep);
 }
 
-/* 表格 */
-
+/** 表格内的单元格*/
 #write table {
+  /* 关键：必须 separate 才能实现外框圆角 */
   border-collapse: separate;
   border-spacing: 0;
   width: 100%;
-  margin:0;
-  border: 1px solid var(--border-color);
+  margin: 20px 0;
+  border: 1px solid var(--element-color-shallow);
   border-radius: 8px;
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
   font-size: 14px;
   line-height: 1.6;
 }
 
 #write table th,
 #write table td {
-  padding: 10px 15px;
-  color: var(--text-color);
-  border-right: 1px solid color-mix(in srgb, #fff, transparent 95%);
-  border-bottom: 1px solid color-mix(in srgb, #fff, transparent 95%);
+  padding: 8px 12px;
+  color: #333;
+  border-right: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+
   transition: all 0.2s ease;
 }
+
 
 #write table th:last-child,
 #write table td:last-child {
@@ -1556,190 +1693,281 @@ pre.CodeMirror-line {
 }
 
 #write table th {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 95%);
-  color: var(--primary-color);
+  background-color: var(--element-color-soo-shallow);
+  color: var(--element-color-deep);
   font-weight: bold;
   white-space: nowrap;
-  border-bottom: 1px solid color-mix(in srgb, var(--primary-color), transparent 85%);
 }
 
 #write table tbody tr:hover td {
-  background-color: rgba(255, 255, 255, 0.03);
+  background-color: var(--element-color-soo-shallow);
+  /* 极淡的主题色 */
 }
 
 #write table tbody td:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 85%);
-  color: #fff;
-  box-shadow: inset 0 0 0 1px var(--primary-color);
-  text-shadow: 0 0 8px var(--primary-color);
+  background-color: var(--element-color-soo-shallow);
+  color: var(--element-color-deep);
+  box-shadow: inset 0 0 0 1px var(--element-color-shallow);
   cursor: default;
 }
 
+/* 脚注文字 */
 #write .footnote-word {
   font-weight: normal;
-  color: #888;
+  color: #595959;
 }
 
+/* 脚注上标 */
 #write .footnote-ref {
-  font-weight: bold;
-  color: var(--accent-color);
-  cursor: pointer;
-  margin-left: 2px;
+  font-weight: normal;
+  color: #595959;
 }
 
+/*脚注链接样式*/
 #write .footnote-item em {
   font-size: 14px;
-  color: #888;
-  font-style: italic;
+  color: #595959;
   display: block;
   background: none;
 }
 
-.md-alert {
-  padding: 12px 16px;
-  margin-bottom: 16px;
-  color: var(--text-color);
-  border: 1px solid transparent; 
-  border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.02); 
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.3s ease,
-              border-color 0.3s ease,
-              background-color 0.3s ease;
+#write sup.md-footnote {
+    font-size: 9px;
+    padding: 1px 5px;
+    top: -11px;
+    left: 3px;
+    background-color: rgba(238, 238, 238, .7);
+    color: #555;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
+/* ================= Callout / Admonition 样式优化 (最终版: 果冻水印 - 紧凑版) ================= */
+
+/* 1. 基础容器重置与美化 */
+.md-alert {
+  padding: 5px 10px;
+  margin-bottom: 16px;
+  color: #555;
+  /* 正文颜色 */
+
+  /* 核心样式：去边框、大圆角、裁剪溢出水印 */
+  border: none !important;
+  /* 覆盖默认的左边框 */
+  border-radius: 12px;
+  /* 圆角稍微减小一点以匹配紧凑感 */
+  position: relative;
+  overflow: hidden;
+
+  /* 弹性过渡 */
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+/* 2. Hover 交互：整体上浮 + 投影 */
+.md-alert:hover {
+  transform: scale(1.01) translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  z-index: 1;
+  /* 浮起时置顶 */
+}
+
+/* 3. 标题区域 (胶囊化设计 - 紧凑化) */
 .md-alert-text-container {
   display: inline-flex;
   align-items: center;
-  margin-bottom: 8px;
+
+  /* 半透明白底胶囊 */
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(2px);
+  padding: 2px 10px;
+  /* 减小内边距 */
+  border-radius: 50px;
+
   font-weight: 700;
   font-size: 14px;
+  /* 字体调整为 14px */
+  margin-bottom: 6px;
+  /* 减少与正文距离 */
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
   position: relative;
   z-index: 2;
-  background-color: rgba(255, 255, 255, 0.06); 
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 4px 10px;
-  border-radius: 50px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  /* 确保在水印之上 */
 }
 
-.md-alert-text-container span {
-  background: none;
-  padding: 0;
-  box-shadow: none;
-  color: inherit;
+/* 覆盖原有的伪元素文本生成，保持胶囊内文字对其 */
+.md-alert-text-container::after {
+  margin-right: 0;
 }
 
+/* 4. 水印大图标 (核心创意 - 适配紧凑版) */
+/* 使用伪元素在右下角生成半透明大图标 */
+.md-alert::after {
+  content: "";
+  /* 具体图标在下方各类型中定义 */
+  position: absolute;
+  right: -10px;
+  bottom: -12px;
+  /* 位置微调 */
+
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
+  font-size: 64px;
+  /* 尺寸缩小适配紧凑高度 */
+  line-height: 1;
+
+  opacity: 0.12;
+  /* 低透明度，不干扰阅读 */
+  transform: rotate(-15deg);
+  /* 初始倾斜 */
+  pointer-events: none;
+  /* 鼠标穿透 */
+  z-index: 0;
+
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 悬停时水印动效：扶正并向内移动 */
+.md-alert:hover::after {
+  transform: rotate(0deg) scale(1.1);
+  opacity: 0.2;
+  right: 0px;
+  bottom: -4px;
+}
+
+/* 5. 图标微调 (标题左侧的小图标) */
 .md-alert-text svg {
   fill: currentColor;
   position: relative;
   top: 1px;
+  /* 微调垂直对齐 */
   margin-right: 5px;
   width: 1em;
+  /* 稍微缩小图标 */
   height: 1em;
 }
 
-.md-alert::after {
-  content: "";
-  position: absolute;
-  right: -10px;
-  bottom: -15px;
-  font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
-  font-size: 64px;
-  line-height: 1;
-  opacity: 0.15;
-  transform: rotate(-15deg);
-  pointer-events: none;
-  z-index: 0;
-  filter: grayscale(100%);
-  text-shadow: 0 0 10px currentColor;
-  transition: 
-    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-    opacity 0.4s ease,
-    right 0.4s ease,
-    bottom 0.4s ease,
-    filter 0.4s ease,
-    text-shadow 0.4s ease;
+/* ================= 各类型配色与图标定义 ================= */
+
+/* --- Note (笔记) --- */
+.md-alert.md-alert-note {
+  background-color: rgba(108, 92, 231, 0.1);
+  /* 浅紫色背景 */
 }
 
-.md-alert:hover {
-  transform: scale(1.01) translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+.md-alert-text-note {
+  color: #6c5ce7;
 }
 
-.md-alert:hover::after {
-  transform: rotate(0deg) scale(1.1);
-  opacity: 0.25;
-  right: 5px;
-  bottom: -5px;
-  filter: grayscale(0%);
-  text-shadow: 0 0 25px currentColor;
+.md-alert.md-alert-note:hover {
+  background-color: rgba(108, 92, 231, 0.15);
 }
 
-/* --- Note (笔记 - 紫) --- */
-.md-alert.md-alert-note { border-color: rgba(189, 147, 249, 0.3); background-color: rgba(189, 147, 249, 0.05); }
-.md-alert.md-alert-note:hover { box-shadow: 0 4px 20px rgba(189, 147, 249, 0.15); border-color: var(--secondary-color); }
-.md-alert.md-alert-note .md-alert-text-container { color: var(--secondary-color); }
-.md-alert.md-alert-note::after { content: "📝"; color: var(--secondary-color); }
+.md-alert.md-alert-note::after {
+  content: "📝";
+}
 
-/* --- Tip (提示 - 青) --- */
-.md-alert.md-alert-tip { border-color: rgba(139, 233, 253, 0.3); background-color: rgba(139, 233, 253, 0.05); }
-.md-alert.md-alert-tip:hover { box-shadow: 0 4px 20px rgba(139, 233, 253, 0.15); border-color: var(--accent-color); }
-.md-alert.md-alert-tip .md-alert-text-container { color: var(--accent-color); }
-.md-alert.md-alert-tip::after { content: "💡"; color: var(--accent-color); }
+/* 水印 */
 
-/* --- Warning (警告 - 橙) --- */
-.md-alert.md-alert-warning { border-color: rgba(255, 184, 108, 0.3); background-color: rgba(255, 184, 108, 0.05); }
-.md-alert.md-alert-warning:hover { box-shadow: 0 4px 20px rgba(255, 184, 108, 0.15); border-color: #ffb86c; }
-.md-alert.md-alert-warning .md-alert-text-container { color: #ffb86c; }
-.md-alert.md-alert-warning::after { content: "⚠️"; color: #ffb86c; }
+/* --- Tip (提示) --- */
+.md-alert.md-alert-tip {
+  background-color: rgba(0, 184, 148, 0.1);
+  /* 薄荷绿背景 */
+}
 
-/* --- Important (重要 - 红) --- */
-.md-alert.md-alert-important { border-color: rgba(255, 85, 85, 0.3); background-color: rgba(255, 85, 85, 0.05); }
-.md-alert.md-alert-important:hover { box-shadow: 0 4px 20px rgba(255, 85, 85, 0.15); border-color: var(--primary-color); }
-.md-alert.md-alert-important .md-alert-text-container { color: var(--primary-color); }
-.md-alert.md-alert-important::after { content: "🔥"; color: var(--primary-color); }
+.md-alert-text-tip {
+  color: #00b894;
+}
 
-/* --- Caution (危险 - 警戒红) --- */
-.md-alert.md-alert-caution { border-color: rgba(214, 48, 49, 0.3); background-color: rgba(214, 48, 49, 0.05); }
-.md-alert.md-alert-caution:hover { box-shadow: 0 4px 20px rgba(214, 48, 49, 0.15); border-color: #d63031; }
-.md-alert.md-alert-caution .md-alert-text-container { color: #d63031; }
-.md-alert.md-alert-caution::after { content: "💀"; color: #d63031; }
+.md-alert.md-alert-tip:hover {
+  background-color: rgba(0, 184, 148, 0.15);
+}
+
+.md-alert.md-alert-tip::after {
+  content: "💡";
+}
+
+/* --- Warning (警告) --- */
+.md-alert.md-alert-warning {
+  background-color: rgba(253, 203, 110, 0.15);
+  /* 暖橙色背景 */
+}
+
+.md-alert-text-warning {
+  color: #e17055;
+}
+
+.md-alert.md-alert-warning:hover {
+  background-color: rgba(253, 203, 110, 0.2);
+}
+
+.md-alert.md-alert-warning::after {
+  content: "⚠️";
+}
+
+/* --- Important (重要) --- */
+.md-alert.md-alert-important {
+  background-color: rgba(255, 118, 117, 0.12);
+  /* 珊瑚红背景 */
+}
+
+.md-alert-text-important {
+  color: #ff7675;
+}
+
+.md-alert.md-alert-important:hover {
+  background-color: rgba(255, 118, 117, 0.18);
+}
+
+.md-alert.md-alert-important::after {
+  content: "📌";
+}
+
+/* --- Caution (危险) --- */
+.md-alert.md-alert-caution {
+  background-color: rgba(214, 48, 49, 0.08);
+  /* 警戒红背景 */
+}
+
+.md-alert-text-caution {
+  color: #d63031;
+}
+
+.md-alert.md-alert-caution:hover {
+  background-color: rgba(214, 48, 49, 0.12);
+}
+
+.md-alert.md-alert-caution::after {
+  content: "🔥";
+}
 
 /* Toc目录 */
 .md-toc {
-  margin: 20px 0;
+  margin: 20px;
   padding: 30px;
-  background-color: rgba(255, 255, 255, 0.02);
+  background-color: rgba(255, 255, 255, 0.4);
   background-image:
-    radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--primary-color), transparent 90%), transparent 40%),
-    radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--secondary-color), transparent 90%), transparent 40%);
+    radial-gradient(circle at -22% -42%, var(--element-color-so-shallow), transparent 42%),
+    radial-gradient(circle at 100% 170%, var(--element-color-shallow), transparent 42%);
   background-repeat: no-repeat;
-  
-  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
   border-radius: 16px;
-  
-  font-family: "HarmonyOS Sans SC", sans-serif;
   font-size: 15px;
-  color: var(--text-color-secondary);
-  
+  color: #555;
   position: relative;
   overflow: hidden;
-  
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease;
 }
 
 .md-toc:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-  border-color: color-mix(in srgb, var(--primary-color), transparent 80%);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
 }
 
 .md-toc:before {
@@ -1748,27 +1976,25 @@ pre.CodeMirror-line {
   text-align: center;
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--primary-color);
+  color: var(--element-color-deep);
   margin-bottom: 25px;
   letter-spacing: 2px;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
   padding-bottom: 15px;
-  text-shadow: 0 0 10px color-mix(in srgb, var(--primary-color), transparent 70%);
 }
 
 .md-toc-item {
   display: block;
   line-height: 1.8em;
-  color: var(--text-color-secondary);
+  color: #666;
   text-decoration: none;
-  
+
   padding: 6px 15px;
-  border-radius: 8px;
+  border-radius: 50px;
   margin-bottom: 4px;
-  
+
   position: relative;
-  transition: all 0.2s ease;
-  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .md-toc-item a {
@@ -1776,269 +2002,153 @@ pre.CodeMirror-line {
   color: inherit;
   display: block;
   width: 100%;
-  border-bottom: none;
 }
-.md-toc-h1 { 
-  margin-top: 10px;
+
+.md-toc-h1 {
   font-weight: 600;
+  color: #333;
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.4);
 }
-.md-toc-h2 { 
-  margin-left: 1.5em; 
-  font-size: 0.95em; 
+
+.md-toc-h2 {
+  margin-left: 1em;
+  font-size: 0.95rem;
 }
-.md-toc-h3 { 
+
+.md-toc-h3 {
+  margin-left: 2em;
+  font-size: 0.9rem;
+  color: #777;
+}
+.md-toc-h4 { 
   margin-left: 3em; 
-  font-size: 0.9em; 
+  font-size: 0.85em; 
   opacity: 0.8; 
 }
+.md-toc-h5 { 
+  margin-left: 4em; 
+  font-size: 0.85em; 
+  opacity: 0.7; 
+}
+.md-toc-h6 { 
+  margin-left: 5em; 
+  font-size: 0.85em; 
+  opacity: 0.6; 
+}
 
-/* 条目 Hover 交互 */
+/* 6. 条目 Hover 交互 */
 .md-toc-item:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 90%);
-  color: #fff; 
+  /* 悬停时背景变白 */
+  background-color: rgba(255, 255, 255, 0.95);
+  color: var(--element-color-deep);
+
+  /* 灵动右移 */
   padding-left: 20px;
   font-weight: 500;
-  
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-shadow: 0 0 5px var(--primary-color); 
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-
-.md-tooltip-hide > span {
+/* 隐藏不必要的提示元素 */
+.md-tooltip-hide>span {
   display: none;
 }
+
 /* 程序UI */
+
+/* 侧边栏 */
 
 #typora-sidebar {
   height: 100%;
-  color: var(--text-color-secondary);
-  font-size: 0.92rem;
-  background-color: #191a21; 
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.file-node-content {
-  line-height: 1.8rem;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-/* 选中项的背景 (霓虹渐变) */
-.file-tree-node.active > .file-node-background {
-  background-image: linear-gradient(90deg, color-mix(in srgb, var(--primary-color), transparent 85%), transparent);
-  background-color: transparent;
-  
-  /* 左侧霓虹条 */
-  border-left: 3px solid var(--primary-color);
-  border-color: var(--primary-color);
-  
-  /* 霓虹光晕 */
-  box-shadow: inset 2px 0 10px color-mix(in srgb, var(--primary-color), transparent 80%);
-}
-
-/* 选中项的文字 (高亮) */
-.file-tree-node.active > .file-node-content {
-  color: #fff;
-  font-weight: bold;
-}
-
-/* 悬停项 (未选中) */
-.file-node-content:hover {
-  background-color: rgba(255, 255, 255, 0.03);
-}
-
-/* 侧边栏图标 */
-.file-node-icon {
-  color: var(--secondary-color); /* 默认紫色图标 */
-  padding-right: 0.2rem;
-  opacity: 0.7;
-}
-
-.file-tree-node.active .file-node-icon {
-  color: var(--primary-color); /* 选中变红 */
-  opacity: 1;
-}
-
-/* 3. 顶部标签页 (文件/大纲/搜索) */
-.info-panel-tab-title {
-  font-weight: 600;
-  color: var(--text-color-secondary);
-}
-
-.active-tab-files #info-panel-tab-file .info-panel-tab-border,
-.active-tab-outline #info-panel-tab-outline .info-panel-tab-border,
-.ty-show-search #info-panel-tab-search .info-panel-tab-border {
-  height: 2px;
-  background-color: var(--primary-color);
-  box-shadow: 0 0 8px var(--primary-color); /* 标签下划线发光 */
-}
-
-/* 4. 搜索框 */
-#file-library-search-panel {
-  background-color: #191a21; /* 与侧边栏一致 */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-#file-library-search-input {
-  background-color: rgba(0, 0, 0, 0.2);
   color: var(--text-color);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+  font-size: 0.92rem;
+  background-color: var(--bg-color)
 }
 
-#file-library-search-input:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 5px color-mix(in srgb, var(--primary-color), transparent 80%);
+/* 滑块 */
+
+#outline-content::-webkit-scrollbar {
+  width: 5px;
 }
 
-#outline-content::-webkit-scrollbar,
 #file-library::-webkit-scrollbar {
-  width: 4px; 
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background: color-mix(in srgb, var(--primary-color), transparent 70%);
+  border-radius: 10px;
+  /* background: rgba(179, 179, 179, 0.425); */
+  background: var(--element-color);
 }
 
-::-webkit-scrollbar-thumb:hover,
 ::-webkit-scrollbar-thumb:active {
-  background: var(--primary-color); 
-  box-shadow: 0 0 5px var(--primary-color);
+  background: var(--element-color-shallow);
 }
 
-.nav-group-item.active,
-.dropdown-menu li:hover,
-.menu-item-container:hover,
-.context-menu .menu-item.active, 
-.context-menu .menu-item:hover {
-  background-color: var(--active-file-bg-color) !important;
-  color: var(--active-file-text-color) !important;
-  border-left: 3px solid var(--primary-color);
+::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
 }
 
-.dropdown-menu, 
-.context-menu {
-  background-color: #191a21 !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
-  padding: 5px 0 !important;
+/* 侧边栏 文件 */
+.active-tab-files #info-panel-tab-file .info-panel-tab-border,
+.active-tab-outline #info-panel-tab-outline .info-panel-tab-border,
+.ty-show-search #info-panel-tab-search .info-panel-tab-border {
+  border-radius: 10px;
+  height: 4px;
+  background-color: var(--appui-color);
 }
 
-/* 2. 分割线 */
-.dropdown-menu li,
-.context-menu li {
-  border: none !important;
-  background: transparent !important;
-  padding: 0 !important;
-  margin: 0 !important;
+.file-node-content {
+  line-height: 1.2rem;
 }
 
-/* 针对链接类型的菜单项 (下拉菜单常用) */
-.dropdown-menu li > a {
-  display: block;
-  padding: 6px 20px;
-  color: var(--text-color-secondary) !important;
-  border-left: 3px solid transparent; /* 预留边框位置 */
-  transition: all 0.1s;
+.file-tree-node.active>.file-node-content {
+  color: var(--appui-color);
 }
 
-.dropdown-menu li > a:hover {
-  background-color: var(--active-file-bg-color) !important;
-  color: #fff !important;
-  border-left-color: var(--primary-color); /* 仅此处变色 */
-  text-decoration: none;
+span.file-node-title {
+  color: var(--appui-color-text);
 }
 
-/* 针对 div 类型的菜单项 (右键菜单常用 .menu-item) */
-.context-menu .menu-item {
-  padding: 6px 20px;
-  color: var(--text-color-secondary) !important;
-  border-left: 3px solid transparent; /* 预留 */
-  background: transparent !important; /* 默认透明 */
+.file-node-icon {
+  color: var(--appui-color-icon);
+  padding-right: 0.2rem;
 }
 
-/* 激活/悬停状态 */
-.context-menu .menu-item.active,
-.context-menu .menu-item:hover {
-  background-color: var(--active-file-bg-color) !important;
-  color: #fff !important;
-  border-left-color: var(--primary-color); /* 仅变色，不增加宽度 */
+.file-tree-node.active>.file-node-background {
+  font-weight: bolder;
+  border-left: 4px solid var(--appui-color);
+  border-color: var(--appui-color);
 }
 
-/* [修复] 防止子元素 (如图标) 再次触发样式导致双重边框 */
-.context-menu .menu-item > * {
-  border: none !important;
-  background: transparent !important;
+.info-panel-tab-title {
+  font-weight: bolder;
+  color: var(--appui-color-text);
 }
 
-/* 菜单中的图标 */
-.dropdown-menu li > a > i,
-.context-menu .menu-item > i {
-  width: 1.2em;
-  text-align: center;
-  margin-right: 8px;
-  opacity: 0.7;
+/* 侧边栏 搜索 */
+#file-library-search-panel {
+  background-color: #fff;
 }
 
-.dropdown-menu li > a:hover > i,
-.context-menu .menu-item:hover > i {
-  opacity: 1;
-  color: #fff;
+#file-library-search-input {
+  border-radius: 3px;
+  border-color: var(--appui-color);
 }
 
-
-.export-detail,
-.export-items-list-control {
-  background-color: var(--bg-color) !important;
-  color: var(--text-color) !important;
-  border-color: rgba(255, 255, 255, 0.05) !important;
-}
-
-.export-item.active {
-  background-color: var(--active-file-bg-color) !important;
-  color: var(--active-file-text-color) !important;
-  border-left: 3px solid var(--primary-color) !important;
-  padding-left: 7px !important; 
-}
-
-.export-item:hover:not(.active) {
-  background-color: rgba(255, 255, 255, 0.03) !important;
-}
-
-.typora-sourceview-on #toggle-sourceview-btn {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 85%) !important;
-  color: var(--primary-color) !important;
-  border-left: 3px solid var(--primary-color);
-  padding-left: 10px;
-  margin-left: -2px;
-  transition: all 0.2s ease;
-}
-
-.typora-sourceview-on #toggle-sourceview-btn:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 75%) !important;
-  color: #fff !important;
-  box-shadow: 0 0 10px color-mix(in srgb, var(--primary-color), transparent 80%);
-}
-
-#footer-word-count:hover,
-#spell-check-panel:hover {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  color: #fff !important;
-}
-
-.typora-sourceview-on .CodeMirror-gutters {
-  background-color: var(--bg-color) !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+#file-library-search-input:focus {
+  border-width: 2px;
 }
 
 /* 侧边栏大纲 */
 #outline-content .outline-h2::after,
-#outline-content .outline-h2 > .outline-item::before {
+#outline-content .outline-h2>.outline-item::before {
   content: none !important;
   display: none !important;
   border: none !important;
@@ -2050,11 +2160,6 @@ pre.CodeMirror-line {
   background: transparent !important;
   padding-left: 0 !important;
   margin: 0 !important;
-  flex: 1;
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 #outline-content .outline-item {
@@ -2064,13 +2169,16 @@ pre.CodeMirror-line {
   max-width: 100%;
   padding: 6px 12px;
   margin-bottom: 2px;
-  color: var(--text-color-secondary);
+  color: inherit;
   cursor: pointer;
   text-decoration: none;
-  border-radius: 50px; 
-  border: 1px solid transparent; 
+  border-radius: 50px;
+  border: none;
   outline: none;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease,
+    color 0.2s ease,
+    padding-right 0.2s ease,
+    box-shadow 0.2s ease;
   position: relative;
   line-height: 1.6;
 }
@@ -2082,8 +2190,16 @@ pre.CodeMirror-line {
   justify-content: center;
   margin-right: 4px;
   color: inherit;
-  opacity: 0.6;
 }
+
+#outline-content .outline-label {
+  flex: 1;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
 #outline-content .outline-h1 {
   margin-top: 10px;
@@ -2095,49 +2211,40 @@ pre.CodeMirror-line {
 #outline-content .outline-h4,
 #outline-content .outline-h5,
 #outline-content .outline-h6 {
-  border-left: 1.5px solid rgba(255, 255, 255, 0.05);
+  border-left: 1.5px solid rgba(0, 0, 0, 0.06);
   margin-left: 22px;
   padding-left: 8px;
 }
 
-#outline-content .outline-h1 > .outline-item {
+#outline-content .outline-h1>.outline-item {
   font-size: larger;
   font-weight: 700;
-  color: #fff; 
+  color: var(--element-color-deep);
 }
+
 #outline-content .outline-item:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 90%);
-  color: #fff;
+  background-color: var(--element-color-soo-shallow);
+  color: var(--element-color-deep);
   margin-left: 0 !important;
   margin-right: 0 !important;
-  border-left-color: transparent !important;
-  padding-left: 18px; 
+  border-left: none !important;
+  border-right: none !important;
 }
 
 div.outline-item-active {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 85%) !important;
-  border: 1px solid color-mix(in srgb, var(--primary-color), transparent 70%) !important;
-  color: var(--primary-color) !important;
-  font-weight: bold;
-  box-shadow: 0 0 10px color-mix(in srgb, var(--primary-color), transparent 90%);
+  background-color: var(--element-color) !important;
+  color: #fff !important;
+  font-weight: 600;
+  box-shadow: 0 4px 10px var(--element-color-so-shallow);
   transform: none;
   padding-right: 30px !important;
   padding-left: 12px !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
+  border: none !important;
 }
 
-@keyframes outline-twinkle {
-  from {
-    opacity: 0.5;
-    transform: translateY(-50%) scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(-50%) scale(1.2);
-  }
-}
-
+/* 小星星 */
 #outline-content .outline-item-active::after {
   content: "✦";
   position: absolute;
@@ -2145,74 +2252,75 @@ div.outline-item-active {
   top: 50%;
   transform: translateY(-50%);
   font-size: 10px;
-  color: var(--primary-color); /* 星星跟随主题色 */
+  color: rgba(255, 255, 255, 0.9);
+  /* 半透明白色 */
   display: block !important;
   z-index: 10;
   animation: outline-twinkle 1.5s infinite alternate;
 }
 
-/* 导出HTML样式优化 */
-.typora-export-sidebar {
-  position: fixed;
-  top: 20px;
-  bottom: 20px;
-  left: 20px;
-  width: 320px;
-  margin-top: 0px;
-  display: flex;
-  flex-direction: column;
-  background-color: rgba(30, 30, 40, 0.85);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  border: 1px solid color-mix(in srgb, var(--primary-color), transparent 80%);
-  border-radius: 20px;
-  overflow: hidden;
-  z-index: 100;
-  color: var(--text-color-secondary);
-  font-family: inherit;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+@keyframes outline-twinkle {
+  from {
+    opacity: 0.7;
+    transform: translateY(-50%) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+  }
 }
 
-.typora-export-sidebar:hover {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 20px color-mix(in srgb, var(--primary-color), transparent 80%),
-              0 10px 40px rgba(0, 0, 0, 0.5);
-}
-
-.typora-export-sidebar::before {
+/* 导出HTML侧边栏大纲兼容性样式 */
+.typora-export-content .outline-content::before {
   content: "目录";
-  display: block;
-  position: absolute;
-  top: 25px;
-  left: 24px;
   font-size: 20px;
   font-weight: bold;
-  color: var(--primary-color);
-  z-index: 10;
-  letter-spacing: 2px;
-  text-shadow: 0 0 10px color-mix(in srgb, var(--primary-color), transparent 70%);
-  pointer-events: none;
+  position: absolute;
+  top: 22px;
+  left: 15px;
+  z-index: -1;
 }
 
-
 .typora-export-sidebar .outline-content {
-  flex: 1;
-  height: auto !important; 
+  padding-top: 60px !important;
+  padding-left: 10px !important;
+  height: 100%;
   overflow-y: auto;
-  padding-top: 70px !important; 
-  padding-left: 15px !important;
   padding-bottom: 30px;
   box-sizing: border-box;
 }
 
+.typora-export-sidebar .outline-content::before {
+  content: "目录";
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--element-color-deep);
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  z-index: 10;
+  letter-spacing: 2px;
+}
 
-.typora-export-sidebar .outline-h1 { margin-top: 5px; margin-bottom: 4px; margin-left: 0 !important; }
+.typora-export-sidebar .outline-h1 {
+  margin-top: 10px !important;
+  margin-bottom: 4px !important;
+  margin-left: 0 !important;
+}
+
+.typora-export-sidebar .outline-h1>.outline-item {
+  font-size: 1.1em !important;
+  font-weight: 700 !important;
+  color: var(--element-color-deep) !important;
+}
+
 .typora-export-sidebar .outline-h2,
 .typora-export-sidebar .outline-h3,
 .typora-export-sidebar .outline-h4,
 .typora-export-sidebar .outline-h5,
 .typora-export-sidebar .outline-h6 {
-  border-left: 1.5px solid rgba(255, 255, 255, 0.05) !important; 
+  border-left: 1.5px solid rgba(0, 0, 0, 0.06) !important;
   margin-left: 15px !important;
   padding-left: 8px !important;
   list-style: none !important;
@@ -2235,11 +2343,6 @@ div.outline-item-active {
   overflow: visible !important;
 }
 
-.typora-export-sidebar .outline-h1 > .outline-item {
-  font-size: 1.1em !important;
-  font-weight: 700 !important;
-  color: #fff !important;
-}
 
 .typora-export-sidebar .outline-label {
   padding: 0 !important;
@@ -2258,54 +2361,56 @@ div.outline-item-active {
   text-align: center;
   margin-right: 4px;
   flex-shrink: 0;
-  color: inherit;
-  opacity: 0.6;
 }
 
 .typora-export .outline-expander::before {
   content: "▸" !important;
   font-family: Arial, sans-serif !important;
   font-size: 14px !important;
+  color: #999;
+  top: 0 !important;
   display: inline-block;
+  transition: transform 0.2s;
 }
-.typora-export .outline-item-open > .outline-item > .outline-expander::before,
+
+.typora-export .outline-item-open>.outline-item>.outline-expander::before,
 .typora-export .outline-expander:hover::before {
   content: "▾" !important;
-  color: var(--primary-color) !important;
+  color: var(--element-color-deep);
 }
+
 .typora-export .outline-item-single .outline-expander::before {
   display: none !important;
 }
 
 .typora-export-sidebar .outline-item:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 90%) !important;
-  color: #fff !important;
-  padding-left: 18px !important;
+  background-color: var(--element-color-soo-shallow) !important;
+  color: var(--element-color-deep) !important;
   margin-left: 0 !important;
+  margin-right: 0 !important;
   border: none !important;
 }
 
-.typora-export-sidebar .outline-item-wrapper.outline-item-active > .outline-item {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 40%) !important;
+.typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item {
+  background-color: var(--element-color) !important;
   color: #fff !important;
   font-weight: 600 !important;
-  box-shadow: 0 4px 10px color-mix(in srgb, var(--primary-color), transparent 70%);
-  padding-right: 30px !important;
+  box-shadow: 0 4px 10px var(--element-color-so-shallow);
+  padding-right: 12px !important;
   padding-left: 12px !important;
   margin-left: 0 !important;
   border: none !important;
 }
 
-.typora-export-sidebar .outline-item-wrapper.outline-item-active > .outline-item .outline-label {
+.typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item .outline-label {
   color: #fff !important;
 }
 
-.typora-export-sidebar .outline-item-wrapper.outline-item-active > .outline-item .outline-expander::before {
+.typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item .outline-expander::before {
   color: rgba(255, 255, 255, 0.8) !important;
 }
 
-/* 8. 小星星动画 */
-.typora-export-sidebar .outline-item-wrapper.outline-item-active > .outline-item::after {
+.typora-export-sidebar .outline-item-wrapper.outline-item-active>.outline-item::after {
   content: "✦";
   position: static !important;
   transform: none !important;
@@ -2320,77 +2425,108 @@ div.outline-item-active {
   animation: outline-twinkle 1.5s infinite alternate;
 }
 
-/* 9. 导出页面的主背景修正 */
-.typora-export body {
-  background-color: var(--bg-color); 
-  color: var(--text-color);
+
+@media screen {
+  body.typora-export {
+    background-color: transparent;
+  }
 }
+
+.typora-export-sidebar {
+  position: fixed;
+  margin-top: 0 !important;
+  top: 10px;
+  bottom: 10px;
+  left: 20px;
+  width: 320px;
+  background-color: var(--glass-bg-color);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.13);
+
+  z-index: 100;
+  overflow: hidden;
+  color: #555;
+  font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light,
+    "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.typora-export-sidebar .outline-content {
+  padding-top: 60px !important;
+  padding-left: 15px !important;
+  padding-right: 5px !important;
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+/* ==========================================================================
+   Typora 导出 HTML 布局适配 (智能判断侧边栏)
+   ========================================================================== */
+
+/* 1. 默认状态：假设没有侧边栏 (居中卡片模式) */
+/* 当您导出时不勾选“保留大纲”时，应用此样式 */
 .typora-export #write {
-  box-shadow: none;
-  margin-left: 340px; 
-  width: auto;
-  max-width: 1000px;
-}
-/* 滚动条整体 */
-::-webkit-scrollbar {
-  width: 8px;  /* 纵向滚动条宽度 */
-  height: 8px; /* 横向滚动条高度 */
-}
-
-/* 滚动条轨道 (透明) */
-::-webkit-scrollbar-track {
-  background: transparent;
+    margin: 20px auto;       /* 上下20px，左右自动居中 */
+    max-width: 950px;        /* 限制最大宽度，保证阅读体验 */
+    width: 90%;              /* 在小屏幕上保持间距 */
+    
+    min-height: calc(100vh - 40px);
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+    padding: 60px 80px;
 }
 
-/* 滚动条滑块 */
-::-webkit-scrollbar-thumb {
-  border-radius: 4px; /* 圆角 */
-  /* 默认：30% 不透明度的主题色，不抢眼 */
-  background: color-mix(in srgb, var(--primary-color), transparent 70%);
-}
-
-/* 滑块悬停 */
-::-webkit-scrollbar-thumb:hover {
-  /* 悬停：纯主题色，高亮 */
-  background: var(--primary-color);
-}
-
-/* 滚动条角落 */
-::-webkit-scrollbar-corner {
-  background: transparent;
-}
-
-/* 移动端适配：隐藏侧边栏 (保持原有代码) */
-@media screen and (max-width: 800px) {
-  .typora-export-sidebar {
-    display: none;
-  }
-  .typora-export #write {
-    margin-left: 20px;
+/* 2. 激活状态：当侧边栏存在时 (左侧留空模式) */
+/* 逻辑：如果 #write 元素紧跟在 .typora-export-sidebar 后面，则应用此样式 */
+.typora-export-sidebar + #write {
+    margin-left: 350px;      /* 留出侧边栏宽度 + 间隙 */
     margin-right: 20px;
-  }
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+    width: auto;             /* 覆盖默认的 width */
+    max-width: none;         /* 取消最大宽度限制，填满剩余空间 */
+    
+    min-height: calc(100vh - 20px); 
 }
 
-/* 移动端适配：隐藏侧边栏 */
-@media screen and (max-width: 800px) {
-  .typora-export-sidebar {
-    display: none;
-  }
-  .typora-export #write {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
+/* 3. 移动端适配 (手机屏幕) */
+@media screen and (max-width: 1200px) {
+    /* 隐藏侧边栏 */
+    .typora-export-sidebar {
+        display: none;
+    }
+
+    /* 强制重置正文为全屏模式 */
+    /* 注意：这里要同时覆盖上面两种情况，所以权重需要够高，或者写得具体点 */
+    .typora-export #write,
+    .typora-export-sidebar + #write {
+        margin: 0;
+        border-radius: 0;
+        width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+        padding: 20px;
+        min-height: 100vh;
+    }
 }
+
 /* PDF导出设置 */
 @media print {
   @page {
-    margin: 0;
-    padding: 15mm;
+    margin: 10mm;
     size: A4;
   }
 
   body {
     background-color: transparent !important;
+  }
+
+  body {
     margin: 0 !important;
     width: 100% !important;
   }
@@ -2410,7 +2546,6 @@ div.outline-item-active {
     print-color-adjust: exact !important;
   }
 
-  /* 打印时的背景纹理 - 使用主题色 */
   #write::before {
     display: block !important;
     opacity: 0.1 !important;
@@ -2420,14 +2555,13 @@ div.outline-item-active {
     height: 100% !important;
     -webkit-mask-image: var(--bg-style) !important;
     mask-image: var(--bg-style) !important;
-    background-color: var(--primary-color) !important;
+    background-color: var(--element-color) !important;
     pointer-events: none;
     z-index: -1;
   }
 
   p {
     line-height: 1.5rem;
-    text-shadow:none;
   }
 
   figure,
@@ -2475,29 +2609,7 @@ div.outline-item-active {
 
   .md-toc {
     background-image: none;
-    text-shadow:none;
   }
-  #write strong {
-    text-shadow:none;
-  }
-}
-/* 鼠标光标优化 */
-/* ===================================================
-   13. 全局光标与选中文本 (Cursor & Selection)
-   =================================================== */
-
-/* 选中文本背景 */
-::selection {
-  background: var(--select-text-bg-color); /* 使用变量控制 */
-  color: inherit;
-}
-
-/* 输入光标颜色 (跟随主题色) */
-#write,
-input,
-textarea,
-[contenteditable] {
-  caret-color: var(--primary-color);
 }
 
 /* --- 强制分页符样式 --- */
@@ -2510,262 +2622,7 @@ textarea,
     display: block;
     visibility: hidden;
   }
-}
-
-/* 一体化风格样式优化 */
-.megamenu-content {
-  background: var(--bg-color) !important;
-  color: var(--text-color) !important;
-}
-.megamenu-opened header {
-  background-image: none !important;
-  background-color: transparent !important;
-  border-bottom: none !important;
-}
-
-.megamenu-menu, 
-#megamenu-menu-sidebar {
-  background-color: #191a21 !important; 
-  color: var(--text-color) !important;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.3) !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
-}
-
-.megamenu-menu-header {
-  background-color: transparent !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-  color: var(--text-color) !important;
-}
-
-#megamenu-menu-header-title, #megamenu-back-btn {
-  color: var(--text-color) !important;
-}
-
-#megamenu-menu-list {
-  background-color: transparent !important;
-  padding: 10px 0 !important;
-  margin: 0 !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-#megamenu-menu-list li:hover {
-  background-color: transparent !important;
-  border: none !important;
-  padding-left: 0 !important;
-}
-
-#megamenu-menu-list li a {
-  color: var(--text-color-secondary) !important;
-  background-color: transparent !important;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  margin: 2px 15px !important; 
-  width: auto !important; 
-  height: auto !important;
-  line-height: 2.5em !important; 
-  padding-left: 15px !important; 
-  transition: all 0.2s ease;
-  display: block;
-}
-
-#megamenu-menu-list li a:hover,
-#megamenu-menu-list li a.active {
-  background-color: var(--active-file-bg-color) !important;
-  color: #fff !important;
-  border-left: 3px solid var(--primary-color) !important;
-  padding-left: 12px !important; 
-  box-shadow: inset 0 0 10px color-mix(in srgb, var(--primary-color), transparent 85%);
-}
-
-#megamenu-menu-list li a i {
-  color: var(--secondary-color) !important;
-  width: 20px;
-  text-align: center;
-  margin-right: 8px;
-}
-#megamenu-menu-list li a:hover i,
-#megamenu-menu-list li a.active i {
-  color: #fff !important;
-}
-
-.megamenu-menu-panel {
-  background-color: transparent !important;
-}
-
-.megamenu-menu-panel h1,
-.megamenu-menu-panel h2 {
-  color: var(--primary-color) !important;
-  font-weight: bold !important;
-  border-color: transparent !important;
-}
-
-.long-btn {
-  background-color: rgba(255, 255, 255, 0.02) !important;
-  color: var(--text-color) !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
-  border-radius: 8px !important;
-  transition: all 0.2s ease;
-}
-
-.long-btn:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 90%) !important;
-  color: #fff !important;
-  border-color: var(--primary-color) !important;
-  box-shadow: 0 0 10px color-mix(in srgb, var(--primary-color), transparent 80%);
-}
-
-.long-btn i { color: var(--secondary-color) !important; }
-.long-btn:hover i { color: #fff !important; }
-
-#recent-file-panel {
-  padding: 10px 0;
-  color: var(--text-color) !important;
-}
-
-#recent-file-panel tbody tr:nth-child(2n-1) {
-  background-color: transparent !important;
-}
-
-.recent-file-item {
-  color: var(--text-color-secondary) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.02) !important;
-  transition: all 0.2s ease;
-}
-
-.megamenu-menu-panel table tr {
-  border: none !important;
-}
-
-.megamenu-menu-panel tbody tr:hover,
-.recent-file-item:hover {
-  background-color: color-mix(in srgb, var(--primary-color), transparent 90%) !important;
-  color: #fff !important;
-}
-
-.recent-file-item:hover .recent-file-name {
-  color: var(--primary-color) !important;
-}
-
-#recent-document-table thead tr th {
-  color: var(--secondary-color) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-  font-weight: bold;
-}
-
-#recent-file-panel-search-input {
-  background-color: rgba(0, 0, 0, 0.3) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  color: var(--text-color) !important;
-  box-shadow: none !important;
-}
-
-#recent-file-panel-search-input:focus {
-  border-color: var(--primary-color) !important;
-  box-shadow: 0 0 8px color-mix(in srgb, var(--primary-color), transparent 80%) !important;
-}
-
-#recent-file-panel-action-btn {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  color: var(--text-color) !important;
-}
-
-.theme-preview-div {
-  border: 2px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 8px;
-  transition: all 0.3s;
-}
-
-.theme-preview-div:hover,
-.theme-preview-div.active {
-  border-color: var(--primary-color) !important;
-  box-shadow: 0 0 15px color-mix(in srgb, var(--primary-color), transparent 60%);
-  transform: scale(1.05);
-}
-
-.megamenu-content::-webkit-scrollbar,
-.megamenu-menu::-webkit-scrollbar {
-  width: 6px;
-}
-.megamenu-content::-webkit-scrollbar-thumb,
-.megamenu-menu::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
-}
-
-
-#theme-preview-grid {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
-  gap: 20px !important;
-  max-width: 100% !important;
-  padding-right: 10px;
-}
-
-.theme-preview-div {
-  width: 100% !important; /* 填满网格单元 */
-  margin: 0 !important;   /* 去除默认的百分比边距 */
-  height: 160px !important; /* 稍微调小高度，更精致 */
-  border: 2px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 8px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-sizing: border-box;
-  position: relative;
-  overflow: hidden;
-}
-
-/* 预览图内容适配 */
-.theme-preview-content {
-  width: 100% !important;
-  height: 100% !important;
-  border: none !important;
-  pointer-events: none; /* 防止 iframe 抢夺鼠标事件 */
-}
-
-/* 悬停与激活状态 */
-.theme-preview-div:hover,
-.theme-preview-div.active {
-  border-color: var(--primary-color) !important;
-  /* 霓虹光晕 + 上浮 */
-  box-shadow: 0 5px 20px color-mix(in srgb, var(--primary-color), transparent 70%);
-  transform: translateY(-5px);
-  z-index: 10;
-}
-
-/* 选中标记 (打勾图标) - [修复] */
-.theme-preview-div .fa-check-circle {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  font-size: 24px;
-  color: var(--primary-color) !important;
-  
-  /* [修改] 去除黑色背景和边框圆角，解决椭圆黑斑问题 */
-  background: transparent; 
-  border-radius: 0;
-  box-shadow: none;
-  
-  /* [新增] 使用文字阴影来保证对比度 (黑影衬托) + 霓虹发光 */
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.8), 0 0 10px var(--primary-color);
-  
-  opacity: 1 !important; /* 确保可见 */
-  z-index: 20;
-}
-
-.megamenu-content::-webkit-scrollbar,
-.megamenu-menu::-webkit-scrollbar {
-  width: 6px;
-}
-.megamenu-content::-webkit-scrollbar-thumb,
-.megamenu-menu::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
-}
-
-
-
-@import url();
+}@import url();
 
 :root {
   /* 标题后小图标，借鉴自思源笔记主题——Savor */
@@ -2793,16 +2650,13 @@ textarea,
   --bg-shape-none: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=");
 
   /* 文档背景样式  none 无背景*/
-  --bg-style: radial-gradient(#ffffff 1px, transparent 1px);
-  /* --- 页面纹理 --- */
-  --texture-mask-color: #bd93f9;
-  --texture-opacity: 0.05;
+  --bg-style: var(--bg-shape-cross);
 
   /* 自动编号格式设置 无需自动编号可全部注释掉或部分注释掉*/
-  /*  --autonum-h1: counter(h1) ". ";
+  /* --autonum-h1: counter(h1) ". ";
   --autonum-h2: counter(h1) "." counter(h2) ". ";
   --autonum-h3: counter(h1) "." counter(h2) "." counter(h3) ". ";
- --autonum-h4: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) ". ";
+  --autonum-h4: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) ". ";
   --autonum-h5: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". ";
   --autonum-h6: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) ". "; */
 
@@ -2815,91 +2669,57 @@ textarea,
   --autonum-h6toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) "." counter(h6toc) ". "; */
 
 
+  /* 主题颜色 */
 
-  /* --- 基础背景与文字 --- */
-  --bg-color: #282a36;
-  /* 深邃的蓝紫色背景 */
-  --text-color: #f8f8f2;
-  /* 灰白主文字 */
-  --text-color-secondary: #d0d0d0;
-  /* 段落文字，稍暗 */
+  --head-title-color: #3db8bf;
+  /* 标题主色 */
+  --head-title-h2-color: #fff;
+  --head-title-h2-background: linear-gradient(to right,
+      #80F7C4,#3DB8D3, #80F7C4);
+  /* 二级标题主色，因为二级标题是背景色的，所以单独设置 */
 
-  /* --- 核心品牌色 --- */
-  --primary-color: #ff5555;
-  /* 吸血鬼红 (强调色) */
-  --secondary-color: #bd93f9;
-  /* 神秘紫 (辅助色) */
-  --accent-color: #8be9fd;
-  /* 青色 (链接/高亮) */
-  --border-color: #44475a;
-  /* 暗色边框 */
+  --element-color: #3db8bf;
+  /* 元素主色 */
+  --element-color-deep: #089ba3;
+  /* 元素深色 */
+  --element-color-shallow: #7aeaf0;
+  /* 元素浅色 */
+  --element-color-so-shallow: #7aeaf077;
+  /* 元素很浅色 */
+  --element-color-soo-shallow: #7aeaf018;
+  /* 元素非常浅色 */
 
+  /* 毛玻璃底色 透明度一定要很低 */
+  --glass-bg-color:#8ff9ff14;
+  
 
-  /* --- 光晕特效变量 --- */
-  --glow-color: rgba(255, 85, 85, 0.6);
-  /* 淡淡的光晕颜色 */
-  --glow-shadow-text: 0 0 8px var(--glow-color);
-  /* 文字光晕 */
-  --glow-shadow-box: 0 0 8px var(--glow-color);
-  /* 盒子/圆点光晕 */
-  --hover-background-color: rgb(255, 85, 85);
-  /* Hover时背景 */
-  --select-text-bg-color: rgba(255, 85, 85, 0.3);
-  /* 鼠标选中背景 */
+  --element-color-linecode: #089ba3;
+  /* 行内代码文字色 */
+  --element-color-linecode-background: #7aeaf018;
+  /* 行内代码背景色 */
 
-  /* --- H1 标题 --- */
-  --h1-color: var(--text-color);
-  --h1-underline-color: var(--primary-color);
+  /* 程序本体UI */
+  --appui-color: #3db8bf;
+  /* 程序UI主题色 */
+  --appui-color-icon: #3db8bf;
+  /* 程序UI图标颜色 */
+  --appui-color-text: #333;
+  /* 程序UI文字色 */
+  --primary-color: #3db8bf;
 
-  /* --- H2 标题 (霓虹边框) --- */
-  --h2-bg-image: radial-gradient(ellipse at center bottom, rgba(255, 85, 85, 0.15), transparent 70%);
-
-  /* 其他变量 */
-  --code-block-bg: rgba(0, 0, 0, 0.3);
-  --glass-border-color: rgba(255, 255, 255, 0.05);
-
-  /* 代码高亮颜色 */
-  --code-keyword: #ff79c6;
-  /* 关键字/标签/运算符 (粉) */
-  --code-variable: #f8f8f2;
-  /* 变量 (白) */
-  --code-function: #50fa7b;
-  /* 函数名/属性名 (绿) */
-  --code-param: #f1fa8c;
-  /* 参数 (黄) */
-  --code-string: #f1fa8c;
-  /* 字符串 (黄) */
-  --code-comment: #6272a4;
-  /* 注释 (蓝灰) */
-  --code-type: #8be9fd;
-  /* 类型/链接/内置 (青) */
-  --code-property: #66d9ef;
-  /* 对象属性 (深青) */
-  --code-number: #bd93f9;
-  /* 数字 (紫) */
-  --code-meta: #ffb86c;
-  /* 元数据 (橙) */
-  --code-selected-bg: #44475a;
-  /* 选中文本背景 */
-
-  /* --- UI 控件/原生菜单覆盖--- */
-  --active-file-bg-color: color-mix(in srgb, var(--primary-color), transparent 85%);
-  --active-file-text-color: #ffffff;
-  --item-hover-bg-color: rgba(22, 22, 22, 0.14);
-  --menu-divider-color: rgba(255, 255, 255, 0.05);
-  --window-border: 1px solid var(--primary-color) !important;
-
-  --rawblock-edit-panel-bd: var(--item-hover-bg-color);
-}</style>
+  --rawblock-edit-panel-bd: var(--element-color-soo-shallow);
+}
+</style>
 <style type='text/css'  id="style-lp">ol, ul {padding-left: 40px}</style>
-
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-webfont/1.6.0/style.min.css">
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
 <title>README</title>
 </head>
 <body class='typora-export os-windows typora-export-show-outline typora-export-collapse-outline'><div class='typora-export-content'>
-<div class="typora-export-sidebar"><div class="outline-content"><li class="outline-item-wrapper outline-h1 outline-item-open"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#phycat-theme-for-typora">Phycat theme for Typora</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#主题效果图">主题效果图</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#亮色系主题">亮色系主题</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#暗色系主题">暗色系主题</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#设计语言">设计语言</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#亮色系主题-2">亮色系主题</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#暗色系主题-2">暗色系主题</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#主题特点">主题特点</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#样式预览">样式预览</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#使用方法">使用方法</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#常见问题">常见问题</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#导出网页如何具有侧边栏大纲">导出网页如何具有侧边栏大纲</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#如何开启自动编号">如何开启自动编号</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#如何开启或更换背景图案">如何开启或更换背景图案</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#打赏">打赏</a></div><ul class="outline-children"></ul></li></ul></li></div></div><div id='write'  class=''><h1 id='phycat-theme-for-typora'><span>Phycat theme for Typora</span></h1><blockquote><p><span>好看的样式可以提升写作体验。</span></p></blockquote><p><span>Phycat系列主题受到大量伙伴的喜爱。设计核心要素为清晰、分明、简约、美观、灵动。</span>
-<span>亮色系名为Phycat-color，设计元素为气泡、线条。清晰、灵动、可爱，共带来8款主题配色！</span></p><p><span>暗色系名为Phycat-neon，设计元素为暗夜、线条、光影、毛玻璃、灯带。这些元素碰撞在一起让这款暗色系主题尤为好看！</span></p><figure class='table-figure'><table><thead><tr><th><span>主题系列</span></th><th style='text-align:left;' ><span>主题链接</span></th></tr></thead><tbody><tr><td><span>亮色系主题</span><strong><span>Color</span></strong></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-cherry.html'><span>Cheey（樱桃红）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-caramel.html'><span>Caramel（焦糖橙）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-forest.html'><span>Forest（森绿）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-mint.html'><span>Mint（薄荷青）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sky.html'><span>Sky（天蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-prussian.html'><span>Prussian（普鲁士蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sakura.html'><span>Sakura（樱花粉）</span></a><a href='https://sumruler.github.io/typora-theme-phycat/demo-mauve.html'><span>Mauve（淡紫）</span></a></td></tr><tr><td><span>暗色系主题</span><strong><span>Neon</span></strong></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-vampire.html'><span>Vampire(吸血鬼)</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-radiation.html'><span>Radiation（辐射）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-abyss.html'><span>Abyss（深渊）</span></a></td></tr></tbody></table></figure><p><span>隆重介绍物理猫Phycat主题色工坊，点击&gt;&gt;</span><a href='https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio.html'><span>Phycat Theme Studio</span></a><span>&lt;&lt;一键生成你的专属主题配色！</span></p><h2 id='主题效果图'><span>主题效果图</span></h2><h3 id='亮色系主题'><span>亮色系主题</span></h3><p><img src="assets/image-20251224115955956.png" alt="image-20251224115955956"></p><p><img src="assets/image-20251224120012815.png" alt="image-20251224120012815"></p><p><img src="assets/image-20251224120026467.png" alt="image-20251224120026467"></p><p><img src="assets/image-20251224120056979.png" alt="image-20251224120056979"></p><p><img src="assets/image-20251224120115544.png" alt="image-20251224120115544"></p><p><img src="assets/image-20251224120135916.png" alt="image-20251224120135916"></p><h3 id='暗色系主题'><span>暗色系主题</span></h3><p><img src="assets/image-20260105105845959.png" alt="image-20260105105845959"></p><p><img src="assets/image-20260105105937124.png" alt="image-20260105105937124"></p><p><img src="assets/image-20260105105958775.png" alt="image-20260105105958775"></p><h2 id='设计语言'><span>设计语言</span></h2><h3 id='亮色系主题-2'><span>亮色系主题</span></h3><ul><li><p><strong><span>清晰</span></strong><span>、</span><strong><span>分明</span></strong><span>、</span><strong><span>简洁</span></strong><span>、</span><strong><span>圆润</span></strong><span>、</span><strong><span>灵动</span></strong><span>、</span><strong><span>时尚</span></strong></p></li><li><p><span>字体</span></p><ul><li><p><span>标题：</span><em><span>HarmonyOS_Sans_SC</span></em></p></li><li><p><span>段落正文：</span><em><span>SourceHanSerifCN</span></em></p></li></ul></li><li><p><span>卡片风格：</span><em><span>气泡</span></em><span>、</span><em><span>毛玻璃</span></em></p></li></ul><h3 id='暗色系主题-2'><span>暗色系主题</span></h3><ul><li><p><strong><span>清晰</span></strong><span>、</span><strong><span>分明</span></strong><span>、</span><strong><span>简洁</span></strong><span>、</span><strong><span>暗夜</span></strong><span>、</span><strong><span>线条</span></strong><span>、</span><strong><span>光影</span></strong><span>、</span><strong><span>毛玻璃</span></strong><span>、</span><strong><span>灯带</span></strong></p></li><li><p><span>字体</span></p><ul><li><p><span>标题：</span><em><span>HarmonyOS_Sans_SC</span></em></p></li><li><p><span>段落正文：</span><em><span>SourceHanSerifCN</span></em></p></li></ul></li><li><p><span>卡片风格：</span><em><span>光影</span></em><span>、</span><em><span>毛玻璃</span></em><span>、</span><em><span>灯带</span></em></p></li></ul><h2 id='主题特点'><span>主题特点</span></h2><ol start='' ><li><p><strong><span>美观</span></strong><span>：</span><em><span>好看的样式可以提升写作体验</span></em><span> ✍️。</span></p></li><li><p><strong><span>分明</span></strong><span>：标题、列表、大纲都进行了精心设计，标题一眼就能看出是几级标题，列表、大纲目录层级非常</span><strong><span>分明易读</span></strong><span> 。</span></p></li><li><p><strong><span>灵动</span></strong><span>：精心设计了大量动画效果——</span><strong><span>Hover动画</span></strong><span> ✨、</span><strong><span>任务列表</span></strong><span>完成动画等等 ✅。在给你一些小惊喜的同时不影响布局，只增强阅读与编辑体验 ⚖️。</span></p></li><li><p><strong><span>细节</span></strong><span>：大纲目录后跳动的星星 🌟、超链接转动的小图标 🔗、代码块右上角的代码语言 💻、为 Yaml、KBD 键盘专门书写的样式 ⌨️、多套背景样式、PDF 导出样式优化等等，处处都有</span><strong><span>小巧思</span></strong><span> 💡。</span></p></li><li><p><strong><span>导出 HTML 深度优化</span></strong><span>：导出的 HTML 完美兼容软件内样式 🌐，大纲目录样式也进行了深度优化设计。样式预览页面都是直接导出的 HTML 页面，相信你看了会喜欢的 ❤️。</span></p></li><li><p><strong><span>配色丰富且易定制</span></strong><span>🎨：</span>
-<span> 配色文件与样式文件分离，复制一份即可轻松修改。</span><strong><span>如果不会搭配，也可以让 AI 生成一套好看的配色</span></strong><span> 🤖。</span></p><p><span>隆重介绍物理猫Phycat主题色工坊，点击&gt;&gt;</span><a href='https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio.html'><span>Phycat Theme Studio</span></a><span>&lt;&lt;一键生成你的专属主题配色！</span></p></li><li><p><strong><span>便捷功能开关</span></strong><span>：在配色 CSS 文件中，可以通过简单调整快速启用或改变</span><strong><span>背景样式</span></strong><span>、</span><strong><span>自动编号</span></strong><span>等功能 ⚙️。</span></p></li></ol><h2 id='样式预览'><span>样式预览</span></h2><p><span>点击链接预览即可，都是直接通过Typora导出的HTML文件</span></p><figure class='table-figure'><table><thead><tr><th><span>主题系列</span></th><th style='text-align:left;' ><span>主题链接</span></th></tr></thead><tbody><tr><td><span>亮色系主题</span><strong><span>Color</span></strong></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-cherry.html'><span>Cheey（樱桃红）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-caramel.html'><span>Caramel（焦糖橙）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-forest.html'><span>Forest（森绿）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-mint.html'><span>Mint（薄荷青）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sky.html'><span>Sky（天蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-prussian.html'><span>Prussian（普鲁士蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sakura.html'><span>Sakura（樱花粉）</span></a><a href='https://sumruler.github.io/typora-theme-phycat/demo-mauve.html'><span>Mauve（淡紫）</span></a></td></tr><tr><td><span>暗色系主题</span><strong><span>Neon</span></strong></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-vampire.html'><span>Vampire(吸血鬼)</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-radiation.html'><span>Radiation（辐射）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-abyss.html'><span>Abyss（深渊）</span></a></td></tr></tbody></table></figure><h2 id='使用方法'><span>使用方法</span></h2><ol start='' ><li><p><span>从</span><a href='https://github.com/sumruler/typora-theme-phycat/releases'><span>Releases · sumruler/typora-theme-phycat</span></a><span>下载最新的主题包</span></p></li><li><p><span>将</span><code>phycat</code><span>文件夹与所有CSS文件放进Typora主题目录下</span>
-<span>复制下面内容，WIN+R运行即可快速打开</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 30.8008px; left: 68.1953px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 29px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -29px; width: 29px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 20px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">%appdata%\Typora\themes</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 26px;"></div><div class="CodeMirror-gutters" style="height: 26px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div></div></div></div></pre></li><li><p><span>重启Typora，在主题中启用相应主题即可</span></p></li></ol><h2 id='常见问题'><span>常见问题</span></h2><h3 id='导出网页如何具有侧边栏大纲'><span>导出网页如何具有侧边栏大纲</span></h3><p><span>在偏好设置，找到导出，选择HTML，勾选保留侧边栏大纲</span></p><h3 id='如何开启自动编号'><span>如何开启自动编号</span></h3><p><span>在配色CSS文件中（例如phycat-forest.css)，取消注释对应的自动编号级别即可</span></p><h3 id='如何开启或更换背景图案'><span>如何开启或更换背景图案</span></h3><p><span>在配色CSS文件中（例如phycat-forest.css)，更改</span><code>--bg-style</code><span>变量即可</span></p><h2 id='打赏'><span>打赏</span></h2><p><span>如果你喜欢这套主题，可以选择打赏支持。不胜感激！</span></p><p><img src="assets/image-20251224165551114.png" alt="image-20251224165551114" style="zoom:33%;" /><img src="assets/image-20251224165606988.png" alt="image-20251224165606988" style="zoom:33%;" /></p></div></div>
+<div class="typora-export-sidebar"><div class="outline-content"><li class="outline-item-wrapper outline-h1 outline-item-open"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#phycat-theme-for-typora">Phycat theme for Typora</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#主题效果图">主题效果图</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#亮色系主题">亮色系主题</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#暗色系主题">暗色系主题</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#设计语言">设计语言</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#亮色系主题-2">亮色系主题</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#暗色系主题-2">暗色系主题</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#主题特点">主题特点</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#样式预览">样式预览</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#使用方法">使用方法</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#常见问题">常见问题</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#导出网页如何具有侧边栏大纲">导出网页如何具有侧边栏大纲</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#导出的网页如何包括霞骛文楷字体">导出的网页如何包括霞骛文楷字体</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#如何开启自动编号">如何开启自动编号</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#如何开启或更换背景图案">如何开启或更换背景图案</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#编号出现如图所示错误">编号出现如图所示错误</a></div><ul class="outline-children"></ul></li></ul></li></ul></li></div></div><div id='write'  class=''><h1 id='phycat-theme-for-typora'><span>Phycat theme for Typora</span></h1><blockquote><p><span>好看的样式可以提升写作体验。</span></p></blockquote><p><span>Phycat系列主题受到大量伙伴的喜爱。设计核心要素为清晰、分明、简约、美观、灵动。</span>
+<span>亮色系名为</span><code>Phycat-color</code><span>，设计元素为气泡、线条。清晰、灵动、可爱，共带来8款主题配色！</span></p><p><span>暗色系名为</span><code>Phycat-neon</code><span>，设计元素为暗夜、线条、光影、毛玻璃、灯带。这些元素碰撞在一起让这款暗色系主题尤为好看！</span></p><p><span>如果你喜欢这套主题，可以选择打赏支持。不胜感激！</span></p><p><img src="assets/image-20251224165551114.png" alt="image-20251224165551114" style="zoom:33%;" /><img src="assets/image-20251224165606988.png" alt="image-20251224165606988" style="zoom:33%;" /></p><figure class='table-figure'><table><thead><tr><th><span>主题系列</span></th><th style='text-align:left;' ><span>主题链接</span></th></tr></thead><tbody><tr><td><span>亮色系主题</span><strong><span>Color</span></strong></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-cherry.html'><span>Cheey（樱桃红）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-caramel.html'><span>Caramel（焦糖橙）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-forest.html'><span>Forest（森绿）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-mint.html'><span>Mint（薄荷青）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sky.html'><span>Sky（天蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-prussian.html'><span>Prussian（普鲁士蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sakura.html'><span>Sakura（樱花粉）</span></a><a href='https://sumruler.github.io/typora-theme-phycat/demo-mauve.html'><span>Mauve（淡紫）</span></a></td></tr><tr><td><span>暗色系主题</span><strong><span>Neon</span></strong></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-vampire.html'><span>Vampire(吸血鬼)</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-radiation.html'><span>Radiation（辐射）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-abyss.html'><span>Abyss（深渊）</span></a></td></tr></tbody></table></figure><p><span>隆重介绍物理猫Phycat主题色工坊，点击&gt;&gt;</span><a href='https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio.html'><span>Phycat Theme Studio</span></a><span>&lt;&lt;一键生成你的专属主题配色！</span></p><h2 id='主题效果图'><span>主题效果图</span></h2><h3 id='亮色系主题'><span>亮色系主题</span></h3><p><img src="assets/image-20251224115955956.png" alt="image-20251224115955956"></p><p><img src="assets/image-20251224120012815.png" alt="image-20251224120012815"></p><p><img src="assets/image-20251224120026467.png" alt="image-20251224120026467"></p><p><img src="assets/image-20251224120056979.png" alt="image-20251224120056979"></p><p><img src="assets/image-20251224120115544.png" alt="image-20251224120115544"></p><p><img src="assets/image-20251224120135916.png" alt="image-20251224120135916"></p><h3 id='暗色系主题'><span>暗色系主题</span></h3><p><img src="assets/image-20260105105845959.png" alt="image-20260105105845959"></p><p><img src="assets/image-20260105105937124.png" alt="image-20260105105937124"></p><p><img src="assets/image-20260105105958775.png" alt="image-20260105105958775"></p><h2 id='设计语言'><span>设计语言</span></h2><h3 id='亮色系主题-2'><span>亮色系主题</span></h3><ul><li><p><strong><span>清晰</span></strong><span>、</span><strong><span>分明</span></strong><span>、</span><strong><span>简洁</span></strong><span>、</span><strong><span>圆润</span></strong><span>、</span><strong><span>灵动</span></strong><span>、</span><strong><span>时尚</span></strong></p></li><li><p><span>字体：</span><em><span>霞骛文楷</span></em></p></li><li><p><span>卡片风格：</span><em><span>气泡</span></em><span>、</span><em><span>毛玻璃</span></em></p></li></ul><h3 id='暗色系主题-2'><span>暗色系主题</span></h3><ul><li><p><strong><span>清晰</span></strong><span>、</span><strong><span>分明</span></strong><span>、</span><strong><span>简洁</span></strong><span>、</span><strong><span>暗夜</span></strong><span>、</span><strong><span>线条</span></strong><span>、</span><strong><span>光影</span></strong><span>、</span><strong><span>毛玻璃</span></strong><span>、</span><strong><span>灯带</span></strong></p></li><li><p><span>字体：</span><em><span>霞骛文楷</span></em></p></li><li><p><span>卡片风格：</span><em><span>光影</span></em><span>、</span><em><span>毛玻璃</span></em><span>、</span><em><span>灯带</span></em></p></li></ul><h2 id='主题特点'><span>主题特点</span></h2><ol start='' ><li><p><strong><span>美观</span></strong><span>：</span><em><span>好看的样式可以提升写作体验</span></em><span> ✍️。</span></p></li><li><p><strong><span>分明</span></strong><span>：标题、列表、大纲都进行了精心设计，标题一眼就能看出是几级标题，列表、大纲目录层级非常</span><strong><span>分明易读</span></strong><span> 。</span></p></li><li><p><strong><span>灵动</span></strong><span>：精心设计了大量动画效果——</span><strong><span>Hover动画</span></strong><span>✨、</span><strong><span>任务列表</span></strong><span>完成动画等等 ✅。在给你一些小惊喜的同时不影响布局，只增强阅读与编辑体验 ⚖️。</span></p></li><li><p><strong><span>细节</span></strong><span>：大纲目录后跳动的星星 🌟、超链接转动的小图标 🔗、代码块右上角的代码语言 💻、为 Yaml、KBD 键盘专门书写的样式 ⌨️、多套背景样式、PDF 导出样式优化等等，处处都有</span><strong><span>小巧思</span></strong><span> 💡。</span></p></li><li><p><strong><span>导出 HTML 深度优化</span></strong><span>：导出的 HTML 完美兼容软件内样式 🌐，大纲目录样式也进行了深度优化设计。样式预览页面都是直接导出的 HTML 页面，相信你看了会喜欢的 ❤️。</span></p></li><li><p><strong><span>配色丰富且易定制</span></strong><span>🎨：</span>
+<span>配色文件与样式文件分离，复制一份即可轻松修改。</span><strong><span>如果不会搭配，也可以让 AI 生成一套好看的配色</span></strong><span> 🤖。</span></p><p><span>隆重介绍物理猫Phycat主题色工坊，点击&gt;&gt;</span><a href='https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio.html'><span>Phycat Theme Studio</span></a><span>&lt;&lt;一键生成你的专属主题配色！</span></p></li><li><p><strong><span>便捷功能开关</span></strong><span>：在配色 CSS 文件中，可以通过简单调整快速启用或改变</span><strong><span>背景样式</span></strong><span>、</span><strong><span>自动编号</span></strong><span>等功能 ⚙️。</span></p></li></ol><h2 id='样式预览'><span>样式预览</span></h2><p><span>点击链接预览即可，都是直接通过Typora导出的HTML文件</span></p><figure class='table-figure'><table><thead><tr><th><span>主题系列</span></th><th style='text-align:left;' ><span>主题链接</span></th></tr></thead><tbody><tr><td><span>亮色系主题</span><strong><span>Color</span></strong></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-cherry.html'><span>Cheey（樱桃红）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-caramel.html'><span>Caramel（焦糖橙）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-forest.html'><span>Forest（森绿）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-mint.html'><span>Mint（薄荷青）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sky.html'><span>Sky（天蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-prussian.html'><span>Prussian（普鲁士蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sakura.html'><span>Sakura（樱花粉）</span></a><a href='https://sumruler.github.io/typora-theme-phycat/demo-mauve.html'><span>Mauve（淡紫）</span></a></td></tr><tr><td><span>暗色系主题</span><strong><span>Neon</span></strong></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-vampire.html'><span>Vampire(吸血鬼)</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-radiation.html'><span>Radiation（辐射）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-abyss.html'><span>Abyss（深渊）</span></a></td></tr></tbody></table></figure><h2 id='使用方法'><span>使用方法</span></h2><ol start='' ><li><p><span>从</span><a href='https://github.com/sumruler/typora-theme-phycat/releases'><span>Releases · sumruler/typora-theme-phycat</span></a><span>下载最新的主题包</span></p></li><li><p><span>将</span><code>phycat</code><span>文件夹与所有CSS文件放进Typora主题目录下</span>
+<span>复制下面内容，WIN+R运行即可快速打开</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 36.3984px; left: 60.1953px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 29px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -29px; width: 29px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 20px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">%appdata%\Typora\themes</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 29px;"></div><div class="CodeMirror-gutters" style="height: 29px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div></div></div></div></pre></li><li><p><span>重启Typora，在主题中启用相应主题即可</span></p></li></ol><h2 id='常见问题'><span>常见问题</span></h2><h3 id='导出网页如何具有侧边栏大纲'><span>导出网页如何具有侧边栏大纲</span></h3><p><span>在偏好设置，找到导出，选择HTML，勾选保留侧边栏大纲</span></p><h3 id='导出的网页如何包括霞骛文楷字体'><span>导出的网页如何包括霞骛文楷字体</span></h3><p><span>在偏好设置–&gt;导出–&gt;HTML–&gt;在</span><head/><span>中添加，添加下面的内容：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="html"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="html"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 36.3242px; left: 60.1953px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 29px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>2</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -29px; width: 29px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 20px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">link</span> <span class="cm-attribute">rel</span>=<span class="cm-string">"stylesheet"</span> <span class="cm-attribute">href</span>=<span class="cm-string">"https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-webfont/1.6.0/style.min.css"</span> <span class="cm-tag cm-bracket">/&gt;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 20px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">link</span> <span class="cm-attribute">rel</span>=<span class="cm-string">"stylesheet"</span> <span class="cm-attribute">href</span>=<span class="cm-string">"https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css"</span> <span class="cm-tag cm-bracket">/&gt;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 115px;"></div><div class="CodeMirror-gutters" style="height: 115px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div></div></div></div></pre><h3 id='如何开启自动编号'><span>如何开启自动编号</span></h3><p><span>在配色CSS文件中（例如phycat-forest.css)，取消注释对应的自动编号级别即可</span></p><h3 id='如何开启或更换背景图案'><span>如何开启或更换背景图案</span></h3><p><span>在配色CSS文件中（例如phycat-forest.css)，更改</span><code>--bg-style</code><span>变量即可</span></p><h3 id='编号出现如图所示错误'><span>编号出现如图所示错误</span></h3><p><img src="assets/image-20260120094206353.png" alt="image-20260120094206353" style="width:400px" /></p><p><strong><span>可能是安装了编号插件导致的，禁用插件即可。</span></strong></p><p>&nbsp;</p></div></div>
 
 <script>(function(){function e(e,n,i){document.addEventListener(e,function(e){if(!e.defaultPrevented)for(var t=e.target;t&&t!=this;t=t.parentNode)if(t.matches(n)){!1===i.call(t,e)&&(e.preventDefault(),e.stopPropagation());break}},!1)}var t=document.body.parentElement,i=[],r=null,o=document.body.classList.contains("typora-export-collapse-outline");function a(){return t.scrollTop}e("click",".outline-expander",function(e){var t=this.closest(".outline-item-wrapper").classList;return t.contains("outline-item-open")?t.remove("outline-item-open"):t.add("outline-item-open"),u(),!1}),e("click",".outline-item",function(e){var t=this.querySelector(".outline-label");location.hash="#"+t.getAttribute("href"),o&&((t=this.closest(".outline-item-wrapper").classList).contains("outline-item-open")||t.add("outline-item-open"),d(),t.add("outline-item-active"))});function s(){var e=a();r=null;for(var t=0;t<i.length&&i[t][1]-e<60;t++)r=i[t]}function n(){c=setTimeout(function(){var n;i=[],n=a(),document.querySelector("#write").querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(e=>{var t=e.getAttribute("id");i.push([t,n+e.getBoundingClientRect().y])}),s(),u()},300)}var l,c,d=function(){document.querySelectorAll(".outline-item-active").forEach(e=>e.classList.remove("outline-item-active")),document.querySelectorAll(".outline-item-single.outline-item-open").forEach(e=>e.classList.remove("outline-item-open"))},u=function(){if(r&&(d(),t=document.querySelector('.outline-label[href="#'+(CSS.escape?CSS.escape(r[0]):r[0])+'"]')))if(o){var e=t.closest(".outline-item-open>ul>.outline-item-wrapper");if(e)e.classList.add("outline-item-active");else{for(var t,n=(t=t.closest(".outline-item-wrapper")).parentElement.closest(".outline-item-wrapper");n;)n=(t=n).parentElement.closest(".outline-item-wrapper");t.classList.add("outline-item-active")}}else t.closest(".outline-item-wrapper").classList.add("outline-item-active")};window.addEventListener("scroll",function(e){l&&clearTimeout(l),l=setTimeout(function(){s(),u()},300)});window.addEventListener("resize",function(e){c&&clearTimeout(c),n()}),n()})();</script></body>
 </html>

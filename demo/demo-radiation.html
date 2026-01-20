@@ -310,7 +310,7 @@ span.cm-strikethrough { text-decoration: line-through; }
 </style>
 <style type='text/css'  id="style-theme_css">html {
   font-size: 16px;
-  font-family: "HarmonyOS_Sans_SC";
+  font-family: "LXGW WenKai";
 }
 
 /* 软件内部Markdown样式 */
@@ -352,7 +352,7 @@ span.cm-strikethrough { text-decoration: line-through; }
 #write p {
   color: var(--text-color-secondary);
   margin: 0px 10px;
-  font-family: Optima-Regular, Optima, "SourceHanSerifCN", PingFangSC-light, PingFangTC-light,
+  font-family: Optima-Regular, Optima, "LXGW WenKai", PingFangSC-light, PingFangTC-light,
     "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-size: 1rem;
   word-spacing: 2px;
@@ -417,43 +417,75 @@ h6.md-heading:after {
   transition: all 0.3s ease;
 }
 
-/* --- H1: 居中 + 圆润短线 --- */
+/* --- H1: 暗色主题优化版 --- */
 #write h1 {
   text-align: center;
   font-size: 1.8rem;
-  margin: 15px auto;
+  margin: 15px auto; /* 保持原有的间距 */
   position: relative;
+  
+  /* [核心修复 1] 宽度自适应，解决 table 布局的光标问题 */
   width: fit-content;
-  padding-bottom: 12px;
-  cursor: default;
+  
+  /* [核心修复 2] 强制最小尺寸，解决空内容“隐身”无法点击的问题 */
+  min-width: 120px;
+  min-height: 1.4em;
+  
+  /* 布局调整 */
+  padding-bottom: 12px; /* 给下划线留出空间 */
   border-bottom: none;
+  
+  /* [细节优化] 编辑模式下鼠标应为“输入”状态，原代码 default 会让人误以为不可点 */
+  cursor: text; 
+  
+  /* 动效过渡 */
+  transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
 }
 
+/* 底部线条 (伪元素 - 霓虹风格) */
 #write h1::after {
   content: '';
   position: absolute;
-  bottom: 15px;
+  
+  /* [位置统一] 统一改为 bottom: 0，配合 padding-bottom 使用更稳定 */
+  bottom: 0; 
   left: 50%;
+  
+  /* 初始状态 */
   width: 40px;
   height: 4px;
   border-radius: 4px;
+  
+  /* 颜色变量 (保留暗色主题特色) */
   background: var(--h1-underline-color);
-  transform: translateX(-50%);
-  transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  
+  /* 初始微弱光晕 */
   box-shadow: 0 0 5px rgba(255, 85, 85, 0.4);
+  
+  /* 居中定位 */
+  transform: translateX(-50%);
+  
+  /* 动效 */
+  transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
 }
 
-#write h1:hover,
-#write h1:focus,
-#write h1.md-focus {
+/* --- 交互逻辑 (移植防抖动优化) --- */
+
+/* 1. 悬停状态 (非输入焦点时)：上浮 + 文字发光 */
+#write h1:not(.md-focus):hover {
+  transform: translateY(-2px); /* 添加了上浮效果，与亮色主题保持一致 */
   text-shadow: var(--glow-shadow-text);
 }
 
+/* 2. 悬停 OR 聚焦状态：线条展开 + 强光晕 */
+/* 注意：这里保留了 .md-focus，确保你在打字时，线条也是展开且发光的 */
 #write h1:hover::after,
 #write h1:focus::after,
 #write h1.md-focus::after {
   width: 100%;
-  box-shadow: 0 0 15px var(--h1-underline-color);
+  
+  /* 增强光晕，模拟霓虹灯亮起 */
+  box-shadow: 0 0 15px var(--h1-underline-color); 
 }
 
 #write h2 {
@@ -900,7 +932,7 @@ li.md-list-item {
   top: 35px;
   position: absolute;
   border-left: 0.5px solid var(--primary-color);
-  left: -13.5px;
+  left: -12.5px;
 }
 
 #write li.task-list-item:before {
@@ -1157,20 +1189,77 @@ li.md-list-item {
   transform: translateY(-2px) scale(1.1);
   text-shadow: 0 0 10px var(--primary-color);
 }
-
-/* Em: 斜体 */
+/* 1. 基础样式 */
 #write em {
-  font-style: italic;
-  color: var(--secondary-color);
-  padding: 0 2px;
-  transition: all 0.3s ease;
+    font-style: italic;
+    
+    /* 常态：使用次要色 (偏冷色调，不刺眼) */
+    color: var(--secondary-color);
+    
+    text-decoration: none;
+    padding: 0 2px 2px; /* 底部留出波浪空间 */
+    position: relative;
+    
+    /* 核心过渡：包括 stroke 和 text-shadow */
+    transition: color 0.3s ease, -webkit-text-stroke 0.3s ease, text-shadow 0.3s ease;
+    z-index: 0;
 }
 
+/* 2. 波浪线 (Mask 技术 - 暗色适配) */
+#write em::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    
+    /* SVG 波浪遮罩 */
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='black' stroke-width='2' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E");
+    -webkit-mask-repeat: repeat-x;
+    -webkit-mask-size: 12px 4px;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='black' stroke-width='2' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E");
+    mask-repeat: repeat-x;
+    mask-size: 12px 4px;
+    
+    /* 暗色优化：常态下波浪线要非常淡，避免干扰阅读 */
+    background-color: var(--secondary-color);
+    
+    z-index: -1;
+    transition: background-color 0.3s ease;
+}
+
+/* 3. Hover 交互 (暗色特化 + 防抖动) */
 #write em:hover {
-  color: var(--primary-color);
-  text-decoration: underline wavy var(--primary-color);
-  text-underline-offset: 4px;
-  text-shadow: var(--glow-shadow-box);
+    /* 变更为高亮主色 */
+    color: var(--secondary-color);
+    
+    /* [关键修复] 防抖动：用 stroke 模拟加粗，不占布局空间 */
+    font-weight: normal; 
+    -webkit-text-stroke: 0.6px var(--secondary-color);
+    
+    /* [暗色专属] 添加文字微发光 (Glow)，增加霓虹通透感 */
+    text-shadow: 0 0 5px rgba(78, 201, 176, 0.4);
+}
+
+#write em:hover::after {
+    /* 波浪线变亮 */
+    background-color: var(--secondary-color);
+    
+    /* 启动波浪流动动画 */
+    animation: waveFlow 1s linear infinite;
+}
+
+/* 波浪动画定义 */
+@keyframes waveFlow {
+    0% { 
+        -webkit-mask-position-x: 0; 
+        mask-position-x: 0; 
+    }
+    100% { 
+        -webkit-mask-position-x: 12px; 
+        mask-position-x: 12px; 
+    }
 }
 
 /* Del: 删除线 */
@@ -1258,7 +1347,7 @@ li.md-list-item {
   color: #888;
   text-align: center;
   line-height: 1.5;
-  font-family: "HarmonyOS_Sans_SC", -apple-system, sans-serif;
+  font-family: "LXGW WenKai", -apple-system, sans-serif;
   transition: color 0.3s ease;
 }
 
@@ -1313,93 +1402,411 @@ pre.md-meta-block:hover::after {
   box-shadow: 0 0 15px var(--primary-color); 
 }
 
-/* 行内代码 */
+/* ===================================================
+   行内代码样式: Neon Chip (霓虹晶片)
+   透明微光底 | 主题色文字 | 悬停爆发高亮
+   =================================================== */
+
 #write code:not(.md-fences code) {
   font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
   font-size: 0.9em;
   letter-spacing: 0.5px;
-  color: var(--element-color-linecode);
-  background-color: var(--element-color-linecode-background);
-  padding: 5px 5px;
+  
+  /* 默认状态：10% 透明度的主题色背景 */
+  background-color: color-mix(in srgb, var(--primary-color), transparent 90%);
+  color: var(--primary-color);
+  /* 极淡的边框 */
+  border: 1px solid color-mix(in srgb, var(--primary-color), transparent 85%);
+  
+  padding: 2px 6px;
   margin: 0 2px;
   border-radius: 6px;
   vertical-align: middle;
+  
   transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 #write code:not(.md-fences code):hover {
-  background-color: var(--element-color);
+  /* 悬停状态：实心主题色背景 + 白色文字 */
+  background-color: var(--primary-color);
   color: #fff;
+  border-color: var(--primary-color);
+  
+  /* 爆发光晕 */
+  box-shadow: 0 0 15px color-mix(in srgb, var(--primary-color), transparent 60%);
+  
   transform: scale(1.05);
-  box-shadow: 0 4px 10px var(--element-color-so-shallow);
   text-decoration: none;
 }
+/* ==========================================================================
+   Mermaid Diagrams - Dark Theme "Vampire/Neon" Overrides
+   ========================================================================== */
 
-/* 流程图 */
+
+   
+
+/* -------------------
+   1. 通用基础设置
+   ------------------- */
+/* 画布文字全局颜色 */
 svg[id^="mermaid"] {
-  font-family: "Cascadia Code", "HarmonyOS Sans SC", sans-serif !important;
-  max-width: 100% !important;
+    font-family: "JetBrains Mono", "Fira Code", sans-serif !important;
+    font-size: 14px !important;
 }
 
-.node rect,
-.node circle,
-.node ellipse,
-.node path {
-  fill: color-mix(in srgb, var(--primary-color), transparent 90%) !important;
-  stroke: var(--primary-color) !important;
-  stroke-width: 1.5px !important;
+svg[id^="mermaid"] .label text,
+svg[id^="mermaid"] text,
+svg[id^="mermaid"] span {
+    fill: var(--code-variable) !important; /* 变量白 */
+    color: var(--code-variable) !important;
+    font-weight: 500 !important;
 }
 
-.node polygon {
-  fill: color-mix(in srgb, var(--secondary-color), transparent 85%) !important;
-  stroke: var(--secondary-color) !important;
-  stroke-width: 1.5px !important;
-}
-.edgePath .path,
-.flowchart-link {
-  stroke: #e0e0e0 !important; 
-  stroke-width: 1.5px !important;
-  opacity: 1 !important; 
+
+/* ==========================================================================
+   Mermaid Flowchart - High Contrast Neon Fix (Final Polish)
+   ========================================================================== */
+
+/* 1. 全局文字增强 (Core Text Fix) */
+/* 给所有节点文字加黑色描边，无论背景是什么颜色，文字都能看清 */
+svg[id^="mermaid"] .label text,
+svg[id^="mermaid"] .node .label text,
+svg[id^="mermaid"] .edgeLabel .label span,
+g > foreignObject > div > span > p {
+    fill: #ffffff !important;
+    color: #ffffff !important;
+    text-shadow: 0 0 3px #000000, 1px 1px 1px #000000 !important; /* 关键：黑色光晕护体 */
+    font-weight: 600 !important;
 }
 
-.marker path,
-marker path {
-  fill: #e0e0e0 !important;
-  stroke: #e0e0e0 !important;
+/* 2. 暴力去色：将所有“实心亮色背景”强制改为“深色背景” */
+svg[id^="mermaid"] .node rect,
+svg[id^="mermaid"] .node circle,
+svg[id^="mermaid"] .node ellipse,
+svg[id^="mermaid"] .node polygon,
+svg[id^="mermaid"] .node path {
+    fill: #282a36 !important; /* 统一改为深灰背景 */
+    fill-opacity: 1 !important;
 }
 
-.node .label,
-.edgeLabel,
-.edgeLabel .label,
-.edgeLabel span,
-.edgeLabel div,
-.edgeLabel p,
-.cluster-label text,
-.labelBkg {
-  background:#2e2e2e!important;
-  color: #ffffff !important;
-  fill: #ffffff !important; 
-  font-weight: 500 !important;
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.8) !important;
+/* 3. 重新定义颜色逻辑 (Neon Borders) */
+
+/* [绿色节点] .success / 处理数据 */
+/* 包含 rect, polygon (菱形), path (圆柱) */
+svg[id^="mermaid"] .success rect,
+svg[id^="mermaid"] .success polygon,
+svg[id^="mermaid"] .success path,
+svg[id^="mermaid"] .node[style*="#9f6"] rect, /* 捕捉内联样式 */
+svg[id^="mermaid"] .node[style*="fill: #9f6"] polygon {
+    stroke: var(--code-function) !important; /* 荧光绿 */
+    stroke-width: 2px !important;
+    filter: drop-shadow(0 0 5px var(--code-function)); /* 绿色光晕 */
 }
 
-.edgeLabel rect {
-  fill: var(--bg-color) !important;
-  opacity: 1 !important;
+/* [黄色节点] .warning / 检查数据 / 数据库日志 */
+svg[id^="mermaid"] .warning rect,
+svg[id^="mermaid"] .warning polygon,
+svg[id^="mermaid"] .warning path,
+svg[id^="mermaid"] .node[style*="#ff9"] polygon, /* 捕捉内联样式 */
+svg[id^="mermaid"] .node[style*="fill: #ff9"] path {
+    stroke: var(--code-meta) !important; /* 橙黄色 */
+    stroke-width: 2px !important;
+    stroke-dasharray: 5 5 !important; /* 虚线保持警示感 */
+    filter: drop-shadow(0 0 5px var(--code-meta)); /* 黄色光晕 */
 }
 
-.labelBkg {
-  background-color: var(--bg-color) !important;
-  opacity: 1 !important;
-  border-radius: 4px;
-  padding: 0 4px;
+/* [紫色/粉色节点] 开始/结束 (通常是 base 或 default) */
+svg[id^="mermaid"] .node circle,
+svg[id^="mermaid"] .node ellipse {
+    stroke: var(--secondary-color) !important; /* 紫色 */
+    stroke-width: 2px !important;
+    filter: drop-shadow(0 0 5px var(--secondary-color));
 }
 
-.cluster rect {
-  fill: rgba(255, 255, 255, 0.02) !important;
-  stroke: rgba(255, 255, 255, 0.1) !important;
-  rx: 8px !important;
-  ry: 8px !important;
+/* [红色节点] 输入/输出 (通常是默认 rect 或菱形) */
+svg[id^="mermaid"] .node rect {
+    stroke: var(--primary-color) !important; /* 红色 */
+}
+
+/* 4. 连线与标签优化 */
+svg[id^="mermaid"] .edgePath .path {
+    stroke: var(--code-comment) !important; /* 蓝灰连线，不抢眼 */
+    stroke-width: 1.5px !important;
+    opacity: 0.7;
+}
+
+/* 连线中间的文字背景 (如"通过"/"失败") */
+svg[id^="mermaid"] .edgeLabel rect {
+    fill: #282a36 !important; /* 深色背景 */
+    stroke: var(--border-color) !important; /* 淡淡的边框 */
+    opacity: 1 !important;
+}
+
+/* -------------------
+   3. 时序图 (Sequence Diagram)
+   ------------------- */
+
+/* 参与者 (Actor) - 上下的矩形 */
+.actor {
+    stroke: var(--secondary-color) !important;
+    fill: #282a36 !important;
+    stroke-width: 2px !important;
+}
+
+/* 参与者文字 */
+text.actor > tspan {
+    fill: var(--secondary-color) !important;
+    font-weight: bold !important;
+}
+
+/* 垂直生命线 */
+.actor-line {
+    stroke: var(--border-color) !important; /* 暗色边框色 */
+    stroke-width: 2px !important;
+}
+
+/* 消息连线 */
+.messageLine0,
+.messageLine1 {
+    stroke: var(--accent-color) !important; /* 青色连线 */
+    stroke-width: 1.5px !important;
+}
+
+/* 箭头 */
+#arrowhead path {
+    fill: var(--accent-color) !important;
+    stroke: none !important;
+}
+
+/* 激活块 (Activation Box) - 生命线上的长条 */
+.activation0,
+.activation1,
+.activation2 {
+    fill: rgba(139, 233, 253, 0.2) !important; /* 青色半透明 */
+    stroke: var(--accent-color) !important;
+}
+
+/* 备注 (Note) */
+.note {
+    stroke: var(--code-meta) !important; /* 橙色 */
+    fill: rgba(255, 184, 108, 0.1) !important;
+}
+.noteText > tspan {
+    fill: var(--code-meta) !important;
+}
+
+/* 循环/判断区域 (Loop/Alt Rect) - 关键修改 */
+.loopLine {
+    stroke: var(--code-comment) !important;
+    stroke-dasharray: 4 4;
+}
+/* 区域背景，设为极淡的背景，防止亮瞎眼 */
+rect.rect {
+    fill: rgba(255, 255, 255, 0.03) !important; 
+    stroke: none !important;
+}
+
+/* -------------------
+   4. 状态图 (State Diagram)
+   ------------------- */
+
+/* 状态节点 */
+.state {
+    fill: #282a36 !important;
+    stroke: var(--code-function) !important; /* 绿色 */
+    stroke-width: 1.5px !important;
+}
+
+/* 起始点/结束点 */
+.nodeCircle {
+    fill: var(--primary-color) !important;
+    stroke: none !important;
+}
+
+/* 状态连线 */
+.transition {
+    stroke: var(--code-comment) !important;
+    stroke-width: 1.5px !important;
+}
+
+/* ==========================================================================
+   Mermaid Gantt Chart - Dark Theme "Vampire" Fixes
+   ========================================================================== */
+
+/* 1. 修正文字偏移与对齐 (Fix Alignment) */
+svg[id^="mermaid"] .taskText,
+svg[id^="mermaid"] .taskText0,
+svg[id^="mermaid"] .taskText1,
+svg[id^="mermaid"] .taskText2,
+svg[id^="mermaid"] .taskText3 {
+    text-anchor: middle !important;          /* 水平居中 */
+    dominant-baseline: central !important;   /* 垂直对齐方式设为中心 */
+    transform: translateY(-3.5px) !important;/* 【关键修正】向上回正 3.5px */
+    font-family: "Microsoft YaHei", sans-serif !important; 
+    font-size: 12px !important;              /* 稍微调小字号，让20px高的进度条更透气 */
+    fill: #ffffff !important;                /* 保持高对比度纯白 */
+}
+
+/* 外部文字（如里程碑）不需要上移，或者移得少一点 */
+svg[id^="mermaid"] .taskTextOutsideLeft,
+svg[id^="mermaid"] .taskTextOutsideRight {
+    fill: var(--code-variable) !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+    /* 外部文字通常不需要 transform，或者根据实际情况微调 */
+}
+
+/* 2. 优化任务条配色 (Task Bars High Contrast) */
+
+/* [已完成] 任务 - 使用深灰/暗色边框，避免太亮 */
+svg[id^="mermaid"] .done0, 
+svg[id^="mermaid"] .done1, 
+svg[id^="mermaid"] .done2, 
+svg[id^="mermaid"] .done3 {
+    fill: #2e2e2e !important;       /* 深灰色背景 */
+    stroke: var(--border-color) !important; /* 蓝灰边框 */
+    stroke-width: 1.5px !important;
+}
+
+/* [进行中] 任务 - 使用主品牌色 (吸血鬼红) */
+svg[id^="mermaid"] .active0, 
+svg[id^="mermaid"] .active1, 
+svg[id^="mermaid"] .active2, 
+svg[id^="mermaid"] .active3 {
+    fill: var(--primary-color) !important; /* 红色 */
+    stroke: var(--primary-color) !important;
+    filter: drop-shadow(0 0 3px var(--glow-color)); /* 添加光晕 */
+}
+
+/* [关键] 任务 - 使用强调色 (橙/紫) */
+svg[id^="mermaid"] .crit0, 
+svg[id^="mermaid"] .crit1, 
+svg[id^="mermaid"] .crit2, 
+svg[id^="mermaid"] .crit3 {
+    fill: var(--code-meta) !important; /* 橙色 */
+    stroke: var(--code-meta) !important;
+}
+
+/* 3. 背景网格与区域 (Grid & Sections) */
+
+/* 减弱斑马纹背景，防止暗色下显得太脏 */
+svg[id^="mermaid"] .section0,
+svg[id^="mermaid"] .section2 {
+    fill: rgba(255, 255, 255, 0.02) !important;
+    opacity: 1 !important;
+}
+svg[id^="mermaid"] .section1,
+svg[id^="mermaid"] .section3 {
+    fill: rgba(255, 255, 255, 0.05) !important;
+    opacity: 1 !important;
+}
+
+/* 侧边栏标题 (Section Titles) */
+svg[id^="mermaid"] .sectionTitle,
+svg[id^="mermaid"] .sectionTitle0,
+svg[id^="mermaid"] .sectionTitle1,
+svg[id^="mermaid"] .sectionTitle2 {
+    fill: var(--secondary-color) !important; /* 紫色 */
+    font-weight: bold !important;
+}
+
+/* 网格线与刻度 */
+svg[id^="mermaid"] .grid .tick line {
+    stroke: var(--border-color) !important;
+    opacity: 0.3 !important;
+}
+svg[id^="mermaid"] .grid .tick text {
+    fill: var(--code-comment) !important; /* 蓝灰 */
+}
+
+/* “今天”指示线 */
+svg[id^="mermaid"] .today {
+    stroke: var(--accent-color) !important; /* 青色 */
+    stroke-width: 2px !important;
+}
+
+/* -------------------
+   6. 类图 (Class Diagram)
+   ------------------- */
+
+/* 类盒子 */
+g.classGroup rect {
+    fill: #282a36 !important;
+    stroke: var(--code-property) !important; /* 深青色 */
+    stroke-width: 1.5px !important;
+}
+
+/* 线条 */
+g.classGroup line {
+    stroke: var(--code-property) !important;
+}
+
+/* 关系线 */
+.relation {
+    stroke: var(--code-comment) !important;
+    stroke-width: 1.5px !important;
+}
+
+/* -------------------
+   7. 饼图 (Pie Chart)
+   ------------------- */
+.pieCircle {
+    stroke: var(--bg-color) !important;
+    stroke-width: 2px !important;
+    opacity: 0.9;
+}
+/* 强行修改饼图切片颜色循环 */
+.pieOuterCircle:nth-of-type(1) { fill: var(--primary-color) !important; }
+.pieOuterCircle:nth-of-type(2) { fill: var(--secondary-color) !important; }
+.pieOuterCircle:nth-of-type(3) { fill: var(--code-function) !important; }
+.pieOuterCircle:nth-of-type(4) { fill: var(--code-meta) !important; }
+
+/* -------------------
+   8. Git Graph
+   ------------------- */
+/* 提交点 */
+.commit {
+    stroke: #fff !important;
+    stroke-width: 1px;
+}
+/* 具体的提交点颜色，Git图很难通过纯CSS完全覆盖，但可以尝试 */
+.commit0 { fill: var(--primary-color) !important; }
+.commit1 { fill: var(--secondary-color) !important; }
+.commit2 { fill: var(--accent-color) !important; }
+
+/* 分支线 */
+.commit-arrows path {
+    stroke: var(--code-comment) !important;
+    stroke-width: 2px !important;
+}
+
+/* 标签 */
+.commit-label-bkg, .tag-label-bkg {
+    fill: var(--bg-color) !important;
+    stroke: var(--border-color) !important;
+    opacity: 0.9 !important;
+}
+.commit-label, .tag-label {
+    fill: var(--code-variable) !important;
+}
+
+/* -------------------
+   修复特定 HTML 结构的文字
+   ------------------- */
+/* 强制修复 foreignObject 内部的 div/p 颜色 */
+g > foreignObject > div,
+g > foreignObject > div > span,
+g > foreignObject > div > p {
+    color: var(--code-variable) !important;
+    background-color: transparent !important; /* 去除文字背景 */
+}
+
+/* 错误图标颜色 */
+.error-icon {
+    fill: var(--primary-color) !important;
+}
+.error-text {
+    fill: var(--primary-color) !important;
 }
 
 /* 代码块 */
@@ -1425,6 +1832,11 @@ marker path {
 
 .CodeMirror-wrap .CodeMirror-scroll {
   overflow-x: auto;
+}
+
+.CodeMirror div.CodeMirror-cursor {
+    border-left: 1px solid var(--primary-color);
+    z-index: 3;
 }
 
 .md-fences {
@@ -1458,7 +1870,7 @@ marker path {
   padding: 20px 12px 12px 20px;
   color: #f8f8f2; 
   font-family: "CascadiaCode", "Lucida Console", Consolas, Courier, monospace;
-  border-radius: 0 0 8px 8px;
+  border-radius:8px;
   background-color: #282a36; 
   line-height: 1.6rem;
   font-size: 0.95rem;
@@ -1478,6 +1890,8 @@ pre.CodeMirror-line {
   text-align: right;
   color: #6272a4; 
 }
+
+
 /* 代码颜色设置 */
 .cm-keyword {color: var(--code-keyword) !important;font-weight: bold !important;}
 .cm-variable {color: var(--code-variable) !important;}
@@ -1497,7 +1911,7 @@ pre.CodeMirror-line {
 .cm-meta {color: var(--code-meta) !important;}
 .cm-builtin {color: var(--code-type) !important;font-style: italic;}
 .CodeMirror-selected, .CodeMirror-selectedtext {background: var(--code-selected-bg) !important;}
-
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom{color: var(--code-keyword) !important;font-weight: bold;}
 /* KBD键盘 */
 #write kbd {
   background-color: #333;
@@ -1729,8 +2143,6 @@ pre.CodeMirror-line {
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
-  
-  font-family: "HarmonyOS Sans SC", sans-serif;
   font-size: 15px;
   color: var(--text-color-secondary);
   
@@ -1794,6 +2206,21 @@ pre.CodeMirror-line {
   margin-left: 3em; 
   font-size: 0.9em; 
   opacity: 0.8; 
+}
+.md-toc-h4 { 
+  margin-left: 4em; 
+  font-size: 0.85em; 
+  opacity: 0.8; 
+}
+.md-toc-h5 { 
+  margin-left: 5em; 
+  font-size: 0.85em; 
+  opacity: 0.7; 
+}
+.md-toc-h6 { 
+  margin-left: 6em; 
+  font-size: 0.85em; 
+  opacity: 0.6; 
 }
 
 /* 条目 Hover 交互 */
@@ -2329,11 +2756,26 @@ div.outline-item-active {
   background-color: var(--bg-color); 
   color: var(--text-color);
 }
+
 .typora-export #write {
-  box-shadow: none;
-  margin-left: 340px; 
-  width: auto;
-  max-width: 1000px;
+    margin: 20px auto;       /* 上下20px，左右自动居中 */
+    max-width: 950px;        /* 限制最大宽度，保证阅读体验 */
+    width: 90%;              /* 在小屏幕上保持间距 */
+    min-height: calc(100vh - 40px);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+    padding: 60px 80px;
+}
+.typora-export-sidebar + #write {
+    margin-left: 350px;      /* 留出侧边栏宽度 + 间隙 */
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+    width: auto;             /* 覆盖默认的 width */
+    max-width: none;         /* 取消最大宽度限制，填满剩余空间 */
+    
+    min-height: calc(100vh - 20px); 
 }
 /* 滚动条整体 */
 ::-webkit-scrollbar {
@@ -2364,27 +2806,27 @@ div.outline-item-active {
   background: transparent;
 }
 
-/* 移动端适配：隐藏侧边栏 (保持原有代码) */
-@media screen and (max-width: 800px) {
-  .typora-export-sidebar {
-    display: none;
-  }
-  .typora-export #write {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
+/* 3. 移动端适配 (手机屏幕) */
+@media screen and (max-width: 1200px) {
+    /* 隐藏侧边栏 */
+    .typora-export-sidebar {
+        display: none;
+    }
+
+    /* 强制重置正文为全屏模式 */
+    /* 注意：这里要同时覆盖上面两种情况，所以权重需要够高，或者写得具体点 */
+    .typora-export #write,
+    .typora-export-sidebar + #write {
+        margin: 0;
+        border-radius: 0;
+        width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+        padding: 20px;
+        min-height: 100vh;
+    }
 }
 
-/* 移动端适配：隐藏侧边栏 */
-@media screen and (max-width: 800px) {
-  .typora-export-sidebar {
-    display: none;
-  }
-  .typora-export #write {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-}
 /* PDF导出设置 */
 @media print {
   @page {
@@ -2803,18 +3245,18 @@ textarea,
   --texture-opacity: 0.05;
 
   /* 自动编号格式设置 无需自动编号可全部注释掉或部分注释掉*/
-  --autonum-h1: counter(h1) ". ";
+  /* --autonum-h1: counter(h1) ". ";
   --autonum-h2: counter(h1) "." counter(h2) ". ";
   --autonum-h3: counter(h1) "." counter(h2) "." counter(h3) ". ";
-  /* --autonum-h4: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) ". ";
+  --autonum-h4: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) ". ";
   --autonum-h5: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". ";
   --autonum-h6: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) ". "; */
 
   /* 下面是文章内Toc目录自动编号，与上面一样即可 */
-  --autonum-h1toc: counter(h1toc) ". ";
+  /* --autonum-h1toc: counter(h1toc) ". ";
   --autonum-h2toc: counter(h1toc) "." counter(h2toc) ". ";
   --autonum-h3toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) ". ";
-  /* --autonum-h4toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) ". ";
+  --autonum-h4toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) ". ";
   --autonum-h5toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) ". ";
   --autonum-h6toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) "." counter(h6toc) ". "; */
 
@@ -2862,7 +3304,7 @@ textarea,
   --code-property: #4cd964;      /* 属性 -> 薄荷绿 */
   --code-number: #f78c6c;        /* 数字 -> 珊瑚色 */
   --code-meta: #ff5370;          /* 元数据 -> 柔和红 */
-  --code-selected-bg: #282c28;   /* 选中背景 -> 深灰块 */
+  --code-selected-bg: #447344;   /* 选中背景 -> 深灰块 */
 
   /* --- UI 控件/原生菜单覆盖 --- */
   --active-file-bg-color: color-mix(in srgb, var(--primary-color), transparent 85%);
@@ -2870,15 +3312,16 @@ textarea,
   --item-hover-bg-color: rgba(76, 217, 100, 0.08);
   --menu-divider-color: rgba(76, 217, 100, 0.1);
   --window-border: 1px solid var(--primary-color) !important;
-
   --rawblock-edit-panel-bd: var(--item-hover-bg-color);
+  --mermaid-theme: night;
 }</style>
 <style type='text/css'  id="style-lp">ol, ul {padding-left: 40px}</style>
-
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-webfont/1.6.0/style.min.css">
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
 <title>&quot;The Eternal Banquet&quot;</title>
 </head>
 <body class='typora-export os-windows typora-export-show-outline typora-export-collapse-outline'><div class='typora-export-content'>
-<div class="typora-export-sidebar"><div class="outline-content"><li class="outline-item-wrapper outline-h1 outline-item-open"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#🧛‍♂️-德古拉的午夜邀约">🧛‍♂️ 德古拉的午夜邀约</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#1-🦇-入堡须知-the-rules">1. 🦇 入堡须知 (The Rules)</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#11-禁忌物品清单">1.1 禁忌物品清单</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#2-🍷-晚宴菜单-the-menu">2. 🍷 晚宴菜单 (The Menu)</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#3-🕸️-城堡导航-navigation">3. 🕸️ 城堡导航 (Navigation)</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#4-📜-古老咒语-the-code">4. 📜 古老咒语 (The Code)</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#5-⚠️-警示与备注-alerts">5. ⚠️ 警示与备注 (Alerts)</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#6-结语-epilogue">6. 结语 (Epilogue)</a></div><ul class="outline-children"></ul></li></ul></li></div></div><div id='write'  class=''><h1 id='🧛‍♂️-德古拉的午夜邀约'><span>🧛‍♂️ 德古拉的午夜邀约</span></h1><blockquote><p><strong><span>致 尊贵的来宾：</span></strong></p><p><span>当钟声敲响第十二下，月亮染上猩红之时，我诚挚地邀请您光临寒舍。这不仅仅是一场晚宴，更是一场 </span><strong><span>视觉的盛宴</span></strong><span>。在这里，你可以看到光影如何在黑暗中起舞。</span></p></blockquote><h2 id='1-🦇-入堡须知-the-rules'><span>1. 🦇 入堡须知 (The Rules)</span></h2><p><span>在进入城堡之前，请务必阅读以下 </span><strong><span>高亮条款</span></strong><span>。我们不希望发生任何</span><mark><span>“意外”</span></mark><span>（比如被当作晚餐）。</span></p><p><span>请注意，按下 </span><kbd><span>Ctrl</span></kbd><span> + </span><kbd><span>Shift</span></kbd><span> + </span><kbd><span>L</span></kbd><span> 并不能让你在现实中隐身。</span></p><p><span>如果你希望更换这份请柬的样式，请点击下方的链接：</span></p><figure class='table-figure'><table><thead><tr><th><span>主题系列</span></th><th style='text-align:left;' ><span>主题链接</span></th></tr></thead><tbody><tr><td><span>暗色系主题</span><strong><span>Neon</span></strong></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-vampire.html'><span>Vampire(吸血鬼)</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-radiation.html'><span>Radiation（辐射）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-abyss.html'><span>Abyss（深渊）</span></a></td></tr></tbody></table></figure><h3 id='11-禁忌物品清单'><span>1.1 禁忌物品清单</span></h3><ul><li class='md-task-list-item task-list-item task-list-not-done' ><input type='checkbox' /><p><strong><span>大蒜</span></strong><span> (Garlic) - </span><em><span>已没收，气味太重了。</span></em></p></li><li class='md-task-list-item task-list-item task-list-not-done' ><input type='checkbox' /><p><strong><span>银质十字架</span></strong><span> (Silver Cross) - </span><em><span>已熔化。</span></em></p></li><li class='md-task-list-item task-list-item task-list-done' ><input type='checkbox' checked/><p><strong><span>木桩</span></strong><span> (Wooden Stake) - </span><em><span>请自觉上交。</span></em></p></li><li class='md-task-list-item task-list-item task-list-done' ><input type='checkbox' checked/><p><strong><span>圣水</span></strong><span> (Holy Water) - </span><em><span>这里只提供 1882 年的红酒。</span></em></p></li></ul><h2 id='2-🍷-晚宴菜单-the-menu'><span>2. 🍷 晚宴菜单 (The Menu)</span></h2><p><span>我们的厨师为您精心准备了以下菜肴。请注意观察表格的 </span><strong><span>融合毛玻璃 (Fusion Glass)</span></strong><span> 质感与悬停时的 </span><strong><span>霓虹光晕</span></strong><span>。</span></p><figure class='table-figure'><table><thead><tr><th><span>菜品编号</span></th><th><span>菜名 (Dish)</span></th><th><span>血型 (Type)</span></th><th><span>稀有度 (Rarity)</span></th><th><span>备注 (Notes)</span></th></tr></thead><tbody><tr><td><strong><span>A-01</span></strong></td><td><span>猩红玛丽</span></td><td><span>O-</span></td><td><span>⭐⭐</span></td><td><em><span>口感醇厚，回味甘甜</span></em></td></tr><tr><td><strong><span>B-03</span></strong></td><td><span>伯爵特调</span></td><td><span>AB+</span></td><td><span>⭐⭐⭐⭐</span></td><td><em><span>仅限 VIP，产自维多利亚时代</span></em></td></tr><tr><td><strong><span>C-07</span></strong></td><td><span>月光凝露</span></td><td><span>RH-</span></td><td><span>⭐⭐⭐⭐⭐</span></td><td><em><span>极其罕见，请细细品尝</span></em></td></tr><tr><td><strong><span>D-09</span></strong></td><td><span>幽灵布丁</span></td><td><span>?</span></td><td><span>⭐</span></td><td><em><span>看起来透明，吃起来更透明</span></em></td></tr></tbody></table></figure><h2 id='3-🕸️-城堡导航-navigation'><span>3. 🕸️ 城堡导航 (Navigation)</span></h2><p><span>迷路了吗？请参考下方的全息地图。这是使用了 </span><strong><span>Fusion Neon</span></strong><span> 配色的 Mermaid 流程图。</span></p><div class="md-diagram-panel md-fences-adv-panel" lang="mermaid"><svg id="mermaidChart2" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="flowchart mermaid-svg" style="max-width: 1484.75px;" viewBox="0 0 1484.75 180.8359375" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#mermaidChart2{font-family:sans-serif;font-size:16px;fill:#333;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaidChart2 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaidChart2 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaidChart2 .error-icon{fill:#552222;}#mermaidChart2 .error-text{fill:#552222;stroke:#552222;}#mermaidChart2 .edge-thickness-normal{stroke-width:1px;}#mermaidChart2 .edge-thickness-thick{stroke-width:3.5px;}#mermaidChart2 .edge-pattern-solid{stroke-dasharray:0;}#mermaidChart2 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaidChart2 .edge-pattern-dashed{stroke-dasharray:3;}#mermaidChart2 .edge-pattern-dotted{stroke-dasharray:2;}#mermaidChart2 .marker{fill:#333333;stroke:#333333;}#mermaidChart2 .marker.cross{stroke:#333333;}#mermaidChart2 svg{font-family:sans-serif;font-size:16px;}#mermaidChart2 p{margin:0;}#mermaidChart2 .label{font-family:sans-serif;color:#333;}#mermaidChart2 .cluster-label text{fill:#333;}#mermaidChart2 .cluster-label span{color:#333;}#mermaidChart2 .cluster-label span p{background-color:transparent;}#mermaidChart2 .label text,#mermaidChart2 span{fill:#333;color:#333;}#mermaidChart2 .node rect,#mermaidChart2 .node circle,#mermaidChart2 .node ellipse,#mermaidChart2 .node polygon,#mermaidChart2 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaidChart2 .rough-node .label text,#mermaidChart2 .node .label text,#mermaidChart2 .image-shape .label,#mermaidChart2 .icon-shape .label{text-anchor:middle;}#mermaidChart2 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaidChart2 .rough-node .label,#mermaidChart2 .node .label,#mermaidChart2 .image-shape .label,#mermaidChart2 .icon-shape .label{text-align:center;}#mermaidChart2 .node.clickable{cursor:pointer;}#mermaidChart2 .root .anchor path{fill:#333333!important;stroke-width:0;stroke:#333333;}#mermaidChart2 .arrowheadPath{fill:#333333;}#mermaidChart2 .edgePath .path{stroke:#333333;stroke-width:2.0px;}#mermaidChart2 .flowchart-link{stroke:#333333;fill:none;}#mermaidChart2 .edgeLabel{background-color:rgba(232,232,232, 0.8);text-align:center;}#mermaidChart2 .edgeLabel p{background-color:rgba(232,232,232, 0.8);}#mermaidChart2 .edgeLabel rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#mermaidChart2 .labelBkg{background-color:rgba(232, 232, 232, 0.5);}#mermaidChart2 .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#mermaidChart2 .cluster text{fill:#333;}#mermaidChart2 .cluster span{color:#333;}#mermaidChart2 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:sans-serif;font-size:12px;background:hsl(80, 100%, 96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#mermaidChart2 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#mermaidChart2 rect.text{fill:none;stroke-width:0;}#mermaidChart2 .icon-shape,#mermaidChart2 .image-shape{background-color:rgba(232,232,232, 0.8);text-align:center;}#mermaidChart2 .icon-shape p,#mermaidChart2 .image-shape p{background-color:rgba(232,232,232, 0.8);padding:2px;}#mermaidChart2 .icon-shape rect,#mermaidChart2 .image-shape rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#mermaidChart2 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaidChart2 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaidChart2 :root{--mermaid-alt-font-family:sans-serif;}</style><g><marker id="mermaidChart2_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaidChart2_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaidChart2_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mermaidChart2_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mermaidChart2_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaidChart2_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M170.648,90.418L195.648,90.418L216.648,90.418" id="L_A_B_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart2_flowchart-v2-pointEnd)"></path><path d="M394.68,90.418L419.68,90.418L441.18,90.84" id="L_B_C_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart2_flowchart-v2-pointEnd)"></path><path d="M585.951,66.853L653.191,38.418L692.867,38.418" id="L_C_D_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart2_flowchart-v2-pointEnd)"></path><path d="M585.951,114.982L653.191,142.418L692.867,142.418" id="L_C_E_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart2_flowchart-v2-pointEnd)"></path><path d="M893.719,38.418L918.719,38.418L972.01,61.81" id="L_D_F_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart2_flowchart-v2-pointEnd)"></path><path d="M893.719,142.418L918.719,142.418L972.01,119.026" id="L_E_F_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart2_flowchart-v2-pointEnd)"></path><path d="M1130.648,90.418L1155.648,90.418L1176.648,90.418" id="L_F_G_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart2_flowchart-v2-pointEnd)"></path><path d="M1343.297,90.418L1368.297,90.418L1389.297,90.418" id="L_G_H_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart2_flowchart-v2-pointEnd)"></path></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" transform="translate(-4, 0)"><foreignObject width="8" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(-4, 0)"><foreignObject width="8" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(653.19140625, 38.41796875)"><g class="label" transform="translate(-18.67578125, -12)"><foreignObject width="37.3515625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>Yes</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(653.19140625, 142.41796875)"><g class="label" transform="translate(-16.2265625, -12)"><foreignObject width="32.453125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>No</p></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(-4, 0)"><foreignObject width="8" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(-4, 0)"><foreignObject width="8" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(-4, 0)"><foreignObject width="8" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(-4, 0)"><foreignObject width="8" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default  " id="flowchart-A-0" transform="translate(89.32421875, 90.41796875)"><rect class="basic label-container" style="" x="-81.32421875" y="-27" width="162.6484375" height="54"></rect><g class="label" style="" transform="translate(-51.32421875, -12)"><rect></rect><foreignObject width="102.6484375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>🏰 进入大门</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-B-1" transform="translate(307.6640625, 90.41796875)"><rect class="basic label-container" style="" rx="5" ry="5" x="-87.015625" y="-27" width="174.03125" height="54"></rect><g class="label" style="" transform="translate(-72.015625, -12)"><rect></rect><foreignObject width="144.03125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>🥀 穿过 枯萎花园</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-C-3" transform="translate(527.09765625, 90.41796875)"><polygon points="82.41796875,0 164.8359375,-82.41796875 82.41796875,-164.8359375 0,-82.41796875" class="label-container" transform="translate(-82.41796875,82.41796875)"></polygon><g class="label" style="" transform="translate(-55.41796875, -12)"><rect></rect><foreignObject width="110.8359375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>🔮 遇到守卫?</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-D-5" transform="translate(795.29296875, 38.41796875)"><rect class="basic label-container" style="" x="-98.42578125" y="-27" width="196.8515625" height="54"></rect><g class="label" style="" transform="translate(-68.42578125, -12)"><rect></rect><foreignObject width="136.8515625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>🦇 变成蝙蝠飞过</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-E-7" transform="translate(795.29296875, 142.41796875)"><rect class="basic label-container" style="" x="-98.42578125" y="-27" width="196.8515625" height="54"></rect><g class="label" style="" transform="translate(-68.42578125, -12)"><rect></rect><foreignObject width="136.8515625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>🚶‍♂️ 大摇大摆进入</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-F-10" transform="translate(1037.18359375, 90.41796875)"><rect class="basic label-container" style="" x="-93.46484375" y="-27" width="186.9296875" height="54"></rect><g class="label" style="" transform="translate(-63.46484375, -12)"><rect></rect><foreignObject width="126.9296875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>🍷 到达 宴会厅</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-G-12" transform="translate(1261.97265625, 90.41796875)"><rect class="basic label-container" style="" x="-81.32421875" y="-27" width="162.6484375" height="54"></rect><g class="label" style="" transform="translate(-51.32421875, -12)"><rect></rect><foreignObject width="102.6484375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>💀 享用晚餐</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-H-14" transform="translate(1435.0234375, 90.41796875)"><circle class="basic label-container" style="" r="41.7265625" cx="0" cy="0"></circle><g class="label" style="" transform="translate(-34.2265625, -12)"><rect></rect><foreignObject width="68.453125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>⚰️ 沉睡</p></span></div></foreignObject></g></g></g></g></g></svg></div><h2 id='4-📜-古老咒语-the-code'><span>4. 📜 古老咒语 (The Code)</span></h2><p><span>为了唤醒沉睡的侍从，你需要运行以下代码。请欣赏 </span><strong><span>Mac 风格窗口</span></strong><span> 与 </span><strong><span>主题色微光边框</span></strong><span> 的完美结合。</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="JAVA" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="java"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 30.8008px; left: 78.1953px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 39px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>22</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -39px; width: 39px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 30px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">class</span> <span class="cm-def">Vampire</span>(<span class="cm-variable">Undead</span>):</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">def</span> <span class="cm-def">__init__</span>(<span class="cm-variable">self</span>, <span class="cm-variable">name</span>, <span class="cm-variable">age</span>):</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">self</span>.<span class="cm-variable">name</span> <span class="cm-operator">=</span> <span class="cm-variable">name</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">self</span>.<span class="cm-variable">age</span> <span class="cm-operator">=</span> <span class="cm-variable">age</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">self</span>.<span class="cm-variable">is_thirsty</span> <span class="cm-operator">=</span> <span class="cm-variable">True</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+<div class="typora-export-sidebar"><div class="outline-content"><li class="outline-item-wrapper outline-h1 outline-item-open"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#🧛‍♂️-德古拉的午夜邀约">🧛‍♂️ 德古拉的午夜邀约</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#1-🦇-入堡须知-the-rules">1. 🦇 入堡须知 (The Rules)</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#11-禁忌物品清单">1.1 禁忌物品清单</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#2-🍷-晚宴菜单-the-menu">2. 🍷 晚宴菜单 (The Menu)</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#3-🕸️-城堡导航-navigation">3. 🕸️ 城堡导航 (Navigation)</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#4-📜-古老咒语-the-code">4. 📜 古老咒语 (The Code)</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#5-⚠️-警示与备注-alerts">5. ⚠️ 警示与备注 (Alerts)</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#6-结语-epilogue">6. 结语 (Epilogue)</a></div><ul class="outline-children"></ul></li></ul></li></div></div><div id='write'  class=''><h1 id='🧛‍♂️-德古拉的午夜邀约'><span>🧛‍♂️ 德古拉的午夜邀约</span></h1><p><span>如果你喜欢这套主题，可以选择打赏支持。不胜感激！</span></p><p><img src="assets/image-20251224165551114.png" alt="image-20251224165551114" style="zoom:33%;" /><img src="assets/image-20251224165606988.png" alt="image-20251224165606988" style="zoom:33%;" /></p><figure class='table-figure'><table><thead><tr><th><span>主题系列</span></th><th style='text-align:left;' ><span>主题链接</span></th></tr></thead><tbody><tr><td><span>亮色系主题</span><strong><span>Color</span></strong></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-cherry.html'><span>Cheey（樱桃红）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-caramel.html'><span>Caramel（焦糖橙）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-forest.html'><span>Forest（森绿）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-mint.html'><span>Mint（薄荷青）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sky.html'><span>Sky（天蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-prussian.html'><span>Prussian（普鲁士蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sakura.html'><span>Sakura（樱花粉）</span></a><a href='https://sumruler.github.io/typora-theme-phycat/demo-mauve.html'><span>Mauve（淡紫）</span></a></td></tr><tr><td><span>暗色系主题</span><strong><span>Neon</span></strong></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-vampire.html'><span>Vampire(吸血鬼)</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-radiation.html'><span>Radiation（辐射）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-abyss.html'><span>Abyss（深渊）</span></a></td></tr></tbody></table></figure><blockquote><p><strong><span>致 尊贵的来宾：</span></strong></p><p><span>当钟声敲响第十二下，月亮染上猩红之时，我诚挚地邀请您光临寒舍。这不仅仅是一场晚宴，更是一场 </span><strong><span>视觉的盛宴</span></strong><span>。在这里，你可以看到光影如何在黑暗中起舞。</span></p></blockquote><h2 id='1-🦇-入堡须知-the-rules'><span>1. 🦇 入堡须知 (The Rules)</span></h2><p><span>在进入城堡之前，请务必阅读以下 </span><strong><span>高亮条款</span></strong><span>。我们不希望发生任何</span><mark><span>“意外”</span></mark><span>（比如被当作晚餐）。</span></p><p><span>请注意，按下 </span><kbd><span>Ctrl</span></kbd><span> + </span><kbd><span>Shift</span></kbd><span> + </span><kbd><span>L</span></kbd><span> 并不能让你在现实中隐身。</span></p><h3 id='11-禁忌物品清单'><span>1.1 禁忌物品清单</span></h3><ul><li class='md-task-list-item task-list-item task-list-not-done' ><input type='checkbox' /><p><strong><span>大蒜</span></strong><span> (Garlic) - </span><em><span>已没收，气味太重了。</span></em></p></li><li class='md-task-list-item task-list-item task-list-not-done' ><input type='checkbox' /><p><strong><span>银质十字架</span></strong><span> (Silver Cross) - </span><em><span>已熔化。</span></em></p></li><li class='md-task-list-item task-list-item task-list-done' ><input type='checkbox' checked/><p><strong><span>木桩</span></strong><span> (Wooden Stake) - </span><em><span>请自觉上交。</span></em></p></li><li class='md-task-list-item task-list-item task-list-done' ><input type='checkbox' checked/><p><strong><span>圣水</span></strong><span> (Holy Water) - </span><em><span>这里只提供 1882 年的红酒。</span></em></p></li></ul><h2 id='2-🍷-晚宴菜单-the-menu'><span>2. 🍷 晚宴菜单 (The Menu)</span></h2><p><span>我们的厨师为您精心准备了以下菜肴。请注意观察表格的 </span><strong><span>融合毛玻璃 (Fusion Glass)</span></strong><span> 质感与悬停时的 </span><strong><span>霓虹光晕</span></strong><span>。</span></p><figure class='table-figure'><table><thead><tr><th><span>菜品编号</span></th><th><span>菜名 (Dish)</span></th><th><span>血型 (Type)</span></th><th><span>稀有度 (Rarity)</span></th><th><span>备注 (Notes)</span></th></tr></thead><tbody><tr><td><strong><span>A-01</span></strong></td><td><span>猩红玛丽</span></td><td><span>O-</span></td><td><span>⭐⭐</span></td><td><em><span>口感醇厚，回味甘甜</span></em></td></tr><tr><td><strong><span>B-03</span></strong></td><td><span>伯爵特调</span></td><td><span>AB+</span></td><td><span>⭐⭐⭐⭐</span></td><td><em><span>仅限 VIP，产自维多利亚时代</span></em></td></tr><tr><td><strong><span>C-07</span></strong></td><td><span>月光凝露</span></td><td><span>RH-</span></td><td><span>⭐⭐⭐⭐⭐</span></td><td><em><span>极其罕见，请细细品尝</span></em></td></tr><tr><td><strong><span>D-09</span></strong></td><td><span>幽灵布丁</span></td><td><span>?</span></td><td><span>⭐</span></td><td><em><span>看起来透明，吃起来更透明</span></em></td></tr></tbody></table></figure><h2 id='3-🕸️-城堡导航-navigation'><span>3. 🕸️ 城堡导航 (Navigation)</span></h2><p><span>迷路了吗？请参考下方的全息地图。这是使用了 </span><strong><span>Fusion Neon</span></strong><span> 配色的 Mermaid 流程图。</span></p><div class="md-diagram-panel md-fences-adv-panel" lang="mermaid"><svg id="mermaidChart3" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="flowchart mermaid-svg" style="max-width: 1493.3515625px;" viewBox="0 0 1493.3515625 184.875" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#mermaidChart3{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#ccc;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaidChart3 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaidChart3 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaidChart3 .error-icon{fill:#a44141;}#mermaidChart3 .error-text{fill:#ddd;stroke:#ddd;}#mermaidChart3 .edge-thickness-normal{stroke-width:1px;}#mermaidChart3 .edge-thickness-thick{stroke-width:3.5px;}#mermaidChart3 .edge-pattern-solid{stroke-dasharray:0;}#mermaidChart3 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaidChart3 .edge-pattern-dashed{stroke-dasharray:3;}#mermaidChart3 .edge-pattern-dotted{stroke-dasharray:2;}#mermaidChart3 .marker{fill:lightgrey;stroke:lightgrey;}#mermaidChart3 .marker.cross{stroke:lightgrey;}#mermaidChart3 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaidChart3 p{margin:0;}#mermaidChart3 .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#ccc;}#mermaidChart3 .cluster-label text{fill:#F9FFFE;}#mermaidChart3 .cluster-label span{color:#F9FFFE;}#mermaidChart3 .cluster-label span p{background-color:transparent;}#mermaidChart3 .label text,#mermaidChart3 span{fill:#ccc;color:#ccc;}#mermaidChart3 .node rect,#mermaidChart3 .node circle,#mermaidChart3 .node ellipse,#mermaidChart3 .node polygon,#mermaidChart3 .node path{fill:#1f2020;stroke:#ccc;stroke-width:1px;}#mermaidChart3 .rough-node .label text,#mermaidChart3 .node .label text,#mermaidChart3 .image-shape .label,#mermaidChart3 .icon-shape .label{text-anchor:middle;}#mermaidChart3 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaidChart3 .rough-node .label,#mermaidChart3 .node .label,#mermaidChart3 .image-shape .label,#mermaidChart3 .icon-shape .label{text-align:center;}#mermaidChart3 .node.clickable{cursor:pointer;}#mermaidChart3 .root .anchor path{fill:lightgrey!important;stroke-width:0;stroke:lightgrey;}#mermaidChart3 .arrowheadPath{fill:lightgrey;}#mermaidChart3 .edgePath .path{stroke:lightgrey;stroke-width:2.0px;}#mermaidChart3 .flowchart-link{stroke:lightgrey;fill:none;}#mermaidChart3 .edgeLabel{background-color:hsl(0, 0%, 34.4117647059%);text-align:center;}#mermaidChart3 .edgeLabel p{background-color:hsl(0, 0%, 34.4117647059%);}#mermaidChart3 .edgeLabel rect{opacity:0.5;background-color:hsl(0, 0%, 34.4117647059%);fill:hsl(0, 0%, 34.4117647059%);}#mermaidChart3 .labelBkg{background-color:rgba(87.75, 87.75, 87.75, 0.5);}#mermaidChart3 .cluster rect{fill:hsl(180, 1.5873015873%, 28.3529411765%);stroke:rgba(255, 255, 255, 0.25);stroke-width:1px;}#mermaidChart3 .cluster text{fill:#F9FFFE;}#mermaidChart3 .cluster span{color:#F9FFFE;}#mermaidChart3 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(20, 1.5873015873%, 12.3529411765%);border:1px solid rgba(255, 255, 255, 0.25);border-radius:2px;pointer-events:none;z-index:100;}#mermaidChart3 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#ccc;}#mermaidChart3 rect.text{fill:none;stroke-width:0;}#mermaidChart3 .icon-shape,#mermaidChart3 .image-shape{background-color:hsl(0, 0%, 34.4117647059%);text-align:center;}#mermaidChart3 .icon-shape p,#mermaidChart3 .image-shape p{background-color:hsl(0, 0%, 34.4117647059%);padding:2px;}#mermaidChart3 .icon-shape rect,#mermaidChart3 .image-shape rect{opacity:0.5;background-color:hsl(0, 0%, 34.4117647059%);fill:hsl(0, 0%, 34.4117647059%);}#mermaidChart3 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaidChart3 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaidChart3 :root{--mermaid-alt-font-family:sans-serif;}</style><g><marker id="mermaidChart3_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaidChart3_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaidChart3_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mermaidChart3_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mermaidChart3_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaidChart3_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M172.172,92.438L197.172,92.438L218.172,92.438" id="L_A_B_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart3_flowchart-v2-pointEnd)"></path><path d="M399.242,92.438L424.242,92.438L445.743,92.859" id="L_B_C_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart3_flowchart-v2-pointEnd)"></path><path d="M593.714,68.034L657.992,40.438L693.867,40.438" id="L_C_D_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart3_flowchart-v2-pointEnd)"></path><path d="M593.714,117.841L657.992,144.438L693.867,144.438" id="L_C_E_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart3_flowchart-v2-pointEnd)"></path><path d="M896.242,40.438L921.242,40.438L975.257,63.847" id="L_D_F_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart3_flowchart-v2-pointEnd)"></path><path d="M896.242,144.438L921.242,144.438L975.257,121.028" id="L_E_F_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart3_flowchart-v2-pointEnd)"></path><path d="M1136.211,92.438L1161.211,92.438L1182.211,92.438" id="L_F_G_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart3_flowchart-v2-pointEnd)"></path><path d="M1350.383,92.438L1375.383,92.438L1396.383,92.438" id="L_G_H_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart3_flowchart-v2-pointEnd)"></path></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(657.9921875, 40.4375)"><g class="label" transform="translate(-14.875, -12)"><foreignObject width="29.75" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>Yes</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(657.9921875, 144.4375)"><g class="label" transform="translate(-11.5, -12)"><foreignObject width="23" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>No</p></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default  " id="flowchart-A-0" transform="translate(90.0859375, 92.4375)"><rect class="basic label-container" style="" x="-82.0859375" y="-27" width="164.171875" height="54"></rect><g class="label" style="" transform="translate(-52.0859375, -12)"><rect></rect><foreignObject width="104.171875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>🏰 进入大门</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-B-1" transform="translate(310.70703125, 92.4375)"><rect class="basic label-container" style="" rx="5" ry="5" x="-88.53515625" y="-27" width="177.0703125" height="54"></rect><g class="label" style="" transform="translate(-73.53515625, -12)"><rect></rect><foreignObject width="147.0703125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>🥀 穿过 枯萎花园</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-C-3" transform="translate(533.6796875, 92.4375)"><polygon points="84.4375,0 168.875,-84.4375 84.4375,-168.875 0,-84.4375" class="label-container" transform="translate(-84.4375,84.4375)"></polygon><g class="label" style="" transform="translate(-57.4375, -12)"><rect></rect><foreignObject width="114.875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>🔮 遇到守卫?</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-D-5" transform="translate(797.0546875, 40.4375)"><rect class="basic label-container" style="" x="-99.1875" y="-27" width="198.375" height="54"></rect><g class="label" style="" transform="translate(-69.1875, -12)"><rect></rect><foreignObject width="138.375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>🦇 变成蝙蝠飞过</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-E-7" transform="translate(797.0546875, 144.4375)"><rect class="basic label-container" style="" x="-99.1875" y="-27" width="198.375" height="54"></rect><g class="label" style="" transform="translate(-69.1875, -12)"><rect></rect><foreignObject width="138.375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>🚶‍♂️ 大摇大摆进入</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-F-10" transform="translate(1041.2265625, 92.4375)"><rect class="basic label-container" style="" x="-94.984375" y="-27" width="189.96875" height="54"></rect><g class="label" style="" transform="translate(-64.984375, -12)"><rect></rect><foreignObject width="129.96875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>🍷 到达 宴会厅</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-G-12" transform="translate(1268.296875, 92.4375)"><rect class="basic label-container" style="" x="-82.0859375" y="-27" width="164.171875" height="54"></rect><g class="label" style="" transform="translate(-52.0859375, -12)"><rect></rect><foreignObject width="104.171875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>💀 享用晚餐</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-H-14" transform="translate(1442.8671875, 92.4375)"><circle class="basic label-container" style="" r="42.484375" cx="0" cy="0"></circle><g class="label" style="" transform="translate(-34.984375, -12)"><rect></rect><foreignObject width="69.96875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>⚰️ 沉睡</p></span></div></foreignObject></g></g></g></g></g></svg></div><h2 id='4-📜-古老咒语-the-code'><span>4. 📜 古老咒语 (The Code)</span></h2><p><span>为了唤醒沉睡的侍从，你需要运行以下代码。请欣赏 </span><strong><span>Mac 风格窗口</span></strong><span> 与 </span><strong><span>主题色微光边框</span></strong><span> 的完美结合。</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="JAVA" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="java"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 30.8008px; left: 78.1953px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 39px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>22</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -39px; width: 39px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 30px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">class</span> <span class="cm-def">Vampire</span>(<span class="cm-variable">Undead</span>):</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">def</span> <span class="cm-def">__init__</span>(<span class="cm-variable">self</span>, <span class="cm-variable">name</span>, <span class="cm-variable">age</span>):</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">self</span>.<span class="cm-variable">name</span> <span class="cm-operator">=</span> <span class="cm-variable">name</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">self</span>.<span class="cm-variable">age</span> <span class="cm-operator">=</span> <span class="cm-variable">age</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">self</span>.<span class="cm-variable">is_thirsty</span> <span class="cm-operator">=</span> <span class="cm-variable">True</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
 </span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">def</span> <span class="cm-def">drink_blood</span>(<span class="cm-variable">self</span>):</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-string">"""</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">Attempts</span> <span class="cm-variable">to</span> <span class="cm-variable">satisfy</span> <span class="cm-variable">thirst</span>.</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 30px;">10</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">WARNING</span>: <span class="cm-variable">Do</span> <span class="cm-variable">not</span> <span class="cm-variable">drink</span> <span class="cm-variable">from</span> <span class="cm-variable">werewolves</span>.</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">11</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-string">"""</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">12</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">if</span> <span class="cm-variable">self</span>.<span class="cm-variable">is_thirsty</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">13</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">print</span>(<span class="cm-variable">f</span><span class="cm-string">"{self.name} sips the crimson wine..."</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">14</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">self</span>.<span class="cm-variable">is_thirsty</span> <span class="cm-operator">=</span> <span class="cm-variable">False</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">15</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-string">"Satisfied"</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">16</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">else</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">17</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-string">"Not thirsty yet"</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">18</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
 </span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">19</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">#</span> <span class="cm-variable">实例化德古拉</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 30px;">20</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">dracula</span> <span class="cm-operator">=</span> <span class="cm-variable">Vampire</span>(<span class="cm-string">"Vladimir"</span>, <span class="cm-number">597</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 30px;">21</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">status</span> <span class="cm-operator">=</span> <span class="cm-variable">dracula</span>.<span class="cm-variable">drink_blood</span>()</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -39px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 30px;">22</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">print</span>(<span class="cm-variable">f</span><span class="cm-string">"Status: {status}"</span>)</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 563px;"></div><div class="CodeMirror-gutters" style="height: 563px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 38px;"></div></div></div></div></pre><h2 id='5-⚠️-警示与备注-alerts'><span>5. ⚠️ 警示与备注 (Alerts)</span></h2><p><span>在城堡中行走，请留意墙上的这些发光告 示。</span></p><div class="md-alert md-alert-tip tip"><p><span class='md-alert-text md-alert-text-tip'><svg viewBox="0 0 16 16" version="1.1" width="1em" height="1em" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</span><br><span>请勿在走廊奔跑，我们的地毯很贵，而且可能会滑倒摔进陷阱。</span></p></div><div class="md-alert md-alert-warning warning"><p><span class='md-alert-text md-alert-text-warning'><svg viewBox="0 0 16 16" version="1.1" width="1em" height="1em" aria-hidden="true"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</span><br><span>午夜 3 点后请勿照镜子。不是因为有鬼，是因为你会发现镜子里没有自己。</span></p></div><div class="md-alert md-alert-important important"><p><span class='md-alert-text md-alert-text-important'><svg viewBox="0 0 16 16" version="1.1" width="1em" height="1em" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</span><br><span>地下室的棺材不是用来睡觉的，那是我的收藏品展示柜。</span></p></div><h2 id='6-结语-epilogue'><span>6. 结语 (Epilogue)</span></h2><p><span>希望您喜欢今晚的安排。如果您喜欢 </span><strong><span>Vampire 主题</span></strong><span> 的细节，您可以打赏支持该款主题的作者，伯爵将不胜感激！</span></p><p><img src="assets/image-20251224165551114.png" alt="image-20251224165551114" style="zoom:33%;" /><img src="assets/image-20251224165606988.png" alt="image-20251224165606988" style="zoom:33%;" /></p><p>&nbsp;</p><p><em><span>P.S. 离开时请不要带走任何 </span><strong><span>蝙蝠</span></strong><span>，它们是有编制的员工。</span></em></p></div></div>
 

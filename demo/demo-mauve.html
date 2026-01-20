@@ -310,7 +310,7 @@ span.cm-strikethrough { text-decoration: line-through; }
 </style>
 <style type='text/css'  id="style-theme_css">html {
   font-size: 16px;
-  font-family: "HarmonyOS_Sans_SC";
+  font-family: "LXGW WenKai";
 }
 
 
@@ -354,7 +354,7 @@ span.cm-strikethrough { text-decoration: line-through; }
 #write p {
   color: #333;
   margin: 10px 10px;
-  font-family: Optima-Regular, Optima, "SourceHanSerifCN", PingFangSC-light, PingFangTC-light,
+  font-family: Optima-Regular, Optima, "LXGW WenKai", PingFangSC-light, PingFangTC-light,
     "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-size: 1rem;
   word-spacing: 2px;
@@ -399,45 +399,66 @@ h6.md-heading:after {
   mask-image: var(--h6-icon-shape);
 }
 
-/* H1 */
+/* ================= H1 标题样式优化 (方案 1: 经典短线 - 常驻显示 - 修复编辑bug) ================= */
+
 #write h1 {
-  text-align: center;
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin: 1em auto 0.8em;
-  line-height: 1.4;
-  display: table;
-
-  color: #222;
-  position: relative;
-  padding-bottom: 12px;
-  transition: color 0.3s ease, transform 0.3s ease;
-  border-bottom: none;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 1em auto 0.8em;
+    line-height: 1.4;
+    
+    /* [关键修复] 使用 fit-content 代替 table */
+    /* table 属性会导致空标题在编辑模式下无法获取光标焦点 */
+    /* fit-content 既能实现宽度自适应，又能保持正常的编辑体验 */
+    width: fit-content; 
+    
+    /* [修复 Bug] 添加最小宽度和最小高度，确保空内容时也有足够大的点击区域 */
+    min-width: 120px;
+    min-height: 1.4em; /* 确保有一行文字的高度 */
+    
+    color: #222;
+    position: relative;
+    padding-bottom: 12px; /* 增加底部空间给线条 */
+    
+    transition: color 0.3s ease, transform 0.3s ease;
+    border-bottom: none; /* 清除默认下划线 */
 }
 
+/* 底部线条 (伪元素) */
 #write h1::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 40px;
-  height: 4px;
-  border-radius: 4px;
-  background: var(--head-title-h2-background);
-  background-size: 100% auto;
-  transform: translateX(-50%);
-  transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    
+    /* [核心设计] 初始宽度：40px (常驻精致短线) */
+    width: 40px; 
+    height: 4px;
+    border-radius: 4px;
+    
+    /* [优化] 使用主题定义的 H2 渐变背景 (色彩饱满且对称) */
+    background: var(--head-title-h2-background);
+    background-size: 100% auto; 
+    
+    /* 居中定位 */
+    transform: translateX(-50%);
+    
+    /* 动效过渡 */
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-#write h1:hover {
+/* Hover 交互效果 */
+/* 只有当标题没有处于输入焦点时，悬停才上浮 */
+#write h1:not(.md-focus):hover {
   color: var(--head-title-color);
   transform: translateY(-2px);
 }
 
 #write h1:hover::after {
-  width: 100%;
+    /* Hover 时展开至 100% */
+    width: 100%; 
 }
-
 /* H2 */
 #write h2 {
   color: var(--head-title-h2-color);
@@ -871,7 +892,7 @@ li.md-list-item {
   top: 35px;
   position: absolute;
   border-left: 0.5px solid var(--element-color);
-  left: -14.5px;
+  left: -12.5px;
 }
 
 /* 任务列表样式 */
@@ -1119,22 +1140,99 @@ li.md-list-item {
 
 #write strong:hover {
   transform: translateY(-2px) scale(1.1);
-  text-shadow: 2px 2px 0 var(--element-color-soo-shallow);
+  text-shadow: 2px 2px 0 color-mix(in srgb, var(--element-color-shallow), transparent 70%);
 }
 
-/* 斜体 */
+/* 1. 常态优化：提升对比度 */
+/* 当粗体出现在高亮块中时，强制使用 Deep 色，防止在浅色高亮背景里看不清 */
+#write mark strong {
+    color: var(--element-color-deep); 
+}
+
+/* 2. Hover 修复：防止文字隐形 */
+/* 当悬停高亮块时，背景变为主色。
+   此时必须显式地将内部的粗体变为白色，
+   否则它会保持原有的主色，导致“主色字撞主色底”看不见。 */
+#write mark:hover strong {
+    color: #fff;
+    /* 可选：去掉粗体原有的阴影，保持干净 */
+    text-shadow: none; 
+    /* 保持加粗状态下的微动效同步 (可选) */
+    transform: translateY(-2px) scale(1.1); 
+}
+
+/* ================= 斜体 (Em) 样式优化 (防抖动终极版) ================= */
+
+/* 1. 基础样式 */
 #write em {
-  font-style: italic;
-  color: #555;
-  text-decoration: none;
-  padding: 0 2px;
-  transition: all 0.3s ease;
+    font-style: italic;
+    
+    /* 常态颜色 */
+    color: var(--element-color); 
+    
+    text-decoration: none; /* 禁用默认下划线 */
+    padding: 0 2px 2px;    /* 底部留出波浪空间 */
+    position: relative;
+    
+    /* 注意：去掉了 font-weight 的 transition
+       改为监听 color 和 stroke 的变化
+    */
+    transition: color 0.2s ease, -webkit-text-stroke 0.2s ease;
+    z-index: 0;
 }
 
+/* 2. 波浪线 (伪元素 + Mask) */
+#write em::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px; /* 波浪高度 */
+    
+    /* 使用 Mask 制作波浪形状 */
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='black' stroke-width='2' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E");
+    -webkit-mask-repeat: repeat-x;
+    -webkit-mask-size: 12px 4px;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='black' stroke-width='2' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E");
+    mask-repeat: repeat-x;
+    mask-size: 12px 4px;
+    
+    /* 默认浅色背景 */
+    background-color: var(--element-color-shallow); 
+    
+    z-index: -1;
+    transition: background-color 0.3s ease;
+}
+
+/* 3. Hover 交互 (防抖动核心) */
 #write em:hover {
-  color: var(--element-color);
-  text-decoration: underline wavy var(--element-color-shallow);
-  text-underline-offset: 4px;
+    color: var(--element-color-deep); 
+    
+    /* [关键修复] 
+       不要使用 font-weight: 700 (这会改变布局宽度)
+       改用 text-stroke 模拟加粗效果，不占空间
+    */
+    font-weight: normal; 
+    -webkit-text-stroke: 0.6px var(--element-color-deep);
+}
+
+/* Hover 时波浪线变色 + 动画 */
+#write em:hover::after {
+    background-color: var(--element-color); 
+    animation: waveFlow 1s linear infinite;
+}
+
+/* 波浪流动动画定义 */
+@keyframes waveFlow {
+    0% { 
+        -webkit-mask-position-x: 0; 
+        mask-position-x: 0; 
+    }
+    100% { 
+        -webkit-mask-position-x: 12px; 
+        mask-position-x: 12px; 
+    }
 }
 
 /* 删除线 */
@@ -1204,7 +1302,6 @@ li.md-list-item {
   color: #888;
   text-align: center;
   line-height: 1.5;
-  font-family: "HarmonyOS_Sans_SC", -apple-system, sans-serif;
   transition: color 0.3s ease;
 }
 
@@ -1274,9 +1371,110 @@ pre.md-meta-block:hover {
     text-decoration: none;
 }
 
-/* 流程图 */
+
+/* =================================================================
+   Mermaid 流程图 - 亮色主题适配版 (Pink & Warm Brown)
+   ================================================================= */
+
+/* 1. 基础容器与字体 */
 .md-diagram {
-  background: transparent;
+  background: transparent !important;
+  margin: 20px 0;
+}
+
+
+/* 2. 节点样式 (矩形、圆形、椭圆) */
+.node rect,
+.node circle,
+.node ellipse,
+.node path {
+  /* 背景：使用极浅粉色，保持清爽 */
+  fill: var(--element-color-so-shallow) !important; 
+  
+  /* 边框：使用主色粉红 */
+  stroke: var(--primary-color) !important;
+  stroke-width: 1.5px !important;
+  
+  transition: all 0.3s ease;
+}
+
+/* 3. 判定节点 (菱形/多边形) - 稍微加深一点以示区分 */
+.node polygon {
+  /* 背景：稍微深一点点的粉，或者混合一点主色 */
+  fill: color-mix(in srgb, var(--element-color-shallow), transparent 50%) !important;
+  
+  /* 边框：使用深粉红，强调逻辑判断 */
+  stroke: var(--element-color-deep) !important;
+  stroke-width: 1.5px !important;
+}
+
+/* 4. 连接线 (Edges) */
+.edgePath .path,
+.flowchart-link {
+  /* 线条颜色：使用深玫红，保证在白底上清晰可见，不会像浅粉色那样看不清 */
+  stroke: var(--element-color-deep) !important; 
+  stroke-width: 1.5px !important;
+  opacity: 0.8 !important; /* 稍微一点点透明度让线条不那么生硬 */
+}
+
+/* 5. 箭头 (Markers) - 必须与线条颜色一致 */
+.marker path,
+marker path {
+  fill: var(--element-color-deep) !important;
+  stroke: var(--element-color-deep) !important;
+}
+
+/* 6. 标签与文字 (关键优化) */
+.node .label,
+.edgeLabel,
+.edgeLabel .label,
+.edgeLabel span,
+.edgeLabel div,
+.edgeLabel p,
+.cluster-label text,
+.labelBkg {
+  /* 背景：必须是白色！用来遮挡穿过文字的线条 */
+  background-color: #ffffff !important; 
+  
+  /* 文字颜色：使用暖褐色，对比度高且柔和 */
+  color: var(--appui-color-text) !important;
+  fill: var(--appui-color-text) !important; 
+  
+  font-weight: 500 !important;
+  /* 亮色模式通常不需要文字阴影，或者用极淡的白色光晕增强可读性 */
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff !important; 
+}
+
+/* 线条上的标签背景块 */
+.edgeLabel rect {
+  fill: #ffffff !important; /* 确保遮挡线条 */
+  opacity: 0.9 !important;
+}
+
+.labelBkg {
+  background-color: #ffffff !important;
+  opacity: 0.9 !important;
+  border-radius: 4px;
+  padding: 0 4px;
+}
+
+/* 7. 子图/群组 (Cluster) */
+.cluster rect {
+  /* 极淡的粉色背景块 */
+  fill: color-mix(in srgb, var(--element-color-soo-shallow), transparent 50%) !important;
+  stroke: var(--element-color-shallow) !important;
+  stroke-dasharray: 4px !important; /* 虚线边框，增加设计感 */
+  rx: 8px !important;
+  ry: 8px !important;
+}
+
+/* 子图标题 */
+.cluster-label text,
+.cluster span {
+    fill: var(--element-color-deep) !important;
+    color: var(--element-color-deep) !important;
+    background: transparent !important; /* 标题不需要白底 */
+    font-weight: bold !important;
 }
 
 /* 代码块 */
@@ -1431,6 +1629,9 @@ pre.CodeMirror-line {
 .cm-builtin {
   color: #fa6060 !important;
 }
+
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom{color: #a626a4 !important;font-weight: bold;}
+
 
 /* KBD键盘 */
 kbd {
@@ -1759,7 +1960,6 @@ kbd:hover {
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
   border-radius: 16px;
-  font-family: "HarmonyOS_Sans_SC", -apple-system, sans-serif;
   font-size: 15px;
   color: #555;
   position: relative;
@@ -1778,7 +1978,6 @@ kbd:hover {
   content: "目录";
   display: block;
   text-align: center;
-  font-family: "HarmonyOS_Sans_SC", -apple-system, sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
   color: var(--element-color-deep);
@@ -1825,6 +2024,21 @@ kbd:hover {
   margin-left: 2em;
   font-size: 0.9rem;
   color: #777;
+}
+.md-toc-h4 { 
+  margin-left: 3em; 
+  font-size: 0.85em; 
+  opacity: 0.8; 
+}
+.md-toc-h5 { 
+  margin-left: 4em; 
+  font-size: 0.85em; 
+  opacity: 0.7; 
+}
+.md-toc-h6 { 
+  margin-left: 5em; 
+  font-size: 0.85em; 
+  opacity: 0.6; 
 }
 
 /* 6. 条目 Hover 交互 */
@@ -2252,33 +2466,57 @@ div.outline-item-active {
   scrollbar-width: none;
 }
 
+/* ==========================================================================
+   Typora 导出 HTML 布局适配 (智能判断侧边栏)
+   ========================================================================== */
+
+/* 1. 默认状态：假设没有侧边栏 (居中卡片模式) */
+/* 当您导出时不勾选“保留大纲”时，应用此样式 */
 .typora-export #write {
-  margin-left: 350px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-right: 20px;
-  min-height: calc(100vh - 20px);
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
-  padding: 60px 80px;
-  width: auto;
-  max-width: none;
+    margin: 20px auto;       /* 上下20px，左右自动居中 */
+    max-width: 950px;        /* 限制最大宽度，保证阅读体验 */
+    width: 90%;              /* 在小屏幕上保持间距 */
+    
+    min-height: calc(100vh - 40px);
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+    padding: 60px 80px;
 }
 
-@media screen and (max-width: 800px) {
-  .typora-export-sidebar {
-    display: none;
-  }
+/* 2. 激活状态：当侧边栏存在时 (左侧留空模式) */
+/* 逻辑：如果 #write 元素紧跟在 .typora-export-sidebar 后面，则应用此样式 */
+.typora-export-sidebar + #write {
+    margin-left: 350px;      /* 留出侧边栏宽度 + 间隙 */
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+    width: auto;             /* 覆盖默认的 width */
+    max-width: none;         /* 取消最大宽度限制，填满剩余空间 */
+    
+    min-height: calc(100vh - 20px); 
+}
 
-  .typora-export #write {
-    margin: 0;
-    border-radius: 0;
-    width: 100%;
-    box-shadow: none;
-    padding: 20px;
-  }
+/* 3. 移动端适配 (手机屏幕) */
+@media screen and (max-width: 1200px) {
+    /* 隐藏侧边栏 */
+    .typora-export-sidebar {
+        display: none;
+    }
 
+    /* 强制重置正文为全屏模式 */
+    /* 注意：这里要同时覆盖上面两种情况，所以权重需要够高，或者写得具体点 */
+    .typora-export #write,
+    .typora-export-sidebar + #write {
+        margin: 0;
+        border-radius: 0;
+        width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+        padding: 20px;
+        min-height: 100vh;
+    }
 }
 
 /* PDF导出设置 */
@@ -2467,15 +2705,16 @@ div.outline-item-active {
 }
 </style>
 <style type='text/css'  id="style-lp">ol, ul {padding-left: 40px}</style>
-
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-webfont/1.6.0/style.min.css">
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
 <title>demo</title>
 </head>
 <body class='typora-export os-windows typora-export-show-outline typora-export-collapse-outline'><div class='typora-export-content'>
-<div class="typora-export-sidebar"><div class="outline-content"><li class="outline-item-wrapper outline-h1 outline-item-open"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#☕-咖啡的炼金术一则关于专注与偶然的样式测试文档">☕ 咖啡的炼金术：一则关于专注与偶然的样式测试文档</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#第一部分基础要素--------咖啡豆的哲学">第一部分：基础要素 —— 咖啡豆的哲学</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#一个简单的冲煮思路流程图">一个简单的冲煮思路流程图</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#第二部分操作指南--------手冲的仪式感">第二部分：操作指南 —— 手冲的仪式感</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#第三部分数据与对比--------器材的理性选择">第三部分：数据与对比 —— 器材的理性选择</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#第四部分萃取的代码隐喻">第四部分：萃取的代码隐喻</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#第五部分超越杯子--------咖啡与生活">第五部分：超越杯子 —— 咖啡与生活</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#最后的提醒或免责声明">最后的提醒（或免责声明）</a></div><ul class="outline-children"></ul></li></ul></li></ul></li></div></div><div id='write'  class=''><p>&nbsp;</p><h1 id='☕-咖啡的炼金术一则关于专注与偶然的样式测试文档'><span>☕ 咖啡的炼金术：一则关于专注与偶然的样式测试文档</span></h1><figure class='table-figure'><table><thead><tr><th><span>主题系列</span></th><th style='text-align:left;' ><span>主题链接</span></th></tr></thead><tbody><tr><td><span>亮色系主题</span><strong><span>Color</span></strong></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-cherry.html'><span>Cheey（樱桃红）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-caramel.html'><span>Caramel（焦糖橙）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-forest.html'><span>Forest（森绿）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-mint.html'><span>Mint（薄荷青）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sky.html'><span>Sky（天蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-prussian.html'><span>Prussian（普鲁士蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sakura.html'><span>Sakura（樱花粉）</span></a><a href='https://sumruler.github.io/typora-theme-phycat/demo-mauve.html'><span>Mauve（淡紫）</span></a></td></tr><tr><td><span>暗色系主题</span><strong><span>Neon</span></strong></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-vampire.html'><span>Vampire(吸血鬼)</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-radiation.html'><span>Radiation（辐射）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-abyss.html'><span>Abyss（深渊）</span></a></td></tr></tbody></table></figure><p><span>隆重介绍物理猫Phycat主题色工坊，点击&gt;&gt;</span><a href='https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio.html'><span>Phycat Theme Studio</span></a><span>&lt;&lt;一键生成你的专属主题配色！</span></p><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n2"><a class="md-toc-inner" href="#☕-咖啡的炼金术一则关于专注与偶然的样式测试文档">☕ 咖啡的炼金术：一则关于专注与偶然的样式测试文档</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n19"><a class="md-toc-inner" href="#第一部分基础要素--------咖啡豆的哲学">第一部分：基础要素 —— 咖啡豆的哲学</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n40"><a class="md-toc-inner" href="#一个简单的冲煮思路流程图">一个简单的冲煮思路流程图</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n42"><a class="md-toc-inner" href="#第二部分操作指南--------手冲的仪式感">第二部分：操作指南 —— 手冲的仪式感</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n65"><a class="md-toc-inner" href="#第三部分数据与对比--------器材的理性选择">第三部分：数据与对比 —— 器材的理性选择</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n92"><a class="md-toc-inner" href="#第四部分萃取的代码隐喻">第四部分：萃取的代码隐喻</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n95"><a class="md-toc-inner" href="#第五部分超越杯子--------咖啡与生活">第五部分：超越杯子 —— 咖啡与生活</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n106"><a class="md-toc-inner" href="#最后的提醒或免责声明">最后的提醒（或免责声明）</a></span></p></div><blockquote><p><span>“我们并非在饮用咖啡，而是在饮用理念。” —— 某位在咖啡馆沉思的匿名者</span></p></blockquote><p><span>这篇文档旨在展示 </span><strong><span>Markdown</span></strong><span> 近乎无限的表现力。我们将借由“制作一杯完美咖啡”的隐喻，探索从混沌的豆粒到清澈灵感的全过程。请观察，这里不仅是格式的演示，也是一场微型的思维实验。</span></p><hr /><h2 id='第一部分基础要素--------咖啡豆的哲学'><span>第一部分：基础要素 —— 咖啡豆的哲学</span></h2><p><span>每一颗咖啡豆都蕴含着一个世界。要释放它，我们需要以下</span><strong><span>核心原则</span></strong><span>：</span></p><ol start='' ><li><p><strong><span>优质原料</span></strong><span>：这是风味的基石。</span></p><ul><li><p><em><span>产地</span></em><span>：埃塞俄比亚的耶加雪菲（花香）、哥伦比亚的蕙兰（坚果巧克力）。</span></p></li><li><p><em><span>处理法</span></em><span>：水洗（清澈）、日晒（醇厚）、蜜处理（甜美）。</span></p></li></ul></li><li><p><strong><span>精确的变量</span></strong><span>：咖啡是科学与艺术的交界点。</span></p><ul><li><p><span>研磨度（从粗盐到面粉）</span></p></li><li><p><span>水温（92°C - 96°C 的黄金区间扽黄</span><code>okoko</code><span>我仍三</span></p></li><li><p><span>水粉比（例如 </span><strong><span>1:15</span></strong><span>）</span></p></li><li><p><span>时间（萃取不足与过萃的拉锯战）</span></p></li></ul></li></ol><h3 id='一个简单的冲煮思路流程图'><span>一个简单的冲煮思路流程图</span></h3><div class="md-diagram-panel md-fences-adv-panel" lang="mermaid"><svg id="mermaidChart6" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="flowchart mermaid-svg" style="max-width: 1366.984375px;" viewBox="0 0 1366.984375 198" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#mermaidChart6{font-family:sans-serif;font-size:16px;fill:#333;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaidChart6 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaidChart6 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaidChart6 .error-icon{fill:#552222;}#mermaidChart6 .error-text{fill:#552222;stroke:#552222;}#mermaidChart6 .edge-thickness-normal{stroke-width:1px;}#mermaidChart6 .edge-thickness-thick{stroke-width:3.5px;}#mermaidChart6 .edge-pattern-solid{stroke-dasharray:0;}#mermaidChart6 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaidChart6 .edge-pattern-dashed{stroke-dasharray:3;}#mermaidChart6 .edge-pattern-dotted{stroke-dasharray:2;}#mermaidChart6 .marker{fill:#333333;stroke:#333333;}#mermaidChart6 .marker.cross{stroke:#333333;}#mermaidChart6 svg{font-family:sans-serif;font-size:16px;}#mermaidChart6 p{margin:0;}#mermaidChart6 .label{font-family:sans-serif;color:#333;}#mermaidChart6 .cluster-label text{fill:#333;}#mermaidChart6 .cluster-label span{color:#333;}#mermaidChart6 .cluster-label span p{background-color:transparent;}#mermaidChart6 .label text,#mermaidChart6 span{fill:#333;color:#333;}#mermaidChart6 .node rect,#mermaidChart6 .node circle,#mermaidChart6 .node ellipse,#mermaidChart6 .node polygon,#mermaidChart6 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaidChart6 .rough-node .label text,#mermaidChart6 .node .label text,#mermaidChart6 .image-shape .label,#mermaidChart6 .icon-shape .label{text-anchor:middle;}#mermaidChart6 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaidChart6 .rough-node .label,#mermaidChart6 .node .label,#mermaidChart6 .image-shape .label,#mermaidChart6 .icon-shape .label{text-align:center;}#mermaidChart6 .node.clickable{cursor:pointer;}#mermaidChart6 .root .anchor path{fill:#333333!important;stroke-width:0;stroke:#333333;}#mermaidChart6 .arrowheadPath{fill:#333333;}#mermaidChart6 .edgePath .path{stroke:#333333;stroke-width:2.0px;}#mermaidChart6 .flowchart-link{stroke:#333333;fill:none;}#mermaidChart6 .edgeLabel{background-color:rgba(232,232,232, 0.8);text-align:center;}#mermaidChart6 .edgeLabel p{background-color:rgba(232,232,232, 0.8);}#mermaidChart6 .edgeLabel rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#mermaidChart6 .labelBkg{background-color:rgba(232, 232, 232, 0.5);}#mermaidChart6 .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#mermaidChart6 .cluster text{fill:#333;}#mermaidChart6 .cluster span{color:#333;}#mermaidChart6 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:sans-serif;font-size:12px;background:hsl(80, 100%, 96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#mermaidChart6 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#mermaidChart6 rect.text{fill:none;stroke-width:0;}#mermaidChart6 .icon-shape,#mermaidChart6 .image-shape{background-color:rgba(232,232,232, 0.8);text-align:center;}#mermaidChart6 .icon-shape p,#mermaidChart6 .image-shape p{background-color:rgba(232,232,232, 0.8);padding:2px;}#mermaidChart6 .icon-shape rect,#mermaidChart6 .image-shape rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#mermaidChart6 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaidChart6 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaidChart6 :root{--mermaid-alt-font-family:sans-serif;}</style><g><marker id="mermaidChart6_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaidChart6_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaidChart6_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mermaidChart6_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mermaidChart6_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaidChart6_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M157.5,105L182.5,105L203.5,105" id="L_A_B_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart6_flowchart-v2-pointEnd)"></path><path d="M309.906,105L334.906,105L356.407,105.422" id="L_B_C_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart6_flowchart-v2-pointEnd)"></path><path d="M465.482,84.169L536.965,47L609.27,47" id="L_C_D_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart6_flowchart-v2-pointEnd)"></path><path d="M465.482,126.831L536.965,163L583.617,163" id="L_C_E_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart6_flowchart-v2-pointEnd)"></path><path d="M762.77,47L813.422,47L834.422,47" id="L_D_F_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart6_flowchart-v2-pointEnd)"></path><path d="M788.422,163L813.422,163L851.523,163" id="L_E_G_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart6_flowchart-v2-pointEnd)"></path><path d="M1022.125,47L1047.125,47L1092.496,75.854" id="L_F_H_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart6_flowchart-v2-pointEnd)"></path><path d="M1005.023,163L1047.125,163L1092.496,134.146" id="L_G_H_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart6_flowchart-v2-pointEnd)"></path><path d="M1204.531,105L1229.531,105L1250.531,105" id="L_H_I_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart6_flowchart-v2-pointEnd)"></path></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(536.96484375, 47)"><g class="label" transform="translate(-17.1015625, -12)"><foreignObject width="34.203125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>手冲</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(536.96484375, 163)"><g class="label" transform="translate(-25.65234375, -12)"><foreignObject width="51.3046875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>法压壶</p></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default  " id="flowchart-A-0" transform="translate(82.75, 105)"><rect class="basic label-container" style="" x="-74.75" y="-27" width="149.5" height="54"></rect><g class="label" style="" transform="translate(-44.75, -12)"><rect></rect><foreignObject width="89.5" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>称取咖啡豆</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-B-1" transform="translate(258.703125, 105)"><rect class="basic label-container" style="" rx="5" ry="5" x="-51.203125" y="-27" width="102.40625" height="54"></rect><g class="label" style="" transform="translate(-36.203125, -12)"><rect></rect><foreignObject width="72.40625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>研磨成粉</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-C-3" transform="translate(423.109375, 105)"><polygon points="63.203125,0 126.40625,-63.203125 63.203125,-126.40625 0,-63.203125" class="label-container" transform="translate(-63.203125,63.203125)"></polygon><g class="label" style="" transform="translate(-36.203125, -12)"><rect></rect><foreignObject width="72.40625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>选择方法</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-D-5" transform="translate(688.01953125, 47)"><rect class="basic label-container" style="" x="-74.75" y="-39" width="149.5" height="78"></rect><g class="label" style="" transform="translate(-44.75, -24)"><rect></rect><foreignObject width="89.5" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>湿润滤纸<br/>倒入咖啡粉</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-E-7" transform="translate(688.01953125, 163)"><rect class="basic label-container" style="" x="-100.40234375" y="-27" width="200.8046875" height="54"></rect><g class="label" style="" transform="translate(-70.40234375, -12)"><rect></rect><foreignObject width="140.8046875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>咖啡粉与热水混合</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-F-9" transform="translate(930.2734375, 47)"><rect class="basic label-container" style="" x="-91.8515625" y="-27" width="183.703125" height="54"></rect><g class="label" style="" transform="translate(-61.8515625, -12)"><rect></rect><foreignObject width="123.703125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>分段注水与闷蒸</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-G-11" transform="translate(930.2734375, 163)"><rect class="basic label-container" style="" x="-74.75" y="-27" width="149.5" height="54"></rect><g class="label" style="" transform="translate(-44.75, -12)"><rect></rect><foreignObject width="89.5" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>静置四分钟</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-H-14" transform="translate(1138.328125, 105)"><rect class="basic label-container" style="" x="-66.203125" y="-27" width="132.40625" height="54"></rect><g class="label" style="" transform="translate(-36.203125, -12)"><rect></rect><foreignObject width="72.40625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>完成萃取</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-I-16" transform="translate(1306.7578125, 105)"><rect class="basic label-container" style="" x="-52.2265625" y="-27" width="104.453125" height="54"></rect><g class="label" style="" transform="translate(-22.2265625, -12)"><rect></rect><foreignObject width="44.453125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>享用!</p></span></div></foreignObject></g></g></g></g></g></svg></div><h2 id='第二部分操作指南--------手冲的仪式感'><span>第二部分：操作指南 —— 手冲的仪式感</span></h2><p><span>以下是一个经典</span><strong><span>V60手冲</span></strong><span>步骤，它体现了秩序与即兴的结合：</span></p><ol start='' ><li><p><strong><span>预热</span></strong><span>：用热水冲洗滤纸和滤杯，同时温热分享壶。</span></p></li><li><p><strong><span>布粉</span></strong><span>：将研磨好的咖啡粉倒入滤杯，轻轻拍平。</span></p></li><li><p><strong><span>闷蒸</span></strong><span>：</span></p><ul><li><p><span>注入两倍于咖啡粉重量的热水。</span></p></li><li><p><span>等待 </span><strong><span>30秒</span></strong><span>，观察咖啡粉层是否像“呼吸”一样膨胀鼓起。</span></p><ul><li><p><span>✅ 成功：均匀的鼓包，说明咖啡新鲜，萃取均匀。</span></p></li><li><p><span>❌ 失败：局部塌陷，可能导致后续通道效应。</span></p></li></ul></li></ul></li><li><p><strong><span>注水</span></strong><span>：以小圈到中圈的方式缓慢注入剩余热水，总时间控制在 </span><strong><span>2分钟至2分30秒</span></strong><span>。</span></p></li></ol><blockquote><p><strong><span>技术注记</span></strong><span>：闷蒸的目的在于排出二氧化碳，使后续热水能有效接触咖啡粉细胞壁，进行萃取。这是</span><strong><span>科学</span></strong><span>的部分。而注水的手法和节奏，则是</span><strong><span>艺术</span></strong><span>的开始。</span></p></blockquote><h2 id='第三部分数据与对比--------器材的理性选择'><span>第三部分：数据与对比 —— 器材的理性选择</span></h2><p><span>咖啡的呈现方式多样，下表对比了三种常见方法的特性：</span></p><figure class='table-figure'><table><thead><tr><th style='text-align:left;' ><span>冲煮方法</span></th><th style='text-align:left;' ><span>所需器材</span></th><th style='text-align:left;' ><span>风味特点</span></th><th style='text-align:left;' ><span>难度系数</span></th><th style='text-align:left;' ><span>适合场景</span></th></tr></thead><tbody><tr><td style='text-align:left;' ><strong><span>手冲 (Pour-Over)</span></strong></td><td style='text-align:left;' ><span>滤杯、滤纸、手冲壶</span></td><td style='text-align:left;' ><span>干净、层次分明、突出风味细节</span></td><td style='text-align:left;' ><span>⭐⭐⭐⭐</span></td><td style='text-align:left;' ><span>独自品味、追求仪式感</span></td></tr><tr><td style='text-align:left;' ><strong><span>法压壶 (French Press)</span></strong></td><td style='text-align:left;' ><code>法压壶</code></td><td style='text-align:left;' ><span>饱满、醇厚、带有油脂感</span></td><td style='text-align:left;' ><span>⭐⭐</span></td><td style='text-align:left;' ><span>多人分享、喜爱浓郁口感</span></td></tr><tr><td style='text-align:left;' ><strong><span>爱乐压 (AeroPress)</span></strong></td><td style='text-align:left;' ><span>爱乐压、滤纸</span></td><td style='text-align:left;' ><span>口感干净且浓郁、玩法多变</span></td><td style='text-align:left;' ><span>⭐⭐⭐</span></td><td style='text-align:left;' ><span>旅行、办公室、快速出品</span></td></tr></tbody></table></figure><h2 id='第四部分萃取的代码隐喻'><span>第四部分：萃取的代码隐喻</span></h2><p><span>咖啡萃取，本质上是一个物质传递的过程。我们可以用一段伪代码来抽象这一逻辑：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="python" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 36.3984px; left: 69.1953px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 38px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>32</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -38px; width: 38px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 29px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># coffee_extraction.py</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">class</span> <span class="cm-def">PerfectCup</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">__init__</span>(<span class="cm-variable-2">self</span>, <span class="cm-variable">beans</span>, <span class="cm-variable">water</span>, <span class="cm-variable">method</span><span class="cm-operator">=</span><span class="cm-string">"v60"</span>):</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">beans</span> <span class="cm-operator">=</span> <span class="cm-variable">beans</span> &nbsp;<span class="cm-comment"># 咖啡豆对象</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">water</span> <span class="cm-operator">=</span> <span class="cm-variable">water</span> &nbsp;<span class="cm-comment"># 水对象（包含温度、硬度属性）</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">method</span> <span class="cm-operator">=</span> <span class="cm-variable">method</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">tds</span> <span class="cm-operator">=</span> <span class="cm-number">0.0</span> &nbsp;<span class="cm-comment"># 总溶解固体浓度</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">ey</span> <span class="cm-operator">=</span> <span class="cm-number">0.0</span> &nbsp; <span class="cm-comment"># 萃取率</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+<div class="typora-export-sidebar"><div class="outline-content"><li class="outline-item-wrapper outline-h1 outline-item-open"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#☕-咖啡的炼金术一则关于专注与偶然的样式测试文档">☕ 咖啡的炼金术：一则关于专注与偶然的样式测试文档</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#第一部分基础要素--------咖啡豆的哲学">第一部分：基础要素 —— 咖啡豆的哲学</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#一个简单的冲煮思路流程图">一个简单的冲煮思路流程图</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#第二部分操作指南--------手冲的仪式感">第二部分：操作指南 —— 手冲的仪式感</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#第三部分数据与对比--------器材的理性选择">第三部分：数据与对比 —— 器材的理性选择</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#第四部分萃取的代码隐喻">第四部分：萃取的代码隐喻</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#第五部分超越杯子--------咖啡与生活">第五部分：超越杯子 —— 咖啡与生活</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3 outline-item-single"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#最后的提醒或免责声明">最后的提醒（或免责声明）</a></div><ul class="outline-children"></ul></li></ul></li></ul></li></div></div><div id='write'  class=''><p>&nbsp;</p><h1 id='☕-咖啡的炼金术一则关于专注与偶然的样式测试文档'><span>☕ 咖啡的炼金术：一则关于专注与偶然的样式测试文档</span></h1><p><span>如果你喜欢这套主题，可以选择打赏支持。不胜感激！</span></p><p><img src="assets/image-20251224165551114.png" alt="image-20251224165551114" style="zoom:33%;" /><img src="assets/image-20251224165606988.png" alt="image-20251224165606988" style="zoom:33%;" /></p><figure class='table-figure'><table><thead><tr><th><span>主题系列</span></th><th style='text-align:left;' ><span>主题链接</span></th></tr></thead><tbody><tr><td><span>亮色系主题</span><strong><span>Color</span></strong></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-cherry.html'><span>Cheey（樱桃红）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-caramel.html'><span>Caramel（焦糖橙）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-forest.html'><span>Forest（森绿）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-mint.html'><span>Mint（薄荷青）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sky.html'><span>Sky（天蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-prussian.html'><span>Prussian（普鲁士蓝）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-sakura.html'><span>Sakura（樱花粉）</span></a><a href='https://sumruler.github.io/typora-theme-phycat/demo-mauve.html'><span>Mauve（淡紫）</span></a></td></tr><tr><td><span>暗色系主题</span><strong><span>Neon</span></strong></td><td style='text-align:left;' ><a href='https://sumruler.github.io/typora-theme-phycat/demo-vampire.html'><span>Vampire(吸血鬼)</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-radiation.html'><span>Radiation（辐射）</span></a><span>、</span><a href='https://sumruler.github.io/typora-theme-phycat/demo-abyss.html'><span>Abyss（深渊）</span></a></td></tr></tbody></table></figure><p><span>隆重介绍物理猫Phycat主题色工坊，点击&gt;&gt;</span><a href='https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio.html'><span>Phycat Theme Studio</span></a><span>&lt;&lt;一键生成你的专属主题配色！</span></p><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n2"><a class="md-toc-inner" href="#☕-咖啡的炼金术一则关于专注与偶然的样式测试文档">☕ 咖啡的炼金术：一则关于专注与偶然的样式测试文档</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n21"><a class="md-toc-inner" href="#第一部分基础要素--------咖啡豆的哲学">第一部分：基础要素 —— 咖啡豆的哲学</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n42"><a class="md-toc-inner" href="#一个简单的冲煮思路流程图">一个简单的冲煮思路流程图</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n44"><a class="md-toc-inner" href="#第二部分操作指南--------手冲的仪式感">第二部分：操作指南 —— 手冲的仪式感</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n67"><a class="md-toc-inner" href="#第三部分数据与对比--------器材的理性选择">第三部分：数据与对比 —— 器材的理性选择</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n94"><a class="md-toc-inner" href="#第四部分萃取的代码隐喻">第四部分：萃取的代码隐喻</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n97"><a class="md-toc-inner" href="#第五部分超越杯子--------咖啡与生活">第五部分：超越杯子 —— 咖啡与生活</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n108"><a class="md-toc-inner" href="#最后的提醒或免责声明">最后的提醒（或免责声明）</a></span></p></div><blockquote><p><span>“我们并非在饮用咖啡，而是在饮用理念。” —— 某位在咖啡馆沉思的匿名者</span></p></blockquote><p><span>这篇文档旨在展示 </span><strong><span>Markdown</span></strong><span> 近乎无限的表现力。我们将借由“制作一杯完美咖啡”的隐喻，探索从混沌的豆粒到清澈灵感的全过程。请观察，这里不仅是格式的演示，也是一场微型的思维实验。</span></p><hr /><h2 id='第一部分基础要素--------咖啡豆的哲学'><span>第一部分：基础要素 —— 咖啡豆的哲学</span></h2><p><span>每一颗咖啡豆都蕴含着一个世界。要释放它，我们需要以下</span><strong><span>核心原则</span></strong><span>：</span></p><ol start='' ><li><p><strong><span>优质原料</span></strong><span>：这是风味的基石。</span></p><ul><li><p><em><span>产地</span></em><span>：埃塞俄比亚的耶加雪菲（花香）、哥伦比亚的蕙兰（坚果巧克力）。</span></p></li><li><p><em><span>处理法</span></em><span>：水洗（清澈）、日晒（醇厚）、蜜处理（甜美）。</span></p></li></ul></li><li><p><strong><span>精确的变量</span></strong><span>：咖啡是科学与艺术的交界点。</span></p><ul><li><p><span>研磨度（从粗盐到面粉）</span></p></li><li><p><span>水温（92°C - 96°C 的黄金区间扽黄</span><code>okoko</code><span>我仍三</span></p></li><li><p><span>水粉比（例如 </span><strong><span>1:15</span></strong><span>）</span></p></li><li><p><span>时间（萃取不足与过萃的拉锯战）</span></p></li></ul></li></ol><h3 id='一个简单的冲煮思路流程图'><span>一个简单的冲煮思路流程图</span></h3><div class="md-diagram-panel md-fences-adv-panel" lang="mermaid"><svg id="mermaidChart11" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="flowchart mermaid-svg" style="max-width: 1375.4375px;" viewBox="0 0 1375.4375 198" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#mermaidChart11{font-family:sans-serif;font-size:16px;fill:#333;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaidChart11 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaidChart11 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaidChart11 .error-icon{fill:#552222;}#mermaidChart11 .error-text{fill:#552222;stroke:#552222;}#mermaidChart11 .edge-thickness-normal{stroke-width:1px;}#mermaidChart11 .edge-thickness-thick{stroke-width:3.5px;}#mermaidChart11 .edge-pattern-solid{stroke-dasharray:0;}#mermaidChart11 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaidChart11 .edge-pattern-dashed{stroke-dasharray:3;}#mermaidChart11 .edge-pattern-dotted{stroke-dasharray:2;}#mermaidChart11 .marker{fill:#333333;stroke:#333333;}#mermaidChart11 .marker.cross{stroke:#333333;}#mermaidChart11 svg{font-family:sans-serif;font-size:16px;}#mermaidChart11 p{margin:0;}#mermaidChart11 .label{font-family:sans-serif;color:#333;}#mermaidChart11 .cluster-label text{fill:#333;}#mermaidChart11 .cluster-label span{color:#333;}#mermaidChart11 .cluster-label span p{background-color:transparent;}#mermaidChart11 .label text,#mermaidChart11 span{fill:#333;color:#333;}#mermaidChart11 .node rect,#mermaidChart11 .node circle,#mermaidChart11 .node ellipse,#mermaidChart11 .node polygon,#mermaidChart11 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaidChart11 .rough-node .label text,#mermaidChart11 .node .label text,#mermaidChart11 .image-shape .label,#mermaidChart11 .icon-shape .label{text-anchor:middle;}#mermaidChart11 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaidChart11 .rough-node .label,#mermaidChart11 .node .label,#mermaidChart11 .image-shape .label,#mermaidChart11 .icon-shape .label{text-align:center;}#mermaidChart11 .node.clickable{cursor:pointer;}#mermaidChart11 .root .anchor path{fill:#333333!important;stroke-width:0;stroke:#333333;}#mermaidChart11 .arrowheadPath{fill:#333333;}#mermaidChart11 .edgePath .path{stroke:#333333;stroke-width:2.0px;}#mermaidChart11 .flowchart-link{stroke:#333333;fill:none;}#mermaidChart11 .edgeLabel{background-color:rgba(232,232,232, 0.8);text-align:center;}#mermaidChart11 .edgeLabel p{background-color:rgba(232,232,232, 0.8);}#mermaidChart11 .edgeLabel rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#mermaidChart11 .labelBkg{background-color:rgba(232, 232, 232, 0.5);}#mermaidChart11 .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#mermaidChart11 .cluster text{fill:#333;}#mermaidChart11 .cluster span{color:#333;}#mermaidChart11 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:sans-serif;font-size:12px;background:hsl(80, 100%, 96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#mermaidChart11 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#mermaidChart11 rect.text{fill:none;stroke-width:0;}#mermaidChart11 .icon-shape,#mermaidChart11 .image-shape{background-color:rgba(232,232,232, 0.8);text-align:center;}#mermaidChart11 .icon-shape p,#mermaidChart11 .image-shape p{background-color:rgba(232,232,232, 0.8);padding:2px;}#mermaidChart11 .icon-shape rect,#mermaidChart11 .image-shape rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#mermaidChart11 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaidChart11 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaidChart11 :root{--mermaid-alt-font-family:sans-serif;}</style><g><marker id="mermaidChart11_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaidChart11_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaidChart11_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mermaidChart11_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mermaidChart11_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaidChart11_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M157.5,105L182.5,105L203.5,105" id="L_A_B_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart11_flowchart-v2-pointEnd)"></path><path d="M309.906,105L334.906,105L356.407,105.422" id="L_B_C_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart11_flowchart-v2-pointEnd)"></path><path d="M465.967,84.655L540.965,47L617.27,47" id="L_C_D_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart11_flowchart-v2-pointEnd)"></path><path d="M465.967,126.345L540.965,163L591.617,163" id="L_C_E_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart11_flowchart-v2-pointEnd)"></path><path d="M770.77,47L821.422,47L842.422,47" id="L_D_F_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart11_flowchart-v2-pointEnd)"></path><path d="M796.422,163L821.422,163L859.523,163" id="L_E_G_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart11_flowchart-v2-pointEnd)"></path><path d="M1030.125,47L1055.125,47L1100.496,75.854" id="L_F_H_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart11_flowchart-v2-pointEnd)"></path><path d="M1013.023,163L1055.125,163L1100.496,134.146" id="L_G_H_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart11_flowchart-v2-pointEnd)"></path><path d="M1212.531,105L1237.531,105L1258.531,105" id="L_H_I_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="" marker-end="url(#mermaidChart11_flowchart-v2-pointEnd)"></path></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" transform="translate(-4, 0)"><foreignObject width="8" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(-4, 0)"><foreignObject width="8" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(540.96484375, 47)"><g class="label" transform="translate(-21.1015625, -12)"><foreignObject width="42.203125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>手冲</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(540.96484375, 163)"><g class="label" transform="translate(-29.65234375, -12)"><foreignObject width="59.3046875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>法压壶</p></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(-4, 0)"><foreignObject width="8" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(-4, 0)"><foreignObject width="8" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(-4, 0)"><foreignObject width="8" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(-4, 0)"><foreignObject width="8" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" transform="translate(-4, 0)"><foreignObject width="8" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default  " id="flowchart-A-0" transform="translate(82.75, 105)"><rect class="basic label-container" style="" x="-74.75" y="-27" width="149.5" height="54"></rect><g class="label" style="" transform="translate(-44.75, -12)"><rect></rect><foreignObject width="89.5" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>称取咖啡豆</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-B-1" transform="translate(258.703125, 105)"><rect class="basic label-container" style="" rx="5" ry="5" x="-51.203125" y="-27" width="102.40625" height="54"></rect><g class="label" style="" transform="translate(-36.203125, -12)"><rect></rect><foreignObject width="72.40625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>研磨成粉</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-C-3" transform="translate(423.109375, 105)"><polygon points="63.203125,0 126.40625,-63.203125 63.203125,-126.40625 0,-63.203125" class="label-container" transform="translate(-63.203125,63.203125)"></polygon><g class="label" style="" transform="translate(-36.203125, -12)"><rect></rect><foreignObject width="72.40625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>选择方法</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-D-5" transform="translate(696.01953125, 47)"><rect class="basic label-container" style="" x="-74.75" y="-39" width="149.5" height="78"></rect><g class="label" style="" transform="translate(-44.75, -24)"><rect></rect><foreignObject width="89.5" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>湿润滤纸<br/>倒入咖啡粉</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-E-7" transform="translate(696.01953125, 163)"><rect class="basic label-container" style="" x="-100.40234375" y="-27" width="200.8046875" height="54"></rect><g class="label" style="" transform="translate(-70.40234375, -12)"><rect></rect><foreignObject width="140.8046875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>咖啡粉与热水混合</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-F-9" transform="translate(938.2734375, 47)"><rect class="basic label-container" style="" x="-91.8515625" y="-27" width="183.703125" height="54"></rect><g class="label" style="" transform="translate(-61.8515625, -12)"><rect></rect><foreignObject width="123.703125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>分段注水与闷蒸</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-G-11" transform="translate(938.2734375, 163)"><rect class="basic label-container" style="" x="-74.75" y="-27" width="149.5" height="54"></rect><g class="label" style="" transform="translate(-44.75, -12)"><rect></rect><foreignObject width="89.5" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>静置四分钟</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-H-14" transform="translate(1146.328125, 105)"><rect class="basic label-container" style="" x="-66.203125" y="-27" width="132.40625" height="54"></rect><g class="label" style="" transform="translate(-36.203125, -12)"><rect></rect><foreignObject width="72.40625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>完成萃取</p></span></div></foreignObject></g></g><g class="node default  " id="flowchart-I-16" transform="translate(1314.984375, 105)"><rect class="basic label-container" style="" x="-52.453125" y="-27" width="104.90625" height="54"></rect><g class="label" style="" transform="translate(-22.453125, -12)"><rect></rect><foreignObject width="44.90625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>享用!</p></span></div></foreignObject></g></g></g></g></g></svg></div><h2 id='第二部分操作指南--------手冲的仪式感'><span>第二部分：操作指南 —— 手冲的仪式感</span></h2><p><span>以下是一个经典</span><strong><span>V60手冲</span></strong><span>步骤，它体现了秩序与即兴的结合：</span></p><ol start='' ><li><p><strong><span>预热</span></strong><span>：用热水冲洗滤纸和滤杯，同时温热分享壶。</span></p></li><li><p><strong><span>布粉</span></strong><span>：将研磨好的咖啡粉倒入滤杯，轻轻拍平。</span></p></li><li><p><strong><span>闷蒸</span></strong><span>：</span></p><ul><li><p><span>注入两倍于咖啡粉重量的热水。</span></p></li><li><p><span>等待 </span><strong><span>30秒</span></strong><span>，观察咖啡粉层是否像“呼吸”一样膨胀鼓起。</span></p><ul><li><p><span>✅ 成功：均匀的鼓包，说明咖啡新鲜，萃取均匀。</span></p></li><li><p><span>❌ 失败：局部塌陷，可能导致后续通道效应。</span></p></li></ul></li></ul></li><li><p><strong><span>注水</span></strong><span>：以小圈到中圈的方式缓慢注入剩余热水，总时间控制在 </span><strong><span>2分钟至2分30秒</span></strong><span>。</span></p></li></ol><blockquote><p><strong><span>技术注记</span></strong><span>：闷蒸的目的在于排出二氧化碳，使后续热水能有效接触咖啡粉细胞壁，进行萃取。这是</span><strong><span>科学</span></strong><span>的部分。而注水的手法和节奏，则是</span><strong><span>艺术</span></strong><span>的开始。</span></p></blockquote><h2 id='第三部分数据与对比--------器材的理性选择'><span>第三部分：数据与对比 —— 器材的理性选择</span></h2><p><span>咖啡的呈现方式多样，下表对比了三种常见方法的特性：</span></p><figure class='table-figure'><table><thead><tr><th style='text-align:left;' ><span>冲煮方法</span></th><th style='text-align:left;' ><span>所需器材</span></th><th style='text-align:left;' ><span>风味特点</span></th><th style='text-align:left;' ><span>难度系数</span></th><th style='text-align:left;' ><span>适合场景</span></th></tr></thead><tbody><tr><td style='text-align:left;' ><strong><span>手冲 (Pour-Over)</span></strong></td><td style='text-align:left;' ><span>滤杯、滤纸、手冲壶</span></td><td style='text-align:left;' ><span>干净、层次分明、突出风味细节</span></td><td style='text-align:left;' ><span>⭐⭐⭐⭐</span></td><td style='text-align:left;' ><span>独自品味、追求仪式感</span></td></tr><tr><td style='text-align:left;' ><strong><span>法压壶 (French Press)</span></strong></td><td style='text-align:left;' ><code>法压壶</code></td><td style='text-align:left;' ><span>饱满、醇厚、带有油脂感</span></td><td style='text-align:left;' ><span>⭐⭐</span></td><td style='text-align:left;' ><span>多人分享、喜爱浓郁口感</span></td></tr><tr><td style='text-align:left;' ><strong><span>爱乐压 (AeroPress)</span></strong></td><td style='text-align:left;' ><span>爱乐压、滤纸</span></td><td style='text-align:left;' ><span>口感干净且浓郁、玩法多变</span></td><td style='text-align:left;' ><span>⭐⭐⭐</span></td><td style='text-align:left;' ><span>旅行、办公室、快速出品</span></td></tr></tbody></table></figure><h2 id='第四部分萃取的代码隐喻'><span>第四部分：萃取的代码隐喻</span></h2><p><span>咖啡萃取，本质上是一个物质传递的过程。我们可以用一段伪代码来抽象这一逻辑：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="python" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 36.3984px; left: 69.1953px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 38px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>32</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -38px; width: 38px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 29px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># coffee_extraction.py</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">class</span> <span class="cm-def">PerfectCup</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">__init__</span>(<span class="cm-variable-2">self</span>, <span class="cm-variable">beans</span>, <span class="cm-variable">water</span>, <span class="cm-variable">method</span><span class="cm-operator">=</span><span class="cm-string">"v60"</span>):</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">beans</span> <span class="cm-operator">=</span> <span class="cm-variable">beans</span> &nbsp;<span class="cm-comment"># 咖啡豆对象</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">water</span> <span class="cm-operator">=</span> <span class="cm-variable">water</span> &nbsp;<span class="cm-comment"># 水对象（包含温度、硬度属性）</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">method</span> <span class="cm-operator">=</span> <span class="cm-variable">method</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">tds</span> <span class="cm-operator">=</span> <span class="cm-number">0.0</span> &nbsp;<span class="cm-comment"># 总溶解固体浓度</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">ey</span> <span class="cm-operator">=</span> <span class="cm-number">0.0</span> &nbsp; <span class="cm-comment"># 萃取率</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
 </span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 29px;">10</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">brew</span>(<span class="cm-variable-2">self</span>):</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">11</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-string">"""执行冲煮的核心算法"""</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">12</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">grind_size</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">_adjust_grind</span>() <span class="cm-comment"># 根据方法调整研磨度</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">13</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">bloom_success</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">_bloom</span>() &nbsp; &nbsp; <span class="cm-comment"># 闷蒸，返回布尔值</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">14</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
 </span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">15</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">if</span> <span class="cm-variable">bloom_success</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">16</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">extraction_time</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">_control_pour</span>() <span class="cm-comment"># 控制注水</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">17</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">tds</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">_measure_tds</span>() <span class="cm-comment"># 测量浓度</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">18</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">ey</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">_calculate_ey</span>() <span class="cm-comment"># 计算萃取率</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">19</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
 </span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 29px;">20</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">if</span> <span class="cm-number">18</span> <span class="cm-operator">&lt;=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">ey</span> <span class="cm-operator">&lt;=</span> <span class="cm-number">22</span>: <span class="cm-comment"># 黄金萃取率区间</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">21</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-string">"🎉 完美！这杯咖啡在最佳萃取窗口内。"</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">22</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">elif</span> <span class="cm-variable-2">self</span>.<span class="cm-property">ey</span> <span class="cm-operator">&lt;</span> <span class="cm-number">18</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">23</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-string">"⏳ 萃取不足，可能偏酸、单薄。"</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">24</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">else</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">25</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-string">"🔥 过萃了，可能带有焦苦味。"</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">26</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">else</span>:</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">27</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-string">"❌ 闷蒸失败，请检查咖啡豆新鲜度或注水方式。"</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">28</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
-</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">29</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># 实例化并运行</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 29px;">30</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">my_morning_cup</span> <span class="cm-operator">=</span> <span class="cm-variable">PerfectCup</span>(<span class="cm-variable">beans</span><span class="cm-operator">=</span><span class="cm-string">"Ethiopia Yirgacheffe"</span>, <span class="cm-variable">water</span><span class="cm-operator">=</span><span class="cm-string">"92C"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">31</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">result</span> <span class="cm-operator">=</span> <span class="cm-variable">my_morning_cup</span>.<span class="cm-property">brew</span>()</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 29px;">32</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-builtin">print</span>(<span class="cm-variable">result</span>)</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 921px;"></div><div class="CodeMirror-gutters" style="height: 921px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 37px;"></div></div></div></div></pre><h2 id='第五部分超越杯子--------咖啡与生活'><span>第五部分：超越杯子 —— 咖啡与生活</span></h2><p><span>一杯好咖啡的影响，远不止于味蕾。</span></p><ul><li><p><strong><span>它是专注的锚点</span></strong><span>：在研磨、注水的几分钟里，世界被简化为水流的弧线与时间的流逝。</span></p></li><li><p><strong><span>它是连接的桥梁</span></strong><span>：“一起喝杯咖啡”是现代社会中一种温和的社交契约。</span></p></li><li><p><strong><span>它是灵感的催化剂</span></strong><span>：多少思绪在咖啡因的轻抚下变得清晰，多少对话在杯沿的热气中得以深入。</span></p></li></ul><p><q class="page-break"/></p><hr /><h3 id='最后的提醒或免责声明'><span>最后的提醒（或免责声明）</span></h3><blockquote><p><span>⚠️ </span><strong><span>请注意</span></strong><span>：本文档中关于咖啡的所有描述，都源于作者的主观体验与广泛阅读。咖啡的</span><strong><span>终极奥义</span></strong><span>在于你的个人偏好。如果你喜欢加糖、加奶，或者就爱喝速溶咖啡，那也完全正确。所有关于“完美”的探讨，其目的都是为了</span><strong><span>增进体验的乐趣，而非设立品味的藩篱</span></strong><span>。</span></p></blockquote><div class="md-alert md-alert-tip tip"><p><span class='md-alert-text md-alert-text-tip'><svg viewBox="0 0 16 16" version="1.1" width="1em" height="1em" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</span><br><span>咖啡如果觉得苦，可以加点糖。</span></p></div><div class="md-alert md-alert-warning warning"><p><span class='md-alert-text md-alert-text-warning'><svg viewBox="0 0 16 16" version="1.1" width="1em" height="1em" aria-hidden="true"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</span><br></p><p><span>咖啡会导致胃酸分泌多，肠胃不好少喝咖啡哦！</span></p></div><div class="md-alert md-alert-note note"><p><span class='md-alert-text md-alert-text-note'><svg viewBox="0 0 16 16" version="1.1" width="1em" height="1em" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</span><br><span>咖啡和牛奶是很好的搭配呢。</span></p></div><div class="md-alert md-alert-important important"><p><span class='md-alert-text md-alert-text-important'><svg viewBox="0 0 16 16" version="1.1" width="1em" height="1em" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</span><br><span>未成年不建议喝咖啡呢！</span></p></div></div></div>
+</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">29</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># 实例化并运行</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 29px;">30</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">my_morning_cup</span> <span class="cm-operator">=</span> <span class="cm-variable">PerfectCup</span>(<span class="cm-variable">beans</span><span class="cm-operator">=</span><span class="cm-string">"Ethiopia Yirgacheffe"</span>, <span class="cm-variable">water</span><span class="cm-operator">=</span><span class="cm-string">"92C"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 29px;">31</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">result</span> <span class="cm-operator">=</span> <span class="cm-variable">my_morning_cup</span>.<span class="cm-property">brew</span>()</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -38px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 29px;">32</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-builtin">print</span>(<span class="cm-variable">result</span>)</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 922px;"></div><div class="CodeMirror-gutters" style="height: 922px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 37px;"></div></div></div></div></pre><h2 id='第五部分超越杯子--------咖啡与生活'><span>第五部分：超越杯子 —— 咖啡与生活</span></h2><p><span>一杯好咖啡的影响，远不止于味蕾。</span></p><ul><li><p><strong><span>它是专注的锚点</span></strong><span>：在研磨、注水的几分钟里，世界被简化为水流的弧线与时间的流逝。</span></p></li><li><p><strong><span>它是连接的桥梁</span></strong><span>：“一起喝杯咖啡”是现代社会中一种温和的社交契约。</span></p></li><li><p><strong><span>它是灵感的催化剂</span></strong><span>：多少思绪在咖啡因的轻抚下变得清晰，多少对话在杯沿的热气中得以深入。</span></p></li></ul><p><q class="page-break"/></p><hr /><h3 id='最后的提醒或免责声明'><span>最后的提醒（或免责声明）</span></h3><blockquote><p><span>⚠️ </span><strong><span>请注意</span></strong><span>：本文档中关于咖啡的所有描述，都源于作者的主观体验与广泛阅读。咖啡的</span><strong><span>终极奥义</span></strong><span>在于你的个人偏好。如果你喜欢加糖、加奶，或者就爱喝速溶咖啡，那也完全正确。所有关于“完美”的探讨，其目的都是为了</span><strong><span>增进体验的乐趣，而非设立品味的藩篱</span></strong><span>。</span></p></blockquote><div class="md-alert md-alert-tip tip"><p><span class='md-alert-text md-alert-text-tip'><svg viewBox="0 0 16 16" version="1.1" width="1em" height="1em" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</span><br><span>咖啡如果觉得苦，可以加点糖。</span></p></div><div class="md-alert md-alert-warning warning"><p><span class='md-alert-text md-alert-text-warning'><svg viewBox="0 0 16 16" version="1.1" width="1em" height="1em" aria-hidden="true"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</span><br></p><p><span>咖啡会导致胃酸分泌多，肠胃不好少喝咖啡哦！</span></p></div><div class="md-alert md-alert-note note"><p><span class='md-alert-text md-alert-text-note'><svg viewBox="0 0 16 16" version="1.1" width="1em" height="1em" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</span><br><span>咖啡和牛奶是很好的搭配呢。</span></p></div><div class="md-alert md-alert-important important"><p><span class='md-alert-text md-alert-text-important'><svg viewBox="0 0 16 16" version="1.1" width="1em" height="1em" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</span><br><span>未成年不建议喝咖啡呢！</span></p></div></div></div>
 
 <script>(function(){function e(e,n,i){document.addEventListener(e,function(e){if(!e.defaultPrevented)for(var t=e.target;t&&t!=this;t=t.parentNode)if(t.matches(n)){!1===i.call(t,e)&&(e.preventDefault(),e.stopPropagation());break}},!1)}var t=document.body.parentElement,i=[],r=null,o=document.body.classList.contains("typora-export-collapse-outline");function a(){return t.scrollTop}e("click",".outline-expander",function(e){var t=this.closest(".outline-item-wrapper").classList;return t.contains("outline-item-open")?t.remove("outline-item-open"):t.add("outline-item-open"),u(),!1}),e("click",".outline-item",function(e){var t=this.querySelector(".outline-label");location.hash="#"+t.getAttribute("href"),o&&((t=this.closest(".outline-item-wrapper").classList).contains("outline-item-open")||t.add("outline-item-open"),d(),t.add("outline-item-active"))});function s(){var e=a();r=null;for(var t=0;t<i.length&&i[t][1]-e<60;t++)r=i[t]}function n(){c=setTimeout(function(){var n;i=[],n=a(),document.querySelector("#write").querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(e=>{var t=e.getAttribute("id");i.push([t,n+e.getBoundingClientRect().y])}),s(),u()},300)}var l,c,d=function(){document.querySelectorAll(".outline-item-active").forEach(e=>e.classList.remove("outline-item-active")),document.querySelectorAll(".outline-item-single.outline-item-open").forEach(e=>e.classList.remove("outline-item-open"))},u=function(){if(r&&(d(),t=document.querySelector('.outline-label[href="#'+(CSS.escape?CSS.escape(r[0]):r[0])+'"]')))if(o){var e=t.closest(".outline-item-open>ul>.outline-item-wrapper");if(e)e.classList.add("outline-item-active");else{for(var t,n=(t=t.closest(".outline-item-wrapper")).parentElement.closest(".outline-item-wrapper");n;)n=(t=n).parentElement.closest(".outline-item-wrapper");t.classList.add("outline-item-active")}}else t.closest(".outline-item-wrapper").classList.add("outline-item-active")};window.addEventListener("scroll",function(e){l&&clearTimeout(l),l=setTimeout(function(){s(),u()},300)});window.addEventListener("resize",function(e){c&&clearTimeout(c),n()}),n()})();</script></body>
 </html>

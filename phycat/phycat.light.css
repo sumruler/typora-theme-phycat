@@ -4,13 +4,13 @@
 }
 
 @font-face {
-    font-family: LXGWWenKai;
+    font-family: "LXGW WenKai";
     src: url(LXGWWenKai-Regular.ttf)
 }
 
 html {
     font-size: 16px;
-    font-family: LXGWWenKai
+    font-family: "LXGW WenKai"
 }
 
 #write {
@@ -51,7 +51,7 @@ html {
 #write p {
     color: #333;
     margin: 10px 10px;
-    font-family: Optima-Regular, Optima, LXGWWenKai, PingFangSC-light, PingFangTC-light, "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    font-family: Optima-Regular, Optima, "LXGW WenKai", PingFangSC-light, PingFangTC-light, "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     font-size: 1rem;
     word-spacing: 2px
 }
@@ -552,7 +552,7 @@ li.md-list-item {
     top: 35px;
     position: absolute;
     border-left: .5px solid var(--element-color);
-    left: -14.5px
+    left: -12.5px
 }
 
 #write .task-list-item input {
@@ -803,16 +803,53 @@ li.md-list-item {
 
 #write em {
     font-style: italic;
-    color: #555;
+    color: var(--element-color);
     text-decoration: none;
-    padding: 0 2px;
-    transition: all .3s ease
+    padding: 0 2px 2px;
+    position: relative;
+    transition: color .2s ease, -webkit-text-stroke .2s ease;
+    z-index: 0
+}
+
+#write em::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='black' stroke-width='2' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E");
+    -webkit-mask-repeat: repeat-x;
+    -webkit-mask-size: 12px 4px;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='black' stroke-width='2' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E");
+    mask-repeat: repeat-x;
+    mask-size: 12px 4px;
+    background-color: var(--element-color-shallow);
+    z-index: -1;
+    transition: background-color .3s ease
 }
 
 #write em:hover {
-    color: var(--element-color);
-    text-decoration: underline wavy var(--element-color-shallow);
-    text-underline-offset: 4px
+    color: var(--element-color-deep);
+    font-weight: 400;
+    -webkit-text-stroke: .6px var(--element-color-deep)
+}
+
+#write em:hover::after {
+    background-color: var(--element-color);
+    animation: waveFlow 1s linear infinite
+}
+
+@keyframes waveFlow {
+    0% {
+        -webkit-mask-position-x: 0;
+        mask-position-x: 0
+    }
+
+    100% {
+        -webkit-mask-position-x: 12px;
+        mask-position-x: 12px
+    }
 }
 
 #write del {

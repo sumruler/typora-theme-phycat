@@ -8,6 +8,15 @@ status: "CONFIDENTIAL"
 
 # 🧛‍♂️ 德古拉的午夜邀约
 
+如果你喜欢这套主题，可以选择打赏支持。不胜感激！
+
+<img src="assets/image-20251224165551114.png" alt="image-20251224165551114" style="zoom:33%;" /><img src="assets/image-20251224165606988.png" alt="image-20251224165606988" style="zoom:33%;" />
+
+| 主题系列            | 主题链接                                                     |
+| ------------------- | :----------------------------------------------------------- |
+| 亮色系主题**Color** | [Cheey（樱桃红）](https://sumruler.github.io/typora-theme-phycat/demo-cherry.html)、[Caramel（焦糖橙）](https://sumruler.github.io/typora-theme-phycat/demo-caramel.html)、[Forest（森绿）](https://sumruler.github.io/typora-theme-phycat/demo-forest.html)、[Mint（薄荷青）](https://sumruler.github.io/typora-theme-phycat/demo-mint.html)、[Sky（天蓝）](https://sumruler.github.io/typora-theme-phycat/demo-sky.html)、[Prussian（普鲁士蓝）](https://sumruler.github.io/typora-theme-phycat/demo-prussian.html)、[Sakura（樱花粉）](https://sumruler.github.io/typora-theme-phycat/demo-sakura.html)[Mauve（淡紫）](https://sumruler.github.io/typora-theme-phycat/demo-mauve.html) |
+| 暗色系主题**Neon**  | [Vampire(吸血鬼)](https://sumruler.github.io/typora-theme-phycat/demo-vampire.html)、[Radiation（辐射）](https://sumruler.github.io/typora-theme-phycat/demo-radiation.html)、[Abyss（深渊）](https://sumruler.github.io/typora-theme-phycat/demo-abyss.html) |
+
 > **致 尊贵的来宾：**
 >
 > 当钟声敲响第十二下，月亮染上猩红之时，我诚挚地邀请您光临寒舍。这不仅仅是一场晚宴，更是一场 **视觉的盛宴**。在这里，你可以看到光影如何在黑暗中起舞。
@@ -17,12 +26,6 @@ status: "CONFIDENTIAL"
 在进入城堡之前，请务必阅读以下 **高亮条款**。我们不希望发生任何<mark>“意外”</mark>（比如被当作晚餐）。
 
 请注意，按下 <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>L</kbd> 并不能让你在现实中隐身。
-
-如果你希望更换这份请柬的样式，请点击下方的链接：
-
-| 主题系列           | 主题链接                                                     |
-| ------------------ | :----------------------------------------------------------- |
-| 暗色系主题**Neon** | [Vampire(吸血鬼)](https://sumruler.github.io/typora-theme-phycat/demo-vampire.html)、[Radiation（辐射）](https://sumruler.github.io/typora-theme-phycat/demo-radiation.html)、[Abyss（深渊）](https://sumruler.github.io/typora-theme-phycat/demo-abyss.html) |
 
 ### 1.1 禁忌物品清单
 
