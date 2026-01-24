@@ -8,7 +8,7 @@
 **A beautiful style improves the writing experience.**
 好看的样式可以提升写作体验。
 
-[Installation](#installation-使用方法) • [Features](#features-主题特点) • [Theme Studio](#phycat-theme-studio-主题工坊) • [Support Me](#support-me-打赏支持)
+[Installation](#installation--使用方法) • [Features](#features--主题特点) • [Theme Studio](#phycat-theme-studio--主题工坊) • [Support Me](#support-me--打赏支持)
 
 </div>
 
@@ -100,13 +100,13 @@ Click the links below to view the HTML exported directly from Typora.
 
 ### Light Series
 
-![image-20251224115955956](../../新建文件夹/typora-theme-phycat/assets/image-20251224115955956.png)
+![image-20251224115955956](/assets/image-20251224115955956.png)
 
 
 
 ### Dark Series
 
-![image-20260105105845959](../../新建文件夹/typora-theme-phycat/assets/image-20260105105845959.png)
+![image-20260105105845959](./assets/image-20260105105845959.png)
 
 
 
@@ -154,7 +154,7 @@ Click the links below to view the HTML exported directly from Typora.
 
 **Q: Numbering error shown below?** **编号出现如图所示错误？** 
 
-<img src="../../新建文件夹/typora-theme-phycat/assets/image-20260120094206353.png" alt="image-20260120094206353" style="width:400px;" />
+<img src="/assets/image-20260120094206353.png" alt="image-20260120094206353" style="width:400px;" />
 
 > **Likely caused by a numbering plugin. Please disable the plugin.** **可能是安装了编号插件导致的，禁用插件即可。**
 
@@ -170,4 +170,4 @@ If you like this theme, please consider buying me a coffee! Your support is grea
 
 ### 🧧 Support via WeChat / Alipay (China)
 
-<img src="../../新建文件夹/typora-theme-phycat/assets/image-20251224165551114.png" alt="WeChat Pay" style="width:250px;" />    <img src="assets/image-20251224165606988.png" alt="Alipay" style="width:250px;" />
+<img src="/assets/image-20251224165551114.png" alt="WeChat Pay" style="width:250px;" />    <img src="assets/image-20251224165606988.png" alt="Alipay" style="width:250px;" />
