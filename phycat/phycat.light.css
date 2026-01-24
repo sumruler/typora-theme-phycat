@@ -130,6 +130,8 @@ h6.md-heading:after {
     transform: translateY(-2px)
 }
 
+#write h1.md-focus::after,
+#write h1:focus::after,
 #write h1:hover::after {
     width: 100%
 }
@@ -548,7 +550,7 @@ li.md-list-item {
 
 #write li:before {
     content: "";
-    height: calc(100% - 50px);
+    height: calc(100% - 45px);
     top: 35px;
     position: absolute;
     border-left: .5px solid var(--element-color);
@@ -1121,7 +1123,7 @@ pre.CodeMirror-line {
 .cm-s-inner.CodeMirror {
     background: #f8f8f8;
     border-radius: 0 0 5px 5px;
-    padding: 24px 12px 12px 12px;
+    padding: 5px 12px 12px 12px;
     page-break-before: auto;
     line-height: 1.8rem
 }
@@ -1936,8 +1938,7 @@ div.outline-item-active {
     box-shadow: 0 10px 40px rgba(0, 0, 0, .13);
     z-index: 100;
     overflow: hidden;
-    color: #555;
-    font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif
+    color: #555
 }
 
 .typora-export-sidebar .outline-content {
@@ -2080,6 +2081,10 @@ div.outline-item-active {
 
     .md-toc {
         background-image: none
+    }
+
+    #write li:before {
+        border-color: transparent
     }
 }
 

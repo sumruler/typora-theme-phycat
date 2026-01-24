@@ -2240,7 +2240,6 @@ div.outline-item-active {
     overflow: hidden;
     z-index: 100;
     color: var(--text-color-secondary);
-    font-family: inherit;
     transition: border-color .3s ease, box-shadow .3s ease
 }
 
@@ -2555,6 +2554,10 @@ div.outline-item-active {
 
     #write strong {
         text-shadow: none
+    }
+
+    #write li:before {
+        border-color: transparent
     }
 }
 

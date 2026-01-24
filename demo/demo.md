@@ -1,21 +1,13 @@
-
-
 # ☕ 咖啡的炼金术：一则关于专注与偶然的样式测试文档
 
-如果你喜欢这套主题，可以选择打赏支持。不胜感激！
 
-<img src="assets/image-20251224165551114.png" alt="image-20251224165551114" style="zoom:33%;" /><img src="assets/image-20251224165606988.png" alt="image-20251224165606988" style="zoom:33%;" />
 
 | 主题系列            | 主题链接                                                     |
 | ------------------- | :----------------------------------------------------------- |
 | 亮色系主题**Color** | [Cheey（樱桃红）](https://sumruler.github.io/typora-theme-phycat/demo-cherry.html)、[Caramel（焦糖橙）](https://sumruler.github.io/typora-theme-phycat/demo-caramel.html)、[Forest（森绿）](https://sumruler.github.io/typora-theme-phycat/demo-forest.html)、[Mint（薄荷青）](https://sumruler.github.io/typora-theme-phycat/demo-mint.html)、[Sky（天蓝）](https://sumruler.github.io/typora-theme-phycat/demo-sky.html)、[Prussian（普鲁士蓝）](https://sumruler.github.io/typora-theme-phycat/demo-prussian.html)、[Sakura（樱花粉）](https://sumruler.github.io/typora-theme-phycat/demo-sakura.html)[Mauve（淡紫）](https://sumruler.github.io/typora-theme-phycat/demo-mauve.html) |
 | 暗色系主题**Neon**  | [Vampire(吸血鬼)](https://sumruler.github.io/typora-theme-phycat/demo-vampire.html)、[Radiation（辐射）](https://sumruler.github.io/typora-theme-phycat/demo-radiation.html)、[Abyss（深渊）](https://sumruler.github.io/typora-theme-phycat/demo-abyss.html) |
 
-隆重介绍物理猫Phycat主题色工坊，点击>>[Phycat Theme Studio](https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio.html)<<一键生成你的专属主题配色！
-
-[toc]
-
-> “我们并非在饮用咖啡，而是在饮用理念。” —— 某位在咖啡馆沉思的匿名者
+隆重介绍物理猫Phycat主题色工坊，点击>>[Phycat Theme Studio](https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio.html)<<一键生成你的专属主题配色！“我们并非在饮用咖啡，而是在饮用理念。” —— 某位在咖啡馆沉思的匿名者
 
 这篇文档旨在展示 **Markdown** 近乎无限的表现力。我们将借由“制作一杯完美咖啡”的隐喻，探索从混沌的豆粒到清澈灵感的全过程。请观察，这里不仅是格式的演示，也是一场微型的思维实验。
 
@@ -30,7 +22,7 @@
     *   *处理法*：水洗（清澈）、日晒（醇厚）、蜜处理（甜美）。
 2.  **精确的变量**：咖啡是科学与艺术的交界点。
     *   研磨度（从粗盐到面粉）
-    *   水温（92°C - 96°C 的黄金区间扽黄`okoko`我仍三
+    *   水温（92°C - 96°C 的黄金区间
     *   水粉比（例如 **1:15**）
     *   时间（萃取不足与过萃的拉锯战）
 
@@ -120,7 +112,7 @@ print(result)
 *   **它是连接的桥梁**：“一起喝杯咖啡”是现代社会中一种温和的社交契约。
 *   **它是灵感的催化剂**：多少思绪在咖啡因的轻抚下变得清晰，多少对话在杯沿的热气中得以深入。
 
-<q class="page-break"/>
+<p class="page-break"/>
 
 ---
 

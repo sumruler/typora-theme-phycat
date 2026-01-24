@@ -1,129 +1,173 @@
-# Phycat theme for Typora
+<div align="center">
 
-> 好看的样式可以提升写作体验。
 
-Phycat系列主题受到大量伙伴的喜爱。设计核心要素为清晰、分明、简约、美观、灵动。
-亮色系名为`Phycat-color`，设计元素为气泡、线条。清晰、灵动、可爱，共带来8款主题配色！
+# Phycat Theme for Typora
 
-暗色系名为`Phycat-neon`，设计元素为暗夜、线条、光影、毛玻璃、灯带。这些元素碰撞在一起让这款暗色系主题尤为好看！
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/sumruler/typora-theme-phycat?style=flat-square) ![GitHub all releases](https://img.shields.io/github/downloads/sumruler/typora-theme-phycat/total?style=flat-square) ![License](https://img.shields.io/github/license/sumruler/typora-theme-phycat?style=flat-square)
 
-如果你喜欢这套主题，可以选择打赏支持。不胜感激！
+**A beautiful style improves the writing experience.**
+好看的样式可以提升写作体验。
 
-<img src="assets/image-20251224165551114.png" alt="image-20251224165551114" style="zoom:33%;" /><img src="assets/image-20251224165606988.png" alt="image-20251224165606988" style="zoom:33%;" />
+[Installation](#installation-使用方法) • [Features](#features-主题特点) • [Theme Studio](#phycat-theme-studio-主题工坊) • [Support Me](#support-me-打赏支持)
 
-| 主题系列            | 主题链接                                                     |
-| ------------------- | :----------------------------------------------------------- |
-| 亮色系主题**Color** | [Cheey（樱桃红）](https://sumruler.github.io/typora-theme-phycat/demo-cherry.html)、[Caramel（焦糖橙）](https://sumruler.github.io/typora-theme-phycat/demo-caramel.html)、[Forest（森绿）](https://sumruler.github.io/typora-theme-phycat/demo-forest.html)、[Mint（薄荷青）](https://sumruler.github.io/typora-theme-phycat/demo-mint.html)、[Sky（天蓝）](https://sumruler.github.io/typora-theme-phycat/demo-sky.html)、[Prussian（普鲁士蓝）](https://sumruler.github.io/typora-theme-phycat/demo-prussian.html)、[Sakura（樱花粉）](https://sumruler.github.io/typora-theme-phycat/demo-sakura.html)[Mauve（淡紫）](https://sumruler.github.io/typora-theme-phycat/demo-mauve.html) |
-| 暗色系主题**Neon**  | [Vampire(吸血鬼)](https://sumruler.github.io/typora-theme-phycat/demo-vampire.html)、[Radiation（辐射）](https://sumruler.github.io/typora-theme-phycat/demo-radiation.html)、[Abyss（深渊）](https://sumruler.github.io/typora-theme-phycat/demo-abyss.html) |
+</div>
 
-隆重介绍物理猫Phycat主题色工坊，点击>>[Phycat Theme Studio](https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio.html)<<一键生成你的专属主题配色！
+---
 
-## 主题效果图
+## Introduction / 简介
 
-### 亮色系主题
+**Phycat** is a series of Typora themes designed with clarity, simplicity, aesthetics, and vividness in mind.
+Phycat 系列主题受到大量伙伴的喜爱。设计核心要素为清晰、分明、简约、美观、灵动。
 
-![image-20251224115955956](assets/image-20251224115955956.png)
+*   **Phycat-color (Light Series / 亮色系)**
+    *   **Elements**: Bubbles, Lines.
+    *   **Vibe**: Clear, lively, and cute. Comes in 8 color schemes!
+    *   **元素**：气泡、线条。风格清晰、灵动、可爱，共带来8款主题配色！
 
-![image-20251224120012815](assets/image-20251224120012815.png)
+*   **Phycat-neon (Dark Series / 暗色系)**
+    *   **Elements**: Dark night, Lines, Light & Shadow, Frosted Glass (Glassmorphism), Neon strips.
+    *   **Vibe**: The collision of these elements makes the dark theme stunning.
+    *   **元素**：暗夜、线条、光影、毛玻璃、灯带。这些元素碰撞在一起让这款暗色系主题尤为好看！
 
-![image-20251224120026467](assets/image-20251224120026467.png)
+## Demo / 样式预览
 
-![image-20251224120056979](assets/image-20251224120056979.png)
+Click the links below to view the HTML exported directly from Typora.
+点击下方链接预览即可，都是直接通过 Typora 导出的 HTML 文件。
 
-![image-20251224120115544](assets/image-20251224120115544.png)
+| Series / 系列               | Themes & Demo Links / 主题与演示链接                         |
+| :-------------------------- | :----------------------------------------------------------- |
+| **Color (Light)**<br>亮色系 | • [Cherry / 樱桃红](https://sumruler.github.io/typora-theme-phycat/demo-cherry.html)<br>• [Caramel / 焦糖橙](https://sumruler.github.io/typora-theme-phycat/demo-caramel.html)<br>• [Forest / 森绿](https://sumruler.github.io/typora-theme-phycat/demo-forest.html)<br>• [Mint / 薄荷青](https://sumruler.github.io/typora-theme-phycat/demo-mint.html)<br>• [Sky / 天蓝](https://sumruler.github.io/typora-theme-phycat/demo-sky.html)<br>• [Prussian / 普鲁士蓝](https://sumruler.github.io/typora-theme-phycat/demo-prussian.html)<br>• [Sakura / 樱花粉](https://sumruler.github.io/typora-theme-phycat/demo-sakura.html)<br>• [Mauve / 淡紫](https://sumruler.github.io/typora-theme-phycat/demo-mauve.html) |
+| **Neon (Dark)**<br>暗色系   | • [Vampire / 吸血鬼](https://sumruler.github.io/typora-theme-phycat/demo-vampire.html)<br>• [Radiation / 辐射](https://sumruler.github.io/typora-theme-phycat/demo-radiation.html)<br>• [Abyss / 深渊](https://sumruler.github.io/typora-theme-phycat/demo-abyss.html) |
 
-![image-20251224120135916](assets/image-20251224120135916.png)
+---
 
-### 暗色系主题
+## Phycat Theme Studio / 主题工坊
 
-![image-20260105105845959](assets/image-20260105105845959.png)
+🎨 **Create your own color scheme with one click!**
+隆重介绍物理猫 Phycat 主题色工坊，一键生成你的专属主题配色！
 
-![image-20260105105937124](assets/image-20260105105937124.png)
+👉 **[Click here to open Phycat Theme Studio](https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio.html)**
 
-![image-20260105105958775](assets/image-20260105105958775.png)
+---
 
-## 设计语言
+## Features / 主题特点
 
-### 亮色系主题
+1.  **Aesthetics / 美观**
+    *   A beautiful style improves the writing experience.
+    *   好看的样式可以提升写作体验 ✍️。
 
-- **清晰**、**分明**、**简洁**、**圆润**、**灵动**、**时尚**
-- 字体：*霞骛文楷*
-- 卡片风格：*气泡*、*毛玻璃*
+2.  **Hierarchy / 分明**
+    *   Headings, lists, and outlines are carefully designed. You can distinguish heading levels at a glance.
+    *   标题、列表、大纲都进行了精心设计，层级非常分明易读。
 
-### 暗色系主题
+3.  **Vividness / 灵动**
+    *   Rich animations: **Hover effects** ✨, **Task list** completion animations ✅. Surprising but not distracting.
+    *   精心设计了大量动画效果，在给你一些小惊喜的同时不影响布局。
 
-- **清晰**、**分明**、**简洁**、**暗夜**、**线条**、**光影**、**毛玻璃**、**灯带**
+4.  **Details / 细节**
+    *   Twinkling stars in the outline 🌟, rotating link icons 🔗, language labels in code blocks 💻, custom styles for Yaml & KBD ⌨️.
+    *   处处都有小巧思 💡，如大纲目录后跳动的星星、超链接转动的小图标等。
 
-- 字体：*霞骛文楷*
-- 卡片风格：*光影*、*毛玻璃*、*灯带*
+5.  **HTML Export Optimization / 导出优化**
+    *   The exported HTML perfectly matches the software style 🌐.
+    *   导出的 HTML 完美兼容软件内样式，相信你看了会喜欢的 ❤️。
 
-## 主题特点
+6.  **Easy Customization / 易定制** 🎨
+    *   Color files are separated from style files. Easy to modify. If you can't match colors, use the **AI Theme Studio** mentioned above 🤖.
+    *   配色文件与样式文件分离，复制一份即可轻松修改。也可以使用主题色工坊生成。
 
-1. **美观**：*好看的样式可以提升写作体验* ✍️。
+7.  **Feature Toggles / 便捷开关** ⚙️
+    *   Easily toggle **Background Styles** or **Auto-numbering** in the CSS file.
+    *   在配色 CSS 文件中，可以通过简单调整快速启用或改变背景样式、自动编号等功能。
 
-2. **分明**：标题、列表、大纲都进行了精心设计，标题一眼就能看出是几级标题，列表、大纲目录层级非常**分明易读** 。
+## Design Language / 设计语言
 
-3. **灵动**：精心设计了大量动画效果——**Hover动画**✨、**任务列表**完成动画等等 ✅。在给你一些小惊喜的同时不影响布局，只增强阅读与编辑体验 ⚖️。
+### Light Series (亮色系)
 
-4. **细节**：大纲目录后跳动的星星 🌟、超链接转动的小图标 🔗、代码块右上角的代码语言 💻、为 Yaml、KBD 键盘专门书写的样式 ⌨️、多套背景样式、PDF 导出样式优化等等，处处都有**小巧思** 💡。
+*   **Keywords**: Clear, Distinct, Simple, Round, Lively, Fashionable.
+*   **Font**: *LXGW WenKai (霞骛文楷)*
+*   **Card Style**: Bubbles, Frosted Glass.
 
-5. **导出 HTML 深度优化**：导出的 HTML 完美兼容软件内样式 🌐，大纲目录样式也进行了深度优化设计。样式预览页面都是直接导出的 HTML 页面，相信你看了会喜欢的 ❤️。
+### Dark Series (暗色系)
 
-6. **配色丰富且易定制**🎨：
-    配色文件与样式文件分离，复制一份即可轻松修改。**如果不会搭配，也可以让 AI 生成一套好看的配色** 🤖。
-   
-   隆重介绍物理猫Phycat主题色工坊，点击>>[Phycat Theme Studio](https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio.html)<<一键生成你的专属主题配色！
-   
-7. **便捷功能开关**：在配色 CSS 文件中，可以通过简单调整快速启用或改变**背景样式**、**自动编号**等功能 ⚙️。
+*   **Keywords**: Clear, Distinct, Simple, Night, Lines, Light & Shadow, Neon.
+*   **Font**: *LXGW WenKai (霞骛文楷)*
+*   **Card Style**: Light & Shadow, Frosted Glass, Neon Strips.
 
-## 样式预览
+---
 
-点击链接预览即可，都是直接通过Typora导出的HTML文件
+## Screenshots / 效果截图
 
-| 主题系列            | 主题链接                                                     |
-| ------------------- | :----------------------------------------------------------- |
-| 亮色系主题**Color** | [Cheey（樱桃红）](https://sumruler.github.io/typora-theme-phycat/demo-cherry.html)、[Caramel（焦糖橙）](https://sumruler.github.io/typora-theme-phycat/demo-caramel.html)、[Forest（森绿）](https://sumruler.github.io/typora-theme-phycat/demo-forest.html)、[Mint（薄荷青）](https://sumruler.github.io/typora-theme-phycat/demo-mint.html)、[Sky（天蓝）](https://sumruler.github.io/typora-theme-phycat/demo-sky.html)、[Prussian（普鲁士蓝）](https://sumruler.github.io/typora-theme-phycat/demo-prussian.html)、[Sakura（樱花粉）](https://sumruler.github.io/typora-theme-phycat/demo-sakura.html)[Mauve（淡紫）](https://sumruler.github.io/typora-theme-phycat/demo-mauve.html) |
-| 暗色系主题**Neon**  | [Vampire(吸血鬼)](https://sumruler.github.io/typora-theme-phycat/demo-vampire.html)、[Radiation（辐射）](https://sumruler.github.io/typora-theme-phycat/demo-radiation.html)、[Abyss（深渊）](https://sumruler.github.io/typora-theme-phycat/demo-abyss.html) |
+### Light Series
 
-## 使用方法
+![image-20251224115955956](../../新建文件夹/typora-theme-phycat/assets/image-20251224115955956.png)
 
-1. 从[Releases · sumruler/typora-theme-phycat](https://github.com/sumruler/typora-theme-phycat/releases)下载最新的主题包
 
-2. 将`phycat`文件夹与所有CSS文件放进Typora主题目录下
-   复制下面内容，WIN+R运行即可快速打开
 
-   ```bash
-   %appdata%\Typora\themes
-   ```
+### Dark Series
 
-3. 重启Typora，在主题中启用相应主题即可
+![image-20260105105845959](../../新建文件夹/typora-theme-phycat/assets/image-20260105105845959.png)
 
-## 常见问题
 
-### 导出网页如何具有侧边栏大纲
 
-在偏好设置，找到导出，选择HTML，勾选保留侧边栏大纲
+---
 
-### 导出的网页如何包括霞骛文楷字体
+## Installation / 使用方法
 
-在偏好设置–>导出–>HTML–>在<head/>中添加，添加下面的内容：
+1.  Download the latest theme package from [Releases](https://github.com/sumruler/typora-theme-phycat/releases).
+    从 Releases 下载最新的主题包。
 
-```html
-<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-webfont/1.6.0/style.min.css" />
-<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css" />
-```
+2.  Copy the `phycat` folder and all `.css` files into the Typora Theme Folder.
+    将 `phycat` 文件夹与所有 CSS 文件放进 Typora 主题目录下。
 
-### 如何开启自动编号
+    *Tip: You can open the folder quickly by running this command (Win+R):*
+    *提示：复制下面内容，WIN+R 运行即可快速打开主题目录*
 
-在配色CSS文件中（例如phycat-forest.css)，取消注释对应的自动编号级别即可
+    ```bash
+    %appdata%\Typora\themes
+    ```
 
-### 如何开启或更换背景图案
+3.  Restart Typora and select the theme from the themes menu. 重启 Typora，在主题中启用相应主题即可。
 
-在配色CSS文件中（例如phycat-forest.css)，更改`--bg-style`变量即可
+## FAQ / 常见问题
 
-### 编号出现如图所示错误
+**Q: How to keep the sidebar outline in exported HTML?** **导出网页如何具有侧边栏大纲？**
 
-<img src="assets/image-20260120094206353.png" alt="image-20260120094206353" style="width:400px" />
+> Settings -> Export -> HTML -> Check "Preserve Sidebar Outline". 在偏好设置，找到导出，选择 HTML，勾选保留侧边栏大纲。
 
-**可能是安装了编号插件导致的，禁用插件即可。**
+**Q: How to include LXGW WenKai font in exported HTML?** **导出的网页如何包括霞骛文楷字体？**
 
+> Settings -> Export -> HTML -> Add to `<head/>`. Insert the following: 在偏好设置–>导出–>HTML–>在 `<head/>` 中添加，添加下面的内容：
+>
+> ```
+> HTML Artifacts
+> HTML
+> ```
+
+**Q: How to enable auto-numbering?** **如何开启自动编号？**
+
+> Open the corresponding CSS file (e.g., `phycat-forest.css`) and uncomment the auto-numbering section. 在配色 CSS 文件中，取消注释对应的自动编号级别即可。
+
+**Q: How to change the background image?** **如何开启或更换背景图案？**
+
+> Open the CSS file and change the `--bg-style` variable. 在配色 CSS 文件中，更改 `--bg-style` 变量即可。
+
+**Q: Numbering error shown below?** **编号出现如图所示错误？** 
+
+<img src="../../新建文件夹/typora-theme-phycat/assets/image-20260120094206353.png" alt="image-20260120094206353" style="width:400px;" />
+
+> **Likely caused by a numbering plugin. Please disable the plugin.** **可能是安装了编号插件导致的，禁用插件即可。**
+
+------
+
+## Support Me / 打赏支持
+
+If you like this theme, please consider buying me a coffee! Your support is greatly appreciated. 如果你喜欢这套主题，可以选择打赏支持。不胜感激！
+
+### ☕ Support via Ko-fi (International)
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/sumruler)
+
+### 🧧 Support via WeChat / Alipay (China)
+
+<img src="../../新建文件夹/typora-theme-phycat/assets/image-20251224165551114.png" alt="WeChat Pay" style="width:250px;" />    <img src="assets/image-20251224165606988.png" alt="Alipay" style="width:250px;" />

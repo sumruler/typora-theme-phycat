@@ -1,5 +1,9 @@
 # Phycat theme for Typora
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/sumruler/typora-theme-phycat?style=flat-square)
+![GitHub all releases](https://img.shields.io/github/downloads/sumruler/typora-theme-phycat/total?style=flat-square)
+![License](https://img.shields.io/github/license/sumruler/typora-theme-phycat?style=flat-square)
+
 > 好看的样式可以提升写作体验。
 
 Phycat系列主题受到大量伙伴的喜爱。设计核心要素为清晰、分明、简约、美观、灵动。
