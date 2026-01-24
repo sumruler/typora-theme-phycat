@@ -140,8 +140,8 @@ Click the links below to view the HTML exported directly from Typora.
 > Settings -> Export -> HTML -> Add to `<head/>`. Insert the following: 在偏好设置–>导出–>HTML–>在 `<head/>` 中添加，添加下面的内容：
 >
 > ```
-> HTML Artifacts
-> HTML
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-webfont/1.6.0/style.min.css" />
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css" />
 > ```
 
 **Q: How to enable auto-numbering?** **如何开启自动编号？**
