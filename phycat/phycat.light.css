@@ -626,7 +626,7 @@ li.md-list-item {
     transform: translate(-50%, -60%) rotate(45deg) scale(1)
 }
 
-#write .task-list-item input[type=checkbox]+p span,
+#write .task-list-item input[type=checkbox]+p,
 #write .task-list-item input[type=checkbox]+span {
     position: relative;
     display: inline;
@@ -637,17 +637,19 @@ li.md-list-item {
     background-position: 0 50%;
     background-size: 0 1.5px;
     background-repeat: no-repeat;
-    transition: background-size .4s cubic-bezier(.25, .8, .25, 1), color .4s
+    transition: background-size .4s cubic-bezier(.25, .8, .25, 1), color .4s ease
 }
 
-#write .task-list-item input[type=checkbox]:checked+p span,
+#write .task-list-item input[type=checkbox]:checked+p,
 #write .task-list-item input[type=checkbox]:checked+span {
     color: #bbb;
     background-size: 100% 1.5px
 }
 
-#write li.task-list-item {
-    position: relative
+#write .task-list-item input[type=checkbox]:checked+p>em,
+#write .task-list-item input[type=checkbox]:checked+p>span,
+#write .task-list-item input[type=checkbox]:checked+p>strong {
+    color: inherit
 }
 
 #write blockquote {
@@ -1020,29 +1022,37 @@ marker path {
 
 .cluster-label text,
 .edgeLabel,
-.edgeLabel .label,
-.edgeLabel div,
-.edgeLabel p,
-.edgeLabel span,
 .labelBkg,
 .node .label {
-    background-color: #fff !important;
     color: var(--appui-color-text) !important;
     fill: var(--appui-color-text) !important;
     font-weight: 500 !important;
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff !important
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff !important;
+    background-color: transparent
+}
+
+.edgeLabel .label,
+.edgeLabel div {
+    background-color: #fff !important;
+    border-radius: 4px
+}
+
+.edgeLabel p,
+.edgeLabel span {
+    background-color: transparent !important;
+    color: var(--appui-color-text) !important
 }
 
 .edgeLabel rect {
     fill: #fff !important;
-    opacity: .9 !important
+    opacity: 1 !important;
+    stroke: none !important
 }
 
 .labelBkg {
+    fill: #fff !important;
     background-color: #fff !important;
-    opacity: .9 !important;
-    border-radius: 4px;
-    padding: 0 4px
+    opacity: 1 !important
 }
 
 .cluster rect {
