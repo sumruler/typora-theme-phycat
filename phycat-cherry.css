@@ -25,6 +25,7 @@
   /* 7. 无背景 (纯白背景) */
   --bg-shape-none: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=");
 
+
   /* 文档背景样式  none 无背景*/
   --bg-style: var(--bg-shape-none);
 
@@ -43,6 +44,10 @@
   --autonum-h4toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) ". ";
   --autonum-h5toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) ". ";
   --autonum-h6toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) "." counter(h6toc) ". "; */
+
+
+  /* 文章区域的最大宽度，可以是多少px也可以是百分比 */
+  --max-width: 950px; 
 
   /* 主题颜色 */
 

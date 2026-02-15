@@ -48,6 +48,8 @@ Click the links below to view the HTML exported directly from Typora.
 
 👉 **[Click here to open Phycat Theme Studio](https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio.html)**
 
+**👉🏿** **[Click here to open Phycat Theme Studio Dark](https://sumruler.github.io/typora-theme-phycat/phycat-theme-studio-dark.html)**
+
 ---
 
 ## Features / 主题特点

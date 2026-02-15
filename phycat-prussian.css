@@ -45,6 +45,11 @@
   --autonum-h6toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) "." counter(h6toc) ". "; */
 
 
+  
+  /* 文章区域的最大宽度，可以是多少px也可以是百分比 */
+  --max-width: 950px; 
+
+  
   /* 标题主色：深邃的普鲁士蓝，沉稳大气 */
   --head-title-color: #1D4E89;
   

@@ -14,7 +14,7 @@ html {
 }
 
 #write {
-    max-width: 950px;
+    max-width: var(--max-width);
     margin: 0 auto;
     padding: 15px;
     line-height: 2.25;
@@ -731,72 +731,57 @@ li.md-list-item {
 }
 
 #write mark {
-    background-color: var(--element-color-so-shallow);
+    background-color: transparent;
     color: inherit;
-    padding: 2px 6px;
-    border-radius: 6px;
-    margin: 0 2px;
+    padding: 0 2px;
+    margin: 0;
+    border-radius: 4px;
+    font-weight: inherit;
     position: relative;
-    transition: all .3s ease;
     -webkit-box-decoration-break: clone;
-    box-decoration-break: clone
+    box-decoration-break: clone;
+    background-image: linear-gradient(to top, var(--element-color-so-shallow), var(--element-color-so-shallow));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 100% 40%;
+    transition: background-size .3s cubic-bezier(.34, 1.56, .64, 1), color .3s ease, border-radius .3s ease
 }
 
 #write mark::after,
 #write mark::before {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--element-color-deep);
-    font-weight: 700;
-    font-family: "Courier New", monospace;
-    font-size: 1.1em;
-    opacity: 0;
-    pointer-events: none;
-    transition: all .3s cubic-bezier(.34, 1.56, .64, 1)
-}
-
-#write mark::before {
-    content:'{';
-    left: -5px
-}
-
-#write mark::after {
-    content: '}';
-    right: -5px
+    content: none !important;
+    display: none !important
 }
 
 #write mark:hover {
-    background-color: var(--element-color);
-    color: #fff;
-    border-radius: 4px;
-    padding: 2px 12px
+    background-size: 100% 100%;
+    border-radius: 6px
 }
 
-#write mark:hover::before {
-    opacity: 1;
-    left: 3px
+#write mark strong {
+    color: var(--element-color-deep)
 }
 
-#write mark:hover::after {
-    opacity: 1;
-    right: 3px
+#write mark:hover strong {
+    color: var(--element-color-deep);
+    text-shadow: none
 }
 
 #write strong {
     color: var(--element-color);
     font-weight: 700;
-    display: inline-block;
-    transition: transform .2s cubic-bezier(.5, 1.5, .5, 1)
+    display: inline;
+    position: relative;
+    border-bottom: 2px solid transparent;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    transition: border-color .3s ease, color .3s ease, text-shadow .3s ease
 }
 
 #write strong:hover {
-    transform: translateY(-2px) scale(1.1);
-    text-shadow: 2px 2px 0 color-mix(in srgb, var(--element-color-shallow), transparent 70%)
-}
-
-#write mark strong {
-    color: var(--element-color-deep)
+    color: var(--element-color);
+    border-bottom-color: var(--element-color-shallow);
+    text-shadow: 0 2px 8px var(--element-color-so-shallow)
 }
 
 #write mark:hover strong {
@@ -805,55 +790,43 @@ li.md-list-item {
     transform: translateY(-2px) scale(1.1)
 }
 
+@keyframes stitchFlow {
+    from {
+        background-position-x: 0
+    }
+
+    to {
+        background-position-x: 6px
+    }
+}
+
 #write em {
     font-style: italic;
-    color: var(--element-color);
-    text-decoration: none;
-    padding: 0 2px 2px;
+    color: #555;
+    text-decoration: none !important;
+    padding: 0 2px 1px;
+    background-repeat: repeat-x;
+    background-position: 0 100%;
+    background-size: 6px 3px;
+    background-image: linear-gradient(-45deg, transparent 35%, var(--element-color-shallow) 35%, var(--element-color-shallow) 65%, transparent 65%);
+    transition: color .2s ease, -webkit-text-stroke .2s ease, background-image .2s ease;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
     position: relative;
-    transition: color .2s ease, -webkit-text-stroke .2s ease;
     z-index: 0
 }
 
 #write em::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 4px;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='black' stroke-width='2' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E");
-    -webkit-mask-repeat: repeat-x;
-    -webkit-mask-size: 12px 4px;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='black' stroke-width='2' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E");
-    mask-repeat: repeat-x;
-    mask-size: 12px 4px;
-    background-color: var(--element-color-shallow);
-    z-index: -1;
-    transition: background-color .3s ease
+    content: none !important;
+    display: none !important
 }
 
 #write em:hover {
-    color: var(--element-color-deep);
+    color: var(--element-color);
     font-weight: 400;
-    -webkit-text-stroke: .6px var(--element-color-deep)
-}
-
-#write em:hover::after {
-    background-color: var(--element-color);
-    animation: waveFlow 1s linear infinite
-}
-
-@keyframes waveFlow {
-    0% {
-        -webkit-mask-position-x: 0;
-        mask-position-x: 0
-    }
-
-    100% {
-        -webkit-mask-position-x: 12px;
-        mask-position-x: 12px
-    }
+    -webkit-text-stroke: .5px var(--element-color);
+    background-image: linear-gradient(-45deg, transparent 35%, var(--element-color) 35%, var(--element-color) 65%, transparent 65%);
+    animation: stitchFlow .5s linear infinite
 }
 
 #write del {

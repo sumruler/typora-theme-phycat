@@ -45,7 +45,10 @@
   --autonum-h6toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) "." counter(h6toc) ". "; */
 
 
- /* ================= 3. 主题配色 (流光蜜金 - Liquid Gold) ================= */
+
+  /* 文章区域的最大宽度，可以是多少px也可以是百分比 */
+  --max-width: 950px; 
+
   
   /* 标题主色：明亮的金琥珀色，像液态黄金 */
   --head-title-color: #f59e0b;

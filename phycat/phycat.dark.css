@@ -14,7 +14,7 @@ html {
 }
 
 #write {
-    max-width: 950px;
+    max-width: var(--max-width);
     margin: 0 auto;
     padding: 15px;
     line-height: 2.25;
@@ -791,94 +791,95 @@ li.md-list-item {
 }
 
 #write mark {
-    background-color: transparent;
-    color: var(--secondary-color);
-    font-weight: 700;
-    padding: 0 4px;
-    margin: 0 2px;
+    background-color: transparent !important;
+    color: color-mix(in srgb, var(--primary-color), #fff 20%);
+    padding: 0 2px;
+    margin: 0;
     border-radius: 4px;
+    font-weight: inherit;
     position: relative;
-    text-shadow: var(--glow-shadow-box);
-    transition: all .3s ease;
     -webkit-box-decoration-break: clone;
-    box-decoration-break: clone
+    box-decoration-break: clone;
+    background-image: linear-gradient(to top, color-mix(in srgb, var(--primary-color), transparent 50%), transparent);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 100% 40%;
+    transition: background-size .4s cubic-bezier(.34, 1.56, .64, 1), background-image .4s ease, color .3s ease, text-shadow .3s ease, box-shadow .3s ease
 }
 
 #write mark::after,
 #write mark::before {
-    content: none
+    content: none !important;
+    display: none !important
 }
 
 #write mark:hover {
-    color: #fff;
-    background-color: rgba(255, 85, 85, .2);
-    text-shadow: 0 0 1px #fff, 0 0 5px #fff, 0 0 15px var(--primary-color), 0 0 30px var(--primary-color);
-    box-shadow: 0 0 15px rgba(255, 85, 85, .3);
-    transform: scale(1.05)
+    background-size: 100% 100%;
+    background-image: linear-gradient(to top, color-mix(in srgb, var(--primary-color), transparent 20%), color-mix(in srgb, var(--primary-color), transparent 80%));
+    color: #fff !important;
+    text-shadow: 0 0 10px var(--primary-color);
+    box-shadow: 0 0 15px color-mix(in srgb, var(--primary-color), transparent 80%);
+    transform: none;
+    border-radius: 4px;
+    padding: 0 2px
 }
 
 #write strong {
     color: var(--primary-color);
     font-weight: 700;
-    display: inline-block;
-    transition: transform .2s cubic-bezier(.5, 1.5, .5, 1)
+    display: inline;
+    position: relative;
+    border-bottom: 2px solid transparent;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    text-shadow: 0 0 2px rgba(0, 243, 255, .3);
+    transition: border-color .3s ease, text-shadow .3s ease, color .3s ease
 }
 
 #write strong:hover {
-    transform: translateY(-2px) scale(1.1);
-    text-shadow: 0 0 10px var(--primary-color)
+    text-shadow: var(--glow-shadow-text), 0 0 15px var(--primary-color);
+    border-bottom-color: var(--primary-color)
+}
+
+@keyframes stitchFlow {
+    from {
+        background-position-x: 0
+    }
+
+    to {
+        background-position-x: 6px
+    }
 }
 
 #write em {
     font-style: italic;
     color: var(--secondary-color);
-    text-decoration: none;
-    padding: 0 2px 2px;
+    text-decoration: none !important;
+    padding: 0 2px 1px;
+    background-size: 6px 3px;
+    background-repeat: repeat-x;
+    background-position: 0 100%;
+    background-image: linear-gradient(-45deg, transparent 35%, color-mix(in srgb, var(--secondary-color), transparent 60%) 35%, color-mix(in srgb, var(--secondary-color), transparent 60%) 65%, transparent 65%);
+    transition: color .2s ease, -webkit-text-stroke .2s ease, background-image .2s ease;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
     position: relative;
-    transition: color .3s ease, -webkit-text-stroke .3s ease, text-shadow .3s ease;
     z-index: 0
 }
 
-#write em::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 4px;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='black' stroke-width='2' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E");
-    -webkit-mask-repeat: repeat-x;
-    -webkit-mask-size: 12px 4px;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='black' stroke-width='2' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E");
-    mask-repeat: repeat-x;
-    mask-size: 12px 4px;
-    background-color: var(--secondary-color);
-    z-index: -1;
-    transition: background-color .3s ease
+#write em::after,
+#write em::before {
+    content: none !important;
+    display: none !important
 }
 
 #write em:hover {
-    color: var(--secondary-color);
+    color: var(--primary-color);
     font-weight: 400;
-    -webkit-text-stroke: .6px var(--secondary-color);
-    text-shadow: 0 0 5px rgba(78, 201, 176, .4)
-}
-
-#write em:hover::after {
-    background-color: var(--secondary-color);
-    animation: waveFlow 1s linear infinite
-}
-
-@keyframes waveFlow {
-    0% {
-        -webkit-mask-position-x: 0;
-        mask-position-x: 0
-    }
-
-    100% {
-        -webkit-mask-position-x: 12px;
-        mask-position-x: 12px
-    }
+    -webkit-text-stroke: .5px var(--primary-color);
+    text-shadow: var(--glow-shadow-text);
+    background-image: linear-gradient(-45deg, transparent 35%, var(--primary-color) 35%, var(--primary-color) 65%, transparent 65%);
+    animation: stitchFlow .5s linear infinite
 }
 
 #write del {

@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phycat Dark (Neon) 主题生成器 v3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* -----------------------------------------------------------
+           生成器 UI 自身样式 (Dark UI)
+           ----------------------------------------------------------- */
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #e2e8f0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 滚动条美化 (Dark) */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+        .input-group { margin-bottom: 1rem; }
+        
+        .color-preview-box {
+            width: 24px; height: 24px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer; position: relative; overflow: hidden;
+        }
+        
+        input[type="color"] {
+            -webkit-appearance: none; border: none;
+            width: 150%; height: 150%;
+            padding: 0; position: absolute;
+            top:-25%; left:-25%; cursor: pointer;
+        }
+
+        /* -----------------------------------------------------------
+           预览区样式 (Dark Mode / Neon / Glow)
+           ----------------------------------------------------------- */
+        #preview-scope {
+            /* 默认变量，会被 JS 覆盖 */
+            --bg-color: #282a36;
+            --text-color: #f8f8f2;
+            --text-color-secondary: #7e8c9f;
+            
+            --primary-color: #ff5555;     /* 核心霓虹色 */
+            --secondary-color: #bd93f9;   /* 辅助色 */
+            --border-color: #44475a;
+            
+            --hover-background-color: #ff5555; 
+            
+            /* 计算属性 (JS注入) */
+            --glow-color: rgba(255, 85, 85, 0.6); 
+            --select-text-bg-color: rgba(255, 85, 85, 0.3);
+            
+            --h2-bg-image: radial-gradient(ellipse at center bottom, rgba(255, 85, 85, 0.15), transparent 70%);
+
+            /* 内部固定阴影变量 */
+            --glow-shadow-text: 0 0 8px var(--glow-color);
+            --glow-shadow-box: 0 0 15px var(--glow-color);
+
+            /* --- 代码块变量 --- */
+            --code-block-bg: rgba(0, 0, 0, 0.3);
+            --glass-border-color: rgba(255, 255, 255, 0.05);
+            --code-keyword: #ff79c6;
+            --code-variable: #f8f8f2;
+            --code-function: #50fa7b;
+            --code-param: #f1fa8c;
+            --code-string: #f1fa8c;
+            --code-comment: #6272a4;
+            --code-type: #8be9fd;
+            --code-property: #66d9ef;
+            --code-number: #bd93f9;
+            --code-meta: #ffb86c;
+            --code-selected-bg: #44475a;
+            
+            font-family: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+        }
+        
+        /* 文本选中颜色 */
+        #preview-scope ::selection {
+            background-color: var(--select-text-bg-color);
+        }
+
+        #write {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100%;
+        }
+
+        /* --- H1 --- */
+        #write h1 {
+            text-align: center; font-size: 1.8rem; margin: 15px auto;
+            position: relative; width: fit-content;
+            padding-bottom: 12px; border-bottom: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        #write h1::after {
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            width: 40px; height: 4px; border-radius: 4px;
+            background: var(--primary-color);
+            box-shadow: 0 0 5px var(--glow-color);
+            transform: translateX(-50%);
+            transition: width 0.4s cubic-bezier(.25, .8, .25, 1), box-shadow 0.3s ease;
+        }
+        #write h1:hover { transform: translateY(-2px); text-shadow: var(--glow-shadow-text); }
+        #write h1:hover::after { width: 100%; box-shadow: 0 0 15px var(--primary-color); }
+
+        /* --- H2 (霓虹背景) --- */
+        #write h2 {
+            font-size: 1.4rem; width: fit-content; margin: 1rem 0; padding: 5px 15px;
+            border-radius: 8px; color: var(--text-color);
+            background-color: rgba(255, 255, 255, 0.02);
+            background-image: var(--h2-bg-image);
+            background-repeat: no-repeat;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.5s ease;
+        }
+        #write h2:hover {
+            color: var(--primary-color);
+            text-shadow: var(--glow-shadow-text);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* --- H3 (侧边指示条) --- */
+        #write h3 {
+            position: relative; padding-left: 15px; font-size: 1.25rem; margin: 20px 0;
+            color: var(--text-color); transition: all 0.3s ease;
+        }
+        #write h3::before {
+            content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+            width: 4px; height: 16px; background: var(--primary-color); border-radius: 2px;
+            transition: all 0.3s ease; opacity: 0.8;
+        }
+        #write h3:hover { color: var(--primary-color); padding-left: 20px; text-shadow: var(--glow-shadow-text); }
+        #write h3:hover::before { height: 60%; opacity: 1; box-shadow: var(--glow-shadow-box); }
+
+        /* --- 引用 (Blockquote) --- */
+        #write blockquote {
+            position: relative; margin: 20px 0; padding: 18px 20px 18px 48px;
+            color: var(--text-color-secondary);
+            background-color: rgba(0, 0, 0, .2);
+            border: 1px solid color-mix(in srgb, var(--secondary-color), transparent 70%);
+            border-radius: 16px; transition: all .3s ease;
+        }
+        #write blockquote::before {
+            content: "💡"; position: absolute; left: 10px; top: 2px; font-size: 20px;
+            filter: grayscale(1); opacity: .8; transform: rotate(30deg);
+            transition: all .3s cubic-bezier(.34, 1.56, .64, 1);
+        }
+        #write blockquote p { color: var(--text-color-secondary); margin-bottom: .5em; }
+        #write blockquote p:last-child { margin-bottom: 0; }
+
+        #write blockquote:active,
+        #write blockquote:focus,
+        #write blockquote:hover {
+            border-color: var(--primary-color);
+            background-color: color-mix(in srgb, var(--hover-background-color), transparent 95%);
+            box-shadow: 0 0 15px color-mix(in srgb, var(--hover-background-color), transparent 90%), inset 0 0 10px color-mix(in srgb, var(--hover-background-color), transparent 95%);
+            transform: scale(1.01);
+        }
+        #write blockquote:focus::before,
+        #write blockquote:hover::before {
+            filter: grayscale(0); opacity: 1; transform: rotate(0); text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* --- 高亮 (Mark) --- */
+        #write mark {
+            background-color: transparent !important;
+            color: color-mix(in srgb, var(--primary-color), white 20%);
+            padding: 0 2px; border-radius: 4px; position: relative;
+            background-image: linear-gradient(to top, color-mix(in srgb, var(--primary-color), transparent 50%), transparent);
+            background-repeat: no-repeat;
+            background-position: 0 100%; background-size: 100% 40%;
+            transition: all 0.4s ease;
+            -webkit-box-decoration-break: clone; box-decoration-break: clone;
+        }
+        #write mark:hover {
+            background-size: 100% 100%;
+            background-image: linear-gradient(to top, color-mix(in srgb, var(--primary-color), transparent 20%), color-mix(in srgb, var(--primary-color), transparent 80%));
+            color: #fff !important;
+            text-shadow: 0 0 10px var(--primary-color);
+            box-shadow: 0 0 15px color-mix(in srgb, var(--primary-color), transparent 80%);
+        }
+
+        /* --- 粗体 (Strong) --- */
+        #write strong {
+            color: var(--primary-color); font-weight: bold;
+            text-shadow: 0 0 2px color-mix(in srgb, var(--primary-color), transparent 70%);
+            border-bottom: 2px solid transparent; transition: all 0.3s ease;
+        }
+        #write strong:hover {
+            text-shadow: var(--glow-shadow-text), 0 0 15px var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        /* --- 斜体 (Em) --- */
+        @keyframes stitchFlow { from { background-position-x: 0; } to { background-position-x: 6px; } }
+        #write em {
+            font-style: italic; color: var(--secondary-color);
+            text-decoration: none !important; padding: 0 2px 1px;
+            background-size: 6px 3px; background-repeat: repeat-x; background-position: 0 100%;
+            background-image: linear-gradient(-45deg, transparent 35%, color-mix(in srgb, var(--secondary-color), transparent 60%) 35%, color-mix(in srgb, var(--secondary-color), transparent 60%) 65%, transparent 65%);
+            transition: all 0.2s ease;
+        }
+        #write em:hover {
+            color: var(--primary-color); text-shadow: var(--glow-shadow-text);
+            background-image: linear-gradient(-45deg, transparent 35%, var(--primary-color) 35%, var(--primary-color) 65%, transparent 65%);
+            animation: stitchFlow 0.5s linear infinite;
+        }
+
+        /* --- 表格 --- */
+        #write table {
+            border-collapse: separate; border-spacing: 0; width: 100%; margin: 20px 0;
+            border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.02); backdrop-filter: blur(5px);
+        }
+        #write table th {
+            background-color: color-mix(in srgb, var(--primary-color), transparent 90%);
+            color: var(--primary-color); font-weight: bold; padding: 8px 12px;
+            border-bottom: 1px solid color-mix(in srgb, var(--primary-color), transparent 85%);
+        }
+        #write table td {
+            padding: 8px 12px; color: var(--text-color);
+            border-right: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05); transition: all 0.2s;
+        }
+        #write table tbody tr:hover td { background-color: rgba(255, 255, 255, 0.05); }
+        #write table tbody td:hover {
+            background-color: color-mix(in srgb, var(--primary-color), transparent 85%);
+            color: #fff; box-shadow: inset 0 0 0 1px var(--primary-color); text-shadow: 0 0 8px var(--primary-color);
+        }
+        
+        /* --- 代码块模拟 (md-fences) --- */
+        .md-fences {
+            background-color: var(--code-block-bg);
+            border: 1px solid var(--glass-border-color);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            white-space: pre;
+            color: var(--text-color);
+        }
+        /* 模拟高亮类名 */
+        .cm-keyword { color: var(--code-keyword); font-weight: bold; }
+        .cm-variable { color: var(--code-variable); }
+        .cm-def { color: var(--code-function); }
+        .cm-property { color: var(--code-property); }
+        .cm-string { color: var(--code-string); }
+        .cm-number { color: var(--code-number); }
+        .cm-comment { color: var(--code-comment); font-style: italic; }
+        .cm-type { color: var(--code-type); font-style: italic; }
+        .cm-meta { color: var(--code-meta); }
+        .cm-operator { color: var(--code-keyword); }
+
+        .code-inline {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: rgba(0,0,0,0.3);
+            color: var(--secondary-color);
+            padding: 2px 6px; border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- 模拟侧边栏 --- */
+        .mock-sidebar {
+            width: 240px; background-color: rgba(30, 30, 40, 0.85); backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px 10px;
+            color: #94a3b8; font-size: 14px; transition: border-color 0.3s;
+        }
+        .mock-sidebar:hover { border-color: var(--primary-color); box-shadow: 0 0 20px var(--glow-color); }
+        .mock-sidebar-title { color: var(--primary-color); font-weight: bold; margin-bottom: 15px; padding-left: 10px; }
+        .mock-item { padding: 6px 12px; border-radius: 50px; cursor: pointer; display: flex; align-items: center; transition: all 0.2s; }
+        .mock-item:hover { background-color: color-mix(in srgb, var(--primary-color), transparent 90%); color: #fff; }
+        .mock-item.active {
+            background-color: color-mix(in srgb, var(--primary-color), transparent 50%);
+            color: #fff; font-weight: bold;
+            box-shadow: 0 4px 10px color-mix(in srgb, var(--primary-color), transparent 70%);
+        }
+        .mock-item.active::after {
+             content: "✦"; margin-left: auto; color: rgba(255,255,255,0.9); font-size: 10px;
+             animation: outline-twinkle 1.5s infinite alternate;
+        }
+        @keyframes outline-twinkle { from { opacity: 0.7; transform: scale(0.9); } to { opacity: 1; transform: scale(1.1); } }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航 -->
+    <header class="bg-slate-900 border-b border-slate-800 px-6 py-4 flex items-center justify-between shrink-0 z-10">
+        <div class="flex items-center gap-3">
+            <div id="phycat-icon" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-900 font-bold text-lg shadow-lg shadow-pink-500/20" style="background-color: #ff5555">D</div>
+            <h1 class="text-xl font-bold text-slate-200"><span id="phycat-brand" class="transition-colors duration-300" style="color: #ff5555">Phycat Dark</span> 配色生成器</h1>
+        </div>
+        <div class="flex gap-3">
+             <button onclick="resetDefaults()" class="px-4 py-2 text-sm font-medium text-slate-400 hover:text-white transition">
+                重置
+            </button>
+            <button onclick="exportCSS()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg shadow-lg shadow-indigo-500/30 transition flex items-center gap-2 text-sm font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                导出 CSS
+            </button>
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+        
+        <!-- 左侧控制面板 -->
+        <aside class="w-80 bg-slate-900 border-r border-slate-800 flex flex-col shrink-0 overflow-y-auto custom-scrollbar">
+            <div class="p-6 space-y-8">
+                
+                <!-- 主色控制 -->
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                    <label class="block text-sm font-bold text-slate-300 mb-2">⚡ 核心主色 (Neon)</label>
+                    <p class="text-xs text-slate-500 mb-3">修改后会自动计算 Suspense Color (Hover) 和 Glow 效果。</p>
+                    <div class="flex gap-2 items-center">
+                        <div class="relative w-full h-10 rounded-lg overflow-hidden border border-slate-600 shadow-inner cursor-pointer group">
+                             <input type="color" id="main-color-picker" class="absolute inset-0 w-full h-full transform scale-150" value="#ff5555">
+                        </div>
+                        <input type="text" id="main-color-text" class="w-24 px-2 py-2 text-sm bg-slate-950 border border-slate-700 text-slate-300 rounded-lg text-center font-mono uppercase" value="#ff5555">
+                    </div>
+                    <div class="flex items-center mt-3 gap-2">
+                        <input type="checkbox" id="auto-calc" checked class="w-4 h-4 rounded border-slate-600 bg-slate-700 text-indigo-500 focus:ring-indigo-500 focus:ring-offset-slate-800">
+                        <label for="auto-calc" class="text-xs text-slate-400 select-none cursor-pointer">自动计算衍生色</label>
+                    </div>
+                </div>
+
+                <!-- 详细配色调整 -->
+                <div class="space-y-4">
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">详细配色微调</h3>
+                    <div id="color-inputs" class="space-y-4">
+                        <!-- Javascript generated -->
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+
+        <!-- 右侧预览区域 -->
+        <main class="flex-1 overflow-y-auto bg-[#0b101e] p-4 md:p-8" id="preview-scope">
+            
+            <div class="max-w-5xl mx-auto flex flex-col md:flex-row gap-8 items-start">
+                
+                <!-- 模拟侧边栏 -->
+                <div class="hidden md:block shrink-0 sticky top-4">
+                    <div class="mock-sidebar">
+                        <div class="mock-sidebar-title">CONTENT</div>
+                        <div class="mock-item">
+                            <span class="mr-2 opacity-50">▾</span> 关于暗色模式
+                        </div>
+                        <div class="mock-item active">
+                            <span class="mr-2">▾</span> 霓虹预览
+                        </div>
+                        <div class="pl-6 space-y-1 mt-1 mb-2">
+                            <div class="mock-item text-xs py-1 text-slate-400">Heading 1 辉光</div>
+                            <div class="mock-item text-xs py-1 text-slate-400">Heading 2 背景</div>
+                            <div class="mock-item text-xs py-1 text-slate-400">代码高亮</div>
+                        </div>
+                        <div class="mock-item">
+                             <span class="mr-2 opacity-50">▸</span> 数据表格
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 模拟写作区域 -->
+                <div class="flex-1 min-w-0" id="write-container">
+                    <div id="write" class="p-8 md:p-12 rounded-2xl shadow-2xl shadow-black/50 border border-white/5">
+                        <h1>Dark Mode Preview</h1>
+                        
+                        <p class="text-lg">欢迎使用 <strong>Phycat Dark</strong> 生成器。此区域模拟 <code class="code-inline">Typora</code> 在暗色模式下的渲染效果。</p>
+                        
+                        <h2>H2 标题：流光渐变背景</h2>
+                        <p>H2 标题使用了动态的 <code>Radial Gradient</code> 背景，鼠标悬停时会点亮边框并增强光晕效果。</p>
+                        
+                        <h3>H3 标题：侧边指示器</h3>
+                        <p>H3 标题左侧有高亮指示条，悬停时会伸长并发出霓虹光芒。适合用于分割小节。</p>
+                        
+                        <blockquote>
+                            <p><strong>Blockquote 引用块：</strong><br>引用块使用了深色半透明背景。请尝试<mark>鼠标选中这段文字</mark>，查看 <code>selection</code> 颜色效果。</p>
+                        </blockquote>
+
+                        <h2>代码高亮 (Dracula Style)</h2>
+                        <p>左侧面板新增了代码高亮配色的调整选项。下方是一个模拟的 JS/TS 代码块。</p>
+                        
+                        <div class="md-fences">
+<span class="cm-comment">/**
+ * 计算霓虹光晕颜色
+ * @param color Hex 颜色值
+ */</span>
+<span class="cm-keyword">function</span> <span class="cm-def">calculateGlow</span>(<span class="cm-variable">color</span>: <span class="cm-type">string</span>, <span class="cm-variable">opacity</span>: <span class="cm-type">number</span>) {
+    <span class="cm-keyword">const</span> <span class="cm-variable">rgb</span> <span class="cm-operator">=</span> <span class="cm-variable">hexToRgb</span>(<span class="cm-variable">color</span>);
+    <span class="cm-keyword">const</span> <span class="cm-def">result</span> <span class="cm-operator">=</span> <span class="cm-string">`rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`</span>;
+    
+    <span class="cm-comment">// Apply glow effect</span>
+    <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">"Glow generated:"</span>, <span class="cm-variable">result</span>);
+    <span class="cm-keyword">return</span> {
+        <span class="cm-property">id</span>: <span class="cm-number">101</span>,
+        <span class="cm-property">meta</span>: <span class="cm-meta">@glow_effect</span>,
+        <span class="cm-property">value</span>: <span class="cm-variable">result</span>
+    };
+}</div>
+
+                        <hr style="border:none; height:1px; background: linear-gradient(90deg,transparent,var(--primary-color),transparent); margin: 30px 0; opacity:0.5;">
+
+                        <h2>数据表格 (Glassmorphism)</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>变量名</th>
+                                    <th>用途</th>
+                                    <th>默认值</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>--primary-color</td>
+                                    <td>核心霓虹色</td>
+                                    <td>#ff5555</td>
+                                </tr>
+                                <tr>
+                                    <td>--hover-bg-color</td>
+                                    <td>悬停背景色</td>
+                                    <td>#ff5555</td>
+                                </tr>
+                                <tr>
+                                    <td>--code-keyword</td>
+                                    <td>代码关键字</td>
+                                    <td>#ff79c6</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p style="margin-top: 40px; color: var(--text-color-secondary); font-size: 0.9em; text-align: center; opacity: 0.6;">
+                            ( End of Preview )
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- 导出弹窗 -->
+    <div id="export-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 backdrop-blur-sm">
+        <div class="bg-slate-800 rounded-xl shadow-2xl border border-slate-700 w-full max-w-2xl p-6 flex flex-col max-h-[90vh]">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-white">CSS 代码导出</h3>
+                <button onclick="document.getElementById('export-modal').classList.add('hidden')" class="text-slate-400 hover:text-white">✕</button>
+            </div>
+            <p class="text-sm text-slate-400 mb-2">复制以下代码，粘贴到你的 Typora 主题 CSS 文件中。</p>
+            <textarea id="css-output" class="w-full flex-1 p-4 bg-[#1e293b] text-indigo-300 border border-slate-700 rounded-lg font-mono text-xs resize-none focus:ring-2 focus:ring-indigo-500 outline-none leading-relaxed" readonly></textarea>
+            <div class="mt-4 flex justify-end gap-3">
+                <button onclick="document.getElementById('export-modal').classList.add('hidden')" class="px-4 py-2 text-slate-300 hover:bg-slate-700 rounded-lg transition">关闭</button>
+                <button onclick="copyToClipboard()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition shadow-lg shadow-indigo-500/20">复制到剪贴板</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 定义颜色配置项
+        const colorConfig = [
+            { key: '--primary-color', label: '核心主色 (Primary)', type: 'color' },
+            { key: '--hover-background-color', label: '悬停背景 (Hover)', type: 'color' },
+            { key: '--secondary-color', label: '辅助色 (Secondary)', type: 'color' },
+            { key: '--bg-color', label: '背景色 (Background)', type: 'color' },
+            { key: '--text-color', label: '主要文字 (Text)', type: 'color' },
+            { key: '--text-color-secondary', label: '次要文字 (Muted)', type: 'color' },
+            { key: '--border-color', label: '边框颜色', type: 'color' },
+            
+            // --- Code Block Colors ---
+            { key: '--code-block-bg', label: '代码块背景', type: 'color' },
+            { key: '--glass-border-color', label: '玻璃态边框', type: 'color' },
+            { key: '--code-keyword', label: '关键字 (Keyword)', type: 'color' },
+            { key: '--code-variable', label: '变量 (Variable)', type: 'color' },
+            { key: '--code-function', label: '函数 (Function)', type: 'color' },
+            { key: '--code-param', label: '参数 (Param)', type: 'color' },
+            { key: '--code-string', label: '字符串 (String)', type: 'color' },
+            { key: '--code-comment', label: '注释 (Comment)', type: 'color' },
+            { key: '--code-type', label: '类型 (Type)', type: 'color' },
+            { key: '--code-property', label: '属性 (Property)', type: 'color' },
+            { key: '--code-number', label: '数字 (Number)', type: 'color' },
+            { key: '--code-meta', label: '元数据 (Meta)', type: 'color' },
+            { key: '--code-selected-bg', label: '代码选区背景', type: 'color' },
+        ];
+
+        let state = {
+            mainColor: '#ff5555',
+            colors: {} 
+        };
+
+        function init() {
+            const container = document.getElementById('color-inputs');
+            container.innerHTML = '';
+
+            let currentCategory = "";
+
+            colorConfig.forEach(conf => {
+                // 简单的分类标题插入逻辑
+                let category = "";
+                if(conf.key.startsWith('--code')) category = "代码块样式";
+                else category = "基础配色";
+
+                if(category !== currentCategory) {
+                    const title = document.createElement('h4');
+                    title.className = "text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-6 mb-2 ml-1";
+                    title.innerText = category;
+                    container.appendChild(title);
+                    currentCategory = category;
+                }
+
+                const div = document.createElement('div');
+                div.className = 'flex flex-col input-group bg-slate-800 p-2 rounded-lg border border-slate-700 shadow-sm';
+                
+                let innerHTML = `
+                    <div class="flex items-center gap-3 w-full">
+                        <div class="color-preview-box shrink-0 group">
+                            <input type="color" id="input-${conf.key}" data-key="${conf.key}">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <label class="block text-xs font-bold text-slate-400 truncate">${conf.label}</label>
+                            <div class="flex items-center mt-0.5">
+                                <input type="text" id="text-${conf.key}" data-key="${conf.key}" 
+                                    class="w-full bg-transparent text-xs font-mono text-slate-500 uppercase outline-none focus:text-indigo-400 transition"
+                                    spellcheck="false">
+                            </div>
+                        </div>
+                    </div>
+                `;
+                div.innerHTML = innerHTML;
+                container.appendChild(div);
+                
+                const colorInput = div.querySelector(`input[type="color"]`);
+                const textInput = div.querySelector(`input[type="text"]`);
+
+                colorInput.addEventListener('input', (e) => updateSingleColor(conf.key, e.target.value));
+                textInput.addEventListener('change', (e) => {
+                    let val = e.target.value;
+                    if(!val.startsWith('#')) val = '#' + val;
+                    // 支持 Hex6 和 Hex8
+                    if(/^#[0-9A-Fa-f]{6}$/.test(val) || /^#[0-9A-Fa-f]{8}$/.test(val)) {
+                        updateSingleColor(conf.key, val);
+                    }
+                });
+            });
+
+            document.getElementById('main-color-picker').addEventListener('input', handleMainColorChange);
+            document.getElementById('main-color-text').addEventListener('change', (e) => {
+                 handleMainColorChange({target: {value: e.target.value}});
+            });
+            
+            document.getElementById('auto-calc').addEventListener('change', () => {
+                if(document.getElementById('auto-calc').checked) {
+                    handleMainColorChange({target: {value: state.mainColor}});
+                }
+            });
+
+            resetDefaults();
+        }
+
+        function handleMainColorChange(e) {
+            let val = e.target.value;
+            if(!val.startsWith('#')) val = '#' + val;
+            
+            state.mainColor = val;
+            document.getElementById('main-color-picker').value = val.substring(0, 7);
+            document.getElementById('main-color-text').value = val;
+
+            if (document.getElementById('auto-calc').checked) {
+                generateDerivedColors(val);
+            } else {
+                updateSingleColor('--primary-color', val);
+                updateSingleColor('--hover-background-color', val); 
+            }
+        }
+
+        const ColorUtils = {
+            hexToRgb: (hex) => {
+                let r = 0, g = 0, b = 0;
+                hex = hex.replace('#', '');
+                if (hex.length >= 6) {
+                    r = parseInt(hex.substring(0,2), 16);
+                    g = parseInt(hex.substring(2,4), 16);
+                    b = parseInt(hex.substring(4,6), 16);
+                }
+                return {r, g, b};
+            },
+            rgbToHex: (r, g, b) => {
+                const toHex = (n) => Math.round(Math.max(0, Math.min(255, n))).toString(16).padStart(2, '0');
+                return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+            },
+            rgbToHsl: (r, g, b) => {
+                r /= 255; g /= 255; b /= 255;
+                const max = Math.max(r, g, b), min = Math.min(r, g, b);
+                let h, s, l = (max + min) / 2;
+                if (max === min) { h = s = 0; } else {
+                    const d = max - min;
+                    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                    switch (max) {
+                        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                        case g: h = (b - r) / d + 2; break;
+                        case b: h = (r - g) / d + 4; break;
+                    }
+                    h /= 6;
+                }
+                return {h: h * 360, s: s * 100, l: l * 100};
+            },
+            hslToRgb: (h, s, l) => {
+                h /= 360; s /= 100; l /= 100;
+                let r, g, b;
+                if (s === 0) { r = g = b = l; } else {
+                    const hue2rgb = (p, q, t) => {
+                        if (t < 0) t += 1; if (t > 1) t -= 1;
+                        if (t < 1/6) return p + (q - p) * 6 * t;
+                        if (t < 1/2) return q;
+                        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                        return p;
+                    };
+                    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                    const p = 2 * l - q;
+                    r = hue2rgb(p, q, h + 1/3);
+                    g = hue2rgb(p, q, h);
+                    b = hue2rgb(p, q, h - 1/3);
+                }
+                return {r: r * 255, g: g * 255, b: b * 255};
+            }
+        };
+
+        function generateDerivedColors(baseHex) {
+            const rgb = ColorUtils.hexToRgb(baseHex);
+            const hsl = ColorUtils.rgbToHsl(rgb.r, rgb.g, rgb.b);
+            const secRgb = ColorUtils.hslToRgb((hsl.h + 200) % 360, 90, 80); 
+            const secHex = ColorUtils.rgbToHex(secRgb.r, secRgb.g, secRgb.b);
+
+            // 注意：不自动覆盖代码高亮颜色，只覆盖基础主题色
+            const updates = {
+                '--primary-color': baseHex,
+                '--hover-background-color': baseHex,
+                '--secondary-color': secHex,
+                '--bg-color': '#282a36',
+                '--text-color': '#f8f8f2',
+                '--text-color-secondary': '#7e8c9f',
+                '--border-color': '#44475a'
+            };
+
+            for (const [key, value] of Object.entries(updates)) {
+                updateSingleColor(key, value);
+            }
+        }
+
+        function updateSingleColor(key, value) {
+            state.colors[key] = value;
+            
+            // 更新 UI
+            const colorInput = document.getElementById(`input-${key}`);
+            const textInput = document.getElementById(`text-${key}`);
+            if(colorInput && textInput) {
+                // Input Color 只支持 Hex6
+                colorInput.value = value.substring(0, 7);
+                textInput.value = value;
+                colorInput.parentElement.style.backgroundColor = value;
+            }
+
+            // 更新 CSS 变量
+            const scope = document.getElementById('preview-scope');
+            scope.style.setProperty(key, value);
+
+            // [逻辑更新] 派生颜色计算
+            if (key === '--hover-background-color') {
+                const rgb = ColorUtils.hexToRgb(value);
+                const glowRgba = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.6)`;
+                scope.style.setProperty('--glow-color', glowRgba);
+                state.colors['--glow-color'] = glowRgba;
+
+                const selectRgba = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)`;
+                scope.style.setProperty('--select-text-bg-color', selectRgba);
+                state.colors['--select-text-bg-color'] = selectRgba;
+                
+                const h2Grad = `radial-gradient(ellipse at center bottom, rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.15), transparent 70%)`;
+                scope.style.setProperty('--h2-bg-image', h2Grad);
+                state.colors['--h2-bg-image'] = h2Grad;
+            }
+
+            if (key === '--primary-color') {
+                 document.getElementById('phycat-icon').style.backgroundColor = value;
+                 document.getElementById('phycat-brand').style.color = value;
+            }
+        }
+
+        function resetDefaults() {
+            // 设置代码颜色默认值 (不会被 generateDerivedColors 覆盖)
+            const codeDefaults = {
+                '--code-block-bg': '#0000004d', // rgba(0,0,0,0.3)
+                '--glass-border-color': '#ffffff0d', // rgba(255,255,255,0.05)
+                '--code-keyword': '#ff79c6',
+                '--code-variable': '#f8f8f2',
+                '--code-function': '#50fa7b',
+                '--code-param': '#f1fa8c',
+                '--code-string': '#f1fa8c',
+                '--code-comment': '#6272a4',
+                '--code-type': '#8be9fd',
+                '--code-property': '#66d9ef',
+                '--code-number': '#bd93f9',
+                '--code-meta': '#ffb86c',
+                '--code-selected-bg': '#44475a'
+            };
+
+            for (const [key, value] of Object.entries(codeDefaults)) {
+                updateSingleColor(key, value);
+            }
+
+            handleMainColorChange({target: {value: '#ff5555'}});
+        }
+
+        function exportCSS() {
+            const staticIcons = `@import url(./phycat/phycat.dark.css);
+
+:root {
+  /* 标题后小图标，借鉴自思源笔记主题——Savor */
+  --h1-icon-shape: url("data:image/svg+xml;utf8,<svg fill='rgba(255, 176, 176, 0.5)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M4.8 29.714v0c-1.371 0-2.514-1.143-2.514-2.514v0c0-1.371 1.143-2.514 2.514-2.514v0c1.371 0 2.514 1.143 2.514 2.514v0c0.114 1.371-1.029 2.514-2.514 2.514z'/></svg>") no-repeat center;
+  --h2-icon-shape: url("data:image/svg+xml;utf8,<svg fill='rgba(255, 176, 176, 0.5)' height='24' viewBox='0 0 32 32' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>") no-repeat center;
+  --h3-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>");
+  --h4-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 22.857c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286z'/></svg>");
+  --h5-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 22.857c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286zM4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 11.429c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286z'/></svg>");
+  --h6-icon-shape: url("data:image/svg+xml;utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M4.571 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM4.571 11.429c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 18.286c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 25.143c-1.257 0-2.286 1.029-2.286 2.286s1.029 2.286 2.286 2.286 2.286-1.029 2.286-2.286-1.029-2.286-2.286-2.286zM11.429 16c1.257 0 2.286-1.029 2.286-2.286s-1.029-2.286-2.286-2.286-2.286 1.029-2.286 2.286 1.029 2.286 2.286 2.286z'/></svg>");
+
+  /* 文档背景样式 */
+  /* 1. 交叉斜线 */
+  --bg-shape-cross: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h30v30H0z' fill='none'/%3E%3Cpath d='M0 0L15 15M30 0L15 15M0 30L15 15M30 30L15 15' stroke='black' stroke-width='0.4'/%3E%3C/svg%3E");
+  /* 2. 星点图案 */
+  --bg-shape-star: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M10 10l2-6l2 6l6 2l-6 2l-2 6l-2-6l-6-2Z' fill='black'/%3E%3Cpath d='M30 15l1-3l1 3l3 1l-3 1l-1 3l-1-3l-3-1Z' fill='black'/%3E%3Cpath d='M25 30l1.5-4.5l1.5 4.5l4.5 1.5l-4.5 1.5l-1.5 4.5l-1.5-4.5l-4.5-1.5Z' fill='black'/%3E%3C/svg%3E");
+  /* 3. 六边形图案 */
+  --bg-shape-hex: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M10 5l10 0l5 8.66l-5 8.66l-10 0l-5-8.66Z' fill='none' stroke='black' stroke-width='0.4'/%3E%3Cpath d='M20 22.32l10 0l5 8.66l-5 8.66l-10 0l-5-8.66Z' fill='none' stroke='black' stroke-width='0.4'/%3E%3C/svg%3E");
+  /* 4. 十字圆点 */
+  --bg-shape-dot: url("data:image/svg+xml,%3Csvg width='15' height='15' viewBox='0 0 15 15' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='7.5' cy='7.5' r='0.5' fill='black'/%3E%3Ccircle cx='7.5' cy='2.5' r='0.5' fill='black'/%3E%3Ccircle cx='7.5' cy='12.5' r='0.5' fill='black'/%3E%3Ccircle cx='2.5' cy='7.5' r='0.5' fill='black'/%3E%3Ccircle cx='12.5' cy='7.5' r='0.5' fill='black'/%3E%3C/svg%3E");
+  /* 5. 三角形 */
+  --bg-shape-tri: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h30v30H0z' fill='none'/%3E%3Cpath d='M0 0L30 0L15 15Z' fill='black'/%3E%3Cpath d='M30 30L0 30L15 15Z' fill='black'/%3E%3C/svg%3E");
+  /* 6. 方格网 */
+  --bg-shape-grid: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v20H0z' fill='none'/%3E%3Cpath d='M20 0v20M0 20h20' stroke='black' stroke-width='0.7'/%3E%3C/svg%3E");
+  /* 7. 无背景 (纯白背景) */
+  --bg-shape-none: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=");
+
+  /* 文档背景样式  none 无背景*/
+  --bg-style: radial-gradient(#ffffff 1px, transparent 1px);
+  /* --- 页面纹理 --- */
+  --texture-mask-color: #bd93f9;
+  --texture-opacity: 0.05;
+
+  /* 自动编号格式设置 无需自动编号可全部注释掉或部分注释掉*/
+  /*  --autonum-h1: counter(h1) ". ";
+  --autonum-h2: counter(h1) "." counter(h2) ". ";
+  --autonum-h3: counter(h1) "." counter(h2) "." counter(h3) ". ";
+ --autonum-h4: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) ". ";
+  --autonum-h5: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". ";
+  --autonum-h6: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) ". "; */
+
+  /* 下面是文章内Toc目录自动编号，与上面一样即可 */
+  /* --autonum-h1toc: counter(h1toc) ". ";
+  --autonum-h2toc: counter(h1toc) "." counter(h2toc) ". ";
+  --autonum-h3toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) ". ";
+  --autonum-h4toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) ". ";
+  --autonum-h5toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) ". ";
+  --autonum-h6toc: counter(h1toc) "." counter(h2toc) "." counter(h3toc) "." counter(h4toc) "." counter(h5toc) "." counter(h6toc) ". "; */
+
+    /* 文章区域的最大宽度，可以是多少px也可以是百分比 */
+  --max-width: 950px; 
+  `;
+            
+            const cssContent = `${staticIcons}
+  /* --- 基础背景与文字 --- */
+  --bg-color: ${state.colors['--bg-color']};
+  --text-color: ${state.colors['--text-color']};
+  --text-color-secondary: ${state.colors['--text-color-secondary']};
+
+  /* --- 核心品牌色 --- */
+  --primary-color: ${state.colors['--primary-color']};
+  --secondary-color: ${state.colors['--secondary-color']};
+  --accent-color:${state.colors['--secondary-color']};
+  --border-color: ${state.colors['--border-color']};
+
+  /* --- 光晕特效变量 (Auto Calculated) --- */
+  --glow-color: ${state.colors['--glow-color']};
+  --glow-shadow-text: 0 0 8px var(--glow-color);
+  --glow-shadow-box: 0 0 15px var(--glow-color);
+  --hover-background-color: ${state.colors['--hover-background-color']};
+  --select-text-bg-color: ${state.colors['--select-text-bg-color']};
+
+  /* --- H1 标题 --- */
+  --h1-color: var(--text-color);
+  --h1-underline-color: var(--primary-color);
+
+  /* --- H2 标题 (Fusion Glass) --- */
+  /* 背景：青色到透明径向渐变 */
+  --h2-bg-image: ${state.colors['--h2-bg-image']};
+
+    /* 其他变量 */
+  --code-block-bg: rgba(15, 17, 26, 0.6);
+  --glass-border-color: rgba(0, 243, 255, 0.1);
+
+  /* --- 代码高亮 --- */
+  --code-block-bg: ${state.colors['--code-block-bg']};
+  --glass-border-color: ${state.colors['--glass-border-color']};
+  --code-keyword: ${state.colors['--code-keyword']};
+  --code-variable: ${state.colors['--code-variable']};
+  --code-function: ${state.colors['--code-function']};
+  --code-param: ${state.colors['--code-param']};
+  --code-string: ${state.colors['--code-string']};
+  --code-comment: ${state.colors['--code-comment']};
+  --code-type: ${state.colors['--code-type']};
+  --code-property: ${state.colors['--code-property']};
+  --code-number: ${state.colors['--code-number']};
+  --code-meta: ${state.colors['--code-meta']};
+  --code-selected-bg: ${state.colors['--code-selected-bg']};
+
+    /* --- UI 控件/原生菜单覆盖 --- */
+  --active-file-bg-color: color-mix(in srgb, var(--primary-color), transparent 85%);
+  --active-file-text-color: #ffffff;
+  --item-hover-bg-color: rgba(0, 243, 255, 0.08);
+  --menu-divider-color: rgba(0, 243, 255, 0.1);
+  --window-border: 1px solid var(--primary-color) !important;
+  --rawblock-edit-panel-bd: var(--item-hover-bg-color);
+  --mermaid-theme: night;
+
+
+}`;
+
+            document.getElementById('css-output').value = cssContent;
+            document.getElementById('export-modal').classList.remove('hidden');
+            document.getElementById('export-modal').classList.add('flex');
+        }
+
+        function copyToClipboard() {
+            const copyText = document.getElementById("css-output");
+            copyText.select();
+            navigator.clipboard.writeText(copyText.value).then(() => {
+                const btn = document.querySelector('#export-modal button.bg-indigo-600');
+                const originalText = btn.innerText;
+                btn.innerText = "已复制！";
+                setTimeout(() => btn.innerText = originalText, 2000);
+            });
+        }
+
+        init();
+    </script>
+</body>
+</html>
