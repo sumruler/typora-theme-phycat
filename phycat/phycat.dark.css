@@ -2003,7 +2003,8 @@ pre.CodeMirror-line {
 .context-menu,
 .dropdown-menu {
     background-color: #191a21 !important;
-    border: 1px solid rgba(255, 255, 255, .05) !important;
+    border: 1px solid var(--glow-color) !important;
+    border-radius: 10px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, .5) !important;
     padding: 5px 0 !important
 }
@@ -2832,4 +2833,110 @@ textarea {
 .megamenu-menu::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, .2);
     border-radius: 3px
+}
+
+.btn:focus {
+    outline-color: var(--glow-color)
+}
+
+body .md-table-resize-popover {
+    width: max-content !important;
+    max-width: none !important;
+    height: auto !important;
+    padding: 12px !important;
+    background-color: var(--bg-color) !important;
+    border: 1px solid var(--glow-color);
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .12) !important
+}
+
+body .md-table-resize-popover .arrow {
+    display: none !important
+}
+
+body .md-table-resize-popover .md-grid-board-wrap {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 0 !important
+}
+
+body .md-table-resize-popover .md-grid-board {
+    width: auto !important;
+    border-collapse: separate !important;
+    border-spacing: 3px !important;
+    margin: 0 auto 10px auto !important
+}
+
+body .md-table-resize-popover .md-grid-board td {
+    padding: 0 !important;
+    background: 0 0 !important;
+    border: none !important
+}
+
+body .md-table-resize-popover .md-grid-board a {
+    display: block !important;
+    width: 16px !important;
+    height: 16px !important;
+    margin: 0 !important;
+    border-radius: 3px !important;
+    background-color: color-mix(in srgb, var(--text-color), transparent 90%) !important;
+    border: 1px solid transparent !important;
+    box-sizing: border-box !important;
+    transition: all .2s cubic-bezier(.34, 1.56, .64, 1) !important
+}
+
+body .md-table-resize-popover .md-grid-board td.md-grid-ext {
+    background: 0 0 !important
+}
+
+body .md-table-resize-popover .md-grid-board td.md-grid-ext a {
+    background-color: var(--primary-color) !important;
+    box-shadow: 0 2px 4px color-mix(in srgb, var(--primary-color), transparent 60%) !important;
+    opacity: .9 !important
+}
+
+body .md-table-resize-popover .md-grid-board td.md-grid-ext a:hover {
+    opacity: 1 !important;
+    transform: scale(1.15) !important;
+    border-radius: 5px !important
+}
+
+body .md-table-resize-popover .popover-title {
+    background: 0 0 !important;
+    border: none !important;
+    border-top: 1px dashed color-mix(in srgb, var(--element-color), var(--text-color) 20%) !important;
+    padding: 10px 0 0 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    color: var(--element-color) !important;
+    font-size: 13px !important;
+    font-family: var(--monospace, monospace) !important;
+    font-weight: 400 !important
+}
+
+body .md-table-resize-popover input {
+    width: 36px !important;
+    height: 24px !important;
+    padding: 0 !important;
+    text-align: center !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 4px !important;
+    background-color: transparent !important;
+    color: var(--text-color) !important;
+    font-family: var(--monospace, monospace) !important;
+    font-size: 14px !important;
+    outline: 0 !important;
+    transition: all .3s ease !important;
+    box-shadow: none !important
+}
+
+body .md-table-resize-popover input:focus {
+    border-color: var(--primary-color) !important;
+    background-color: color-mix(in srgb, var(--primary-color), transparent 95%) !important;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color), transparent 80%) !important
 }
