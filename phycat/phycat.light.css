@@ -2081,8 +2081,9 @@ div.outline-item-active {
     }
 }
 
-.context-menu,
-.dropdown-menu {
+.dropdown-menu.context-menu {
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
     background-color: rgba(255, 255, 255, .85) !important;
     border: 1px solid rgba(255, 255, 255, .8) !important;
     border-radius: 12px !important;
