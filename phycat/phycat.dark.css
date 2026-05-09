@@ -2941,3 +2941,16 @@ body .md-table-resize-popover input:focus {
     background-color: color-mix(in srgb, var(--primary-color), transparent 95%) !important;
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color), transparent 80%) !important
 }
+
+.typora-quick-open-list {
+	color: black;
+}
+.typora-quick-open-item {
+	color: black;
+}
+.typora-quick-open-item-title {
+	color: black;
+}
+.typora-quick-open-item-path {
+	color: black;
+}
