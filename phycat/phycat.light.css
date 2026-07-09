@@ -1067,11 +1067,24 @@ marker path {
 .md-fences {
     position: relative;
     z-index: 1;
-    overflow: visible
+    overflow: visible;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: none;
+    background-color: #fff;
+    border: 1px solid color-mix(in srgb, var(--element-color), transparent 80%);
+    transition: border-color .3s ease
 }
 
 .md-fences.md-focus {
-    z-index: 100
+    z-index: 100;
+    border-color: var(--primary-color);
+    box-shadow: none
+}
+
+.md-fences.md-focus:not([lang=mermaid])::before {
+    background-color: color-mix(in srgb, var(--primary-color), transparent 95%);
+    border-bottom-color: color-mix(in srgb, var(--primary-color), transparent 80%)
 }
 
 .md-fences .cm-s-inner.CodeMirror {
