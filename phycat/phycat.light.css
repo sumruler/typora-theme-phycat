@@ -1055,7 +1055,7 @@ marker path {
     background-size: 40px;
     background-repeat: no-repeat;
     background-color: #f8f8f8;
-    border-radius: 5px 5px 0 0;
+    border-radius: 8px 8px 0 0;
     background-position: 6px 11px;
     margin-bottom: 0
 }
@@ -1091,15 +1091,6 @@ marker path {
     margin-top: 0
 }
 
-.cm-s-inner.CodeMirror {
-    padding: 20px 12px 12px 20px;
-    color: #4f5467;
-    font-family: CascadiaCode, "Lucida Console", Consolas, Courier, monospace;
-    border-radius: 10px;
-    background-color: #fa0303;
-    line-height: 1.6rem
-}
-
 .CodeMirror-gutters {
     border-right: 1px solid #9d9d9d52;
     background: inherit;
@@ -1117,11 +1108,13 @@ pre.CodeMirror-line {
 }
 
 .cm-s-inner.CodeMirror {
+    color: #4f5467;
+    font-family: CascadiaCode, "Lucida Console", Consolas, Courier, monospace;
     background: #f8f8f8;
-    border-radius: 0 0 5px 5px;
+    border-radius: 0 0 8px 8px;
     padding: 5px 12px 12px 12px;
+    line-height: 1.8rem;
     page-break-before: auto;
-    line-height: 1.8rem
 }
 
 .md-rawblock .md-rawblock-tooltip {
