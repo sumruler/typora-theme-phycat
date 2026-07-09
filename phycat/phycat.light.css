@@ -1055,7 +1055,7 @@ marker path {
     background-size: 40px;
     background-repeat: no-repeat;
     background-color: #f8f8f8;
-    border-radius: 5px 5px 0 0;
+    border-radius: 8px 8px 0 0;
     background-position: 6px 11px;
     margin-bottom: 0
 }
@@ -1067,24 +1067,28 @@ marker path {
 .md-fences {
     position: relative;
     z-index: 1;
-    overflow: visible
+    overflow: visible;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: none;
+    background-color: #fff;
+    border: 1px solid color-mix(in srgb, var(--element-color), transparent 80%);
+    transition: border-color .3s ease
 }
 
 .md-fences.md-focus {
-    z-index: 100
+    z-index: 100;
+    border-color: var(--primary-color);
+    box-shadow: none
+}
+
+.md-fences.md-focus:not([lang=mermaid])::before {
+    background-color: color-mix(in srgb, var(--primary-color), transparent 95%);
+    border-bottom-color: color-mix(in srgb, var(--primary-color), transparent 80%)
 }
 
 .md-fences .cm-s-inner.CodeMirror {
     margin-top: 0
-}
-
-.cm-s-inner.CodeMirror {
-    padding: 20px 12px 12px 20px;
-    color: #4f5467;
-    font-family: CascadiaCode, "Lucida Console", Consolas, Courier, monospace;
-    border-radius: 10px;
-    background-color: #fa0303;
-    line-height: 1.6rem
 }
 
 .CodeMirror-gutters {
@@ -1104,11 +1108,13 @@ pre.CodeMirror-line {
 }
 
 .cm-s-inner.CodeMirror {
+    color: #4f5467;
+    font-family: CascadiaCode, "Lucida Console", Consolas, Courier, monospace;
     background: #f8f8f8;
-    border-radius: 0 0 5px 5px;
+    border-radius: 0 0 8px 8px;
     padding: 5px 12px 12px 12px;
+    line-height: 1.8rem;
     page-break-before: auto;
-    line-height: 1.8rem
 }
 
 .md-rawblock .md-rawblock-tooltip {
